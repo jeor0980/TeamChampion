@@ -48,6 +48,10 @@ def makeDoc(data):
         if (index == 17):
             doc[headers[index]] = doc[headers[index]].split('.')
             print doc[headers[index]]
+        if (index == 25):
+            doc[headers[index]] = doc[headers[index]].split('.')
+        if (index == 26):
+            doc[headers[index]] = doc[headers[index]].split('.')
     return doc
 
 
