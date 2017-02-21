@@ -44,3 +44,11 @@
   color: #0B0B0B;
   font-family: 'Helvetica Neue', sans-serif;
 }
+
+* {
+	font-family: 'Helvetica Neue', sans-serif;
+}
+
+h2 {
+	font-size: 3em;
+}
