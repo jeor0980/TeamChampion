@@ -1,6 +1,7 @@
 Files:
-  sortingHat.py - The algorithm, with a couple extra functions for potential later use
-  test2014data.csv - The formatted student data.  Some fields were eliminated and/or combined in order to fit the current       variable fields.
+sortingHat.py - The algorithm, with a couple extra functions for potential later use
+test2014data.csv - The formatted student data.  Some fields were eliminated and/or combined in order to fit the current
+variable fields.
 
 To run: python3 sortingHat.py test2014data.csv
 
