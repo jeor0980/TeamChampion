@@ -1,0 +1,49 @@
+ /* Color specific styling for CU Boulder  
+ */
+.cugold {
+  background-color: #CFBB7C;
+}
+
+.cugold-text {
+  color: #CFBB7C;
+}
+
+.cusilver-light {
+  background-color: #A2A4A3;
+}
+
+.cusilver-light-text {
+  color: #A2A4A3;
+}
+
+.cusilver-dark {
+  background-color: #565A5C;
+}
+
+.cusilver-dark-text {
+  color: #565A5C;
+}
+
+.cuaccent-purple {
+  background-color: #8F4E9C !important;
+}
+
+.cuaccent-purple-text {
+  color: #8F4E9C;
+}
+
+.cublack {
+	background-color: #0B0B0B;
+}
+
+.cublack-text {
+	color: #0B0B0B;
+}
+
+.cuwhite {
+	background-color: #F0F0F0;
+}
+
+.cuwhite-text {
+	color: #F0F0F0;
+}
