@@ -23,6 +23,13 @@ class SortingHatTest(unittest.TestCase):
         with self.assertRaises(AssertionError):
             sortingHat.calcStudentPreference(-1, 1, 1)
 
+    def testCalcGroupPreference(self):
+        test1 = sortingHat.calcGroupPreference(.3, .3)
+        self.assertEqual(test1, 0.1)
+        # test illegal arguments
+        with self.assertRaises(AssertionError):
+            sortingHat.calcGroupPreference(-1, 1)
+
 
     def tearDown(self):
         #delete db after test
