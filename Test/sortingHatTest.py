@@ -16,6 +16,13 @@ class SortingHatTest(unittest.TestCase):
         with sortingHat.app.app_context():
             sortingHat.init_db()
 
+    def testCalcStudentPreference(self):
+        test1 = sortingHat.calcStudentPreference(.3, .3, .3)
+        self.assertEqual(test1, 1.6985348)
+        # test illegal arguments
+        with self.assertRaises(AssertionError):
+            sortingHat.calcStudentPreference(-1, 1, 1)
+
 
     def tearDown(self):
         #delete db after test
