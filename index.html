@@ -1,28 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="sortingApp">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-    <title>Starter Template - Materialize</title>
+    <link rel="icon" type="image/png" href="static/images/cu_favicon.png"/>
+    <title>Sorting Hat</title>
 
-    <!-- CSS  -->
+    <!-- Materialize CSS  -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="../static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="../static/css/custom.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
   </head>
 
-  <body>
+  <body ng-controller="mainController">
     <!-- Added Header Tag for Sticky Footer -->
     <header>
       <!-- Navigation Bar Code  -->
       <nav role="navigation">
-        <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Computer Science Sorting Hat</a>
+        <div class="nav-wrapper container"><a id="logo-container" href="#/" class="brand-logo">Computer Science Sorting Hat</a>
           <ul class="right hide-on-med-and-down">
-            <li><a href="#"><i class="material-icons left">input</i>Login</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#login"><i class="material-icons left">input</i>Login</a></li>
           </ul>
 
           <ul id="nav-mobile" class="side-nav">
-            <li><a href="#">Navbar Link</a></li>
+            <!-- Condensed Navbar Links Make sure to change these -->
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li> 
+            <li><a href="#login">Login</a></li>  
           </ul>
           <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
         </div>
@@ -32,15 +39,13 @@
     <!-- Added Main Tag for Sticky Footer -->
     <main>
       <div class="container">
-        <div class="section">
-          <!-- Main page content -->
+        <!-- Main page content -->
 
+        <!-- this is where content will be injected -->
+         <div ng-view></div>
 
-
-
-
-        </div>
       </div>
+
     </main>
 
     <footer class="page-footer">
@@ -52,14 +57,23 @@
       <div class="footer-copyright ">
         <div class="container">
         <p> Designed and built with &#10084 by Team Champion. Check out our <a href="https://github.com/jeor0980/TeamChampion">Github Project Repo</a> </p>
-        <!-- <p> Project licensed <a href = "https://github.com/jeor0980/TeamChampion/blob/master/LICENSE">MIT</a> </p> -->
         </div>
       </div>
     </footer>
 
-    <!--  Scripts-->
+    <!-- Scripts, loaded at the end as good practice -->
+    <!-- Needed AngularJS and Angular Route -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
+    
+    <!-- Our own scripts for our application -->
+    <script src="/static/js/app.js"></script>
+    <script src="/static/js/config/routing.js"></script>
+    <script src="/static/js/controllers/main.js"></script>
+
+    <!-- Jquery and Materialize  -->
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="../static/js/materialize.js"></script>
+    <script src="../static/js/materialize/materialize.min.js"></script>
     <script src="../static/js/init.js"></script>
 
   </body>
