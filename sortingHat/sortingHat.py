@@ -110,14 +110,14 @@ def createGraph():
 
 ##! Takes in a list of group names, populates the global groups list and
 ##! randomly assigns its attributes. Just for testing obviously
-def createGroups():
-    for n in group_names:
-        group = Group()
-        group.name = n
-        group.ident = n
-        random_count = random.randint(0, len(SKILLZ))
-        group.skill_needed = random.sample(SKILLZ, random_count)
-        groups.append(group)
+def createGroups(name):
+    group = Group()
+    group.name = name
+    group.ident = name
+    random_count = random.randint(0, len(SKILLZ))
+    group.skill_needed = random.sample(SKILLZ, random_count)
+#    groups.append(group)
+    return group
 
 ##! Parses the csv file. Again, just for testing stuff. I haven't tried it with
 ##! other test data, but just keep the fields the same and formatted correctly
@@ -170,7 +170,8 @@ def parseData(data):
     student_to_add.known_skills = known
     student_to_add.skills_to_learn = learn
     student_to_add.desired_leadership = lead
-    students.append(student_to_add)
+#    students.append(student_to_add)
+    return student_to_add
 
 #This function combines all variables, but unused in current implementation
 #May be more applicable to a hungarian algorithm approad
@@ -201,7 +202,6 @@ def registerUser(student):
     learn_score = 0
     for grp in student.preferences:
         # How to weight group preferences for students?
-        print("Registering student " + student.name + " with group " + grp.name)
         for attr in grp.skills_needed:
             if attr in student.known_skills and known_score < 10:
                 known_score += 1 
@@ -222,6 +222,31 @@ def trimGroups():
     for student in students:
         if group in student.preferences:
             student.preferences.remove(group)
+
+def unpopular():
+    for group in groups:
+        if len(group.preferences) < MIN_SIZE:
+            print(group.name + " is unpopular")
+
+def swapThemBitches(shortGroup, firstPass):
+    print("Fixing " + shortGroup.name)
+    for group in groups:
+        if group == shortGroup:
+            continue
+        if len(group.members) > OPT_SIZE:
+            for student in group.members:
+                if len(shortGroup.members) >= MIN_SIZE:
+                    return
+                if shortGroup in student.preferences:
+                    group.members.remove(student)
+                    shortGroup.members.append(student)
+        elif not firstPass and len(group.members) > MIN_SIZE:
+            for student in group.members:
+                if len(shortGroup.members) >= MIN_SIZE:
+                       return
+                if shortGroup in student.preferences:
+                       group.members.remove(student)
+                       shortGroup.members.append(student)
 
 ##! This is an implementation of the Gale/Shapley algorithm. It's modeled off
 ##! of this code: https://rosettacode.org/wiki/Stable_marriage_problem#Python
@@ -281,38 +306,41 @@ def sortThemBitches():
                     if len(match) < MAX_SIZE:
                         matched[g].append(s)
 
-    if students_free:
-        print(students_free)
+    for group in matched:
+        for student in matched[group]:
+            group.members.append(student)
+    for group in matched:
+        if len(group.members) < MIN_SIZE:
+            swapThemBitches(group, True)
+            if len(group.members) < MIN_SIZE:
+                swapThemBitches(group, False)
+
+    for group in matched:
+        matched[group] = group.members
+
     return matched
 
 ##! You know what this is
 def main(args):
-    print(args[1])
-    if (len(args) > 2):
+    if (len(args) > 1):
         data = dataSet(args[1])
-        createGroups()
+        for name in group_names:
+            g = createGroups(name)
+            groups.append(g)
         for line in data.readData:
-            parseData(line)
+            s = parseData(line)
+            students.append(s)
         for student in students:
             registerUser(student)
-            print(student)
+        unpopular()
+        sortThemBitches()
         for group in groups:
-            print(group)
-
-        if (args[2] == '1'):
-#            trimGroups()
-            print("matching")
-            matches = sortThemBitches()
-            for key in matches:
-                value = matches[key]
-                print("{key.name}:".format(key=key))
-                for student in value:
-                    print("\t{student.name}".format(student=student))
-        elif (args[2] == '2'):
-            print("Should be calling create graph now")
-            createGraph()
+            value = group.members
+            print(group.name + ":")
+            for student in value:
+                print("\t{student.name}".format(student=student))
     else:
-        print("Usage: sortingHat.py [filePath] [1 or 2]")
+        print("Usage: sortingHat.py [filePath]")
 
 if __name__ == '__main__':
     import sys
