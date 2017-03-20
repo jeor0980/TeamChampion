@@ -30,6 +30,12 @@ sortingApp.config(function($routeProvider) {
         .when('/login', {
             templateUrl : './templates/login.html',
             controller  : 'loginController'
+        })
+
+        // route for creating a new survey
+        .when('/createSurvey', {
+            templateUrl : './templates/createSurvey.html',
+            controller : 'createSurveyController'
         });
 
 });

@@ -3,4 +3,14 @@
 
 <p>{{ message }}</p>
 
+<form action="" method="POST" name="login">
+  {{ form.hidden_tag() }}
+  <p>Please enter your identikey:<br>
+     {{ form.identikey(size=8) }}</p>
+  <p>Please enter your password:<br>
+     {{ form.password(size=80) }}</p>
+  <p>{{ form.remember_me }} Remember Me</p>
+  <p><input type="submit" value="Sign in"></p>
+</form>
+
 

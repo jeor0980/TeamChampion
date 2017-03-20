@@ -1,13 +1,15 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash
 from flask_mongoengine import MongoEngine
+from forms import LoginForm
 from mongoengine import *
 import os
 
 import models as m
-import alg1 as alg
+from sortingHat import sortingHat as alg
 
 app = Flask(__name__)
 app.config['MONGODB_DB'] = 'flask_test'
+app.config.from_object('config')
 db = MongoEngine(app)
 
 """
@@ -21,6 +23,14 @@ class Groups(Document):
     group_name = StringField(required=True)
     members = ListField(ReferenceField(Students))
 """
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        flash('Login requested for identikey="%s", remember_me=%s' % (form.identikey.data, str(form.remember_me.data)))
+        return index()
+    return render_template('login.html', title='Sign In', form=form)
+
 @app.route('/sort', methods=['GET'])
 def sort_students():
     alg.sortThemBitches()
