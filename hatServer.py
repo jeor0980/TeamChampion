@@ -5,10 +5,9 @@ from mongoengine import *
 import os
 
 import models as m
-from sortingHat import sortingHat as alg
+from SortingHat import sortingHat as alg
 
 app = Flask(__name__)
-app.config['MONGODB_DB'] = 'flask_test'
 app.config.from_object('config')
 db = MongoEngine(app)
 
@@ -26,9 +25,9 @@ class Groups(Document):
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
-    if form.validate_on_submit():
+    '''if form.validate_on_submit():
         flash('Login requested for identikey="%s", remember_me=%s' % (form.identikey.data, str(form.remember_me.data)))
-        return index()
+        return index()'''
     return render_template('login.html', title='Sign In', form=form)
 
 @app.route('/sort', methods=['GET'])
