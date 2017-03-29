@@ -10,31 +10,31 @@ sortingApp.config(function($routeProvider) {
 
         // route for the home page
         .when('/', {
-            templateUrl : './templates/home.html',
+            templateUrl : 'static/partials/home.html',
             controller  : 'mainController'
         })
 
         // route for the about page
         .when('/about', {
-            templateUrl : './templates/about.html',
+            templateUrl : 'static/partials/about.html',
             controller  : 'aboutController'
         })
 
         // route for the contact page
         .when('/contact', {
-            templateUrl : './templates/contact.html',
+            templateUrl : 'static/partials/contact.html',
             controller  : 'contactController'
         })
 
         // route for the login page
         .when('/login', {
-            templateUrl : './templates/login.html',
+            templateUrl : 'static/partials/login.html',
             controller  : 'loginController'
         })
 
         // route for creating a new survey
         .when('/createSurvey', {
-            templateUrl : './templates/createSurvey.html',
+            templateUrl : 'static/partials/createSurvey.html',
             controller : 'createSurveyController'
         });
 
