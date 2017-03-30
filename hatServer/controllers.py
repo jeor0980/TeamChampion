@@ -36,6 +36,7 @@ def login():
         flash('Login requested for identikey="%s", remember_me=%s' %
               (form.identikey.data, str(form.remember_me.data)))
         return basic_pages()
+    return basic_pages()
 
 @app.route('/sort', methods=['GET'])
 def sort_students():
