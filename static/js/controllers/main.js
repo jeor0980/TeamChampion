@@ -15,3 +15,7 @@ sortingApp.controller('contactController', function($scope) {
 sortingApp.controller('loginController', function($scope) {
     $scope.message = 'A login screen will go here!';
 });
+
+sortingApp.controller('createSurveyController', function($scope) {
+    $scope.message = 'Here instructors can create surveys!';
+})

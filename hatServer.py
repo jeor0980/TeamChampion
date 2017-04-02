@@ -4,7 +4,7 @@ from mongoengine import *
 import os
 
 import models as m
-import alg1 as alg
+from SortingHat import sortingHat as alg
 
 app = Flask(__name__)
 app.config['MONGODB_DB'] = 'flask_test'
