@@ -91,10 +91,9 @@ def add_group():
         results = "Group Collection Error"
         errors = "Failed to add group to Database"
         return render_template('index.html', errors=errors, results=results)
-"""
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    Example:
+#    Example:
     online_users = mongo.db.users.find({'online': True})
     return render_template('index.html',
                 online_users=online_users)
@@ -118,7 +117,6 @@ def index():
             )
         
     return render_template('index.html', errors=errors, results=results)
-"""
 
 if __name__ == '__main__':
     app.run()
