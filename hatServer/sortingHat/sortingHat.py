@@ -3,7 +3,7 @@ from enum import Enum
 import csv
 import sys
 sys.path.append("..")
-import models as m
+from models import Groups, Students
 import buildDB
 
 import random
@@ -14,8 +14,10 @@ populate these through form input so that the instructor can change these as
 we've planned. The skills list should also be handled differently at some
 point, probably something else the instructor should populate.
 """
+MAX_SKILL_LEN = 10
 LEARN_WEIGHT = 0.2
 KNOWN_WEIGHT = 0.1
+GROUP_WEIGHT = 5.0
 MIN_SIZE = 4
 MAX_SIZE = 6
 OPT_SIZE = 5
@@ -67,7 +69,7 @@ def calcGroupPreference(known, learn):
     assert (learn >= 0)
     pref = LEARN_WEIGHT * learn + KNOWN_WEIGHT * known
     pref = pref/(KNOWN_WEIGHT + LEARN_WEIGHT)
-    return pref/3 # group pref range is 0-3, so normalize between 0 and 1
+    return pref # group pref range is 0-3, so normalize between 0 and 1
 
 ##! This function registers students with each connected group and adds the
 ##! student to the group's preference list with the associated preference score
@@ -83,9 +85,9 @@ def registerUser(student, groups):
                 index += 1
         # How to weight group preferences for students?
         for attr in groups[index].skills:
-            if attr in student.known_skills and known_score < 10:
+            if attr in student.known_skills and known_score < MAX_SKILL_LEN:
                 known_score += 1 
-            if attr in student.learn_skills and learn_score < 10:
+            if attr in student.learn_skills and learn_score < MAX_SKILL_LEN:
                 learn_score += 1
         groups[index].preferences[student] = calcGroupPreference(known_score, learn_score)
 
@@ -211,9 +213,9 @@ def dumbledore():
     l_students = []
     l_groups = []
     #connect('testDB')
-    for student in m.Students.objects:
+    for student in Students.objects:
         l_students.append(student)
-    for group in m.Groups.objects:
+    for group in Groups.objects:
         l_groups.append(group)
     for student in l_students:
         registerUser(student, l_groups)

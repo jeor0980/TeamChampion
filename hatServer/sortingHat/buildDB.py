@@ -1,7 +1,7 @@
 from mongoengine import *
 import sys
 sys.path.append("..")
-import models as m
+from models import Groups, Students
 import leadership as l
 
 class dataSet:
@@ -14,7 +14,7 @@ class dataSet:
 
 def parseStudent(data):
     values = data.split(',')
-    student_to_add = m.Students(
+    student_to_add = Students(
         student_name=values[0] + " " + values[1],
         identikey=values[2],
         known_skills=values[3].split('.'),
@@ -33,7 +33,7 @@ def parseStudent(data):
 
 def parseGroups(data):
     values = data.split(',')
-    group_to_add = m.Groups(group_name=values[0])
+    group_to_add = Groups(group_name=values[0])
     group_to_add.save()
     skills = []
     for i in range(2, len(values)):
@@ -59,8 +59,8 @@ def buildDB(student_path, group_path):
 
 def main(args):
     db = connect('testDB')
-    m.Groups.drop_collection()
-    m.Students.drop_collection()
+    Groups.drop_collection()
+    Students.drop_collection()
     buildDB(args[1], args[2])
 
 if __name__ == '__main__':

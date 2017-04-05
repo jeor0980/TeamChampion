@@ -8,7 +8,7 @@ import os
 
 from hatServer import app
 
-from hatServer.models import *
+from hatServer.models import Groups, Students
 
 app.config['MONGODB_DB'] = 'flask_test'
 
@@ -47,7 +47,7 @@ def sort_students():
 def display_sorted_groups():
     groups = []
     students = []
-    for group in m.Groups.objects:
+    for group in Groups.objects:
         groups.append(group.group_name)
         memberlist = []
         for student in group.members:
@@ -57,12 +57,12 @@ def display_sorted_groups():
 
 @app.route('/drop/student', methods=['GET'])
 def drop_students():
-    m.Students.drop_collection()
+    Students.drop_collection()
     return index()
 
 @app.route('/drop/group', methods=['GET'])
 def drop_groups():
-    m.groups.drop_collection()
+    groups.drop_collection()
 
 @app.route('/add/student', methods=['POST'])
 def add_student():
@@ -71,7 +71,7 @@ def add_student():
         name = request.form['student_name']
         first_pref = request.form['first_pref']
         second_pref = request.form['second_pref']
-        cur_student = m.Students(identikey=identikey, student_name=name,
+        cur_student = Students(identikey=identikey, student_name=name,
                                first_pref=first_pref, second_pref=second_pref)
         cur_student.save()
         return index()
