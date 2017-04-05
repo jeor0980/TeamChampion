@@ -1,38 +1,6 @@
-<!-- login.html -->
+<!-- about.html -->
 <h1>Login Page</h1>
 
 <p>{{ message }}</p>
 
-<form action="/login" method="POST" name="login">
-  <!--{{ form.hidden_tag() }}-->
-  <dl>
-    <dt>Identikey
-    <dd>{{ form.identikey(size=8) }}
-  </dl>
-  <!--<div>
-    {{ form.identikey.label }}:
-    {% form_field form.identikey class="css_class" %}
-  </div>-->
-  <!--<p>Please enter your identikey:<br>
-     {{ form.identikey(size=8) }}</p>
-  <p>Please enter your password:<br>
-     {{ form.password(size=80) }}</p>
-  <p>{{ form.remember_me }} Remember Me</p>-->
-  <p><input type=submit value=Login></p>
-</form>
-<button><a href="#/">Sign In</a></button>
 
-
-
-<!--{% macro render_field(field) %}
-  <dt>{{ field.label }}
-  <dd>{{ field(**kwargs)|safe }}
-  {% if field.errors %}
-    <ul class=errors>
-    {% for error in field.errors %}
-      <li>{{ error }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-  </dd>
-{% endmacro %}-->

@@ -6,9 +6,14 @@ from hatServer.forms import LoginForm
 
 import os
 
+<<<<<<< HEAD:hatServer/controllers.py
 from hatServer import app
 
 from hatServer.models import Groups, Students
+=======
+import models as m
+from SortingHat import sortingHat as alg
+>>>>>>> origin/jess_angForms:hatServer.py
 
 app.config['MONGODB_DB'] = 'flask_test'
 
