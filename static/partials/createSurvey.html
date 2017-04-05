@@ -1,3 +1,31 @@
 <h1>Create a New Survey</h1>
 
 <p>{{ message }}</p>
+
+<form name="createSurveyForm" method="POST" novalidate role="form">
+  <div class="form-group">
+    <label for="firstName">First Name</label>
+    <span class="label label-danger" ng-show="submitted && createSurveyForm.firstName.$error.required">Required!</span>
+    <input type="text" name="firstName" ng-model="firstName" class="form-control" required />
+  </div>
+
+  <div class="form-group">
+    <label for="lastName">Last Name</label>
+    <span class="label label-danger" ng-show="submitted && createSurveyForm.lastName.$error.required">Required!</span>
+    <input type="text" name="lastName" ng-model="lastName" class="form-control" required />
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email Address</label>
+    <span class="label label-danger" ng-show="submitted && createSurveyForm.email.$error.required">Required!</span>
+    <span class="label label-danger" ng-show="submitted && createSurveyForm.$error.email">Invalid Email!</span>
+    <input type="email" name="email" ng-model="email" class="form-control" required />
+  </div>
+
+  <div class="form-group">
+    <label for="comments">Comments for the instructors.</label>
+    <textarea name="comments" ng-model="comments" class="form-control" required />
+  </div>
+
+  <button ng-click="submit(createSurveyForm)" class="btn btn-default">Submit!</button>
+</form>
