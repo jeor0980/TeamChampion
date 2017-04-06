@@ -3,6 +3,7 @@ from enum import Enum
 import csv
 import sys
 sys.path.append("..")
+sys.path.append("../..")
 from hatServer.models import Groups, Students
 import hatServer.sortingHat.buildDB
 
