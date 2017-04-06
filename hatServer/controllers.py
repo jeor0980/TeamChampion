@@ -2,20 +2,15 @@ from flask import Flask, request, Response
 from flask import render_template, url_for, redirect, send_from_directory
 from flask import send_file, make_response, abort
 
-from hatServer.forms import LoginForm
-
 import os
 
-<<<<<<< HEAD:hatServer/controllers.py
 from hatServer import app
 
 from hatServer.models import Groups, Students
-=======
-import models as m
-from SortingHat import sortingHat as alg
->>>>>>> origin/jess_angForms:hatServer.py
+from hatServer.sortingHat import sortingHat as alg
 
-app.config['MONGODB_DB'] = 'flask_test'
+# This shouldn't be needed, should be handled in __init__.py
+# app.config['MONGODB_DB'] = 'flask_test'
 
 """
 class Students(Document):
@@ -34,6 +29,8 @@ class Groups(Document):
 def basic_pages(**kwargs):
     return make_response(open('hatServer/templates/index.html').read())
 
+# This function will change once Jesus' code is checked in,
+# but for now it just makes the login button not return 404
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()

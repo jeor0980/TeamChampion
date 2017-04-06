@@ -1,8 +1,8 @@
 from mongoengine import *
 import sys
 sys.path.append("..")
-from models import Groups, Students
-import leadership as l
+from hatServer.models import Groups, Students
+import hatServer.sortingHat.leadership as l
 
 class dataSet:
     """

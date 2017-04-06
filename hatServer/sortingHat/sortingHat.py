@@ -3,8 +3,8 @@ from enum import Enum
 import csv
 import sys
 sys.path.append("..")
-from models import Groups, Students
-import buildDB
+from hatServer.models import Groups, Students
+import hatServer.sortingHat.buildDB
 
 import random
 
@@ -209,6 +209,9 @@ def sortThemBitches(students, groups):
 
     return matched
 
+# This function is a controller, basically it abstracts all the stuff that
+# was in main. This way we can import this function when we want to call
+# the sorting stuff from the server
 def dumbledore():
     l_students = []
     l_groups = []
