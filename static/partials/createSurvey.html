@@ -2,7 +2,7 @@
 
 <p>{{ message }}</p>
 
-<form name="createSurveyForm" method="POST" novalidate role="form">
+<form name="createSurveyForm" ng-submit="sendSurvey()">
   <div class="form-group">
     <label for="firstName">First Name</label>
     <span class="label label-danger" ng-show="submitted && createSurveyForm.firstName.$error.required">Required!</span>
@@ -14,7 +14,7 @@
     <span class="label label-danger" ng-show="submitted && createSurveyForm.lastName.$error.required">Required!</span>
     <input type="text" name="lastName" ng-model="lastName" class="form-control" required />
   </div>
-
+  
   <div class="form-group">
     <label for="email">Email Address</label>
     <span class="label label-danger" ng-show="submitted && createSurveyForm.email.$error.required">Required!</span>
@@ -22,10 +22,24 @@
     <input type="email" name="email" ng-model="email" class="form-control" required />
   </div>
 
+  <!--<div class="form-group">
+    <label for="projectList">First Choice Project</label>
+    <span class="label label-danger" ng-show="submitted && createSurveyForm.projectList.$error.required">Required!</span>
+    <select name="projectList" ng-model="projectList" ng-options="id as value for (id, value) in projectListOptions" class="form-control" required>
+      <option value=""></option>
+    </select>
+  </div>-->
+
   <div class="form-group">
     <label for="comments">Comments for the instructors.</label>
-    <textarea name="comments" ng-model="comments" class="form-control" required />
+    <textarea name="comments" ng-model="comments"></textarea>
   </div>
-
-  <button ng-click="submit(createSurveyForm)" class="btn btn-default">Submit!</button>
+  
+  <button type="submit" class="btn btn-default">Submit!</button>
+  
 </form>
+
+{{ firstName }}
+{{ lastName }}
+{{ email }}
+<!--<button ng-click="submit(createSurveyForm)" class="btn btn-default">Submit!</button>-->

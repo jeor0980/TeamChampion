@@ -16,6 +16,31 @@ sortingApp.controller('loginController', function($scope) {
     $scope.message = 'A login screen will go here!';
 });
 
-sortingApp.controller('createSurveyController', function($scope) {
+sortingApp.controller('createSurveyController', function($scope, $http) {
     $scope.message = 'Here instructors can create surveys!';
+    $scope.projectListOptions = {
+    	'one' : 'Project One',
+    	'two' : 'Project Two',
+    	'three' : 'Project Three',
+    	'four' : 'Project Four',
+    	'five' : 'Project Five'
+    };
+
+    $scope.sendSurvey = function() {
+    	console.log("Getting results");
+
+    	var data = {
+    		'firstName' : $scope.firstName,
+    		'lastName' : $scope.lastName,
+    		'email' : $scope.email,
+    		'comments' : $scope.comments
+    	};
+
+    	// Fire the API request
+    	$http.post('/createSurvey', data).success(function(results) {
+    		console.log('RESULTS');
+    	}).error(function(err) {
+    		console.log(err);
+    	})
+    }
 })

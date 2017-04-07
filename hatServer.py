@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from flask_mongoengine import MongoEngine
 from mongoengine import *
+import json
 import os
 
 import models as m
@@ -10,17 +11,23 @@ app = Flask(__name__)
 app.config['MONGODB_DB'] = 'flask_test'
 db = MongoEngine(app)
 
-"""
-class Students(Document):
-    identikey = StringField(required=True, unique=True)
-    student_name = StringField(required=True)
-    first_pref = StringField(required=True)
-    second_pref = StringField(required=True)
 
-class Groups(Document):
-    group_name = StringField(required=True)
-    members = ListField(ReferenceField(Students))
-"""
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    return render_template('index.html')
+
+@app.route('/createSurvey', methods=['POST'])
+def create_survey():
+    # get data from form object 
+    data = json.loads(request.data.decode())
+
+    firstName = data["firstName"]
+    lastName = data["lastName"]
+    email = data["email"]
+    comments = data["comments"]
+    
+    return render_template('index.html')
+
 @app.route('/sort', methods=['GET'])
 def sort_students():
     alg.sortThemBitches()
@@ -75,7 +82,7 @@ def add_group():
         errors = "Failed to add group to Database"
         return render_template('index.html', errors=errors, results=results)
 
-@app.route('/', methods=['GET', 'POST'])
+#@app.route('/', methods=['GET', 'POST'])
 def index():
     """
     Example:
