@@ -1,6 +1,7 @@
 from mongoengine import *
 import sys
 sys.path.append("..")
+sys.path.append("../..")
 from hatServer.models import Groups, Students
 import hatServer.sortingHat.leadership as l
 
