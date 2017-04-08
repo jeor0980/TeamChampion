@@ -1,14 +1,16 @@
-from flask import Flask, render_template, request
-from flask_mongoengine import MongoEngine
-from mongoengine import *
+from flask import Flask, request, Response
+from flask import render_template, url_for, redirect, send_from_directory
+from flask import send_file, make_response, abort
+
 import os
 
-import models as m
-from SortingHat import sortingHat as alg
+from hatServer import app
 
-app = Flask(__name__)
-app.config['MONGODB_DB'] = 'flask_test'
-db = MongoEngine(app)
+from hatServer.models import Groups, Students
+from hatServer.sortingHat import sortingHat as alg
+
+# This shouldn't be needed, should be handled in __init__.py
+# app.config['MONGODB_DB'] = 'flask_test'
 
 """
 class Students(Document):
@@ -21,6 +23,23 @@ class Groups(Document):
     group_name = StringField(required=True)
     members = ListField(ReferenceField(Students))
 """
+
+@app.route('/')
+@app.route('/about')
+def basic_pages(**kwargs):
+    return make_response(open('hatServer/templates/index.html').read())
+
+# This function will change once Jesus' code is checked in,
+# but for now it just makes the login button not return 404
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        flash('Login requested for identikey="%s", remember_me=%s' %
+              (form.identikey.data, str(form.remember_me.data)))
+        return basic_pages()
+    return basic_pages()
+
 @app.route('/sort', methods=['GET'])
 def sort_students():
     alg.sortThemBitches()
@@ -30,7 +49,7 @@ def sort_students():
 def display_sorted_groups():
     groups = []
     students = []
-    for group in m.Groups.objects:
+    for group in Groups.objects:
         groups.append(group.group_name)
         memberlist = []
         for student in group.members:
@@ -40,12 +59,12 @@ def display_sorted_groups():
 
 @app.route('/drop/student', methods=['GET'])
 def drop_students():
-    m.Students.drop_collection()
+    Students.drop_collection()
     return index()
 
 @app.route('/drop/group', methods=['GET'])
 def drop_groups():
-    m.groups.drop_collection()
+    groups.drop_collection()
 
 @app.route('/add/student', methods=['POST'])
 def add_student():
@@ -54,7 +73,7 @@ def add_student():
         name = request.form['student_name']
         first_pref = request.form['first_pref']
         second_pref = request.form['second_pref']
-        cur_student = m.Students(identikey=identikey, student_name=name,
+        cur_student = Students(identikey=identikey, student_name=name,
                                first_pref=first_pref, second_pref=second_pref)
         cur_student.save()
         return index()
@@ -74,20 +93,16 @@ def add_group():
         results = "Group Collection Error"
         errors = "Failed to add group to Database"
         return render_template('index.html', errors=errors, results=results)
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    """
-    Example:
+#    Example:
     online_users = mongo.db.users.find({'online': True})
     return render_template('index.html',
                 online_users=online_users)
-    """
     errors = []
     results = []
     for student in m.Students.objects[:10]:
         results.append(student)
-        """
     if request.method == "POST":
         try:
             identikey = request.form['identikey']
@@ -102,7 +117,6 @@ def index():
             errors.append(
                 "Could not save student to database"
             )
-        """
         
     return render_template('index.html', errors=errors, results=results)
 
