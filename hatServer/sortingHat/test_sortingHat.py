@@ -13,16 +13,6 @@ class SortingHatTest(unittest.TestCase):
 #        self.app = sortingHat.test_client()
 #        with sortingHat.app.app_context():
 #            sortingHat.init_db()
-        csv_file = "test2014data.csv"
-        self.data = sortingHat.dataSet(csv_file)
-        self.students = []
-        self.groups = []
-        for line in self.data.readData:
-            s = sortingHat.parseData(line)
-            self.students.append(s)
-        for name in sortingHat.group_names:
-            g = sortingHat.createGroups(name)
-            self.groups.append(g)
         return
 
     def testCalcStudentPreference(self):
@@ -37,7 +27,31 @@ class SortingHatTest(unittest.TestCase):
         with self.assertRaises(AssertionError):
             sortingHat.calcGroupPreference(-1, 1)
 
-#    def testSortThemBitches():
+    def testSortThemBitches(self):
+        csv_file = "test2014data.csv"
+        group_csv_file = "groups.csv"
+        data = sortingHat.dataSet(csv_file)
+        group_data = sortingHat.dataSet(group_csv_file)
+        students = []
+        groups = []
+        for line in group_data.readData:
+            g = sortingHat.parseGroups(line)
+            groups.append(g)
+        for line in data.readData:
+            s = sortingHat.parseData(line)
+            print(s.preferences)
+            students.append(s)
+        for student in students:
+            print(student.preferences)
+            sortingHat.registerUser(student, groups)
+        for grp in groups:
+            print(grp.preferences)
+        matched = sortingHat.sortThemBitches(students, groups)
+        self.assertEqual(len(matched), len(groups))
+        count = 0
+        for group, students in matched:
+            count += len(students)
+        self.assertEqual(count, len(students))
 
     def tearDown(self):
 #        os.close(self.db_fd)
