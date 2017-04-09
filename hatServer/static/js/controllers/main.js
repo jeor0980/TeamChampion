@@ -26,9 +26,9 @@ sortingApp.controller('createSurveyController', function($scope, $http) {
     	'four' : 'Project Four',
     	'five' : 'Project Five'
     };
+    $scope.comments = "";
 
     $scope.firstProj = ['Proj 1', 'Proj 2', 'Proj 3'];
-    $scope.food = "taco";
 
     $scope.sendSurvey = function() {
     	console.log("Getting results");

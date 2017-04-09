@@ -2,50 +2,28 @@
 
 <p>{{ message }}</p>
 
-<form name="createSurveyForm" ng-submit="sendSurvey()">
+<form name="createSurveyForm" ng-submit="sendSurvey()" method="POST">
   <div class="form-group">
     <label for="firstName">First Name</label>
-    <!-- REMOVE THIS<span class="label label-danger" ng-show="submitted && createSurveyForm.firstName.$error.required">Required!</span>-->
     <input type="text" name="firstName" ng-model="firstName" class="form-control" required />
   </div>
 
   <div class="form-group">
     <label for="lastName">Last Name</label>
-    <span class="label label-danger" ng-show="submitted && createSurveyForm.lastName.$error.required">Required!</span>
     <input type="text" name="lastName" ng-model="lastName" class="form-control" required />
   </div>
   
   <div class="form-group">
     <label for="email">Email Address</label>
-    <span class="label label-danger" ng-show="submitted && createSurveyForm.email.$error.required">Required!</span>
-    <span class="label label-danger" ng-show="submitted && createSurveyForm.$error.email">Invalid Email!</span>
     <input type="email" name="email" ng-model="email" class="form-control" required />
   </div>
 
-  <!--<div class="form-group">
-    <label for="projectList">First Choice Project</label>
-    <span class="label label-danger" ng-show="submitted && createSurveyForm.projectList.$error.required">Required!</span>
-    <select name="projectList" ng-model="projectList" ng-options="id as value for (id, value) in projectListOptions" class="form-control" required>
-      <option value=""></option>
-    </select>
-  </div>-->
-  {{food}}
   <div class="form-group">
     <label for="projectList">First Choice Project</label>
-    <select name="projectList" ng-model="projectList" ng-options="item for item in firstProj" ng-controller = "createSurveyController">
-      <!-- <option value=""></option> -->
+    <select name="projectList" ng-model="projectList" ng-options="item for item in firstProj" class="browser-default" required>
     </select>
   </div>
-<!--   <div class="form-group">
-    <label for="projectList">First cHoice</label>
-    <select name="projectList" ng-model="projectList">
-      <option ng-repeat="value in firstProj">
-        {{value}}
-      </option>
-    </select>
-  </div>
- -->
- {{firstProj}}
+
   <div class="form-group">
     <label for="comments">Comments for the instructors.</label>
     <textarea name="comments" ng-model="comments"></textarea>
@@ -54,8 +32,3 @@
   <button type="submit" class="btn btn-default">Submit!</button>
   
 </form>
-
-{{ firstName }}
-{{ lastName }}
-{{ email }}
-<!--<button ng-click="submit(createSurveyForm)" class="btn btn-default">Submit!</button>-->
