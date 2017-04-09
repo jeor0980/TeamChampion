@@ -5,7 +5,7 @@
 <form name="createSurveyForm" ng-submit="sendSurvey()">
   <div class="form-group">
     <label for="firstName">First Name</label>
-    <span class="label label-danger" ng-show="submitted && createSurveyForm.firstName.$error.required">Required!</span>
+    <!-- REMOVE THIS<span class="label label-danger" ng-show="submitted && createSurveyForm.firstName.$error.required">Required!</span>-->
     <input type="text" name="firstName" ng-model="firstName" class="form-control" required />
   </div>
 
@@ -29,7 +29,23 @@
       <option value=""></option>
     </select>
   </div>-->
-
+  {{food}}
+  <div class="form-group">
+    <label for="projectList">First Choice Project</label>
+    <select name="projectList" ng-model="projectList" ng-options="item for item in firstProj" ng-controller = "createSurveyController">
+      <!-- <option value=""></option> -->
+    </select>
+  </div>
+<!--   <div class="form-group">
+    <label for="projectList">First cHoice</label>
+    <select name="projectList" ng-model="projectList">
+      <option ng-repeat="value in firstProj">
+        {{value}}
+      </option>
+    </select>
+  </div>
+ -->
+ {{firstProj}}
   <div class="form-group">
     <label for="comments">Comments for the instructors.</label>
     <textarea name="comments" ng-model="comments"></textarea>
