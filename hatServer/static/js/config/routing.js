@@ -36,6 +36,12 @@ sortingApp.config(function($routeProvider) {
         .when('/createSurvey', {
             templateUrl : 'static/partials/createSurvey.html',
             controller : 'createSurveyController'
+        })
+
+        // route for when survey is submitted
+        .when('/surveySuccess', {
+            templateUrl : 'static/partials/surveySuccess.html',
+            controller : 'surveySuccessController'
         });
 
 });

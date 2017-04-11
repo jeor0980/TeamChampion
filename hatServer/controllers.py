@@ -17,29 +17,26 @@ from hatServer.sortingHat import sortingHat as alg
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    print ("TYPICAL BITCH")
     return render_template('index.html')
 
-@app.route('/createSurvey', methods=['POST'])
+@app.route('/createSurvey', methods=['GET', 'POST'])
 def create_survey():
     # get data from form object 
+    print("CREATE SURVEY HOMES")
     data = json.loads(request.data.decode())
 
     firstName = data["firstName"]
     lastName = data["lastName"]
     email = data["email"]
     comments = data["comments"]
+    print(firstName)
     
-    return render_template('index.html')
+    return firstName
 
 class Groups(Document):
     group_name = StringField(required=True)
     members = ListField(ReferenceField(Students))
-
-
-@app.route('/')
-@app.route('/about')
-def basic_pages(**kwargs):
-    return make_response(open('hatServer/templates/index.html').read())
 
 # This function will change once Jesus' code is checked in,
 # but for now it just makes the login button not return 404

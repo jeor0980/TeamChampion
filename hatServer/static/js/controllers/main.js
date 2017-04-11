@@ -16,16 +16,9 @@ sortingApp.controller('loginController', function($scope) {
     $scope.message = 'A login screen will go here!';
 });
 
-sortingApp.controller('createSurveyController', function($scope, $http) {
+sortingApp.controller('createSurveyController', function($scope, $http, $timeout) {
 
     $scope.message = 'Here instructors can create surveys!';
-    $scope.projectListOptions = {
-    	'one' : 'Project One',
-    	'two' : 'Project Two',
-    	'three' : 'Project Three',
-    	'four' : 'Project Four',
-    	'five' : 'Project Five'
-    };
     $scope.comments = "";
 
     $scope.firstProj = ['Proj 1', 'Proj 2', 'Proj 3'];
@@ -43,8 +36,35 @@ sortingApp.controller('createSurveyController', function($scope, $http) {
     	// Fire the API request
     	$http.post('/createSurvey', data).success(function(results) {
     		console.log('RESULTS');
+            $scope.validateSurvey();
     	}).error(function(err) {
     		console.log(err);
     	})
+    };
+
+    $scope.validateSurvey = function() {
+        console.log('VALIDATING DAT SURVEY DO');
+        var timeout = "";
+
+        var poller = function() {
+            $http.get('/#/surveySuccess').success(function(data, status, headers, config) {
+                if (status === 202) {
+                    console.log(status);
+                } else if (status === 200) {
+                    console.log("yassssss");
+                    $timeout.cancel(timeout);
+                    return false;
+                }
+
+                timeout = $timeout(poller, 2000);
+            }).error(function(err) {
+                console.log(err);
+            });
+        };
+        poller();
     }
-})
+});
+
+sortingApp.controller('surveySuccessController', function($scope) {
+    $scope.message = 'Congratulations! Your results have been submitted!';
+});
