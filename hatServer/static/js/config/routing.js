@@ -1,9 +1,10 @@
 'use strict'; //interpreted as script mode 
 
 //Think of app.js being here if it wasn't in a different file
+// Controllers are found in the main.js 
 
 
-// configure our routes
+// Configure our routes
 sortingApp.config(function($routeProvider) {
 
     $routeProvider
@@ -11,25 +12,31 @@ sortingApp.config(function($routeProvider) {
         // route for the home page
         .when('/', {
             templateUrl : 'static/partials/home.html',
-            controller  : 'mainController'
+            // controller  : 'mainController'
         })
 
         // route for the about page
         .when('/about', {
             templateUrl : 'static/partials/about.html',
-            controller  : 'aboutController'
+            // controller  : 'aboutController'
         })
 
         // route for the contact page
-        .when('/contact', {
-            templateUrl : 'static/partials/contact.html',
-            controller  : 'contactController'
+        .when('/dashboard', {
+            templateUrl : 'static/partials/dashboard.html',
+            // controller  : 'dashboardController'
         })
+
+        // route for the profile page
+        .when('/myprofile', {
+            templateUrl : 'static/partials/myprofile.html',
+            controller  : 'profileController'
+        })        
 
         // route for the login page
         .when('/login', {
             templateUrl : 'static/partials/login.html',
-            controller  : 'loginController'
+            // controller  : 'loginController'
         })
 
         // route for creating a new survey
@@ -40,4 +47,3 @@ sortingApp.config(function($routeProvider) {
 
 });
 
-// Controllers are found in the main.js 
