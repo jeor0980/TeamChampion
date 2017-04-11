@@ -5,7 +5,7 @@ import sys
 sys.path.append("..")
 sys.path.append("../..")
 from hatServer.models import Groups, Students
-import hatServer.sortingHat.buildDB
+from hatServer.sortingHat.variables import *
 
 import random
 
@@ -15,6 +15,7 @@ populate these through form input so that the instructor can change these as
 we've planned. The skills list should also be handled differently at some
 point, probably something else the instructor should populate.
 """
+"""
 MAX_SKILL_LEN = 10
 LEARN_WEIGHT = 0.2
 KNOWN_WEIGHT = 0.1
@@ -22,8 +23,7 @@ GROUP_WEIGHT = 5.0
 MIN_SIZE = 4
 MAX_SIZE = 6
 OPT_SIZE = 5
-
-SKILLZ = ["VG", "DB", "ES", "WA", "MA", "UI", "ST", "NW", "SC", "ML", "RB", "CV", "AL", "AI"]
+"""
 
 class Lead(Enum):
     NO_PREF = 0
@@ -69,15 +69,16 @@ def calcGroupPreference(known, learn):
     assert (known >= 0)
     assert (learn >= 0)
     pref = LEARN_WEIGHT * learn + KNOWN_WEIGHT * known
-    pref = pref/(KNOWN_WEIGHT + LEARN_WEIGHT)
-    return pref # group pref range is 0-3, so normalize between 0 and 1
+#    pref = pref/(KNOWN_WEIGHT + LEARN_WEIGHT)
+    return pref/3 # group pref range is 0-3, so normalize between 0 and 1
 
 ##! This function registers students with each connected group and adds the
 ##! student to the group's preference list with the associated preference score
 def registerUser(student, groups):
     known_score = 0
     learn_score = 0
-    for grp_name in student.preferences:
+    for grp in student.preferences:
+        grp_name = grp.group_name
         index = 0
         for group in groups:
             if group.group_name == grp_name:
@@ -90,7 +91,13 @@ def registerUser(student, groups):
                 known_score += 1 
             if attr in student.learn_skills and learn_score < MAX_SKILL_LEN:
                 learn_score += 1
-        groups[index].preferences[student] = calcGroupPreference(known_score, learn_score)
+        pref = calcGroupPreference(known_score, learn_score)
+        groups[index].preferences[student] = pref
+        for db_group in Groups.objects:
+            if db_group.group_name == groups[index].group_name:
+                db_group.preferences[student.student_name] =\
+                groups[index].preferences[student]
+                db_group.save()
 
 def trimGroups(students, groups):
     g_count = int(float(len(students))/OPT_SIZE)
@@ -122,6 +129,8 @@ def swapThemBitches(shortGroup, firstPass, groups):
                 if shortGroup in student.preferences:
                     group.members.remove(student)
                     shortGroup.members.append(student)
+                    if len(group.members) == OPT_SIZE:
+                        break
         elif not firstPass and len(group.members) > MIN_SIZE:
             #TODO add guard against overdrawing from group to below min_size
             for student in group.members:
@@ -155,7 +164,8 @@ def sortThemBitches(students, groups):
     while students_free:
         s = students_free.pop(0)
         s_list = student_prefers[s]
-        g_name = s_list.pop(0)
+        g_ref = s_list.pop(0)
+        g_name = g_ref.group_name
         index = 0
         g = None
         for group in groups:
@@ -207,34 +217,67 @@ def sortThemBitches(students, groups):
 
     for group in matched:
         matched[group] = group.members
+        for student in group.members:
+            student.group_assigned = group
 
     return matched
 
 # This function is a controller, basically it abstracts all the stuff that
 # was in main. This way we can import this function when we want to call
 # the sorting stuff from the server
+##! This version of dumbledore creates a local copy of the db collections
+##! and operates on them, but it makes updating the db cumbersome
 def dumbledore():
     l_students = []
     l_groups = []
-    #connect('testDB')
     for student in Students.objects:
         l_students.append(student)
     for group in Groups.objects:
+        group.modify(members=[], preferences={})
         l_groups.append(group)
     for student in l_students:
         registerUser(student, l_groups)
     unpopular(l_groups)
     sortThemBitches(l_students, l_groups)
+    for student in Students.objects:
+        for l_student in l_students:
+            if student.identikey == l_student.identikey:
+                student.modify(group_assigned=l_student.group_assigned)
+                student.save()
+                break
+    for group in Groups.objects:
+        for l_group in l_groups:
+            if group.group_name == l_group.group_name:
+                for student in l_group.members:
+                    group.update(add_to_set__members=student)
+                group.save
+                break
     for group in l_groups:
+#        print(group._id)
         value = group.members
         print(group.group_name + ":")
         for student in value:
             print("\t{student.student_name}".format(student=student))
- 
+#            student.save()
+"""
+def dumbledore():
+    students = Students.objects.all()
+    groups = Groups.objects.all()
+    for student in students:
+        registerUser(student, groups)
+    unpopular(groups)
+    sortThemBitches(students, groups)
+    for group in groups:
+        group.save()
+        value = group.members
+        print(group.group_name + ":")
+        for student in value:
+            print("\t{student.student_name}".format(student=student))
+            student.save()
+"""
 ##! You know what this is
 def main(args):
-    connect('testDB')
-    # buildDB.buildDB(args[1], args[2])
+    connect()
     dumbledore()
 
 if __name__ == '__main__':

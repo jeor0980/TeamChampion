@@ -1,16 +1,18 @@
 from mongoengine import *
-from enum import Enum
 
 class Students(Document):
     meta = {
         'collection': 'students'
     }
+    group_assigned = ReferenceField('Groups')
     identikey = StringField(required=True, unique=True)
     student_name = StringField(required=True)
     known_skills = ListField(StringField())
     learn_skills = ListField(StringField())
     leadership = StringField() 
-    preferences = ListField(StringField())
+    preferences = ListField(ReferenceField('Groups'))
+    work_with = ListField(ReferenceField('self'))
+    dont_work_with = ListField(ReferenceField('self'))
 
 class Groups(Document):
     meta = {

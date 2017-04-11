@@ -7,7 +7,9 @@ import os
 from hatServer import app
 
 from hatServer.models import Groups, Students
-from hatServer.sortingHat import sortingHat as alg
+from hatServer.sortingHat import sortingHat
+from sortingHat import dumbledore
+from buildDB import buildDB
 
 # This shouldn't be needed, should be handled in __init__.py
 # app.config['MONGODB_DB'] = 'flask_test'
@@ -37,13 +39,12 @@ def login():
     if form.validate_on_submit():
         flash('Login requested for identikey="%s", remember_me=%s' %
               (form.identikey.data, str(form.remember_me.data)))
-        return basic_pages()
     return basic_pages()
 
 @app.route('/sort', methods=['GET'])
 def sort_students():
-    alg.sortThemBitches()
-    return display_sorted_groups()
+    dumbledore()
+    return basic_pages() 
 
 @app.route('/display', methods=['GET'])
 def display_sorted_groups():

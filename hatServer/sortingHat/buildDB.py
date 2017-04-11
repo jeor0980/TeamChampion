@@ -1,6 +1,7 @@
 from mongoengine import *
 import sys
 sys.path.append("..")
+sys.path.append("../..")
 from hatServer.models import Groups, Students
 import hatServer.sortingHat.leadership as l
 
@@ -25,9 +26,9 @@ def parseStudent(data):
     prefs = []
     for i in range(6, 11):
         g_name = values[i].rstrip('\n')
-        #group_to_add = groups.objects(group_name=g_name)
-        student_to_add.update(add_to_set__preferences=g_name)
-        #print(group_to_add)
+        group_to_add = Groups.objects.get(group_name=g_name)
+        student_to_add.update(add_to_set__preferences=group_to_add)
+        #print(group_to_add.group_name)
     student_to_add.save()
     return student_to_add
 
@@ -58,9 +59,12 @@ def buildDB(student_path, group_path):
         s = parseStudent(line)
 
 def main(args):
-    db = connect('testDB')
-    Groups.drop_collection()
-    Students.drop_collection()
+    register_connection('testDatabase')
+    connect('testDatabase')
+    if len(Groups.objects.all()) > 0:
+        Groups.drop_collection()
+    if len(Students.objects.all()) > 0:
+        Students.drop_collection()
     buildDB(args[1], args[2])
 
 if __name__ == '__main__':
