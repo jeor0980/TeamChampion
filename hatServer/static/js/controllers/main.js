@@ -36,9 +36,9 @@ sortingApp.controller('loginController', function($scope) {
 
 });
 
-sortingApp.controller('createSurveyController', function($scope, $http, $timeout) {
+sortingApp.controller('takeSurveyController', function($scope, $http, $timeout, surveyResults) {
 
-    $scope.message = 'Here instructors can create surveys!';
+    $scope.message = 'Here students can take surveys!';
     $scope.comments = "";
 
     $scope.firstProj = ['Proj 1', 'Proj 2', 'Proj 3'];
@@ -54,7 +54,7 @@ sortingApp.controller('createSurveyController', function($scope, $http, $timeout
     	};
 
     	// Fire the API request
-    	$http.post('/createSurvey', data).success(function(results) {
+    	$http.post('/takeSurvey', data).success(function(results) {
     		console.log('RESULTS');
             $scope.validateSurvey();
     	}).error(function(err) {
