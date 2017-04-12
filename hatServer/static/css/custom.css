@@ -49,3 +49,9 @@ footer.page-footer .footer-copyright {
 
   background-color: #212121;
 }
+
+.z-depth-1 {
+  display: inline-block;
+  padding: 32px 48px 32px 48px;
+  border: 1px solid #EEE;
+}
