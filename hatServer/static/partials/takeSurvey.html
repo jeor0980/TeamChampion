@@ -2,25 +2,51 @@
 
 <p>{{ message }}</p>
 
-<form name="takeSurveyForm" ng-submit="sendSurvey()" method="POST">
+<form name="takeSurveyForm" novalidate role="form">
   <div class="form-group">
+    <!-- Use spans so it's consistent with select and actually shows warnings -->
+    <span class="label label-danger" ng-show="submitted && takeSurveyForm.firstName.$error.required">Required!</span>
     <label for="firstName">First Name</label>
     <input type="text" name="firstName" ng-model="firstName" class="form-control" required />
   </div>
 
   <div class="form-group">
+    <span class="label label-danger" ng-show="submitted && takeSurveyForm.lastName.$error.required">Required!</span>
     <label for="lastName">Last Name</label>
     <input type="text" name="lastName" ng-model="lastName" class="form-control" required />
   </div>
+
+  <div class="form-group">
+    <span class="label label-danger" ng-show="submitted && takeSurveyForm.identikey.$error.required">Required!</span>
+    <label for="identikey">Identikey</label>
+    <input type="text" name="identikey" ng-model="identikey" class="form-control" required />
+  </div>
   
   <div class="form-group">
+    <span class="label label-danger" ng-show="submitted && takeSurveyForm.email.$error.required">Required!</span>
+    <span class="label label-danger" ng-show="submitted && takeSurveyForm.$error.email">Invalid Email!</span>
     <label for="email">Email Address</label>
     <input type="email" name="email" ng-model="email" class="form-control" required />
   </div>
+<!-- TODO: Remove project options from list once you've selected one -->
+  <div class="form-group">
+    <span class="label label-danger" ng-show="submitted && takeSurveyForm.firstChoice.$error.required">Required!</span>
+    <label for="firstChoice">First Choice Project</label>
+    <select name="firstChoice" ng-model="firstChoice" ng-options="item for item in projects" class="browser-default" required >
+    </select>
+  </div>
 
   <div class="form-group">
-    <label for="projectList">First Choice Project</label>
-    <select name="projectList" ng-model="projectList" ng-options="item for item in firstProj" class="browser-default" required>
+    <span class="label label-danger" ng-show="submitted && takeSurveyForm.secondChoice.$error.required">Required!</span>
+    <label for="secondChoice">Second Choice Project</label>
+    <select name="secondChoice" ng-model="secondChoice" ng-options="item for item in projects" class="browser-default" required >
+    </select>
+  </div>
+
+  <div class="form-group">
+    <span class="label label-danger" ng-show="submitted && takeSurveyForm.secondChoice.$error.required">Required!</span>
+    <label for="thirdChoice">Third Choice Project</label>
+    <select name="thirdChoice" ng-model="thirdChoice" ng-options="item for item in projects" class="browser-default" required >
     </select>
   </div>
 
@@ -29,6 +55,7 @@
     <textarea name="comments" ng-model="comments"></textarea>
   </div>
   
-  <button type="submit" class="btn btn-default">Submit!</button>
+  <!-- TODO: Make page redirect upon form sumit -->
+  <button type="submit" ng-click="sendSurvey(takeSurveyForm)" class="btn btn-default">Submit!</button>
   
 </form>

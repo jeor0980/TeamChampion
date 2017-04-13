@@ -41,20 +41,35 @@ sortingApp.controller('takeSurveyController', function($scope, $http, $timeout, 
     $scope.message = 'Here students can take surveys!';
     $scope.comments = "";
 
-    $scope.firstProj = ['Proj 1', 'Proj 2', 'Proj 3'];
+    // TODO: change this from hard-coding to getting data from instructor form
+    $scope.projects = ['Proj 1', 'Proj 2', 'Proj 3', 'Proj 4', 'Proj 5', 'Proj 6', 'Proj 7',
+                        'Proj 8', 'Proj 9', 'Proj 10'];
 
-    $scope.sendSurvey = function() {
+    $scope.sendSurvey = function(form) {
     	console.log("Getting results");
+        console.log(form);
+
+        $scope.submitted = true;
+
+        if (form.$invalid) {
+            return;
+        }
 
     	var data = {
-    		'firstName' : $scope.firstName,
+    		'firstName' : surveyResults.getFirstName(), //$scope.firstName,
     		'lastName' : $scope.lastName,
+            'identikey' : $scope.identikey,
     		'email' : $scope.email,
+            'firstChoice' : $scope.firstChoice,
+            'secondChoice' : $scope.secondChoice,
+            'thirdChoice' : $scope.thirdChoice,
     		'comments' : $scope.comments
     	};
 
     	// Fire the API request
     	$http.post('/takeSurvey', data).success(function(results) {
+            $scope.submitted = false;
+
     		console.log('RESULTS');
             $scope.validateSurvey();
     	}).error(function(err) {

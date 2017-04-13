@@ -71,5 +71,15 @@ sortingApp.service('userInformation', function () {
 });
 
 sortingApp.service('surveyResults', function() {
+  var firstName = '';
 
+  return {
+    getFirstName : function() {
+      return firstName;
+    },
+
+    setFirstName : function(value) {
+      firstName = value;
+    }
+  };
 });
