@@ -28,7 +28,7 @@ def create_survey():
 
     firstName = data["firstName"]
     lastName = data["lastName"]
-    email = data["email"]
+    #email = data["email"]
     comments = data["comments"]
     print(firstName)
     

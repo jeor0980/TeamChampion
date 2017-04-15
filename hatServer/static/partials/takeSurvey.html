@@ -17,23 +17,49 @@
   </div>
 
   <div class="form-group">
+    <label for="preferredName">Preferred Name</label>
+    <input type="text" name="preferredName" ng-model="preferredName" class="form-control" />
+  </div>
+
+<!-- TODO: make ng-pattern for identikey toggle on and off -->
+  <div class="form-group">
     <span class="label label-danger" ng-show="submitted && takeSurveyForm.identikey.$error.required">Required!</span>
+    <span class="label label-danger" ng-show="submitted">Invalid Identikey!</span>
     <label for="identikey">Identikey</label>
-    <input type="text" name="identikey" ng-model="identikey" class="form-control" required />
+    <input type="text" name="identikey" ng-pattern="/^[a-z]{4}[0-9]{4}$/" ng-model="identikey" class="form-control" required />
+  </div>
+
+  <div class="form-group">
+    <span class="label label-danger" ng-show="submitted && takeSurveyForm.gpa.$error.required">Required!</span>
+    <label for="gpa">Overall GPA</label>
+    <input type=number name="gpa" ng-model="gpa" class="form-control" required />
+  </div>
+
+  <div class="form-group">
+    <span class="label label-danger" ng-show="submitted && takeSurveyForm.csgpa.$error.required">Required!</span>
+    <label for="csgpa">Computer Science GPA</label>
+    <input type=number name="csgpa" ng-model="csgpa" class="form-control" required />
   </div>
   
-  <div class="form-group">
+  <!--<div class="form-group">
     <span class="label label-danger" ng-show="submitted && takeSurveyForm.email.$error.required">Required!</span>
     <span class="label label-danger" ng-show="submitted && takeSurveyForm.$error.email">Invalid Email!</span>
     <label for="email">Email Address</label>
     <input type="email" name="email" ng-model="email" class="form-control" required />
-  </div>
+  </div>-->
+
 <!-- TODO: Remove project options from list once you've selected one -->
   <div class="form-group">
     <span class="label label-danger" ng-show="submitted && takeSurveyForm.firstChoice.$error.required">Required!</span>
     <label for="firstChoice">First Choice Project</label>
     <select name="firstChoice" ng-model="firstChoice" ng-options="item for item in projects" class="browser-default" required >
     </select>
+  </div>
+
+<!-- TODO: allow instructor to choose if this comment is mandatory and toggle respectively -->
+  <div class="form-group">
+    <label for="firstChoiceComment">Why do you want this project?</label>
+    <textarea name="firstChoiceComment" ng-model="firstChoiceComment"></textarea>
   </div>
 
   <div class="form-group">
@@ -43,11 +69,66 @@
     </select>
   </div>
 
+<!-- TODO: allow instructor to choose if this comment is mandatory and toggle respectively -->
+  <div class="form-group">
+    <label for="secondChoiceComment">Why do you want this project?</label>
+    <textarea name="secondChoiceComment" ng-model="secondChoiceComment"></textarea>
+  </div>
+
   <div class="form-group">
     <span class="label label-danger" ng-show="submitted && takeSurveyForm.secondChoice.$error.required">Required!</span>
     <label for="thirdChoice">Third Choice Project</label>
     <select name="thirdChoice" ng-model="thirdChoice" ng-options="item for item in projects" class="browser-default" required >
     </select>
+  </div>
+
+<!-- TODO: allow instructor to choose if this comment is mandatory and toggle respectively -->
+  <div class="form-group">
+    <label for="thirdChoieComment">Why do you want this project?</label>
+    <textarea name="thirdChoiceComment" ng-model="thirdChoiceComment"></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="requestedPartners">Are there students you'd like to work with?</label>
+    <input name="requestedPartners" ng-model="requestedPartners" ng-list />
+  </div>
+
+  <div class="form-group">
+    <label for="bannedPartners">Are there students you <i>cannot</i> work with?</label>
+    <input name="bannedPartners" ng-model="bannedPartners" ng-list />
+  </div>
+
+  <div class="form-group">
+    <table>
+      <thead><tr>
+        <td></td>
+        <td>Expert</td>
+        <td>Good</td>
+        <td>Basic</td>
+        <td>None</td>
+      </tr></thead>
+      <tbody>
+        <tr role="radiogroup" label="Overall Programming">
+          <td class="leftlabel">Overall Programming</td>
+          <td>
+            <input type="radio" class="with-gap" name="overallProgramming" ng-model="skills.overallProgramming" id="expert" value="expert" required />
+            <label for="expert"></label>
+          </td>
+          <td>
+            <input type="radio" class="with-gap" name="overallProgramming" ng-model="skills.overallProgramming" id="good" value="good" required />
+            <label for="good"></label>
+          </td>
+          <td>
+            <input type="radio" class="with-gap" name="overallProgramming" ng-model="skills.overallProgramming" id="basic" value="basic" required />
+            <label for="basic"></label>
+          </td>
+          <td>
+            <input type="radio" class="with-gap" name="overallProgramming" ng-model="skills.overallProgramming" id="none" value="none" required />
+            <label for="none"></label>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
   <div class="form-group">

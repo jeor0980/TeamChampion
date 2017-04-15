@@ -13,7 +13,6 @@ sortingApp.controller('mainController', function($scope, userInformation) {
       console.log('User signed out.');
   }
 
-
 });
 
 sortingApp.controller('profileController', function($scope, userInformation) {
@@ -33,13 +32,19 @@ sortingApp.controller('contactController', function($scope) {
 
 sortingApp.controller('loginController', function($scope) {
 
-
 });
 
 sortingApp.controller('takeSurveyController', function($scope, $http, $timeout, surveyResults) {
-
     $scope.message = 'Here students can take surveys!';
+    $scope.firstChoiceComments = "";
+    $scope.secondChoiceComments = "";
+    $scope.thirdChoiceComments = "";
     $scope.comments = "";
+    $scope.requestedPartners = [];
+    $scope.bannedPartners = [];
+    $scope.skills = {
+        overallProgramming : ''
+    };
 
     // TODO: change this from hard-coding to getting data from instructor form
     $scope.projects = ['Proj 1', 'Proj 2', 'Proj 3', 'Proj 4', 'Proj 5', 'Proj 6', 'Proj 7',
@@ -47,7 +52,6 @@ sortingApp.controller('takeSurveyController', function($scope, $http, $timeout, 
 
     $scope.sendSurvey = function(form) {
     	console.log("Getting results");
-        console.log(form);
 
         $scope.submitted = true;
 
@@ -56,13 +60,22 @@ sortingApp.controller('takeSurveyController', function($scope, $http, $timeout, 
         }
 
     	var data = {
-    		'firstName' : surveyResults.getFirstName(), //$scope.firstName,
+    		'firstName' : $scope.firstName,
     		'lastName' : $scope.lastName,
+            'preferredName' : $scope.preferredName,
             'identikey' : $scope.identikey,
-    		'email' : $scope.email,
+            'gpa' : $scope.gpa,
+            'csgpa' : $scope.csgpa,
+    		//'email' : $scope.email,
             'firstChoice' : $scope.firstChoice,
             'secondChoice' : $scope.secondChoice,
             'thirdChoice' : $scope.thirdChoice,
+            'firstChoiceComments' : $scope.firstChoiceComments,
+            'secondChoiceComments' : $scope.secondChoiceComments,
+            'thirdChoiceComments' : $scope.thirdChoiceComments,
+            'requestedPartners' : $scope.requestedPartners,
+            'bannedPartners' : $scope.bannedPartners,
+            'skills' : $scope.skills,
     		'comments' : $scope.comments
     	};
 
@@ -77,6 +90,7 @@ sortingApp.controller('takeSurveyController', function($scope, $http, $timeout, 
     	})
     };
 
+// I don't know if this function is really necessary anymore....
     $scope.validateSurvey = function() {
         console.log('VALIDATING DAT SURVEY DO');
         var timeout = "";
@@ -106,7 +120,6 @@ sortingApp.controller('surveySuccessController', function($scope) {
 
 sortingApp.controller('logOut', function($scope) {
 
-
 });
 
 sortingApp.controller('GoogleCtrl', function($scope, userInformation) {
@@ -127,7 +140,6 @@ sortingApp.controller('GoogleCtrl', function($scope, userInformation) {
     // console.log("ID Token: " + id_token);
 
     var authentication = gapi.auth2.getAuthInstance();
-
 
     $scope.test = "This is from the google controller";
     userInformation.setId(profile.getId()); // Don't send this directly to your server!
@@ -155,7 +167,6 @@ sortingApp.controller('GoogleCtrl', function($scope, userInformation) {
   window.onSignIn = onSignIn;
 
 });
-
 
 sortingApp.controller('dashboardController', function($scope, userInformation) {
     $scope.message = 'This is the dashboard!';
