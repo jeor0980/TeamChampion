@@ -45,14 +45,14 @@
     <span class="label label-danger" ng-show="submitted && takeSurveyForm.csgpa.$error.required">Required!</span>
     <label for="csgpa">Computer Science GPA</label>
     <input type=number name="csgpa" ng-model="csgpa" class="form-control" required />
-  </div>
+  </div><br>
   
   <!--<div class="form-group">
     <span class="label label-danger" ng-show="submitted && takeSurveyForm.email.$error.required">Required!</span>
     <span class="label label-danger" ng-show="submitted && takeSurveyForm.$error.email">Invalid Email!</span>
     <label for="email">Email Address</label>
     <input type="email" name="email" ng-model="email" class="form-control" required />
-  </div>-->
+  </div><br>-->
 
 <!-- TODO: Remove project options from list once you've selected one -->
   <!-- Place to select the first most desired project -->
@@ -68,7 +68,7 @@
   <div class="form-group">
     <label for="firstChoiceComment">Why do you want this project?</label>
     <textarea name="firstChoiceComment" ng-model="firstChoiceComment"></textarea>
-  </div>
+  </div><br>
 
   <!-- Place to select the second most desired project -->
   <div class="form-group">
@@ -83,7 +83,7 @@
   <div class="form-group">
     <label for="secondChoiceComment">Why do you want this project?</label>
     <textarea name="secondChoiceComment" ng-model="secondChoiceComment"></textarea>
-  </div>
+  </div><br>
 
   <!-- Place to select the third most desired project -->
   <div class="form-group">
@@ -98,7 +98,7 @@
   <div class="form-group">
     <label for="thirdChoieComment">Why do you want this project?</label>
     <textarea name="thirdChoiceComment" ng-model="thirdChoiceComment"></textarea>
-  </div>
+  </div><br>
 
   <!-- Place to input requested partners -->
   <div class="form-group">
@@ -110,9 +110,10 @@
   <div class="form-group">
     <label for="bannedPartners">Are there students you <i>cannot</i> work with?</label>
     <input name="bannedPartners" ng-model="bannedPartners" ng-list />
-  </div>
+  </div><br>
 
 <!-- TODO: I think this chunk of code should eventually be partitioned out, but tbd -->
+<!-- TODO: make an error appear if required section is not filled in -->
   <!-- Table where users select their ability at different skills -->
   <div class="form-group">
     <table>
@@ -372,7 +373,7 @@
         </tr>
       </tbody>
     </table>
-  </div>
+  </div><br>
 
   <!-- Area where students can select which skills they'd like to improve upon -->
 <p>Pick what skills you'd most like to improve upon!</p>
@@ -407,15 +408,47 @@
     <label for="algos">Algorithms</label><br>
     <input type="checkbox" name="ml" ng-model="ml" id="ml">
     <label for="ml">Machine Learning</label><br>
-  </div>
+  </div><br>
+
+  <!-- Area where students can input their ip preferences -->
+  <div class="form-group">
+    <label>IP Preference</label><br>
+    <input type="radio" class="with-gap" name="ipPref" ng-model="ipPref" id="retain" value="retain" required />
+    <label for="retain">Prefer to retain IP rights to my work</label><br>
+    <input type="radio" class="with-gap" name="ipPref" ng-model="ipPref" id="depends" value="depends" required />
+    <label for="depends">Depends on the project</label><br>
+    <input type="radio" class="with-gap" name="ipPref" ng-model="ipPref" id="noIPPref" value="noIPPref" required />
+    <label for="noIPPref">I don't have a preference to retain IP rights to my work</label><br>
+  </div><br>
+
+  <div class="form-group">
+    <label>Leadership Role</label><br>
+    <input type="radio" class="with-gap" name="lead" ng-model="lead" id="strongFollow" value="strongFollow" required />
+    <label for="strongFollow">Strongly prefer to be a follower rather than a leader</label><br>
+    <input type="radio" class="with-gap" name="lead" ng-model="lead" id="preferFollow" value="preferFollow" required />
+    <label for="preferFollow">Prefer to be a follower, but will lead when necessary</label><br>
+    <input type="radio" class="with-gap" name="lead" ng-model="lead" id="equalLead" value="equalLead" required />
+    <label for="equalLead">Enjoy leading and following equally</label><br>
+    <input type="radio" class="with-gap" name="lead" ng-model="lead" id="preferLead" value="preferLead" required />
+    <label for="preferLead">Prefer to be a leader, but will follow when necessary</label><br>
+    <input type="radio" class="with-gap" name="lead" ng-model="lead" id="strongLead" value="strongLead" required />
+    <label for="strongLead">Strongly prefer to be the leader; do not enjoy being a follower</label>
+  </div><br>
 
   <!-- Area for comments for the instructors -->
   <div class="form-group">
     <label for="comments">Comments for the instructors.</label>
     <textarea name="comments" ng-model="comments"></textarea>
-  </div>
+  </div><br>
   
   <!-- TODO: Make page redirect upon form sumit -->
   <button type="submit" ng-click="sendSurvey(takeSurveyForm)" class="btn btn-default">Submit!</button>
   
 </form>
+
+<!-- TODOS
+  -- Turn this form into multiple pages
+  -- Format it so it looks prettier
+  -- Add more content around the edges (like descriptions and stuff)
+  -- Make it more extensible and less hard-coded
+-->
