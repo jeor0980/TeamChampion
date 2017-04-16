@@ -43,8 +43,37 @@ sortingApp.controller('takeSurveyController', function($scope, $http, $timeout, 
     $scope.requestedPartners = [];
     $scope.bannedPartners = [];
     $scope.skills = {
-        overallProgramming : ''
+        overallProgramming : '',
+        databaseDevelopment : '',
+        embeddedSystems : '',
+        webApp : '',
+        mobileApp : '',
+        uiux : '',
+        stats : '',
+        socNetworking : '',
+        security : '',
+        robotics : '',
+        compVision : '',
+        algorithms : '',
+        machineLearning : ''
     };
+    $scope.desired = {
+        java : false,
+        python : false,
+        php : false,
+        ccpp : false,
+        mobilAppDev : false,
+        webApplications : false,
+        embeddedSys : false,
+        database : false,
+        userIE : false,
+        statistics : false,
+        networking : false,
+        robots : false,
+        compVis : false,
+        algos : false,
+        ml : false
+    }
 
     // TODO: change this from hard-coding to getting data from instructor form
     $scope.projects = ['Proj 1', 'Proj 2', 'Proj 3', 'Proj 4', 'Proj 5', 'Proj 6', 'Proj 7',
