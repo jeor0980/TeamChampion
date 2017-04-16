@@ -105,6 +105,9 @@ sortingApp.controller('takeSurveyController', function($scope, $http, $timeout, 
             'requestedPartners' : $scope.requestedPartners,
             'bannedPartners' : $scope.bannedPartners,
             'skills' : $scope.skills,
+            'desired' : $scope.desired,
+            'ipPref' : $scope.ipPref,
+            'lead' : $scope.lead,
     		'comments' : $scope.comments
     	};
 
