@@ -34,7 +34,7 @@ sortingApp.controller('loginController', function($scope) {
 
 });
 
-sortingApp.controller('takeSurveyController', function($scope, $http, $timeout, surveyResults) {
+sortingApp.controller('takeSurveyController', function($scope, $http, $timeout, $window, surveyResults) {
     $scope.message = 'Here students can take surveys!';
     $scope.firstChoiceComments = "";
     $scope.secondChoiceComments = "";
@@ -119,7 +119,9 @@ sortingApp.controller('takeSurveyController', function($scope, $http, $timeout, 
             $scope.validateSurvey();
     	}).error(function(err) {
     		console.log(err);
-    	})
+    	});
+
+        $window.location.href = "#/surveySuccess";
     };
 
 // I don't know if this function is really necessary anymore....

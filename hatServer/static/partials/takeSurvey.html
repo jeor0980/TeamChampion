@@ -1,4 +1,4 @@
-<h1>Create a New Survey</h1>
+<h1>2017 Senior Projects Group Formation Survey</h1>
 
 <p>{{ message }}</p>
 
@@ -7,20 +7,21 @@
   <div class="form-group">
     <!-- Use spans so it's consistent with select and actually shows warnings -->
     <span class="label label-danger" ng-show="submitted && takeSurveyForm.firstName.$error.required">Required!</span>
-    <label for="firstName">First Name</label>
+    <label for="firstName">First Name<span class="required-asterisk" style="color: red"> *</span></label><!--<h6>First Name</h6>-->
     <input type="text" name="firstName" ng-model="firstName" class="form-control" required />
   </div>
 
   <!-- Place to input a last name -->
   <div class="form-group">
     <span class="label label-danger" ng-show="submitted && takeSurveyForm.lastName.$error.required">Required!</span>
-    <label for="lastName">Last Name</label>
+    <label for="lastName">Last Name<span class="required-asterisk" style="color: red"> *</span></label>
     <input type="text" name="lastName" ng-model="lastName" class="form-control" required />
   </div>
 
   <!-- Place to input a preferred name which the instructors should call you -->
   <div class="form-group">
-    <label for="preferredName">Preferred Name</label>
+    <label for="preferredName">Preferred Name<div class="secondary-text">How would you like to be addressed, if different than your formal name?</div></label>
+    <!--<p>How would you like to be addressed, if different than your formal name?</p>-->
     <input type="text" name="preferredName" ng-model="preferredName" class="form-control" />
   </div>
 
@@ -29,21 +30,21 @@
   <div class="form-group">
     <span class="label label-danger" ng-show="submitted && takeSurveyForm.identikey.$error.required">Required!</span>
     <span class="label label-danger" ng-show="submitted">Invalid Identikey!</span>
-    <label for="identikey">Identikey</label>
+    <label for="identikey">Identikey<span class="required-asterisk" style="color: red"> *</span></label>
     <input type="text" name="identikey" ng-pattern="/^[a-z]{4}[0-9]{4}$/" ng-model="identikey" class="form-control" required />
   </div>
 
   <!-- Place to input overall GPA -->
   <div class="form-group">
     <span class="label label-danger" ng-show="submitted && takeSurveyForm.gpa.$error.required">Required!</span>
-    <label for="gpa">Overall GPA</label>
+    <label for="gpa">Overall GPA<span class="required-asterisk" style="color: red"> *</span><div class="secondary-text">What is your current overall GPA?</div></label>
     <input type=number name="gpa" ng-model="gpa" class="form-control" required />
   </div>
 
   <!-- Place to input computer science GPA -->
   <div class="form-group">
     <span class="label label-danger" ng-show="submitted && takeSurveyForm.csgpa.$error.required">Required!</span>
-    <label for="csgpa">Computer Science GPA</label>
+    <label for="csgpa">Computer Science GPA<span class="required-asterisk" style="color: red"> *</span><div class="secondary-text">What is your current GPA, only considering your Computer Science classes?</div></label>
     <input type=number name="csgpa" ng-model="csgpa" class="form-control" required />
   </div><br>
   
@@ -58,7 +59,7 @@
   <!-- Place to select the first most desired project -->
   <div class="form-group">
     <span class="label label-danger" ng-show="submitted && takeSurveyForm.firstChoice.$error.required">Required!</span>
-    <label for="firstChoice">First Choice Project</label>
+    <label for="firstChoice">First Choice Project<span class="required-asterisk" style="color: red"> *</span></label>
     <select name="firstChoice" ng-model="firstChoice" ng-options="item for item in projects" class="browser-default" required >
     </select>
   </div>
@@ -73,7 +74,7 @@
   <!-- Place to select the second most desired project -->
   <div class="form-group">
     <span class="label label-danger" ng-show="submitted && takeSurveyForm.secondChoice.$error.required">Required!</span>
-    <label for="secondChoice">Second Choice Project</label>
+    <label for="secondChoice">Second Choice Project<span class="required-asterisk" style="color: red"> *</span></label>
     <select name="secondChoice" ng-model="secondChoice" ng-options="item for item in projects" class="browser-default" required >
     </select>
   </div>
@@ -88,7 +89,7 @@
   <!-- Place to select the third most desired project -->
   <div class="form-group">
     <span class="label label-danger" ng-show="submitted && takeSurveyForm.secondChoice.$error.required">Required!</span>
-    <label for="thirdChoice">Third Choice Project</label>
+    <label for="thirdChoice">Third Choice Project<span class="required-asterisk" style="color: red"> *</span></label>
     <select name="thirdChoice" ng-model="thirdChoice" ng-options="item for item in projects" class="browser-default" required >
     </select>
   </div>
@@ -116,6 +117,7 @@
 <!-- TODO: make an error appear if required section is not filled in -->
   <!-- Table where users select their ability at different skills -->
   <div class="form-group">
+    <label>Software Development Skill Levels<div class="secondary-text">How strong are your skills in the following areas?</div></label>
     <table>
       <thead><tr>
         <td></td>
@@ -126,7 +128,8 @@
       </tr></thead>
       <tbody>
         <tr role="radiogroup" label="Overall Programming">
-          <td class="leftlabel" label for="overallProgramming">Overall Programming</td>
+
+          <td class="leftlabel" label for="overallProgramming"><span class="label label-danger" ng-show="submitted && takeSurveyForm.overallProgramming.$error.required">Required!</span>Overall Programming<span class="required-asterisk" style="color: red"> *</span></td>
           <td>
             <input type="radio" class="with-gap" name="overallProgramming" ng-model="skills.overallProgramming" id="expert_op" value="expert" required />
             <label for="expert_op"></label>
@@ -145,7 +148,7 @@
           </td>
         </tr>
         <tr role="radiogroup" label="Database Development">
-          <td class="leftlabel" label for="databaseDevelopment">Database Development</td>
+          <td class="leftlabel" label for="databaseDevelopment"><span class="label label-danger" ng-show="submitted && takeSurveyForm.overallProgramming.$error.required">Required!</span>Database Development<span class="required-asterisk" style="color: red"> *</span></td>
           <td>
             <input type="radio" class="with-gap" name="databaseDevelopment" ng-model="skills.databaseDevelopment" id="expert_dd" value="expert" required />
             <label for="expert_dd"></label>
@@ -164,7 +167,7 @@
           </td>
         </tr>
         <tr role="radiogroup" label="Embedded Systems">
-          <td class="leftlabel" label for="embeddedSystems">Embedded Systems</td>
+          <td class="leftlabel" label for="embeddedSystems"><span class="label label-danger" ng-show="submitted && takeSurveyForm.overallProgramming.$error.required">Required!</span>Embedded Systems<span class="required-asterisk" style="color: red"> *</span></td>
           <td>
             <input type="radio" class="with-gap" name="embeddedSystems" ng-model="skills.embeddedSystems" id="expert_es" value="expert" required />
             <label for="expert_es"></label>
@@ -183,7 +186,7 @@
           </td>
         </tr>
         <tr role="radiogroup" label="Web Applications">
-          <td class="leftlabel" label for="webApp">Web Applications</td>
+          <td class="leftlabel" label for="webApp"><span class="label label-danger" ng-show="submitted && takeSurveyForm.overallProgramming.$error.required">Required!</span>Web Applications<span class="required-asterisk" style="color: red"> *</span></td>
           <td>
             <input type="radio" class="with-gap" name="webApp" ng-model="skills.webApp" id="expert_wa" value="expert" required />
             <label for="expert_wa"></label>
@@ -202,7 +205,7 @@
           </td>
         </tr>
         <tr role="radiogroup" label="Mobile Applications">
-          <td class="leftlabel" label for="mobileApp">Mobile Applications</td>
+          <td class="leftlabel" label for="mobileApp"><span class="label label-danger" ng-show="submitted && takeSurveyForm.overallProgramming.$error.required">Required!</span>Mobile Applications<span class="required-asterisk" style="color: red"> *</span></td>
           <td>
             <input type="radio" class="with-gap" name="mobileApp" ng-model="skills.mobileApp" id="expert_ma" value="expert" required />
             <label for="expert_ma"></label>
@@ -220,7 +223,7 @@
             <label for="none_ma"></label>
           </td>
         <tr role="radiogroup" label="User Interface Experience">
-          <td class="leftlabel" label for="uiux">User Interface/User Experience</td>
+          <td class="leftlabel" label for="uiux"><span class="label label-danger" ng-show="submitted && takeSurveyForm.overallProgramming.$error.required">Required!</span>User Interface/User Experience<span class="required-asterisk" style="color: red"> *</span></td>
           <td>
             <input type="radio" class="with-gap" name="uiux" ng-model="skills.uiux" id="expert_ui" value="expert" required />
             <label for="expert_ui"></label>
@@ -239,7 +242,7 @@
           </td>
         </tr>
         <tr role="radiogroup" label="Statistics">
-          <td class="leftlabel" label for="stats">Statistics</td>
+          <td class="leftlabel" label for="stats"><span class="label label-danger" ng-show="submitted && takeSurveyForm.overallProgramming.$error.required">Required!</span>Statistics<span class="required-asterisk" style="color: red"> *</span></td>
           <td>
             <input type="radio" class="with-gap" name="stats" ng-model="skills.stats" id="expert_st" value="expert" required />
             <label for="expert_st"></label>
@@ -258,7 +261,7 @@
           </td>
         </tr>
         <tr role="radiogroup" label="Social Networking">
-          <td class="leftlabel" label for="socNetworking">(Social/Professional) Networking</td>
+          <td class="leftlabel" label for="socNetworking"><span class="label label-danger" ng-show="submitted && takeSurveyForm.overallProgramming.$error.required">Required!</span>(Social/Professional) Networking<span class="required-asterisk" style="color: red"> *</span></td>
           <td>
             <input type="radio" class="with-gap" name="socNetworking" ng-model="skills.socNetworking" id="expert_sn" value="expert" required />
             <label for="expert_sn"></label>
@@ -277,7 +280,7 @@
           </td>
         </tr>
         <tr role="radiogroup" label="Security">
-          <td class="leftlabel" label for="security">Security</td>
+          <td class="leftlabel" label for="security"><span class="label label-danger" ng-show="submitted && takeSurveyForm.overallProgramming.$error.required">Required!</span>Security<span class="required-asterisk" style="color: red"> *</span></td>
           <td>
             <input type="radio" class="with-gap" name="security" ng-model="skills.security" id="expert_sc" value="expert" required />
             <label for="expert_sc"></label>
@@ -296,7 +299,7 @@
           </td>
         </tr>
         <tr role="radiogroup" label="Robotics">
-          <td class="leftlabel" label for="robotics">Robotics</td>
+          <td class="leftlabel" label for="robotics"><span class="label label-danger" ng-show="submitted && takeSurveyForm.overallProgramming.$error.required">Required!</span>Robotics<span class="required-asterisk" style="color: red"> *</span></td>
           <td>
             <input type="radio" class="with-gap" name="robotics" ng-model="skills.robotics" id="expert_rb" value="expert" required />
             <label for="expert_rb"></label>
@@ -315,7 +318,7 @@
           </td>
         </tr>
         <tr role="radiogroup" label="Computer Vision">
-          <td class="leftlabel" label for="compVision">Computer Vision</td>
+          <td class="leftlabel" label for="compVision"><span class="label label-danger" ng-show="submitted && takeSurveyForm.overallProgramming.$error.required">Required!</span>Computer Vision<span class="required-asterisk" style="color: red"> *</span></td>
           <td>
             <input type="radio" class="with-gap" name="compVision" ng-model="skills.compVision" id="expert_cv" value="expert" required />
             <label for="expert_cv"></label>
@@ -334,7 +337,7 @@
           </td>
         </tr>
         <tr role="radiogroup" label="Algorithms">
-          <td class="leftlabel" label for="algorithms">Algorithms</td>
+          <td class="leftlabel" label for="algorithms"><span class="label label-danger" ng-show="submitted && takeSurveyForm.overallProgramming.$error.required">Required!</span>Algorithms<span class="required-asterisk" style="color: red"> *</span></td>
           <td>
             <input type="radio" class="with-gap" name="algorithms" ng-model="skills.algorithms" id="expert_al" value="expert" required />
             <label for="expert_al"></label>
@@ -353,7 +356,7 @@
           </td>
         </tr>
         <tr role="radiogroup" label="Machine Learning">
-          <td class="leftlabel" label for="machineLearning">Machine Learning</td>
+          <td class="leftlabel" label for="machineLearning">Machine Learning<span class="required-asterisk" style="color: red"> *</span></td>
           <td>
             <input type="radio" class="with-gap" name="machineLearning" ng-model="skills.machineLearning" id="expert_ml" value="expert" required />
             <label for="expert_ml"></label>
@@ -412,7 +415,8 @@
 
   <!-- Area where students can input their ip preferences -->
   <div class="form-group">
-    <label>IP Preference</label><br>
+    <span class="label label-danger" ng-show="submitted && takeSurveyForm.ipPref.$error.required">Required!</span>
+    <label>IP Preference<span class="required-asterisk" style="color: red"> *</span></label><br>
     <input type="radio" class="with-gap" name="ipPref" ng-model="ipPref" id="retain" value="retain" required />
     <label for="retain">Prefer to retain IP rights to my work</label><br>
     <input type="radio" class="with-gap" name="ipPref" ng-model="ipPref" id="depends" value="depends" required />
@@ -423,7 +427,8 @@
 
   <!-- Area where students can designate what level of leadership they want -->
   <div class="form-group">
-    <label>Leadership Role</label><br>
+    <span class="label label-danger" ng-show="submitted && takeSurveyForm.lead.$error.required">Required!</span>
+    <label>Leadership Role<span class="required-asterisk" style="color: red"> *</span></label><br>
     <input type="radio" class="with-gap" name="lead" ng-model="lead" id="strongFollow" value="strongFollow" required />
     <label for="strongFollow">Strongly prefer to be a follower rather than a leader</label><br>
     <input type="radio" class="with-gap" name="lead" ng-model="lead" id="preferFollow" value="preferFollow" required />
