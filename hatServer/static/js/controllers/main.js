@@ -38,7 +38,7 @@ sortingApp.controller('loginController', function($scope) {
 });
 
 
-sortingApp.controller('GoogleCtrl', function($route, $scope, userInformation) {
+sortingApp.controller('GoogleCtrl', function($route, $scope, $window, userInformation) {
 
   function onSignIn(googleUser) {
     
@@ -62,7 +62,8 @@ sortingApp.controller('GoogleCtrl', function($route, $scope, userInformation) {
     // console.log(userInformation.getIsLoggedIn());
 
     console.log("User Authenticated Successfully!");
-    // console.log(userInformation.getIsLoggedIn());
+    Materialize.toast('Logged In Successfully!', 5000) // 5000 is the duration of the toast
+    $window.location.href = '/#/dashboard';
 
 
   }
@@ -86,17 +87,27 @@ sortingApp.controller('dashboardController', function($scope, userInformation) {
 
 });
 
-sortingApp.controller('headerController', function($scope, userInformation, $sce) {
+sortingApp.controller('headerController', function($scope, userInformation, $window) {
+
+  // $scope.populateNavBar = function (){
+
+
+  //           // <li><a href="#dashboard"><i class="material-icons left">dashboard</i>Dashboard</a></li>
+  //           // <li><a href="#myprofile"><i class="material-icons left">person</i>My Profile</a></li>
+
+
+  // }
 
   $scope.isLoggedIn = function() {
     //Check for undefined or true
     console.log("headerController accessed!")
     if (userInformation.getIsLoggedIn() == false) {
       console.log("The navbar should be log in!" + userInformation.getIsLoggedIn())
-      return $scope.myText = '<a href="#login"><i class="material-icons left">lock</i>Login</a>';
+      return $scope.myText = '<li><a href="#about"><i class="material-icons left">info_outline</i>About</a></li><li><a href="#login"><i class="material-icons left">lock</i>Login</a></li>';
+
     } else{
       console.log("The Navbar should be log out!" + userInformation.getIsLoggedIn())
-      return $scope.myText = '<a href="" ng-click="signOut()"><i class="material-icons left">exit_to_app</i>Log Out</a>';
+      return $scope.myText = '<li><a href="#about"><i class="material-icons left">info_outline</i>About</a></li><li><a href="#dashboard"><i class="material-icons left">dashboard</i>Dashboard</a></li><li><a href="#myprofile"><i class="material-icons left">person</i>My Profile</a></li><li></li><li><a href="" ng-click="signOut()"><i class="material-icons left">exit_to_app</i>Log Out</a>';
     }
   }
 
@@ -106,12 +117,10 @@ sortingApp.controller('headerController', function($scope, userInformation, $sce
     userInformation.setIsLoggedIn(false);
     console.log("Setting Logged in to False")
     console.log('User signed out.');
+    Materialize.toast('Logged Out Successfully!', 5000) // 5000 is the duration of the toast
+    $window.location.href = '/#/';
+
   }
 
- 
-  // console.log(userInformation.isLoggedIn);
-  // $scope.isActive = function (viewLocation) { 
-  //     return viewLocation === $location.path();
-  // };
 
 });
