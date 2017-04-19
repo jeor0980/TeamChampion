@@ -3,14 +3,15 @@ sortingApp.controller('mainController', function($scope, userInformation) {
     // create a message to display in our view
     $scope.message = 'I AM YOUR FATHER!';
 
+    // if (userInformation.getIsLoggedIn() == false) {
+    //   console.log(userInformation.getIsLoggedIn())
+    //   return $scope.myText = '<a href="#login"><i class="material-icons left">lock</i>Login</a>';
+    // } else {
+    //   return $scope.myText = '<a href="#/" ng-click="signOut();"><i class="material-icons left">exit_to_app</i>Log Out</a>';
+    // }
+
     $scope.printt = function() {
       console.log('Tacos are the best!');
-  }
-
-    $scope.signOut = function signOut() {
-      var auth2 = userInformation.getAuthInstance();
-      auth2.signOut();
-      console.log('User signed out.');
   }
 
 
@@ -19,7 +20,7 @@ sortingApp.controller('mainController', function($scope, userInformation) {
 sortingApp.controller('profileController', function($scope, userInformation) {
     $scope.message = 'Look! I am an about page.';
     
-    $scope.fullName = userInformation.getFullName();
+    // $scope.fullName = userInformation.getFullName();
     $scope.givenName = userInformation.getGivenName();
     $scope.familyName = userInformation.getFamilyName();
     $scope.email = userInformation.getEmail();
@@ -36,32 +37,20 @@ sortingApp.controller('loginController', function($scope) {
 
 });
 
-sortingApp.controller('logOut', function($scope) {
 
-
-});
-
-sortingApp.controller('GoogleCtrl', function($scope, userInformation) {
+sortingApp.controller('GoogleCtrl', function($route, $scope, $window, userInformation) {
 
   function onSignIn(googleUser) {
     
     // Useful data for your client-side scripts:
     var profile = googleUser.getBasicProfile();
-    // console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-    // console.log('Full Name: ' + profile.getName());
-    // console.log('Given Name: ' + profile.getGivenName());
-    // console.log('Family Name: ' + profile.getFamilyName());
-    // console.log("Image URL: " + profile.getImageUrl());
-    // console.log("Email: " + profile.getEmail());
 
     // The ID token you need to pass to your backend:
     var id_token = googleUser.getAuthResponse().id_token;
-    // console.log("ID Token: " + id_token);
 
+    //This variable is passed to userService to for Google Authentication
     var authentication = gapi.auth2.getAuthInstance();
-
-
-    $scope.test = "This is from the google controller";
+    userInformation.setIsLoggedIn(true);
     userInformation.setId(profile.getId()); // Don't send this directly to your server!
     userInformation.setFullName(profile.getName());
     userInformation.setGivenName(profile.getGivenName());
@@ -70,20 +59,15 @@ sortingApp.controller('GoogleCtrl', function($scope, userInformation) {
     userInformation.setEmail(profile.getEmail());
     userInformation.setIdToken(id_token);
     userInformation.setAuthInstance(authentication);
+    // console.log(userInformation.getIsLoggedIn());
 
-    console.log("ID: " + userInformation.getId()); // Don't send this directly to your server!
-    console.log('Full Name: ' + userInformation.getFullName());
-    console.log('Given Name: ' + userInformation.getGivenName());
-    console.log('Family Name: ' + userInformation.getFamilyName());
-    console.log("Image URL: " + userInformation.getImageUrl());
-    console.log("Email: " + userInformation.getEmail()); 
-    console.log("Auth: " + userInformation.getAuthInstance());    
+    console.log("User Authenticated Successfully!");
+    Materialize.toast('Logged In Successfully!', 5000) // 5000 is the duration of the toast
+    $window.location.href = '/#/dashboard';
 
-    // $scope.both = userInformation.getFullName() + " " + $scope.test;
-
-    // console.log($scope.both);
 
   }
+
   window.onSignIn = onSignIn;
 
 
@@ -100,5 +84,43 @@ sortingApp.controller('dashboardController', function($scope, userInformation) {
     console.log('Family Name: ' + userInformation.getFamilyName());
     console.log("Image URL: " + userInformation.getImageUrl());
     console.log("Email: " + userInformation.getEmail());   
+
+});
+
+sortingApp.controller('headerController', function($scope, userInformation, $window) {
+
+  // $scope.populateNavBar = function (){
+
+
+  //           // <li><a href="#dashboard"><i class="material-icons left">dashboard</i>Dashboard</a></li>
+  //           // <li><a href="#myprofile"><i class="material-icons left">person</i>My Profile</a></li>
+
+
+  // }
+
+  $scope.isLoggedIn = function() {
+    //Check for undefined or true
+    console.log("headerController accessed!")
+    if (userInformation.getIsLoggedIn() == false) {
+      console.log("The navbar should be log in!" + userInformation.getIsLoggedIn())
+      return $scope.myText = '<li><a href="#about"><i class="material-icons left">info_outline</i>About</a></li><li><a href="#login"><i class="material-icons left">lock</i>Login</a></li>';
+
+    } else{
+      console.log("The Navbar should be log out!" + userInformation.getIsLoggedIn())
+      return $scope.myText = '<li><a href="#about"><i class="material-icons left">info_outline</i>About</a></li><li><a href="#dashboard"><i class="material-icons left">dashboard</i>Dashboard</a></li><li><a href="#myprofile"><i class="material-icons left">person</i>My Profile</a></li><li></li><li><a href="" ng-click="signOut()"><i class="material-icons left">exit_to_app</i>Log Out</a>';
+    }
+  }
+
+  $scope.signOut = function signOut() {
+    var auth2 = userInformation.getAuthInstance();
+    auth2.signOut();
+    userInformation.setIsLoggedIn(false);
+    console.log("Setting Logged in to False")
+    console.log('User signed out.');
+    Materialize.toast('Logged Out Successfully!', 5000) // 5000 is the duration of the toast
+    $window.location.href = '/#/';
+
+  }
+
 
 });

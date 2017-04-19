@@ -15,18 +15,21 @@
 
   </head>
 
-  <body ng-controller="mainController">
+  <body>
     <!-- Added Header Tag for Sticky Footer -->
     <header>
       <!-- Navigation Bar Code  -->
-      <nav role="navigation">
-        <div class="nav-wrapper container"><a id="logo-container" href="#/" class="brand-logo">Sorting Hat</a>
+      <nav role="navigation" ng-controller="headerController">
+        <div class="nav-wrapper container">
+
+          <a href="#/" class="brand-logo"><img src="../static/images/whitehatlogo.png">Sorting Hat</a>
+          
           <ul class="right hide-on-med-and-down">
-            <li><a href="#about"><i class="material-icons left">info_outline</i>About</a></li>
-            <li><a href="#dashboard"><i class="material-icons left">dashboard</i>Dashboard</a></li>
-            <li><a href="#myprofile"><i class="material-icons left">person</i>My Profile</a></li> 
-            <li><a href="#login"><i class="material-icons left">lock</i>Login</a></li>
-            <li><a href="#/" ng-click="signOut();"><i class="material-icons left">exit_to_app</i>Log Out</a></li>
+            <!-- <li><a href="#about"><i class="material-icons left">info_outline</i>About</a></li> -->
+            <div compile="isLoggedIn()"></div> 
+
+<!--             <li><a href="#login"><i class="material-icons left">lock</i>Login</a></li>
+            <li><a href="#/" ng-click="signOut()"><i class="material-icons left">exit_to_app</i>Log Out</a></li> -->
           </ul>
 
           <ul id="nav-mobile" class="side-nav">
@@ -45,17 +48,12 @@
     </header>
 
     <!-- Added Main Tag for Sticky Footer -->
-    <main>
-      <div class="container">
+    <main ng-controller="mainController">
         <!-- Main page content -->
 
         <!-- this is where content will be injected -->
          <div ng-view></div>
          
-
-
-      </div>
-
     </main>
 
     <footer class="page-footer">
@@ -81,6 +79,9 @@
     <!-- Needed AngularJS and Angular Route -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-sanitize.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
     
     <!-- Our own scripts for our application -->
     <script src="/static/js/app.js"></script>

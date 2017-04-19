@@ -1,29 +1,26 @@
 <!-- my_profile.html -->
 
-<container>
+<div class="container">
 	<div class = "row">
 
-		<div class="col s3">
+		<div class="col s12 m4 l3">
 
 			<h3>My Profile</h3> 
-			<img ng-src = "{{imageUrl}}" alt="Your Profile Picture" style="width:250px; height:250px"/>
+			<img class="circle responsive-img" ng-src="{{imageUrl}}" alt="Your Profile Picture"/>
 
 		</div>
 
-		<div class="col s9">
+		<div class="col s12 m8 l9">
 
 			<h3>Details:</h3>
-			<p>Full Name: {{fullName}}
+			<p>Full Name: {{userInformation.getFullName()}}
 			<p>Given Name: {{givenName}}</p>
 			<p>Family Name: {{familyName}}</p>
 			<p>Email: {{email}}</p>
-
-
-
 
 		</div>
 		
 	</div>
 
-</container>
+</div>
 
