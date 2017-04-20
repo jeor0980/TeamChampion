@@ -1,16 +1,16 @@
-'use strict';
+'use strict'; //interpreted as script mode
 
-// service to store profile information for a user
 sortingApp.service('userInformation', function () {
-    
-    var id = '';
-    var fullName = 'placeholderfullname';
-    var givenName = '';
-    var familyName = '';
-    var email = '';
-    var idToken = '';
-    var imageUrl = '';
-    var authenticationInstance = '';
+    var isLoggedIn = false;
+    var id = null;
+    var fullName = null;
+    var givenName = null;
+    var familyName = null;
+    var email = null;
+    var idToken = null;
+    var imageUrl = null;
+    var authenticationInstance = null;
+
 
   return {
 
@@ -67,19 +67,24 @@ sortingApp.service('userInformation', function () {
       setAuthInstance: function(value) {
           authenticationInstance = value;
       },
-  };
-});
+      getIsLoggedIn: function () {
+          return isLoggedIn;
+      },
+      setIsLoggedIn: function(value) {
+          isLoggedIn = value;
+      },
 
-sortingApp.service('surveyResults', function() {
-  var firstName = '';
-
-  return {
-    getFirstName : function() {
-      return firstName;
-    },
-
-    setFirstName : function(value) {
-      firstName = value;
-    }
+      destroy: function() {
+        isLoggedIn = false;
+        id = null;
+        fullName = null;
+        givenName = null;
+        familyName = null;
+        email = null;
+        idToken = null;
+        imageUrl = null;
+        authenticationInstance = null;
+        console.log("User data was destroyed");
+      },
   };
 });

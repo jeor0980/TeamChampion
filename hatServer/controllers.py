@@ -42,12 +42,9 @@ class Groups(Document):
 # but for now it just makes the login button not return 404
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        flash('Login requested for identikey="%s", remember_me=%s' %
-              (form.identikey.data, str(form.remember_me.data)))
-        return basic_pages()
-    return basic_pages()
+    print('loggin in')
+    return render_template('index.html')
+
 
 @app.route('/sort', methods=['GET'])
 def sort_students():

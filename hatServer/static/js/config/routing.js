@@ -24,7 +24,7 @@ sortingApp.config(function($routeProvider) {
         // route for the contact page
         .when('/dashboard', {
             templateUrl : 'static/partials/dashboard.html',
-            // controller  : 'dashboardController'
+            controller  : 'dashboardController'
         })
 
         // route for the profile page

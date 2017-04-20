@@ -1,3 +1,5 @@
+<div class="container">
+
 <h1>Create a New Survey</h1>
 
 <p>{{ message }}</p>
@@ -219,6 +221,7 @@
             <input type="radio" class="with-gap" name="mobileApp" ng-model="skills.mobileApp" id="none_ma" value="none" required />
             <label for="none_ma"></label>
           </td>
+        </tr>
         <tr role="radiogroup" label="User Interface Experience">
           <td class="leftlabel" label for="uiux">User Interface/User Experience</td>
           <td>
@@ -446,6 +449,8 @@
   <button type="submit" ng-click="sendSurvey(takeSurveyForm)" class="btn btn-default">Submit!</button>
   
 </form>
+
+</div>
 
 <!-- TODOS
   -- Turn this form into multiple pages
