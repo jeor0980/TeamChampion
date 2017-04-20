@@ -75,16 +75,16 @@ sortingApp.service('userInformation', function () {
       },
 
       destroy: function() {
-      var isLoggedIn = false;
-      var id = null;
-      var fullName = null;
-      var givenName = null;
-      var familyName = null;
-      var email = null;
-      var idToken = null;
-      var imageUrl = null;
-      var authenticationInstance = null;
-      console.log("Session was destroyed");
+        isLoggedIn = false;
+        id = null;
+        fullName = null;
+        givenName = null;
+        familyName = null;
+        email = null;
+        idToken = null;
+        imageUrl = null;
+        authenticationInstance = null;
+        console.log("User data was destroyed");
       },
   };
 });

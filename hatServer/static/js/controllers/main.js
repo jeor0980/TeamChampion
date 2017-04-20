@@ -3,13 +3,6 @@ sortingApp.controller('mainController', function($scope, userInformation) {
     // create a message to display in our view
     $scope.message = 'I AM YOUR FATHER!';
 
-    // if (userInformation.getIsLoggedIn() == false) {
-    //   console.log(userInformation.getIsLoggedIn())
-    //   return $scope.myText = '<a href="#login"><i class="material-icons left">lock</i>Login</a>';
-    // } else {
-    //   return $scope.myText = '<a href="#/" ng-click="signOut();"><i class="material-icons left">exit_to_app</i>Log Out</a>';
-    // }
-
     $scope.printt = function() {
       console.log('Tacos are the best!');
   }
@@ -26,14 +19,10 @@ sortingApp.controller('profileController', function($scope, userInformation) {
     $scope.email = userInformation.getEmail();
     $scope.imageUrl = userInformation.getImageUrl();
 
-});
-
-sortingApp.controller('contactController', function($scope) {
-    $scope.message = 'Contact us! JK. This is just a demo.';
-});
-
-sortingApp.controller('loginController', function($scope) {
-
+    console.log($scope.givenName);
+    console.log($scope.familyName);
+    console.log($scope.email);
+    console.log($scope.imageUrl);
 
 });
 
@@ -70,8 +59,6 @@ sortingApp.controller('GoogleCtrl', function($route, $scope, $window, userInform
 
   window.onSignIn = onSignIn;
 
-
-
 });
 
 
@@ -89,24 +76,15 @@ sortingApp.controller('dashboardController', function($scope, userInformation) {
 
 sortingApp.controller('headerController', function($scope, userInformation, $window) {
 
-  // $scope.populateNavBar = function (){
-
-
-  //           // <li><a href="#dashboard"><i class="material-icons left">dashboard</i>Dashboard</a></li>
-  //           // <li><a href="#myprofile"><i class="material-icons left">person</i>My Profile</a></li>
-
-
-  // }
-
   $scope.isLoggedIn = function() {
     //Check for undefined or true
-    console.log("headerController accessed!")
+    // console.log("headerController accessed!")
     if (userInformation.getIsLoggedIn() == false) {
-      console.log("The navbar should be log in!" + userInformation.getIsLoggedIn())
+      // console.log("The navbar should be log in!" + userInformation.getIsLoggedIn())
       return $scope.myText = '<li><a href="#about"><i class="material-icons left">info_outline</i>About</a></li><li><a href="#login"><i class="material-icons left">lock</i>Login</a></li>';
 
     } else{
-      console.log("The Navbar should be log out!" + userInformation.getIsLoggedIn())
+      // console.log("The Navbar should be log out!" + userInformation.getIsLoggedIn())
       return $scope.myText = '<li><a href="#about"><i class="material-icons left">info_outline</i>About</a></li><li><a href="#dashboard"><i class="material-icons left">dashboard</i>Dashboard</a></li><li><a href="#myprofile"><i class="material-icons left">person</i>My Profile</a></li><li></li><li><a href="" ng-click="signOut()"><i class="material-icons left">exit_to_app</i>Log Out</a>';
     }
   }
@@ -117,6 +95,7 @@ sortingApp.controller('headerController', function($scope, userInformation, $win
     userInformation.setIsLoggedIn(false);
     console.log("Setting Logged in to False")
     console.log('User signed out.');
+    userInformation.destroy();
     Materialize.toast('Logged Out Successfully!', 5000) // 5000 is the duration of the toast
     $window.location.href = '/#/';
 
