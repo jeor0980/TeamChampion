@@ -59,7 +59,7 @@
   <!-- Place to select the first most desired project -->
   <div class="form-group">
     <span class="label label-danger" ng-show="submitted && takeSurveyForm.firstChoice.$error.required">Required!</span>
-    <label for="firstChoice">First Choice Project<span class="required-asterisk" style="color: red"> *</span></label>
+    <label for="firstChoice">First Choice Project<span class="required-asterisk" style="color: red"> *</span><div class="secondary-text">Select your first preference of project.</div></label>
     <select name="firstChoice" ng-model="firstChoice" ng-options="item for item in projects" class="browser-default" required >
     </select>
   </div>
@@ -67,14 +67,14 @@
 <!-- TODO: allow instructor to choose if this comment is mandatory and toggle respectively -->
   <!-- Place to leave motivation for the first project selection -->
   <div class="form-group">
-    <label for="firstChoiceComment">Why do you want this project?</label>
+    <label for="firstChoiceComment">First Preference Motivation<div class="secondary-text">What about this project makes it of interest to you? Please share your primary motivator in choosing this project (e.g. "Interest in working with sponsor," "Web app development," "Opportunities to develop skill X," etc.).</div></label>
     <textarea name="firstChoiceComment" ng-model="firstChoiceComment"></textarea>
   </div><br>
 
   <!-- Place to select the second most desired project -->
   <div class="form-group">
     <span class="label label-danger" ng-show="submitted && takeSurveyForm.secondChoice.$error.required">Required!</span>
-    <label for="secondChoice">Second Choice Project<span class="required-asterisk" style="color: red"> *</span></label>
+    <label for="secondChoice">Second Choice Project<span class="required-asterisk" style="color: red"> *</span><div class="secondary-text">Select your first preference of project.</div></label>
     <select name="secondChoice" ng-model="secondChoice" ng-options="item for item in projects" class="browser-default" required >
     </select>
   </div>
@@ -82,14 +82,14 @@
 <!-- TODO: allow instructor to choose if this comment is mandatory and toggle respectively -->
   <!-- Place to leave motivation for the second project selection -->
   <div class="form-group">
-    <label for="secondChoiceComment">Why do you want this project?</label>
+    <label for="secondChoiceComment">Second Preference Motivation<div class="secondary-text">What about this project makes it of interest to you? Please share your primary motivator in choosing this project (e.g. "Interest in working with sponsor," "Web app development," "Opportunities to develop skill X," etc.).</div></label>
     <textarea name="secondChoiceComment" ng-model="secondChoiceComment"></textarea>
   </div><br>
 
   <!-- Place to select the third most desired project -->
   <div class="form-group">
     <span class="label label-danger" ng-show="submitted && takeSurveyForm.secondChoice.$error.required">Required!</span>
-    <label for="thirdChoice">Third Choice Project<span class="required-asterisk" style="color: red"> *</span></label>
+    <label for="thirdChoice">Third Choice Project<span class="required-asterisk" style="color: red"> *</span><div class="secondary-text">Select your first preference of project.</div></label>
     <select name="thirdChoice" ng-model="thirdChoice" ng-options="item for item in projects" class="browser-default" required >
     </select>
   </div>
@@ -97,7 +97,7 @@
 <!-- TODO: allow instructor to choose if this comment is mandatory and toggle respectively -->
   <!-- Place to leave motivation for the third project selection -->
   <div class="form-group">
-    <label for="thirdChoieComment">Why do you want this project?</label>
+    <label for="thirdChoieComment">Third Preference Motivation<div class="secondary-text">What about this project makes it of interest to you? Please share your primary motivator in choosing this project (e.g. "Interest in working with sponsor," "Web app development," "Opportunities to develop skill X," etc.).</div></label>
     <textarea name="thirdChoiceComment" ng-model="thirdChoiceComment"></textarea>
   </div><br>
 
@@ -379,8 +379,8 @@
   </div><br>
 
   <!-- Area where students can select which skills they'd like to improve upon -->
-<p>Pick what skills you'd most like to improve upon!</p>
   <div class="form-group">
+    <label>Skill Improvement<div class="secondary-text">What areas are you interested in learning or strengthening your skill set?</div></label>
     <input type="checkbox" name="java" ng-model="desired.java" id="java">
     <label for="java">Java</label><br>
     <input type="checkbox" name="python" ng-model="desired.python" id="python">
