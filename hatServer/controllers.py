@@ -1,7 +1,9 @@
+from flask_mongoengine import MongoEngine
+from mongoengine import *
 from flask import Flask, request, Response
 from flask import render_template, url_for, redirect, send_from_directory
 from flask import send_file, make_response, abort
-
+import json
 import os
 
 from hatServer import app
@@ -12,22 +14,29 @@ from hatServer.sortingHat import sortingHat as alg
 # This shouldn't be needed, should be handled in __init__.py
 # app.config['MONGODB_DB'] = 'flask_test'
 
-"""
-class Students(Document):
-    identikey = StringField(required=True, unique=True)
-    student_name = StringField(required=True)
-    first_pref = StringField(required=True)
-    second_pref = StringField(required=True)
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    print ("TYPICAL BITCH")
+    return render_template('index.html')
+
+@app.route('/takeSurvey', methods=['GET', 'POST'])
+def create_survey():
+    # get data from form object 
+    print("TAKE SURVEY HOMES")
+    data = json.loads(request.data.decode())
+
+    firstName = data["firstName"]
+    lastName = data["lastName"]
+    #email = data["email"]
+    comments = data["comments"]
+    print(firstName)
+    
+    return firstName
 
 class Groups(Document):
     group_name = StringField(required=True)
     members = ListField(ReferenceField(Students))
-"""
-
-@app.route('/')
-@app.route('/about')
-def basic_pages(**kwargs):
-    return make_response(open('hatServer/templates/index.html').read())
 
 # This function will change once Jesus' code is checked in,
 # but for now it just makes the login button not return 404
@@ -90,7 +99,9 @@ def add_group():
         results = "Group Collection Error"
         errors = "Failed to add group to Database"
         return render_template('index.html', errors=errors, results=results)
-@app.route('/', methods=['GET', 'POST'])
+
+
+#@app.route('/', methods=['GET', 'POST'])
 def index():
 #    Example:
     online_users = mongo.db.users.find({'online': True})
