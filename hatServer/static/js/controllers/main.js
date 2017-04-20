@@ -8,8 +8,14 @@ sortingApp.controller('mainController', function($scope, userInformation) {
   }
 });
 
-sortingApp.controller('profileController', function($scope, userInformation) {
+sortingApp.controller('profileController', function($scope, $window, userInformation) {
     $scope.message = 'Look! I am an about page.';
+
+    //Check if user is authenticated
+    if (userInformation.getIsLoggedIn() == false){
+      window.alert("You must be logged in to view this page.");
+      $window.location.href = '/';
+    }
     
     // $scope.fullName = userInformation.getFullName();
     $scope.givenName = userInformation.getGivenName();
@@ -111,7 +117,7 @@ sortingApp.controller('takeSurveyController', function($scope, $http, $timeout) 
     	})
     };
 
-// I don't know if this function is really necessary anymore....
+    // I don't know if this function is really necessary anymore....
     $scope.validateSurvey = function() {
         console.log('VALIDATING DAT SURVEY DO');
         var timeout = "";
@@ -172,7 +178,7 @@ sortingApp.controller('GoogleCtrl', function($route, $scope, $window, userInform
 
 });
 
-sortingApp.controller('dashboardController', function($scope, userInformation) {
+sortingApp.controller('dashboardController', function($scope, $window, userInformation) {
     $scope.message = 'This is the dashboard!';
     console.log($scope.message); 
     console.log("ID: " + userInformation.getId()); // Don't send this directly to your server!
@@ -180,7 +186,13 @@ sortingApp.controller('dashboardController', function($scope, userInformation) {
     console.log('Given Name: ' + userInformation.getGivenName());
     console.log('Family Name: ' + userInformation.getFamilyName());
     console.log("Image URL: " + userInformation.getImageUrl());
-    console.log("Email: " + userInformation.getEmail());   
+    console.log("Email: " + userInformation.getEmail());
+
+    //Check if user is authenticated
+    if (userInformation.getIsLoggedIn() == false){
+      window.alert("You must be logged in to view this page.");
+      $window.location.href = '/';
+    }   
 
 });
 
