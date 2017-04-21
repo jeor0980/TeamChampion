@@ -35,7 +35,10 @@ sortingApp.controller('loginController', function($scope) {
 });
 
 sortingApp.controller('takeSurveyController', function($scope, $http, $timeout, $window, surveyResults) {
-    $scope.message = 'Here students can take surveys!';
+    $scope.message1 = 'Survey to gather student preferences and abilities in support of forming teams for CU Boulder Senior Projects.';
+    $scope.message2 = 'The following are some questions about your skillset and experiences that will help us diversify team talents.';
+    $scope.message3 = 'And now the moment you have been waiting for. Please rank your top five project choices, and indicate your primary motivation for wanting to work on each project you rank. (Note that while the survey allows you to choose the same project for all five ranks, actually doing so will only make things more difficult for yourself and for us if we are not able to honor your top choice.';
+    $scope.title = '2017 Senior Projects Group Formation Survey';
     $scope.firstChoiceComments = "";
     $scope.secondChoiceComments = "";
     $scope.thirdChoiceComments = "";
@@ -77,7 +80,36 @@ sortingApp.controller('takeSurveyController', function($scope, $http, $timeout, 
 
     // TODO: change this from hard-coding to getting data from instructor form
     $scope.projects = ['Proj 1', 'Proj 2', 'Proj 3', 'Proj 4', 'Proj 5', 'Proj 6', 'Proj 7',
-                        'Proj 8', 'Proj 9', 'Proj 10'];
+        'Proj 8', 'Proj 9', 'Proj 10'];
+
+    $scope.sendSurveyPage1 = function (form) {
+        console.log('boutta redirect this bitch');
+
+        $scope.submitted = true;
+
+        if (form.$invalid) {
+            return;
+        } else {
+            $scope.submitted = false;
+            $scope.message2 = 'The following are some questions about your skillset and experiences that will help us diversify team talents.';
+            $window.location.href = '#/takeSurvey2';
+        }
+    }
+
+    $scope.sendSurveyPage2 = function (form) {
+        $scope.submitted = true;
+        console.log('send survey page 2');
+
+        if (form.$invalid) {
+            console.log('else');
+            return;
+        } else {
+            console.log('Going to page 3');
+            $scope.submitted = false;
+            $scope.message3 = 'And now the moment you have been waiting for. Please rank your top five project choices, and indicate your primary motivation for wanting to work on each project you rank. (Note that while the survey allows you to choose the same project for all five ranks, actually doing so will only make things more difficult for yourself and for us if we are not able to honor your top choice.';
+            $window.location.href = '#/takeSurvey3';
+        }
+    }
 
     $scope.sendSurvey = function(form) {
     	console.log("Getting results");
@@ -116,36 +148,12 @@ sortingApp.controller('takeSurveyController', function($scope, $http, $timeout, 
             $scope.submitted = false;
 
     		console.log('RESULTS');
-            $scope.validateSurvey();
     	}).error(function(err) {
     		console.log(err);
     	});
 
         $window.location.href = "#/surveySuccess";
     };
-
-// I don't know if this function is really necessary anymore....
-    $scope.validateSurvey = function() {
-        console.log('VALIDATING DAT SURVEY DO');
-        var timeout = "";
-
-        var poller = function() {
-            $http.get('/#/surveySuccess').success(function(data, status, headers, config) {
-                if (status === 202) {
-                    console.log(status);
-                } else if (status === 200) {
-                    console.log("yassssss");
-                    $timeout.cancel(timeout);
-                    return false;
-                }
-
-                timeout = $timeout(poller, 2000);
-            }).error(function(err) {
-                console.log(err);
-            });
-        };
-        poller();
-    }
 });
 
 sortingApp.controller('surveySuccessController', function($scope) {

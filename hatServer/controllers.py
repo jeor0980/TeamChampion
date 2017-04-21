@@ -20,7 +20,7 @@ def index():
     print ("TYPICAL BITCH")
     return render_template('index.html')
 
-@app.route('/takeSurvey', methods=['GET', 'POST'])
+@app.route('/takeSurvey3', methods=['GET', 'POST'])
 def create_survey():
     # get data from form object 
     print("TAKE SURVEY HOMES")
