@@ -112,7 +112,8 @@ sortingApp.controller('takeSurveyController', function($scope, $http, $timeout, 
     }
 
     $scope.sendSurvey = function(form) {
-    	console.log("Getting results");
+        console.log("Getting results");
+        console.log($scope.firstName);
 
         $scope.submitted = true;
 
@@ -120,6 +121,7 @@ sortingApp.controller('takeSurveyController', function($scope, $http, $timeout, 
             return;
         }
 
+        // turn data into a service so it persists across webpages
     	var data = {
     		'firstName' : $scope.firstName,
     		'lastName' : $scope.lastName,
@@ -144,7 +146,7 @@ sortingApp.controller('takeSurveyController', function($scope, $http, $timeout, 
     	};
 
     	// Fire the API request
-    	$http.post('/takeSurvey', data).success(function(results) {
+    	$http.post('/takeSurvey3', data).success(function(results) {
             $scope.submitted = false;
 
     		console.log('RESULTS');
