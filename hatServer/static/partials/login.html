@@ -1,85 +1,42 @@
 <!-- login.html -->
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta name="google-signin-scope" content="profile email">
-		<meta name="google-signin-client_id" content="675406248196-d9jaiq867t6e0lfdi47ps0r398imc2ce.apps.googleusercontent.com">
-	</head>
+    <div class="container">
 
-	<body>
+      <div class="row">
 
-  	<main>
-    	<center>
-    		<!-- class="indigo-text" -->
-    		<!--  -->
-    	<img src="../static/images/brownhatsmall.png" alt="Sorting Hat Logo" style="width:100px; height:100px">
-			<h5>Sign in to Sorting Hat</h5>
-			<p>Use your identiKey credentials to log in.</p>
+      <div class="col s3">
+      </div>
 
-		    <div class="container">
-		        <div class="z-depth-1 grey lighten-4 row">
+        <div class="col s6">
+          <center>
+          <div class="card-panel grey lighten-4">
 
-		         	<form class="col s12" method="post">
-			            <div class='row'>
-							<div class='col s12'>
-							</div>
-			            </div>
+            <img src="../static/images/brownhatsmall.png" alt="Sorting Hat Logo" style="width:100px; height:100px">
+            <h5>Sign in to Sorting Hat</h5>
+            <p>Use your identiKey credentials to log in.</p>
 
-			            <div class='row'>
-			            	<div class='input-field col s12'>
-				                <input class='validate' type='email' name='email' id='email' />
-				                <label for='email'>Enter your email</label>
-			              	</div>
-			            </div>
+            <form method="post" action="/dashboard">
 
-			            <div class='row'>
-				            <div class='input-field col s12'>
-				                <input class='validate' type='password' name='password' id='password' />
-				                <label for='password'>Enter your password</label>
-				            </div>
-			            </div>
+                  <div ng-controller="GoogleCtrl">
+                    <div class="g-signin2" data-onsuccess="onSignIn" data-width="300" data-height="50" data-longtitle="true" data-theme="dark" ></div>
+                  </div>
+
+            </form>
+
+          </div>
+          </center>
+        </div>
+
+        <div class="col s3">
+        </div>
+
+      </div>
+    </div>
 
 
-		            	<div class='row'>
-		            		<button type='submit' name='btn_login' class='col s12 btn btn-large waves-effect waves-light blue-grey darken-4'>Login</button>
-		              	</div>
+  </center>
 
-		             	<div class='row'>
-										<div class='col s12'>
-										</div>
-			            </div>
 
-			            <hr>
-
-			            <div class='row'>
-
-										<div class='col s12'>
-											or
-										</div>
-			            </div>
-
-			            <div class='row'>
-							<div class='col s12'>
-								<div ng-controller="GoogleCtrl">
-
-									<div class="g-signin2" data-onsuccess="onSignIn" data-width="300" data-height="50" data-longtitle="true" data-theme="dark">
-										
-									</div>
-								</div>
-							</div>
-			            </div>
-
-		          	</form>
-		        </div>
-		    </div>
-
-		    <!-- <a href="#" ng-click="logOut()">Sign out!</a> -->
-
-	    </center>
-
-		<!-- Google API -->
-		<script src="https://apis.google.com/js/platform.js" async defer></script>
-	</body>
-</html>
+<!-- Google API -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 
 
