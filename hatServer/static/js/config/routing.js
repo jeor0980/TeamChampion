@@ -44,10 +44,23 @@ sortingApp.config(function($routeProvider) {
             // controller  : 'loginController'
         })
 
-        // route for creating a new survey
+        // route for taking a new survey
         .when('/takeSurvey', {
         		title: 'Take Survey',
             templateUrl : 'static/partials/takeSurvey.html',
+            controller : 'takeSurveyController'
+        })
+
+        // route for the second page of the survey
+        .when('/takeSurvey2', {
+            templateUrl : 'static/partials/takeSurvey2.html',
+            controller : 'takeSurveyController'
+        })
+
+        // route for the third page of the survey 
+        // there should be a way to generically do this
+        .when('/takeSurvey3', {
+            templateUrl : 'static/partials/takeSurvey3.html',
             controller : 'takeSurveyController'
         })
 

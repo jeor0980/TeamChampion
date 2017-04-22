@@ -1,455 +1,71 @@
 <div class="container">
 
-<h1>Create a New Survey</h1>
+  <h1>{{ title }}</h1>
 
-<p>{{ message }}</p>
+  <p>{{ message1 }}</p>
 
-<form name="takeSurveyForm" novalidate role="form">
-  <!-- Place to input a first name --> 
-  <div class="form-group">
-    <!-- Use spans so it's consistent with select and actually shows warnings -->
-    <span class="label label-danger" ng-show="submitted && takeSurveyForm.firstName.$error.required">Required!</span>
-    <label for="firstName">First Name</label>
-    <input type="text" name="firstName" ng-model="firstName" class="form-control" required />
-  </div>
+  <form name="takeSurveyForm" novalidate role="form">
+    <!-- Place to input a first name --> 
+    <div class="form-group">
+      <!-- Use spans so it's consistent with select and actually shows warnings -->
+      <span class="label label-danger" ng-show="submitted && takeSurveyForm.firstName.$error.required">Required!</span>
+      <label for="firstName">First Name<span class="required-asterisk" style="color: red"> *</span></label><!--<h6>First Name</h6>-->
+      <input type="text" name="firstName" ng-model="firstName" class="form-control" required />
+    </div>
 
-  <!-- Place to input a last name -->
-  <div class="form-group">
-    <span class="label label-danger" ng-show="submitted && takeSurveyForm.lastName.$error.required">Required!</span>
-    <label for="lastName">Last Name</label>
-    <input type="text" name="lastName" ng-model="lastName" class="form-control" required />
-  </div>
+    <!-- Place to input a last name -->
+    <div class="form-group">
+      <span class="label label-danger" ng-show="submitted && takeSurveyForm.lastName.$error.required">Required!</span>
+      <label for="lastName">Last Name<span class="required-asterisk" style="color: red"> *</span></label>
+      <input type="text" name="lastName" ng-model="lastName" class="form-control" required />
+    </div>
 
-  <!-- Place to input a preferred name which the instructors should call you -->
-  <div class="form-group">
-    <label for="preferredName">Preferred Name</label>
-    <input type="text" name="preferredName" ng-model="preferredName" class="form-control" />
-  </div>
+    <!-- Place to input a preferred name which the instructors should call you -->
+    <div class="form-group">
+      <label for="preferredName">Preferred Name<div class="secondary-text">How would you like to be addressed, if different than your formal name?</div></label>
+      <!--<p>How would you like to be addressed, if different than your formal name?</p>-->
+      <input type="text" name="preferredName" ng-model="preferredName" class="form-control" />
+    </div>
 
-<!-- TODO: make ng-pattern for identikey toggle on and off -->
-  <!-- Place to input a properly formatted identikey -->
-  <div class="form-group">
-    <span class="label label-danger" ng-show="submitted && takeSurveyForm.identikey.$error.required">Required!</span>
-    <span class="label label-danger" ng-show="submitted">Invalid Identikey!</span>
-    <label for="identikey">Identikey</label>
-    <input type="text" name="identikey" ng-pattern="/^[a-z]{4}[0-9]{4}$/" ng-model="identikey" class="form-control" required />
-  </div>
-
-  <!-- Place to input overall GPA -->
-  <div class="form-group">
-    <span class="label label-danger" ng-show="submitted && takeSurveyForm.gpa.$error.required">Required!</span>
-    <label for="gpa">Overall GPA</label>
-    <input type=number name="gpa" ng-model="gpa" class="form-control" required />
-  </div>
-
-  <!-- Place to input computer science GPA -->
-  <div class="form-group">
-    <span class="label label-danger" ng-show="submitted && takeSurveyForm.csgpa.$error.required">Required!</span>
-    <label for="csgpa">Computer Science GPA</label>
-    <input type=number name="csgpa" ng-model="csgpa" class="form-control" required />
-  </div><br>
+  <!-- TODO: make ng-pattern for identikey toggle on and off -->
+    <!-- Place to input a properly formatted identikey -->
+    <div class="form-group">
+      <span class="label label-danger" ng-show="submitted && takeSurveyForm.identikey.$error.required">Required!</span>
+      <span class="label label-danger" ng-show="submitted">Invalid Identikey!</span>
+      <label for="identikey">Identikey<span class="required-asterisk" style="color: red"> *</span></label>
+      <input type="text" name="identikey" ng-pattern="/^[a-z]{4}[0-9]{4}$/" ng-model="identikey" class="form-control" required />
+    </div>
   
-  <!--<div class="form-group">
-    <span class="label label-danger" ng-show="submitted && takeSurveyForm.email.$error.required">Required!</span>
-    <span class="label label-danger" ng-show="submitted && takeSurveyForm.$error.email">Invalid Email!</span>
-    <label for="email">Email Address</label>
-    <input type="email" name="email" ng-model="email" class="form-control" required />
-  </div><br>-->
-
-<!-- TODO: Remove project options from list once you've selected one -->
-  <!-- Place to select the first most desired project -->
-  <div class="form-group">
-    <span class="label label-danger" ng-show="submitted && takeSurveyForm.firstChoice.$error.required">Required!</span>
-    <label for="firstChoice">First Choice Project</label>
-    <select name="firstChoice" ng-model="firstChoice" ng-options="item for item in projects" class="browser-default" required >
-    </select>
-  </div>
-
-<!-- TODO: allow instructor to choose if this comment is mandatory and toggle respectively -->
-  <!-- Place to leave motivation for the first project selection -->
-  <div class="form-group">
-    <label for="firstChoiceComment">Why do you want this project?</label>
-    <textarea name="firstChoiceComment" ng-model="firstChoiceComment"></textarea>
-  </div><br>
-
-  <!-- Place to select the second most desired project -->
-  <div class="form-group">
-    <span class="label label-danger" ng-show="submitted && takeSurveyForm.secondChoice.$error.required">Required!</span>
-    <label for="secondChoice">Second Choice Project</label>
-    <select name="secondChoice" ng-model="secondChoice" ng-options="item for item in projects" class="browser-default" required >
-    </select>
-  </div>
-
-<!-- TODO: allow instructor to choose if this comment is mandatory and toggle respectively -->
-  <!-- Place to leave motivation for the second project selection -->
-  <div class="form-group">
-    <label for="secondChoiceComment">Why do you want this project?</label>
-    <textarea name="secondChoiceComment" ng-model="secondChoiceComment"></textarea>
-  </div><br>
-
-  <!-- Place to select the third most desired project -->
-  <div class="form-group">
-    <span class="label label-danger" ng-show="submitted && takeSurveyForm.secondChoice.$error.required">Required!</span>
-    <label for="thirdChoice">Third Choice Project</label>
-    <select name="thirdChoice" ng-model="thirdChoice" ng-options="item for item in projects" class="browser-default" required >
-    </select>
-  </div>
-
-<!-- TODO: allow instructor to choose if this comment is mandatory and toggle respectively -->
-  <!-- Place to leave motivation for the third project selection -->
-  <div class="form-group">
-    <label for="thirdChoieComment">Why do you want this project?</label>
-    <textarea name="thirdChoiceComment" ng-model="thirdChoiceComment"></textarea>
-  </div><br>
-
-  <!-- Place to input requested partners -->
-  <div class="form-group">
-    <label for="requestedPartners">Are there students you'd like to work with?</label>
-    <input name="requestedPartners" ng-model="requestedPartners" ng-list />
-  </div>
-
-  <!-- Area to input partners one doesn't want to work with -->
-  <div class="form-group">
-    <label for="bannedPartners">Are there students you <i>cannot</i> work with?</label>
-    <input name="bannedPartners" ng-model="bannedPartners" ng-list />
-  </div><br>
-
-<!-- TODO: I think this chunk of code should eventually be partitioned out, but tbd -->
-<!-- TODO: make an error appear if required section is not filled in -->
-  <!-- Table where users select their ability at different skills -->
-  <div class="form-group">
-    <table>
-      <thead><tr>
-        <td></td>
-        <td>Expert</td>
-        <td>Good</td>
-        <td>Basic</td>
-        <td>None</td>
-      </tr></thead>
-      <tbody>
-        <tr role="radiogroup" label="Overall Programming">
-          <td class="leftlabel" label for="overallProgramming">Overall Programming</td>
-          <td>
-            <input type="radio" class="with-gap" name="overallProgramming" ng-model="skills.overallProgramming" id="expert_op" value="expert" required />
-            <label for="expert_op"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="overallProgramming" ng-model="skills.overallProgramming" id="good_op" value="good" required />
-            <label for="good_op"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="overallProgramming" ng-model="skills.overallProgramming" id="basic_op" value="basic" required />
-            <label for="basic_op"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="overallProgramming" ng-model="skills.overallProgramming" id="none_op" value="none" required />
-            <label for="none_op"></label>
-          </td>
-        </tr>
-        <tr role="radiogroup" label="Database Development">
-          <td class="leftlabel" label for="databaseDevelopment">Database Development</td>
-          <td>
-            <input type="radio" class="with-gap" name="databaseDevelopment" ng-model="skills.databaseDevelopment" id="expert_dd" value="expert" required />
-            <label for="expert_dd"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="databaseDevelopment" ng-model="skills.databaseDevelopment" id="good_dd" value="good" required />
-            <label for="good_dd"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="databaseDevelopment" ng-model="skills.databaseDevelopment" id="basic_dd" value="basic" required />
-            <label for="basic_dd"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="databaseDevelopment" ng-model="skills.databaseDevelopment" id="none_dd" value="none" required />
-            <label for="none_dd"></label>
-          </td>
-        </tr>
-        <tr role="radiogroup" label="Embedded Systems">
-          <td class="leftlabel" label for="embeddedSystems">Embedded Systems</td>
-          <td>
-            <input type="radio" class="with-gap" name="embeddedSystems" ng-model="skills.embeddedSystems" id="expert_es" value="expert" required />
-            <label for="expert_es"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="embeddedSystems" ng-model="skills.embeddedSystems" id="good_es" value="good" required />
-            <label for="good_es"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="embeddedSystems" ng-model="skills.embeddedSystems" id="basic_es" value="basic" required />
-            <label for="basic_es"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="embeddedSystems" ng-model="skills.embeddedSystems" id="none_es" value="none" required />
-            <label for="none_es"></label>
-          </td>
-        </tr>
-        <tr role="radiogroup" label="Web Applications">
-          <td class="leftlabel" label for="webApp">Web Applications</td>
-          <td>
-            <input type="radio" class="with-gap" name="webApp" ng-model="skills.webApp" id="expert_wa" value="expert" required />
-            <label for="expert_wa"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="webApp" ng-model="skills.webApp" id="good_wa" value="good" required />
-            <label for="good_wa"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="webApp" ng-model="skills.webApp" id="basic_wa" value="basic" required />
-            <label for="basic_wa"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="webApp" ng-model="skills.webApp" id="none_wa" value="none" required />
-            <label for="none_wa"></label>
-          </td>
-        </tr>
-        <tr role="radiogroup" label="Mobile Applications">
-          <td class="leftlabel" label for="mobileApp">Mobile Applications</td>
-          <td>
-            <input type="radio" class="with-gap" name="mobileApp" ng-model="skills.mobileApp" id="expert_ma" value="expert" required />
-            <label for="expert_ma"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="mobileApp" ng-model="skills.mobileApp" id="good_ma" value="good" required />
-            <label for="good_ma"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="mobileApp" ng-model="skills.mobileApp" id="basic_ma" value="basic" required />
-            <label for="basic_ma"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="mobileApp" ng-model="skills.mobileApp" id="none_ma" value="none" required />
-            <label for="none_ma"></label>
-          </td>
-        </tr>
-        <tr role="radiogroup" label="User Interface Experience">
-          <td class="leftlabel" label for="uiux">User Interface/User Experience</td>
-          <td>
-            <input type="radio" class="with-gap" name="uiux" ng-model="skills.uiux" id="expert_ui" value="expert" required />
-            <label for="expert_ui"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="uiux" ng-model="skills.uiux" id="good_ui" value="good" required />
-            <label for="good_ui"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="uiux" ng-model="skills.uiux" id="basic_ui" value="basic" required />
-            <label for="basic_ui"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="uiux" ng-model="skills.uiux" id="none_ui" value="none" required />
-            <label for="none_ui"></label>
-          </td>
-        </tr>
-        <tr role="radiogroup" label="Statistics">
-          <td class="leftlabel" label for="stats">Statistics</td>
-          <td>
-            <input type="radio" class="with-gap" name="stats" ng-model="skills.stats" id="expert_st" value="expert" required />
-            <label for="expert_st"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="stats" ng-model="skills.stats" id="good_st" value="good" required />
-            <label for="good_st"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="stats" ng-model="skills.stats" id="basic_st" value="basic" required />
-            <label for="basic_st"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="stats" ng-model="skills.stats" id="none_st" value="none" required />
-            <label for="none_st"></label>
-          </td>
-        </tr>
-        <tr role="radiogroup" label="Social Networking">
-          <td class="leftlabel" label for="socNetworking">(Social/Professional) Networking</td>
-          <td>
-            <input type="radio" class="with-gap" name="socNetworking" ng-model="skills.socNetworking" id="expert_sn" value="expert" required />
-            <label for="expert_sn"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="socNetworking" ng-model="skills.socNetworking" id="good_sn" value="good" required />
-            <label for="good_sn"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="socNetworking" ng-model="skills.socNetworking" id="basic_sn" value="basic" required />
-            <label for="basic_sn"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="socNetworking" ng-model="skills.socNetworking" id="none_sn" value="none" required />
-            <label for="none_sn"></label>
-          </td>
-        </tr>
-        <tr role="radiogroup" label="Security">
-          <td class="leftlabel" label for="security">Security</td>
-          <td>
-            <input type="radio" class="with-gap" name="security" ng-model="skills.security" id="expert_sc" value="expert" required />
-            <label for="expert_sc"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="security" ng-model="skills.security" id="good_sc" value="good" required />
-            <label for="good_sc"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="security" ng-model="skills.security" id="basic_sc" value="basic" required />
-            <label for="basic_sc"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="security" ng-model="skills.security" id="none_sc" value="none" required />
-            <label for="none_sc"></label>
-          </td>
-        </tr>
-        <tr role="radiogroup" label="Robotics">
-          <td class="leftlabel" label for="robotics">Robotics</td>
-          <td>
-            <input type="radio" class="with-gap" name="robotics" ng-model="skills.robotics" id="expert_rb" value="expert" required />
-            <label for="expert_rb"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="robotics" ng-model="skills.robotics" id="good_rb" value="good" required />
-            <label for="good_rb"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="robotics" ng-model="skills.robotics" id="basic_rb" value="basic" required />
-            <label for="basic_rb"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="robotics" ng-model="skills.robotics" id="none_rb" value="none" required />
-            <label for="none_rb"></label>
-          </td>
-        </tr>
-        <tr role="radiogroup" label="Computer Vision">
-          <td class="leftlabel" label for="compVision">Computer Vision</td>
-          <td>
-            <input type="radio" class="with-gap" name="compVision" ng-model="skills.compVision" id="expert_cv" value="expert" required />
-            <label for="expert_cv"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="compVision" ng-model="skills.compVision" id="good_cv" value="good" required />
-            <label for="good_cv"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="compVision" ng-model="skills.compVision" id="basic_cv" value="basic" required />
-            <label for="basic_cv"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="compVision" ng-model="skills.compVision" id="none_cv" value="none" required />
-            <label for="none_cv"></label>
-          </td>
-        </tr>
-        <tr role="radiogroup" label="Algorithms">
-          <td class="leftlabel" label for="algorithms">Algorithms</td>
-          <td>
-            <input type="radio" class="with-gap" name="algorithms" ng-model="skills.algorithms" id="expert_al" value="expert" required />
-            <label for="expert_al"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="algorithms" ng-model="skills.algorithms" id="good_al" value="good" required />
-            <label for="good_al"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="algorithms" ng-model="skills.algorithms" id="basic_al" value="basic" required />
-            <label for="basic_al"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="algorithms" ng-model="skills.algorithms" id="none_al" value="none" required />
-            <label for="none_al"></label>
-          </td>
-        </tr>
-        <tr role="radiogroup" label="Machine Learning">
-          <td class="leftlabel" label for="machineLearning">Machine Learning</td>
-          <td>
-            <input type="radio" class="with-gap" name="machineLearning" ng-model="skills.machineLearning" id="expert_ml" value="expert" required />
-            <label for="expert_ml"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="machineLearning" ng-model="skills.machineLearning" id="good_ml" value="good" required />
-            <label for="good_ml"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="machineLearning" ng-model="skills.machineLearning" id="basic_ml" value="basic" required />
-            <label for="basic_ml"></label>
-          </td>
-          <td>
-            <input type="radio" class="with-gap" name="machineLearning" ng-model="skills.machineLearning" id="none_ml" value="none" required />
-            <label for="none_ml"></label>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div><br>
-
-  <!-- Area where students can select which skills they'd like to improve upon -->
-<p>Pick what skills you'd most like to improve upon!</p>
-  <div class="form-group">
-    <input type="checkbox" name="java" ng-model="desired.java" id="java">
-    <label for="java">Java</label><br>
-    <input type="checkbox" name="python" ng-model="desired.python" id="python">
-    <label for="python">Python</label><br>
-    <input type="checkbox" name="php" ng-model="desired.php" id="php">
-    <label for="php">PHP</label><br>
-    <input type="checkbox" name="ccpp" ng-model="desired.ccpp" id="ccpp">
-    <label for="ccpp">C/C++</label><br>
-    <input type="checkbox" name="mobileAppDev" ng-model="desired.mobileAppDev" id="mobileAppDev">
-    <label for="mobileAppDev">Mobile App Development (Android/iOS)</label><br>
-    <input type="checkbox" name="webApplications" ng-model="desired.webApplications" id="webApplications">
-    <label for="webApplications">Web Applications</label><br>
-    <input type="checkbox" name="embeddedSys" ng-model="desired.embeddedSys" id="embeddedSys">
-    <label for="embeddedSys">Embedded Systems</label><br>
-    <input type="checkbox" name="database" ng-model="desired.database" id="database">
-    <label for="database">Database (MySQL, SQL, etc.)</label><br>
-    <input type="checkbox" name="userIE" ng-model="desired.userIE" id="userIE">
-    <label for="userIE">User Interface/Experience</label><br>
-    <input type="checkbox" name="statistics" ng-model="desired.statistics" id="statistics">
-    <label for="statistics">Statistics</label><br>
-    <input type="checkbox" name="networking" ng-model="desired.networking" id="networking">
-    <label for="networking">Networking</label><br>
-    <input type="checkbox" name="robots" ng-model="desired.robots" id="robots">
-    <label for="robots">Robotics</label><br>
-    <input type="checkbox" name="compVis" ng-model="desired.compVis" id="compVis">
-    <label for="compVis">Computer Vision</label><br>
-    <input type="checkbox" name="algos" ng-model="desired.algos" id="algos">
-    <label for="algos">Algorithms</label><br>
-    <input type="checkbox" name="ml" ng-model="ml" id="ml">
-    <label for="ml">Machine Learning</label><br>
-  </div><br>
-
-  <!-- Area where students can input their ip preferences -->
-  <div class="form-group">
-    <label>IP Preference</label><br>
-    <input type="radio" class="with-gap" name="ipPref" ng-model="ipPref" id="retain" value="retain" required />
-    <label for="retain">Prefer to retain IP rights to my work</label><br>
-    <input type="radio" class="with-gap" name="ipPref" ng-model="ipPref" id="depends" value="depends" required />
-    <label for="depends">Depends on the project</label><br>
-    <input type="radio" class="with-gap" name="ipPref" ng-model="ipPref" id="noIPPref" value="noIPPref" required />
-    <label for="noIPPref">I don't have a preference to retain IP rights to my work</label><br>
-  </div><br>
-
-  <!-- Area where students can designate what level of leadership they want -->
-  <div class="form-group">
-    <label>Leadership Role</label><br>
-    <input type="radio" class="with-gap" name="lead" ng-model="lead" id="strongFollow" value="strongFollow" required />
-    <label for="strongFollow">Strongly prefer to be a follower rather than a leader</label><br>
-    <input type="radio" class="with-gap" name="lead" ng-model="lead" id="preferFollow" value="preferFollow" required />
-    <label for="preferFollow">Prefer to be a follower, but will lead when necessary</label><br>
-    <input type="radio" class="with-gap" name="lead" ng-model="lead" id="equalLead" value="equalLead" required />
-    <label for="equalLead">Enjoy leading and following equally</label><br>
-    <input type="radio" class="with-gap" name="lead" ng-model="lead" id="preferLead" value="preferLead" required />
-    <label for="preferLead">Prefer to be a leader, but will follow when necessary</label><br>
-    <input type="radio" class="with-gap" name="lead" ng-model="lead" id="strongLead" value="strongLead" required />
-    <label for="strongLead">Strongly prefer to be the leader; do not enjoy being a follower</label>
-  </div><br>
-
-  <!-- Area for comments for the instructors -->
-  <div class="form-group">
-    <label for="comments">Comments for the instructors.</label>
-    <textarea name="comments" ng-model="comments"></textarea>
-  </div><br>
+    <!-- Place to input overall GPA -->
+    <div class="form-group">
+      <span class="label label-danger" ng-show="submitted && takeSurveyForm.gpa.$error.required">Required!</span>
+      <label for="gpa">Overall GPA<span class="required-asterisk" style="color: red"> *</span><div class="secondary-text">What is your current overall GPA?</div></label>
+      <input type=number name="gpa" ng-model="gpa" class="form-control" required />
+    </div>
   
-  <!-- TODO: Make page redirect upon form sumit -->
-  <button type="submit" ng-click="sendSurvey(takeSurveyForm)" class="btn btn-default">Submit!</button>
+    <!-- Place to input computer science GPA -->
+    <div class="form-group">
+      <span class="label label-danger" ng-show="submitted && takeSurveyForm.csgpa.$error.required">Required!</span>
+      <label for="csgpa">Computer Science GPA<span class="required-asterisk" style="color: red"> *</span><div class="secondary-text">What is your current GPA, only considering your Computer Science classes?</div></label>
+      <input type=number name="csgpa" ng-model="csgpa" class="form-control" required />
+    </div><br>
+    
+    <!--<div class="form-group">
+      <span class="label label-danger" ng-show="submitted && takeSurveyForm.email.$error.required">Required!</span>
+      <span class="label label-danger" ng-show="submitted && takeSurveyForm.$error.email">Invalid Email!</span>
+      <label for="email">Email Address</label>
+      <input type="email" name="email" ng-model="email" class="form-control" required />
+    </div><br>-->
   
-</form>
-
+    <!-- Area for comments for the instructors -->
+    <div class="form-group">
+      <label for="comments">Comments for the instructors.</label>
+      <textarea name="comments" ng-model="comments"></textarea>
+    </div><br>
+    
+    <button type="submit" ng-click="sendSurveyPage1(takeSurveyForm)" class="btn btn-default">Continue!</button>
+    
+  </form>
 </div>
 
 <!-- TODOS
