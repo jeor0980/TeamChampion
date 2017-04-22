@@ -21,6 +21,15 @@ Black Alternative: #212121;
 	font-size: inherit;
 }
 
+.secondary-text {
+  color: #9e9e9e;
+}
+
+label {
+    
+    color: black;
+}
+
 nav {
 
   background-color: #212121; 
@@ -54,3 +63,6 @@ footer.page-footer .footer-copyright {
   border: 1px solid #EEE;
 }
 
+.label-danger {
+  color: red;
+}
