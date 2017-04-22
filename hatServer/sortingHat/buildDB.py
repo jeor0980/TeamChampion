@@ -32,6 +32,19 @@ def parseStudent(data):
     student_to_add.save()
     return student_to_add
 
+def addWorkWith(data):
+    values = data.split(',')
+    student = Students.objects.get(identikey=values[2])
+    ids = values[11].split('.')
+    print("IDs: " + values[11])
+    for identikey in ids:
+        if identikey == '0':
+            break
+        print("\tSearching for identikey: " + identikey)
+        student_to_work_with = Students.objects.get(identikey=identikey)
+        student.update(add_to_set__work_with=student_to_work_with)
+    student.save()
+
 def parseGroups(data):
     values = data.split(',')
     group_to_add = Groups(group_name=values[0])
@@ -57,6 +70,8 @@ def buildDB(student_path, group_path):
         # TODO add proper mongoengine command here if this doesn't work
     for line in student_data.readData:
         s = parseStudent(line)
+    for line in student_data.readData:
+        s_with = addWorkWith(line)
 
 def main(args):
     register_connection('testDatabase')

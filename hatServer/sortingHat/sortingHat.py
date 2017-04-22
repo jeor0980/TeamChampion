@@ -60,9 +60,7 @@ def calcStudentPreference(known, learn, preference):
     assert (preference > 0)
     pref = 5 * 1/preference + LEARN_WEIGHT * learn + \
             KNOWN_WEIGHT * known
-    pref = pref/(1 + LEARN_WEIGHT + KNOWN_WEIGHT)
-    # return a value normalized between 0 and 1
-    return (pref - 1)/(8 - 1)
+    return pref
 
 ##! Use this to make list a group preferences for gale-shapley
 def calcGroupPreference(known, learn):
@@ -70,7 +68,7 @@ def calcGroupPreference(known, learn):
     assert (learn >= 0)
     pref = LEARN_WEIGHT * learn + KNOWN_WEIGHT * known
 #    pref = pref/(KNOWN_WEIGHT + LEARN_WEIGHT)
-    return pref/3 # group pref range is 0-3, so normalize between 0 and 1
+    return pref
 
 ##! This function registers students with each connected group and adds the
 ##! student to the group's preference list with the associated preference score
@@ -117,6 +115,33 @@ def unpopular(groups):
         if len(group.preferences) < MIN_SIZE:
             print(group.group_name + " is unpopular")
 
+def partnerUpBitches(student, group):
+    if len(student.work_with) > 0:
+        group.preferences[student] += GROUP_WEIGHT
+        for s in student.work_with:
+            if s in group.preferences:
+                ##! Here we modify the preference score for students
+                ##! who want to work with each other.
+                ##! TODO what's the best way to apply this change?
+                group.preferences[s] += GROUP_WEIGHT
+    return sorted(group.preferences,
+                  key=group.preferences.__getitem__,
+                  reverse=True)
+
+def nopeBitches(student, group):
+    if len(student.dont_work_with) > 0:
+        for s in student.dont_work_with:
+            if s in group.preferences:
+                group.preferences[s] -= GROUP_WEIGHT
+                ##! This value probably shouldn't go negative since
+                ##! it might do unexpected stuff later on, so if it's
+                ##! negative, just set it to zero
+                if group.preferences[s] < 0:
+                    group.preferences[s] = 0
+    return sorted(group.preferences,
+                  key=group.preferences.__getitem__,
+                  reverse=True)
+
 def swapThemBitches(shortGroup, firstPass, groups):
     print("Fixing " + shortGroup.group_name)
     for group in groups:
@@ -131,6 +156,8 @@ def swapThemBitches(shortGroup, firstPass, groups):
                     shortGroup.members.append(student)
                     if len(group.members) == OPT_SIZE:
                         break
+                if len(group.members) == 0:
+                    break
         elif not firstPass and len(group.members) > MIN_SIZE:
             #TODO add guard against overdrawing from group to below min_size
             for student in group.members:
@@ -164,6 +191,9 @@ def sortThemBitches(students, groups):
     while students_free:
         s = students_free.pop(0)
         s_list = student_prefers[s]
+        if s.identikey == '712':
+            for g in s_list:
+                print(g.group_name)
         g_ref = s_list.pop(0)
         g_name = g_ref.group_name
         index = 0
@@ -176,10 +206,18 @@ def sortThemBitches(students, groups):
         if not match:
             # group has no matches yet
             matched[g] = [s]
+            if s.identikey == '712':
+                print("712 Matched in new group: " + g.group_name)
+            group_prefers[g] = partnerUpBitches(s, g)
+            group_prefers[g] = nopeBitches(s, g)
 
-        elif len(match) < OPT_SIZE:
+        elif len(match) <= OPT_SIZE:
             #Open space in group
             matched[g].append(s)
+            if s.identikey == '712':
+                print("712 Matched in existing small group: " + g.group_name)
+            group_prefers[g] = partnerUpBitches(s, g)
+            group_prefers[g] = nopeBitches(s, g)
 
         else:
             g_list = group_prefers[g]
@@ -189,8 +227,12 @@ def sortThemBitches(students, groups):
                     #replace less preferred student with current student
                     matched[g].remove(m)
                     matched[g].append(s)
+                    if s.identikey == '712':
+                        print("712 Matched in " + g.group_name)
                     if len(student_prefers[m]) > 0:
                         students_free.append(m)
+                        if m.identikey == '712':
+                            print("712 replaced in " + g.group_name)
                     else:
                         #No op, but this will break things, so here's one
                         #solution, but:
@@ -198,6 +240,8 @@ def sortThemBitches(students, groups):
                         if len(match) < MAX_SIZE:
                             matched[g].append(m)
                     replaced = True
+                    group_prefers[g] = partnerUpBitches(s, g)
+                    group_prefers[g] = nopeBitches(s, g)
                     break
             if not replaced:
                 if s_list:
@@ -238,7 +282,7 @@ def dumbledore():
     for student in l_students:
         registerUser(student, l_groups)
     unpopular(l_groups)
-    sortThemBitches(l_students, l_groups)
+    matched = sortThemBitches(l_students, l_groups)
     for student in Students.objects:
         for l_student in l_students:
             if student.identikey == l_student.identikey:
@@ -259,6 +303,8 @@ def dumbledore():
         for student in value:
             print("\t{student.student_name}".format(student=student))
 #            student.save()
+
+    return matched
 """
 def dumbledore():
     students = Students.objects.all()

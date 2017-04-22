@@ -7,9 +7,8 @@ import os
 from hatServer import app
 
 from hatServer.models import Groups, Students
-from hatServer.sortingHat import sortingHat
-from sortingHat import dumbledore
-from buildDB import buildDB
+from hatServer.sortingHat.sortingHat import dumbledore
+from hatServer.sortingHat.buildDB import buildDB
 
 # This shouldn't be needed, should be handled in __init__.py
 # app.config['MONGODB_DB'] = 'flask_test'
