@@ -30,7 +30,22 @@ def create_survey():
     lastName = data["lastName"]
     #email = data["email"]
     comments = data["comments"]
-    print(firstName)
+    preferredName = data["preferredName"]
+    identikey = data["identikey"]
+    gpa = data["gpa"]
+    csgpa = data["csgpa"]
+    firstChoice = data["firstChoice"]
+    secondChoice = data["secondChoice"]
+    thirdChoice = data["thirdChoice"]
+    firstChoiceComment = data  ["firstChoiceComments"]
+    secondChoiceComment = data    ["secondChoiceComments"]
+    thirdChoiceComment = data  ["thirdChoiceComments"]
+    requestedPartners = data["requestedPartners"]
+    bannedPartners = data["bannedPartners"]
+    skills = data["skills"]
+    desired = data["desired"]
+    ipPref = data["ipPref"]
+    lead = data["lead"]
     
     return firstName
 

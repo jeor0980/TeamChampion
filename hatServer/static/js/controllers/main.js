@@ -37,49 +37,15 @@ sortingApp.controller('loginController', function($scope) {
 
 });
 
-sortingApp.controller('takeSurveyController', function($scope, $http, $timeout, $window, surveyResults) {
+sortingApp.controller('takeSurveyController', function($scope, $http, $window, surveyResults) {
     $scope.message1 = 'Survey to gather student preferences and abilities in support of forming teams for CU Boulder Senior Projects.';
     $scope.message2 = 'The following are some questions about your skillset and experiences that will help us diversify team talents.';
     $scope.message3 = 'And now the moment you have been waiting for. Please rank your top five project choices, and indicate your primary motivation for wanting to work on each project you rank. (Note that while the survey allows you to choose the same project for all five ranks, actually doing so will only make things more difficult for yourself and for us if we are not able to honor your top choice.';
     $scope.title = '2017 Senior Projects Group Formation Survey';
-    $scope.firstChoiceComments = "";
-    $scope.secondChoiceComments = "";
-    $scope.thirdChoiceComments = "";
+    $scope.firstChoiceComment = "";
+    $scope.secondChoiceComment = "";
+    $scope.thirdChoiceComment = "";
     $scope.comments = "";
-    $scope.requestedPartners = [];
-    $scope.bannedPartners = [];
-    $scope.skills = {
-        overallProgramming : '',
-        databaseDevelopment : '',
-        embeddedSystems : '',
-        webApp : '',
-        mobileApp : '',
-        uiux : '',
-        stats : '',
-        socNetworking : '',
-        security : '',
-        robotics : '',
-        compVision : '',
-        algorithms : '',
-        machineLearning : ''
-    };
-    $scope.desired = {
-        java : false,
-        python : false,
-        php : false,
-        ccpp : false,
-        mobilAppDev : false,
-        webApplications : false,
-        embeddedSys : false,
-        database : false,
-        userIE : false,
-        statistics : false,
-        networking : false,
-        robots : false,
-        compVis : false,
-        algos : false,
-        ml : false
-    }
 
     // TODO: change this from hard-coding to getting data from instructor form
     $scope.projects = ['Proj 1', 'Proj 2', 'Proj 3', 'Proj 4', 'Proj 5', 'Proj 6', 'Proj 7',
@@ -93,8 +59,15 @@ sortingApp.controller('takeSurveyController', function($scope, $http, $timeout, 
         if (form.$invalid) {
             return;
         } else {
+            surveyResults.setFirstName($scope.firstName);
+            surveyResults.setLastName($scope.lastName);
+            surveyResults.setPreferredName($scope.preferredName);
+            surveyResults.setIdentikey($scope.identikey);
+            surveyResults.setOverallGPA($scope.gpa);
+            surveyResults.setCsGPA($scope.csgpa);
+
             $scope.submitted = false;
-            $scope.message2 = 'The following are some questions about your skillset and experiences that will help us diversify team talents.';
+
             $window.location.href = '#/takeSurvey2';
         }
     }
@@ -107,16 +80,21 @@ sortingApp.controller('takeSurveyController', function($scope, $http, $timeout, 
             console.log('else');
             return;
         } else {
-            console.log('Going to page 3');
+            for (field in $scope.skills) {
+                surveyResults.setSkills($scope.skills[field], field);
+            }
+            for (field in $scope.desired) {
+                surveyResults.setDesired(field);
+            }
+
             $scope.submitted = false;
-            $scope.message3 = 'And now the moment you have been waiting for. Please rank your top five project choices, and indicate your primary motivation for wanting to work on each project you rank. (Note that while the survey allows you to choose the same project for all five ranks, actually doing so will only make things more difficult for yourself and for us if we are not able to honor your top choice.';
+
             $window.location.href = '#/takeSurvey3';
         }
     }
 
     $scope.sendSurvey = function(form) {
         console.log("Getting results");
-        console.log($scope.firstName);
 
         $scope.submitted = true;
 
@@ -124,27 +102,38 @@ sortingApp.controller('takeSurveyController', function($scope, $http, $timeout, 
             return;
         }
 
+        surveyResults.setFirstChoice($scope.firstChoice);
+        surveyResults.setFirstChoiceComment($scope.firstChoiceComment);
+        surveyResults.setSecondChoice($scope.secondChoice);
+        surveyResults.setSecondChoiceComment($scope.secondChoiceComment);
+        surveyResults.setThirdChoice($scope.thirdChoice);
+        surveyResults.setThirdChoiceComment($scope.thirdChoiceComment);
+        surveyResults.setPreferredPartners($scope.requestedPartners);
+        surveyResults.setBannedPartners($scope.bannedPartners);
+        surveyResults.setIpPreference($scope.ipPref);
+        surveyResults.setLeadershipRole($scope.lead);
+
         // turn data into a service so it persists across webpages
     	var data = {
-    		'firstName' : $scope.firstName,
-    		'lastName' : $scope.lastName,
-            'preferredName' : $scope.preferredName,
-            'identikey' : $scope.identikey,
-            'gpa' : $scope.gpa,
-            'csgpa' : $scope.csgpa,
+    		'firstName' : surveyResults.getFirstName(),
+    		'lastName' : surveyResults.getLastName(),
+            'preferredName' : surveyResults.getPreferredName(),
+            'identikey' : surveyResults.getIdentikey(),
+            'gpa' : surveyResults.getOverallGPA(),
+            'csgpa' : surveyResults.getCsGPA(),
     		//'email' : $scope.email,
-            'firstChoice' : $scope.firstChoice,
-            'secondChoice' : $scope.secondChoice,
-            'thirdChoice' : $scope.thirdChoice,
-            'firstChoiceComments' : $scope.firstChoiceComments,
-            'secondChoiceComments' : $scope.secondChoiceComments,
-            'thirdChoiceComments' : $scope.thirdChoiceComments,
-            'requestedPartners' : $scope.requestedPartners,
-            'bannedPartners' : $scope.bannedPartners,
-            'skills' : $scope.skills,
-            'desired' : $scope.desired,
-            'ipPref' : $scope.ipPref,
-            'lead' : $scope.lead,
+            'firstChoice' : surveyResults.getFirstChoice(),
+            'secondChoice' : surveyResults.getSecondChoice(),
+            'thirdChoice' : surveyResults.getThirdChoice(),
+            'firstChoiceComments' : surveyResults.getFirstChoiceComment(),
+            'secondChoiceComments' : surveyResults.getSecondChoiceComment(),
+            'thirdChoiceComments' : surveyResults.getThirdChoiceComment(),
+            'requestedPartners' : surveyResults.getPreferredPartners(),
+            'bannedPartners' : surveyResults.getBannedPartners(),
+            'skills' : surveyResults.getSkills(),
+            'desired' : surveyResults.getDesired(),
+            'ipPref' : surveyResults.getIpPreference(),
+            'lead' : surveyResults.getLeadershipRole(),
     		'comments' : $scope.comments
     	};
 

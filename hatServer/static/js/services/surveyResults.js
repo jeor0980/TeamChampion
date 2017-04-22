@@ -29,10 +29,10 @@ sortingApp.service('surveyResults', function () {
 
     // non-required fields
     var preferredName = null;
-    var desired = {};
+    var desired = [];
     var firstChoiceComment = null;
     var secondChoiceComment = null;
-    var ThirdChoiceComment = null;
+    var thirdChoiceComment = null;
     var preferredPartners = [];
     var bannedPartners = [];
 
@@ -68,7 +68,7 @@ sortingApp.service('surveyResults', function () {
         getCsGPA: function () {
             return csGPA;
         },
-        setCsGPA: function () {
+        setCsGPA: function (value) {
             csGPA = value;
         },
 
@@ -124,8 +124,8 @@ sortingApp.service('surveyResults', function () {
         getDesired: function () {
             return desired;
         },
-        setDesired: function (value, field) {
-            desired[field] = value;
+        setDesired: function (value) {
+            desired.push(value);
         },
 
         getFirstChoiceComment: function () {
