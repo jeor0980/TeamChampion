@@ -9,6 +9,7 @@ sortingApp.controller('mainController', function($scope, userInformation) {
 });
 
 sortingApp.controller('profileController', function($scope, $window, userInformation) {
+    // $scope.pageTitle = 'My Profile | Sorting Hat';
     $scope.message = 'Look! I am an about page.';
 
     //Check if user is authenticated
@@ -22,11 +23,6 @@ sortingApp.controller('profileController', function($scope, $window, userInforma
     $scope.familyName = userInformation.getFamilyName();
     $scope.email = userInformation.getEmail();
     $scope.imageUrl = userInformation.getImageUrl();
-
-    console.log($scope.givenName);
-    console.log($scope.familyName);
-    console.log($scope.email);
-    console.log($scope.imageUrl);
 });
 
 sortingApp.controller('takeSurveyController', function($scope, $http, $timeout) {
@@ -179,14 +175,6 @@ sortingApp.controller('GoogleCtrl', function($route, $scope, $window, userInform
 });
 
 sortingApp.controller('dashboardController', function($scope, $window, userInformation) {
-    $scope.message = 'This is the dashboard!';
-    console.log($scope.message); 
-    console.log("ID: " + userInformation.getId()); // Don't send this directly to your server!
-    console.log('Full Name: ' + userInformation.getFullName());
-    console.log('Given Name: ' + userInformation.getGivenName());
-    console.log('Family Name: ' + userInformation.getFamilyName());
-    console.log("Image URL: " + userInformation.getImageUrl());
-    console.log("Email: " + userInformation.getEmail());
 
     //Check if user is authenticated
     if (userInformation.getIsLoggedIn() == false){

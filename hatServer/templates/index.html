@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
     <link rel="icon" type="image/png" href="../static/images/cu_favicon.png"/>
-    <title>Sorting Hat</title>
+    <title ng-bind="title"></title>
 
     <!-- Materialize CSS  -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -28,15 +28,9 @@
             <div compile="isLoggedIn()"></div> 
           </ul>
 
+          <!-- Condensed Navbar Links-->
           <ul id="nav-mobile" class="side-nav">
-            <!-- Condensed Navbar Links Make sure to change these -->
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li><a href="#dashboard">Dashboard</a></li>
-            <li><a href="#myprofile">My Profile</a></li>   
-            <li><a href="#login">Login</a></li>
-            <!-- <li><a href="#/">Log out</a></li>   -->
-
+            <div compile="isLoggedIn()"></div> 
           </ul>
           <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
         </div>
@@ -81,10 +75,11 @@
     
     <!-- Our own scripts for our application -->
     <script src="/static/js/app.js"></script>
-    <script src="/static/js/directives/compile.js"></script>
-    <script src="/static/js/services/userInformation.js"></script>
     <script src="/static/js/config/routing.js"></script>
     <script src="/static/js/controllers/main.js"></script>
+    <script src="/static/js/directives/compile.js"></script>
+    <script src="/static/js/services/userInformation.js"></script>
+
 
     <!-- Google API -->
     <script src="https://apis.google.com/js/platform.js" async defer></script>
