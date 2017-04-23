@@ -1,7 +1,9 @@
+from flask_mongoengine import MongoEngine
+from mongoengine import *
 from flask import Flask, request, Response
 from flask import render_template, url_for, redirect, send_from_directory
 from flask import send_file, make_response, abort
-
+import json
 import os
 
 from hatServer import app
@@ -13,32 +15,51 @@ from hatServer.sortingHat.buildDB import buildDB
 # This shouldn't be needed, should be handled in __init__.py
 # app.config['MONGODB_DB'] = 'flask_test'
 
-"""
-class Students(Document):
-    identikey = StringField(required=True, unique=True)
-    student_name = StringField(required=True)
-    first_pref = StringField(required=True)
-    second_pref = StringField(required=True)
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    print ("TYPICAL BITCH")
+    return render_template('index.html')
+
+@app.route('/takeSurvey3', methods=['GET', 'POST'])
+def create_survey():
+    # get data from form object 
+    print("TAKE SURVEY HOMES")
+    data = json.loads(request.data.decode())
+
+    firstName = data["firstName"]
+    lastName = data["lastName"]
+    #email = data["email"]
+    comments = data["comments"]
+    preferredName = data["preferredName"]
+    identikey = data["identikey"]
+    gpa = data["gpa"]
+    csgpa = data["csgpa"]
+    firstChoice = data["firstChoice"]
+    secondChoice = data["secondChoice"]
+    thirdChoice = data["thirdChoice"]
+    firstChoiceComment = data  ["firstChoiceComments"]
+    secondChoiceComment = data    ["secondChoiceComments"]
+    thirdChoiceComment = data  ["thirdChoiceComments"]
+    requestedPartners = data["requestedPartners"]
+    bannedPartners = data["bannedPartners"]
+    skills = data["skills"]
+    desired = data["desired"]
+    ipPref = data["ipPref"]
+    lead = data["lead"]
+    
+    return firstName
 
 class Groups(Document):
     group_name = StringField(required=True)
     members = ListField(ReferenceField(Students))
-"""
-
-@app.route('/')
-@app.route('/about')
-def basic_pages(**kwargs):
-    return make_response(open('hatServer/templates/index.html').read())
 
 # This function will change once Jesus' code is checked in,
 # but for now it just makes the login button not return 404
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        flash('Login requested for identikey="%s", remember_me=%s' %
-              (form.identikey.data, str(form.remember_me.data)))
-    return basic_pages()
+    print('loggin in')
+    return render_template('index.html')
 
 @app.route('/sort', methods=['GET'])
 def sort_students():
@@ -93,7 +114,9 @@ def add_group():
         results = "Group Collection Error"
         errors = "Failed to add group to Database"
         return render_template('index.html', errors=errors, results=results)
-@app.route('/', methods=['GET', 'POST'])
+
+
+#@app.route('/', methods=['GET', 'POST'])
 def index():
 #    Example:
     online_users = mongo.db.users.find({'online': True})
