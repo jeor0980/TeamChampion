@@ -23,3 +23,5 @@ class Groups(Document):
     members = ListField(ReferenceField(Students))
     skills = ListField(StringField())
     preferences = DictField()
+    paid = BooleanField()
+    has_leader = BooleanField()

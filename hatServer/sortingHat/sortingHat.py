@@ -7,6 +7,7 @@ sys.path.append("../..")
 from hatServer.models import Groups, Students
 from hatServer.sortingHat.variables import *
 
+import numpy
 import random
 
 """
@@ -113,6 +114,8 @@ def trimGroups(students, groups):
 def unpopular(groups):
     for group in groups:
         if len(group.preferences) < MIN_SIZE:
+            if group.paid:
+                print("WARNING: Noone likes a paid group")
             print(group.group_name + " is unpopular")
 
 def partnerUpBitches(student, group):
@@ -191,9 +194,9 @@ def sortThemBitches(students, groups):
     while students_free:
         s = students_free.pop(0)
         s_list = student_prefers[s]
-        if s.identikey == '712':
-            for g in s_list:
-                print(g.group_name)
+        if len(s_list) < 1:
+            print(s.student_name + " is out of options")
+            return matched
         g_ref = s_list.pop(0)
         g_name = g_ref.group_name
         index = 0
@@ -206,18 +209,23 @@ def sortThemBitches(students, groups):
         if not match:
             # group has no matches yet
             matched[g] = [s]
-            if s.identikey == '712':
-                print("712 Matched in new group: " + g.group_name)
+            if s.leadership == "STRONG_LEAD":
+                g.has_leader = True
             group_prefers[g] = partnerUpBitches(s, g)
             group_prefers[g] = nopeBitches(s, g)
 
         elif len(match) <= OPT_SIZE:
             #Open space in group
-            matched[g].append(s)
-            if s.identikey == '712':
-                print("712 Matched in existing small group: " + g.group_name)
-            group_prefers[g] = partnerUpBitches(s, g)
-            group_prefers[g] = nopeBitches(s, g)
+                if g.has_leader and s.leadership == "STRONG_LEAD" and\
+                LEADERSHIP_MATTERS and len(s_list) > 1:
+                    print(s.student_name + "not allowed in" + g.group_name)
+                    students_free.append(s)
+                else:
+                    matched[g].append(s)
+                    if s.leadership == "STRONG_LEAD":
+                        g.has_leader = True
+                    group_prefers[g] = partnerUpBitches(s, g)
+                    group_prefers[g] = nopeBitches(s, g)
 
         else:
             g_list = group_prefers[g]
@@ -225,24 +233,27 @@ def sortThemBitches(students, groups):
             for m in match:
                 if g_list.index(m) > g_list.index(s):
                     #replace less preferred student with current student
-                    matched[g].remove(m)
-                    matched[g].append(s)
-                    if s.identikey == '712':
-                        print("712 Matched in " + g.group_name)
-                    if len(student_prefers[m]) > 0:
-                        students_free.append(m)
-                        if m.identikey == '712':
-                            print("712 replaced in " + g.group_name)
+                    if g.has_leader and s.leadership == "STRONG_LEAD" and\
+                    LEADERSHIP_MATTERS and len(s_list) > 1:
+                        print(s.student_name + "not allowed in" + g.group_name)
+                        continue
                     else:
-                        #No op, but this will break things, so here's one
-                        #solution, but:
-                        #TODO: make this work better
-                        if len(match) < MAX_SIZE:
-                            matched[g].append(m)
-                    replaced = True
-                    group_prefers[g] = partnerUpBitches(s, g)
-                    group_prefers[g] = nopeBitches(s, g)
-                    break
+                        matched[g].remove(m)
+                        matched[g].append(s)
+                        if s.leadership == "STRONG_LEAD":
+                            g.has_leader = True
+                        if len(student_prefers[m]) > 0:
+                            students_free.append(m)
+                        else:
+                            #No op, but this will break things, so here's one
+                            #solution, but:
+                            #TODO: make this work better
+                            if len(match) < MAX_SIZE:
+                                matched[g].append(m)
+                        replaced = True
+                        group_prefers[g] = partnerUpBitches(s, g)
+                        group_prefers[g] = nopeBitches(s, g)
+                        break
             if not replaced:
                 if s_list:
                     students_free.append(s)
@@ -251,7 +262,12 @@ def sortThemBitches(students, groups):
                         matched[g].append(s)
 
     for group in matched:
+        leader_present = False
         for student in matched[group]:
+            if student.leadership == "STRONG_LEAD" and not leader_present:
+                leader_present = True
+            elif student.leadership == "STRONG_LEAD" and leader_present:
+                print("WARNING: too many cooks in the kitchen")
             group.members.append(student)
     for group in matched:
         if len(group.members) < MIN_SIZE:
@@ -264,7 +280,20 @@ def sortThemBitches(students, groups):
         for student in group.members:
             student.group_assigned = group
 
+    for group in groups:
+        if group.paid and len(group.members) < MIN_SIZE:
+            print("MATCHING FAILED")
+
     return matched
+
+def averagePreference(matched):
+    prefs = []
+    for g in matched:
+        for s in matched[g]:
+            index = 5 - len(s.preferences)
+            prefs.append(index)
+    avg_pref = numpy.mean(prefs)
+    return avg_pref
 
 # This function is a controller, basically it abstracts all the stuff that
 # was in main. This way we can import this function when we want to call
@@ -296,14 +325,16 @@ def dumbledore():
                     group.update(add_to_set__members=student)
                 group.save
                 break
-    for group in l_groups:
-#        print(group._id)
-        value = group.members
-        print(group.group_name + ":")
-        for student in value:
-            print("\t{student.student_name}".format(student=student))
-#            student.save()
-
+    if matched:
+        for group in l_groups:
+#           print(group._id)
+            value = group.members
+            print(group.group_name + ":")
+            for student in value:
+                print("\t{student.student_name}".format(student=student))
+#               student.save()
+        avg_pref = averagePreference(matched)
+        print(avg_pref)
     return matched
 """
 def dumbledore():

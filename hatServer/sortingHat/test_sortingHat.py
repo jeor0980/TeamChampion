@@ -8,6 +8,7 @@ import tempfile
 from mongoengine import *
 from hatServer.models import Students, Groups
 import numpy
+from variables import *
 
 class SortingHatTest(unittest.TestCase):
 
@@ -43,17 +44,10 @@ class SortingHatTest(unittest.TestCase):
                     for se in s.dont_work_with:
                         self.assertTrue(se not in self.matched[g])
 
-    def testFriends(self):
-        studentsWithFriends = []
-        for g in self.matched:
-            for s in self.matched[g]:
-                if len(s.work_with) > 0:
-                    studentsWithFriends.append(s)
-
     def testGroupSize(self):
         for g in self.matched:
-            self.assertTrue(len(self.matched[g]) >= 4)
-            self.assertTrue(len(self.matched[g]) <= 6)
+            self.assertTrue(len(self.matched[g]) >= MIN_SIZE)
+            self.assertTrue(len(self.matched[g]) <= MAX_SIZE)
 
     def testAllStudents(self):
         count = 0
@@ -64,10 +58,7 @@ class SortingHatTest(unittest.TestCase):
             for s in self.matched[g]:
                 count += 1
                 ids.append(s.identikey)
-        diff = list(set(self.identikeys)-set(ids))
-        print(numpy.mean(groupSize))
-        print(diff)
-        self.assertEqual(count, 72)
+        self.assertEqual(count, STUDENT_COUNT)
 
     def testNoDuplicateStudents(self):
         students = []

@@ -25,7 +25,9 @@ def parseStudent(data):
     student_to_add.save()
     prefs = []
     for i in range(6, 11):
+#    for i in range(6, 9):
         g_name = values[i].rstrip('\n')
+        print(g_name)
         group_to_add = Groups.objects.get(group_name=g_name)
         student_to_add.update(add_to_set__preferences=group_to_add)
         #print(group_to_add.group_name)
@@ -49,6 +51,8 @@ def parseGroups(data):
     values = data.split(',')
     group_to_add = Groups(group_name=values[0])
     group_to_add.save()
+    paid = bool(int(values[1]))
+    group_to_add.update(paid=paid)
     skills = []
     for i in range(2, len(values)):
         group_to_add.update(add_to_set__skills=values[i])
