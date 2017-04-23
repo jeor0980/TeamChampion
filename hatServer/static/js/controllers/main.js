@@ -156,9 +156,9 @@ sortingApp.controller('surveySuccessController', function($scope) {
 
 sortingApp.controller('createSurveyController', function ($scope, $window, surveyQuestions) {
     $scope.submitted = false;
-    $scope.surveyDescription = surveyQuestions.getSurveyDescription();
+    $scope.mySurveyQuestions = surveyQuestions;
     $scope.desiredSkills = surveyQuestions.getDesiredSkills();
-    $scope.projects = []
+    $scope.projects = surveyQuestions.getProjects();
 
     console.log($scope.desiredSkills);
 
@@ -172,6 +172,7 @@ sortingApp.controller('createSurveyController', function ($scope, $window, surve
         }
 
         surveyQuestions.setSurveyName($scope.surveyName);
+        surveyQuestions.setSurveyDescription($scope.surveyDescription);
 
         $window.location.href = '#dashboard';
     }
