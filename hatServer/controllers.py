@@ -13,17 +13,44 @@ from hatServer.sortingHat.buildDB import buildDB
 # This shouldn't be needed, should be handled in __init__.py
 # app.config['MONGODB_DB'] = 'flask_test'
 
-"""
-class Students(Document):
-    identikey = StringField(required=True, unique=True)
-    student_name = StringField(required=True)
-    first_pref = StringField(required=True)
-    second_pref = StringField(required=True)
 
-class Groups(Document):
-    group_name = StringField(required=True)
-    members = ListField(ReferenceField(Students))
-"""
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    print ("TYPICAL BITCH")
+    return render_template('index.html')
+
+@app.route('/takeSurvey3', methods=['GET', 'POST'])
+def create_survey():
+    # get data from form object 
+    print("TAKE SURVEY HOMES")
+    data = json.loads(request.data.decode())
+
+    firstName = data["firstName"]
+    lastName = data["lastName"]
+    #email = data["email"]
+    comments = data["comments"]
+    preferredName = data["preferredName"]
+    identikey = data["identikey"]
+    gpa = data["gpa"]
+    csgpa = data["csgpa"]
+    firstChoice = data["firstChoice"]
+    secondChoice = data["secondChoice"]
+    thirdChoice = data["thirdChoice"]
+    fourthChoice = data["fourthChoice"]
+    fifthChoice = data["fifthChoice"]
+    firstChoiceComment = data["firstChoiceComments"]
+    secondChoiceComment = data["secondChoiceComments"]
+    thirdChoiceComment = data["thirdChoiceComments"]
+    fourthChoiceComment = data["fourthChoiceComments"]
+    fifthChoiceComment = data["fifthChoiceComments"]
+    requestedPartners = data["requestedPartners"]
+    bannedPartners = data["bannedPartners"]
+    skills = data["skills"]
+    desired = data["desired"]
+    ipPref = data["ipPref"]
+    lead = data["lead"]
+    
+    return firstName
 
 @app.route('/')
 @app.route('/about')
@@ -93,6 +120,7 @@ def add_group():
         results = "Group Collection Error"
         errors = "Failed to add group to Database"
         return render_template('index.html', errors=errors, results=results)
+"""
 @app.route('/', methods=['GET', 'POST'])
 def index():
 #    Example:
@@ -119,6 +147,6 @@ def index():
             )
         
     return render_template('index.html', errors=errors, results=results)
-
+"""
 if __name__ == '__main__':
     app.run()

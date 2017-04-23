@@ -1,0 +1,123 @@
+﻿<div class="container">
+  <h1>{{ title }}</h1>
+
+  <h2>Project Preferences</h2>
+  <p>{{ message3 }}</p>
+
+  <form name="takeSurveyForm" novalidate role="form">
+
+    <!-- TODO: Remove project options from list once you've selected one -->
+    <!-- Place to select the first most desired project -->
+    <div class="form-group">
+      <span class="label label-danger" ng-show="submitted && takeSurveyForm.firstChoice.$error.required">Required!</span>
+      <label for="firstChoice">First Choice Project<span class="required-asterisk" style="color: red"> *</span><div class="secondary-text">Select your first preference of project.</div></label>
+      <select name="firstChoice" ng-model="firstChoice" ng-options="item for item in projects" class="browser-default" required></select>
+    </div>
+
+    <!-- TODO: allow instructor to choose if this comment is mandatory and toggle respectively -->
+    <!-- Place to leave motivation for the first project selection -->
+    <div class="form-group">
+      <label for="firstChoiceComment">First Preference Motivation<div class="secondary-text">What about this project makes it of interest to you? Please share your primary motivator in choosing this project (e.g. "Interest in working with sponsor," "Web app development," "Opportunities to develop skill X," etc.).</div></label>
+      <textarea name="firstChoiceComment" ng-model="firstChoiceComment"></textarea>
+    </div><br>
+
+    <!-- Place to select the second most desired project -->
+    <div class="form-group">
+      <span class="label label-danger" ng-show="submitted && takeSurveyForm.secondChoice.$error.required">Required!</span>
+      <label for="secondChoice">Second Choice Project<span class="required-asterisk" style="color: red"> *</span><div class="secondary-text">Select your first preference of project.</div></label>
+      <select name="secondChoice" ng-model="secondChoice" ng-options="item for item in projects" class="browser-default" required></select>
+    </div>
+
+    <!-- TODO: allow instructor to choose if this comment is mandatory and toggle respectively -->
+    <!-- Place to leave motivation for the second project selection -->
+    <div class="form-group">
+      <label for="secondChoiceComment">Second Preference Motivation<div class="secondary-text">What about this project makes it of interest to you? Please share your primary motivator in choosing this project (e.g. "Interest in working with sponsor," "Web app development," "Opportunities to develop skill X," etc.).</div></label>
+      <textarea name="secondChoiceComment" ng-model="secondChoiceComment"></textarea>
+    </div><br>
+
+    <!-- Place to select the third most desired project -->
+    <div class="form-group">
+      <span class="label label-danger" ng-show="submitted && takeSurveyForm.thirdChoice.$error.required">Required!</span>
+      <label for="thirdChoice">Third Choice Project<span class="required-asterisk" style="color: red"> *</span><div class="secondary-text">Select your third preference of project.</div></label>
+      <select name="thirdChoice" ng-model="thirdChoice" ng-options="item for item in projects" class="browser-default" required></select>
+    </div>
+
+    <!-- TODO: allow instructor to choose if this comment is mandatory and toggle respectively -->
+    <!-- Place to leave motivation for the third project selection -->
+    <div class="form-group">
+      <label for="thirdChoieComment">Third Preference Motivation<div class="secondary-text">What about this project makes it of interest to you? Please share your primary motivator in choosing this project (e.g. "Interest in working with sponsor," "Web app development," "Opportunities to develop skill X," etc.).</div></label>
+      <textarea name="thirdChoiceComment" ng-model="thirdChoiceComment"></textarea>
+    </div><br>
+
+    <!-- Place to select the fourth most desired project -->
+    <div class="form-group">
+      <span class="label label-danger" ng-show="submitted && takeSurveyForm.fourthChoice.$error.required">Required!</span>
+      <label for="fourthChoice">Fourth Choice Project<span class="required-asterisk" style="color: red"> *</span><div class="secondary-text">Select your fourth preference of project.</div></label>
+      <select name="fourthChoice" ng-model="fourthChoice" ng-options="item for item in projects" class="browser-default" required></select>
+    </div>
+
+    <!-- Place to leave motivation for the fourth project selection -->
+    <div class="form-group">
+      <label for="fourthChoiceComment">Fourth Preference Motivation<div class="secondary-text">What about this project makes it of interest to you? Please share your primary motivator in choosing this project (e.g. "Interest in working with sponsor," "Web app development," "Opportunities to develop skill X," etc.).</div></label>
+      <textarea name="fourthChoiceComment" ng-model="fourthChoiceComment" class="materialize-textarea"></textarea>
+    </div><br>
+
+    <!-- Place to select the fifth most desired project -->
+    <div class="form-group">
+      <span class="label label-danger" ng-show="submitted && takeSurveyForm.fifthChoice.$error.required">Required!</span>
+      <label for="fifthChoice">Fifth Choice Project<span class="required-asterisk" style="color: red"> *</span><div class="secondary-text">Select your first preference of project.</div></label>
+      <select name="fifthChoice" ng-model="fifthChoice" ng-options="item for item in projects" class="browser-default" required></select>
+    </div>
+
+    <!-- Place to leave motivation for the fifth project selection -->
+    <div class="form-group">
+      <label for="fifthChoiceComment">Fifth Preference Motivation<div class="secondary-text">What about this project makes it of interest to you? Please share your primary motivator in choosing this project (e.g. "Interest in working with sponsor," "Web app development," "Opportunities to develop skill X," etc.).</div></label>
+      <textarea name="fifthChoiceComment" ng-model="fifthChoiceComment" class="materialize-textarea"></textarea>
+    </div><br>
+
+    <!-- Area where students can input their ip preferences -->
+    <div class="form-group">
+      <span class="label label-danger" ng-show="submitted && takeSurveyForm.ipPref.$error.required">Required!</span>
+      <label>IP Preference<span class="required-asterisk" style="color: red"> *</span><div class="secondary-text">Sponsor preference with respect to Intellectual Property rights has been posted on Moodle. Options range from the sponsors possibly requesting to retain all IP rights, to the students retaining IP rights.</div></label><br>
+      <input type="radio" class="with-gap" name="ipPref" ng-model="ipPref" id="retain" value="retain" required />
+      <label for="retain">Prefer to retain IP rights to my work</label><br>
+      <input type="radio" class="with-gap" name="ipPref" ng-model="ipPref" id="depends" value="depends" required />
+      <label for="depends">Depends on the project</label><br>
+      <input type="radio" class="with-gap" name="ipPref" ng-model="ipPref" id="noIPPref" value="noIPPref" required />
+      <label for="noIPPref">I don't have a preference to retain IP rights to my work</label><br>
+    </div><br>
+
+    <!-- Area where students can designate what level of leadership they want -->
+    <div class="form-group">
+      <span class="label label-danger" ng-show="submitted && takeSurveyForm.lead.$error.required">Required!</span>
+      <label>Leadership Role<span class="required-asterisk" style="color: red"> *</span><div class="secondary-text">What is your preferred leadership role?</div></label><br>
+      <input type="radio" class="with-gap" name="lead" ng-model="lead" id="strongFollow" value="strongFollow" required />
+      <label for="strongFollow">Strongly prefer to be a follower rather than a leader</label><br>
+      <input type="radio" class="with-gap" name="lead" ng-model="lead" id="preferFollow" value="preferFollow" required />
+      <label for="preferFollow">Prefer to be a follower, but will lead when necessary</label><br>
+      <input type="radio" class="with-gap" name="lead" ng-model="lead" id="equalLead" value="equalLead" required />
+      <label for="equalLead">Enjoy leading and following equally</label><br>
+      <input type="radio" class="with-gap" name="lead" ng-model="lead" id="preferLead" value="preferLead" required />
+      <label for="preferLead">Prefer to be a leader, but will follow when necessary</label><br>
+      <input type="radio" class="with-gap" name="lead" ng-model="lead" id="strongLead" value="strongLead" required />
+      <label for="strongLead">Strongly prefer to be the leader; do not enjoy being a follower</label>
+    </div><br>
+
+    <!-- Place to input requested partners -->
+    <div class="form-group">
+      <label for="requestedPartners">Prefer to work with<div class="secondary-text">Identify any individuals you would like to be on your team.</div></label>
+      <input name="requestedPartners" ng-model="requestedPartners" ng-list />
+    </div>
+
+    <!-- Area to input partners one doesn't want to work with -->
+    <div class="form-group">
+      <label for="bannedPartners">Prefer not to work with<div class="secondary-text">Identify any individuals you would not work well with.</div></label>
+      <input name="bannedPartners" ng-model="bannedPartners" ng-list />
+    </div><br>
+
+    <a href="#takeSurvey2" class="btn btn-default">Back</a>
+    <button type="submit" ng-click="sendSurvey(takeSurveyForm)" class="btn btn-default">Submit!</button>
+
+  </form>
+
+</div>
