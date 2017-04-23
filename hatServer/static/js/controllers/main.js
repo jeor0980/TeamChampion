@@ -1,32 +1,11 @@
 // create the controller and inject Angular's $scope
-sortingApp.controller('mainController', function($scope, userInformation) {
+sortingApp.controller('mainController', function($scope) {
     // create a message to display in our view
-    $scope.message = 'I AM YOUR FATHER!';
-
-    $scope.printt = function() {
-      console.log('Tacos are the best!');
-  }
+    $scope.message = 'Everyone come and see how good I look!';
 });
 
-sortingApp.controller('profileController', function($scope, $window, userInformation) {
+sortingApp.controller('aboutController', function($scope) {
     $scope.message = 'Look! I am an about page.';
-
-    //Check if user is authenticated
-    if (userInformation.getIsLoggedIn() == false){
-      window.alert("You must be logged in to view this page.");
-      $window.location.href = '/';
-    }
-    
-    // $scope.fullName = userInformation.getFullName();
-    $scope.givenName = userInformation.getGivenName();
-    $scope.familyName = userInformation.getFamilyName();
-    $scope.email = userInformation.getEmail();
-    $scope.imageUrl = userInformation.getImageUrl();
-
-    console.log($scope.givenName);
-    console.log($scope.familyName);
-    console.log($scope.email);
-    console.log($scope.imageUrl);
 });
 
 sortingApp.controller('contactController', function($scope) {
@@ -34,7 +13,7 @@ sortingApp.controller('contactController', function($scope) {
 });
 
 sortingApp.controller('loginController', function($scope) {
-
+    $scope.message = 'A login screen will go here!';
 });
 
 sortingApp.controller('takeSurveyController', function($scope, $http, $window, surveyResults) {

@@ -1,15 +1,14 @@
-from flask_mongoengine import MongoEngine
-from mongoengine import *
 from flask import Flask, request, Response
 from flask import render_template, url_for, redirect, send_from_directory
 from flask import send_file, make_response, abort
-import json
+
 import os
 
 from hatServer import app
 
 from hatServer.models import Groups, Students
-from hatServer.sortingHat import sortingHat as alg
+from hatServer.sortingHat.sortingHat import dumbledore
+from hatServer.sortingHat.buildDB import buildDB
 
 # This shouldn't be needed, should be handled in __init__.py
 # app.config['MONGODB_DB'] = 'flask_test'
@@ -53,22 +52,25 @@ def create_survey():
     
     return firstName
 
-class Groups(Document):
-    group_name = StringField(required=True)
-    members = ListField(ReferenceField(Students))
+@app.route('/')
+@app.route('/about')
+def basic_pages(**kwargs):
+    return make_response(open('hatServer/templates/index.html').read())
 
 # This function will change once Jesus' code is checked in,
 # but for now it just makes the login button not return 404
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    print('loggin in')
-    return render_template('index.html')
-
+    form = LoginForm()
+    if form.validate_on_submit():
+        flash('Login requested for identikey="%s", remember_me=%s' %
+              (form.identikey.data, str(form.remember_me.data)))
+    return basic_pages()
 
 @app.route('/sort', methods=['GET'])
 def sort_students():
-    alg.sortThemBitches()
-    return display_sorted_groups()
+    dumbledore()
+    return basic_pages() 
 
 @app.route('/display', methods=['GET'])
 def display_sorted_groups():
@@ -118,9 +120,8 @@ def add_group():
         results = "Group Collection Error"
         errors = "Failed to add group to Database"
         return render_template('index.html', errors=errors, results=results)
-
-
-#@app.route('/', methods=['GET', 'POST'])
+"""
+@app.route('/', methods=['GET', 'POST'])
 def index():
 #    Example:
     online_users = mongo.db.users.find({'online': True})
@@ -146,6 +147,6 @@ def index():
             )
         
     return render_template('index.html', errors=errors, results=results)
-
+"""
 if __name__ == '__main__':
     app.run()

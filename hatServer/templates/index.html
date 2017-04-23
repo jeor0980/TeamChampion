@@ -1,11 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" ng-app="sortingApp">
   <head>
-    <meta name="google-signin-scope" content="profile email">
-    <meta name="google-signin-client_id" content="675406248196-d9jaiq867t6e0lfdi47ps0r398imc2ce.apps.googleusercontent.com">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-    <link rel="icon" type="image/png" href="../static/images/cu_favicon.png"/>
+    <link rel="icon" type="image/png" href="static/images/cu_favicon.png"/>
     <title>Sorting Hat</title>
 
     <!-- Materialize CSS  -->
@@ -15,28 +13,23 @@
 
   </head>
 
-  <body>
+  <body ng-controller="mainController">
     <!-- Added Header Tag for Sticky Footer -->
     <header>
       <!-- Navigation Bar Code  -->
-      <nav role="navigation" ng-controller="headerController">
-        <div class="nav-wrapper container">
-
-          <a href="#/" class="brand-logo"><img src="../static/images/whitehatlogo.png">Sorting Hat</a>
-          
+      <nav role="navigation">
+        <div class="nav-wrapper container"><a id="logo-container" href="#/" class="brand-logo">Computer Science Sorting Hat</a>
           <ul class="right hide-on-med-and-down">
-            <div compile="isLoggedIn()"></div> 
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#login"><i class="material-icons left">input</i>Login</a></li>
           </ul>
 
           <ul id="nav-mobile" class="side-nav">
             <!-- Condensed Navbar Links Make sure to change these -->
             <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li><a href="#dashboard">Dashboard</a></li>
-            <li><a href="#myprofile">My Profile</a></li>   
-            <li><a href="#login">Login</a></li>
-            <!-- <li><a href="#/">Log out</a></li>   -->
-
+            <li><a href="#contact">Contact</a></li> 
+            <li><a href="#login">Login</a></li>  
           </ul>
           <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
         </div>
@@ -44,12 +37,15 @@
     </header>
 
     <!-- Added Main Tag for Sticky Footer -->
-    <main ng-controller="mainController">
+    <main>
+      <div class="container">
         <!-- Main page content -->
 
         <!-- this is where content will be injected -->
          <div ng-view></div>
-         
+
+      </div>
+
     </main>
 
     <footer class="page-footer">
@@ -66,28 +62,19 @@
     </footer>
 
     <!-- Scripts, loaded at the end as good practice -->
+    <!-- Needed AngularJS and Angular Route -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
+    
+    <!-- Our own scripts for our application -->
+    <script src="../static/js/app.js"></script>
+    <script src="../static/js/config/routing.js"></script>
+    <script src="../static/js/controllers/main.js"></script>
 
     <!-- Jquery and Materialize  -->
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="../static/js/materialize/materialize.min.js"></script>
     <script src="../static/js/init.js"></script>
 
-    <!-- Needed AngularJS and Angular Route -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-sanitize.min.js"></script>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
-    
-    <!-- Our own scripts for our application -->
-    <script src="/static/js/app.js"></script>
-    <script src="/static/js/directives/compile.js"></script>
-    <script src="/static/js/services/userInformation.js"></script>
-    <script src="/static/js/services/surveyResults.js"></script>
-    <script src="/static/js/config/routing.js"></script>
-    <script src="/static/js/controllers/main.js"></script>
-
-    <!-- Google API -->
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
   </body>
 </html>

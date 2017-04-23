@@ -10,24 +10,11 @@ CU Light Gray: #A2A4A3
 Black Alternative: #212121;
 */
 
-.container mainContent {
-  padding-top: 200px;
-}
-
 .icon-block {
   padding: 0 15px;
 }
 .icon-block .material-icons {
 	font-size: inherit;
-}
-
-.secondary-text {
-  color: #9e9e9e;
-}
-
-label {
-    
-    color: black;
 }
 
 nav {
@@ -39,12 +26,6 @@ nav ul li:hover {
    background-color: #CFB87C;
 }
 
-nav .nav-wrapper .brand-logo img {
-    height: 42px;
-    width: 42px;
-    vertical-align: middle;
-}
-
 
 footer.page-footer {
   /*padding-top: 20px;*/
@@ -53,16 +34,18 @@ footer.page-footer {
 
 
 footer.page-footer .footer-copyright {
+/*  overflow: hidden;
+  min-height: 50px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;*/
   padding: 0px 0px;
+
+  /*Text Color*/
+  /*color: white;*/
+
   background-color: #212121;
-}
-
-.z-depth-1 {
-  display: inline-block;
-  padding: 32px 48px 32px 48px;
-  border: 1px solid #EEE;
-}
-
-.label-danger {
-  color: red;
 }
