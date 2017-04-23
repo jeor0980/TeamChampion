@@ -8,12 +8,12 @@
       <div class="form-control">
         <span class="label label-danger" ng-show="submitted && createSurveyForm.surveyTitle.$error.required">Required!</span>
         <label for="surveyTitle">Survey Name<span class="required-asterisk" style="color: red"> *</span></label>
-        <input type="text" name="surveyTitle" ng-model="surveyTitle" class="form-control" ng-placeholder="mySurveyQuestions.getSurveyTitle()" required />
+        <input type="text" name="surveyTitle" ng-model="surveyTitle" class="form-control" required />
       </div>
 
       <div class="form-control">
         <label for="surveyDescription">Survey Description</label>
-        <textarea name="surveyDescription" ng-model="surveyDescription" class="materialize-textarea" ng-placeholder="mySurveyQuestions.getSurveyDescription()"></textarea>
+        <textarea name="surveyDescription" ng-model="surveyDescription" class="materialize-textarea" ng-placeholder="surveyDescription"></textarea>
       </div>
     </div>
 
@@ -23,13 +23,13 @@
       <div class="form-control">
         <div class="row">
           <div class="col s4">
-            <input type="checkbox" name="firstName" id="firstName" ng-model="firstName" ng-change="mySurveyQuestions.setFirstName('included', firstName)" ng-checked="mySurveyQuestions.getFirstName()['included']"/>
+            <input type="checkbox" name="firstName" id="firstName" checked="checked"/>
             <label for="firstName">Student First Name</label>
           </div>
           <div class="switch col s4">
             <label for="firstNameRequired">
               Optional
-              <input type="checkbox" name="firstNameRequired" id="firstNameRequired" ng-model="firstNameRequired" ng-change="mySurveyQuestions.setFirstName('required', firstNameRequired)" ng-checked="mySurveyQuestions.getFirstName()['required']" />
+              <input type="checkbox" name="firstNameRequired" id="firstNameRequired" value="true" checked />
               <span class="lever"></span>
               Required
             </label>
@@ -678,6 +678,3 @@
   </form>
 
 </div>
-
-<!-- TODO 
-  - Disable fields if the box is not selected-->
