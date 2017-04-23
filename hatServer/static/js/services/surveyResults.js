@@ -24,15 +24,20 @@ sortingApp.service('surveyResults', function () {
     var firstChoice = null;
     var secondChoice = null;
     var thirdChoice = null;
+    var fourthChoice = null;
+    var fifthChoice = null;
     var ipPreference = null;
     var leadershipRole = null;
+    var finalSkills = [];
 
     // non-required fields
-    var preferredName = null;
+    var preferredName = "";
     var desired = [];
-    var firstChoiceComment = null;
-    var secondChoiceComment = null;
-    var thirdChoiceComment = null;
+    var firstChoiceComment = "";
+    var secondChoiceComment = "";
+    var thirdChoiceComment = "";
+    var fourthChoiceComment = "";
+    var fifthChoiceComment = "";
     var preferredPartners = [];
     var bannedPartners = [];
 
@@ -100,6 +105,20 @@ sortingApp.service('surveyResults', function () {
             thirdChoice = value;
         },
 
+        getFourthChoice: function () {
+            return fourthChoice;
+        },
+        setFourthChoice: function (value) {
+            fourthChoice = value;
+        },
+
+        getFifthChoice: function () {
+            return fifthChoice;
+        },
+        setFifthChoice: function (value) {
+            fifthChoice = value;
+        },
+
         getIpPreference: function () {
             return ipPreference;
         },
@@ -149,6 +168,20 @@ sortingApp.service('surveyResults', function () {
             thirdChoiceComment = value;
         },
 
+        getFourthChoiceComment: function () {
+            return fourthChoiceComment;
+        },
+        setFourthChoiceComment: function (value) {
+            fourthChoiceComment = value;
+        },
+
+        getFifthChoiceComment: function () {
+            return fifthChoiceComment;
+        },
+        setFifthChoiceComment: function (value) {
+            fifthChoiceComment = value;
+        },
+
         getPreferredPartners: function () {
             return preferredPartners;
         },
@@ -161,6 +194,13 @@ sortingApp.service('surveyResults', function () {
         },
         setBannedPartners: function (value) {
             bannedPartners = value;
+        },
+
+        getFinalSkills: function () {
+            return finalSkills;
+        },
+        setFinalSkills: function (value) {
+            finalSkills.push(value);
         }
     };
 });
