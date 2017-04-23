@@ -82,6 +82,10 @@ sortingApp.controller('takeSurveyController', function($scope, $http, $window, s
         } else {
             for (field in $scope.skills) {
                 surveyResults.setSkills($scope.skills[field], field);
+                if ($scope.skills[field] === 'expert' || $scope.skills[field] === 'good') {
+                    console.log(field)
+                    surveyResults.setFinalSkills(field);
+                }
             }
             for (field in $scope.desired) {
                 surveyResults.setDesired(field);
@@ -95,6 +99,7 @@ sortingApp.controller('takeSurveyController', function($scope, $http, $window, s
 
     $scope.sendSurvey = function(form) {
         console.log("Getting results");
+        console.log($scope.finalSkills);
 
         $scope.submitted = true;
 
@@ -108,6 +113,10 @@ sortingApp.controller('takeSurveyController', function($scope, $http, $window, s
         surveyResults.setSecondChoiceComment($scope.secondChoiceComment);
         surveyResults.setThirdChoice($scope.thirdChoice);
         surveyResults.setThirdChoiceComment($scope.thirdChoiceComment);
+        surveyResults.setFourthChoice($scope.fourthChoice);
+        surveyResults.setFourthChoiceComment($scope.fourthChoiceComment);
+        surveyResults.setFifthChoice($scope.fifthChoice);
+        surveyResults.setFifthChoiceComment($scope.fifthChoiceComment);
         surveyResults.setPreferredPartners($scope.requestedPartners);
         surveyResults.setBannedPartners($scope.bannedPartners);
         surveyResults.setIpPreference($scope.ipPref);
@@ -124,13 +133,18 @@ sortingApp.controller('takeSurveyController', function($scope, $http, $window, s
     		//'email' : $scope.email,
             'firstChoice' : surveyResults.getFirstChoice(),
             'secondChoice' : surveyResults.getSecondChoice(),
-            'thirdChoice' : surveyResults.getThirdChoice(),
+            'thirdChoice': surveyResults.getThirdChoice(),
+            'fourthChoice': surveyResults.getFourthChoice(),
+            'fifthChoice' : surveyResults.getFifthChoice(),
             'firstChoiceComments' : surveyResults.getFirstChoiceComment(),
             'secondChoiceComments' : surveyResults.getSecondChoiceComment(),
-            'thirdChoiceComments' : surveyResults.getThirdChoiceComment(),
+            'thirdChoiceComments': surveyResults.getThirdChoiceComment(),
+            'fourthChoiceComments': surveyResults.getFourthChoiceComment(),
+            'fifthChoiceComments' : surveyResults.getFifthChoiceComment(),
             'requestedPartners' : surveyResults.getPreferredPartners(),
-            'bannedPartners' : surveyResults.getBannedPartners(),
-            'skills' : surveyResults.getSkills(),
+            'bannedPartners': surveyResults.getBannedPartners(),
+            'skills': surveyResults.getFinalSkills(),
+            //'skills' : surveyResults.getSkills(),
             'desired' : surveyResults.getDesired(),
             'ipPref' : surveyResults.getIpPreference(),
             'lead' : surveyResults.getLeadershipRole(),

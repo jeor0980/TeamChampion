@@ -37,8 +37,8 @@
 
     <!-- Place to select the third most desired project -->
     <div class="form-group">
-      <span class="label label-danger" ng-show="submitted && takeSurveyForm.secondChoice.$error.required">Required!</span>
-      <label for="thirdChoice">Third Choice Project<span class="required-asterisk" style="color: red"> *</span><div class="secondary-text">Select your first preference of project.</div></label>
+      <span class="label label-danger" ng-show="submitted && takeSurveyForm.thirdChoice.$error.required">Required!</span>
+      <label for="thirdChoice">Third Choice Project<span class="required-asterisk" style="color: red"> *</span><div class="secondary-text">Select your third preference of project.</div></label>
       <select name="thirdChoice" ng-model="thirdChoice" ng-options="item for item in projects" class="browser-default" required></select>
     </div>
 
@@ -47,6 +47,32 @@
     <div class="form-group">
       <label for="thirdChoieComment">Third Preference Motivation<div class="secondary-text">What about this project makes it of interest to you? Please share your primary motivator in choosing this project (e.g. "Interest in working with sponsor," "Web app development," "Opportunities to develop skill X," etc.).</div></label>
       <textarea name="thirdChoiceComment" ng-model="thirdChoiceComment" class="materialize-textarea"></textarea>
+    </div><br>
+
+    <!-- Place to select the fourth most desired project -->
+    <div class="form-group">
+      <span class="label label-danger" ng-show="submitted && takeSurveyForm.fourthChoice.$error.required">Required!</span>
+      <label for="fourthChoice">Fourth Choice Project<span class="required-asterisk" style="color: red"> *</span><div class="secondary-text">Select your fourth preference of project.</div></label>
+      <select name="fourthChoice" ng-model="fourthChoice" ng-options="item for item in projects" class="browser-default" required></select>
+    </div>
+
+    <!-- Place to leave motivation for the fourth project selection -->
+    <div class="form-group">
+      <label for="fourthChoiceComment">Fourth Preference Motivation<div class="secondary-text">What about this project makes it of interest to you? Please share your primary motivator in choosing this project (e.g. "Interest in working with sponsor," "Web app development," "Opportunities to develop skill X," etc.).</div></label>
+      <textarea name="fourthChoiceComment" ng-model="fourthChoiceComment" class="materialize-textarea"></textarea>
+    </div><br>
+
+    <!-- Place to select the fifth most desired project -->
+    <div class="form-group">
+      <span class="label label-danger" ng-show="submitted && takeSurveyForm.fifthChoice.$error.required">Required!</span>
+      <label for="fifthChoice">Fifth Choice Project<span class="required-asterisk" style="color: red"> *</span><div class="secondary-text">Select your first preference of project.</div></label>
+      <select name="fifthChoice" ng-model="fifthChoice" ng-options="item for item in projects" class="browser-default" required></select>
+    </div>
+
+    <!-- Place to leave motivation for the fifth project selection -->
+    <div class="form-group">
+      <label for="fifthChoiceComment">Fifth Preference Motivation<div class="secondary-text">What about this project makes it of interest to you? Please share your primary motivator in choosing this project (e.g. "Interest in working with sponsor," "Web app development," "Opportunities to develop skill X," etc.).</div></label>
+      <textarea name="fifthChoiceComment" ng-model="fifthChoiceComment" class="materialize-textarea"></textarea>
     </div><br>
 
     <!-- Area where students can input their ip preferences -->
