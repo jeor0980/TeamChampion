@@ -172,7 +172,6 @@ sortingApp.controller('createSurveyController', function ($scope, $window, surve
     $scope.submitted = false;
     $scope.surveyDescription = surveyQuestions.getSurveyDescription();
     $scope.desiredSkills = surveyQuestions.getDesiredSkills();
-    $scope.projects = []
 
     console.log($scope.desiredSkills);
 
