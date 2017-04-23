@@ -154,6 +154,28 @@ sortingApp.controller('surveySuccessController', function($scope) {
     $scope.message = 'Congratulations! Your results have been submitted!';
 });
 
+sortingApp.controller('createSurveyController', function ($scope, $window, surveyQuestions) {
+    $scope.submitted = false;
+    $scope.surveyDescription = surveyQuestions.getSurveyDescription();
+    $scope.desiredSkills = surveyQuestions.getDesiredSkills();
+
+    console.log($scope.desiredSkills);
+
+    $scope.createSurvey = function (form) {
+        console.log('creating dat survey do');
+
+        $scope.submitted = true;
+
+        if (form.$invalid) {
+            return;
+        }
+
+        surveyQuestions.setSurveyName($scope.surveyName);
+
+        $window.location.href = '#dashboard';
+    }
+});
+
 sortingApp.controller('GoogleCtrl', function($route, $scope, $window, userInformation) {
 
   function onSignIn(googleUser) {

@@ -4,5 +4,4 @@
 // also include ngRoute for all our routing needs
 
 //var sortingApp = angular.module('sortingApp', ['ngRoute', 'ngSanitize']);
-var sortingApp = angular.module('sortingApp', ['ngRoute']);
-
+var sortingApp = angular.module('sortingApp', ['ngRoute', 'ngMaterial']);

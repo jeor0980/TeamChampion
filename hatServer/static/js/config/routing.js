@@ -62,6 +62,12 @@ sortingApp.config(function($routeProvider) {
         .when('/surveySuccess', {
             templateUrl : 'static/partials/surveySuccess.html',
             controller : 'surveySuccessController'
+        })
+
+        // route for when instructor wants to create a survey
+        .when('/createSurvey', {
+            templateUrl: 'static/partials/createSurvey.html',
+            controller : 'createSurveyController'
         });
 
 });

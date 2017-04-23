@@ -1,5 +1,395 @@
 <div class="container">
-	<h1>Create a New Survey</h1>
+  <h1>Create a New Survey</h1>
+  
+  <p>{{ message }}</p>
 
-	<p>{{ message }}</p>
+  <form name="createSurveyForm" novalidate role="form">
+    <div class="card-panel">
+      <div class="form-control">
+        <span class="label label-danger" ng-show="submitted && createSurveyForm.surveyTitle.$error.required">Required!</span>
+        <label for="surveyTitle">Survey Name<span class="required-asterisk" style="color: red"> *</span></label>
+        <input type="text" name="surveyTitle" ng-model="surveyTitle" class="form-control" required />
+      </div>
+
+      <div class="form-control">
+        <label for="surveyDescription">Survey Description</label>
+        <textarea name="surveyDescription" ng-model="surveyDescription" class="form-control" ng-placeholder="surveyDescription"></textarea>
+      </div>
+    </div>
+
+    <p>Select questions that you would like your students to be asked, and customize them according to your needs.</p>
+
+    <div class="card-panel">
+      <div class="form-control">
+        <div class="row">
+          <div class="col s4">
+            <input type="checkbox" name="firstName" id="firstName" checked="checked"/>
+            <label for="firstName">Student First Name</label>
+          </div>
+          <div class="switch col s4">
+            <label for="firstNameRequired">
+              Optional
+              <input type="checkbox" name="firstNameRequired" id="firstNameRequired" value="true" checked />
+              <span class="lever"></span>
+              Required
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s4">
+            <input type="checkbox" name="lastName" id="lastName" checked="checked"/>
+            <label for="lastName">Student Last Name</label>
+          </div>
+          <div class="switch col s4">
+            <label for="lastNameRequired">
+              Optional
+              <input type="checkbox" name="lastNameRequired" id="lastNameRequired" value="true" checked />
+              <span class="lever"></span>
+              Required
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s4">
+            <input type="checkbox" name="preferredName" id="preferredName" checked="checked" />
+            <label for="preferredName">Student Preferred Name</label>
+          </div>
+          <div class="switch col s4">
+            <label for="preferredNameRequired">
+              Optional
+              <input type="checkbox" name="preferredNameRequired" id="preferredNameRequired" value="true" />
+              <span class="lever"></span>
+              Required
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s4">
+            <input type="checkbox" name="gpa" id="gpa" checked="checked" />
+            <label for="gpa">Overall GPA</label>
+          </div>
+          <div class="switch col s4">
+            <label for="gpaRequired">
+              Optional
+              <input type="checkbox" name="gpaRequired" id="gpaRequired" value="true" checked />
+              <span class="lever"></span>
+              Required
+            </label>
+          </div>
+          <div class="col s4">
+            <label for="gpaWeight">Weight</label>
+            <input type="number" name="gpaWeight" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s4">
+            <input type="checkbox" name="csgpa" id="csgpa" checked="checked" />
+            <label for="csgpa">Compter Science GPA</label>
+          </div>
+          <div class="switch col s4">
+            <label for="csgpaRequired">
+              Optional
+              <input type="checkbox" name="csgpaRequired" id="csgpaRequired" value="true" checked />
+              <span class="lever"></span>
+              Required
+            </label>
+          </div>
+          <div class="col s4">
+            <label for="csgpaWeight">Weight</label>
+            <input type="number" name="csgpaWeight" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p>Select skills that your students will be asked to rank themselves in terms of competency.</p>
+    <div class="card-panel">
+      <div class="row">
+        Categories students may use to rank themselves:
+      </div>
+
+      <div class="row">
+        <div class="col s3">
+          <input type="checkbox" name="expert" id="expert" checked="checked"/>
+          <label for="expert">Expert</label>
+        </div>
+        <div class="col s3">
+          <input type="checkbox" name="good" id="good" checked="checked" />
+          <label for="good">Good</label>
+        </div>
+        <div class="col s3">
+          <input type="checkbox" name="basic" id="basic" checked="checked" />
+          <label for="basic">Basic</label>
+        </div>
+        <div class="col s3">
+          <input type="checkbox" name="none" id="none" checked="checked" />
+          <label for="none">None</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <p>Skills the students will be asked about.</p>
+      </div>
+
+      <div class="row">
+        <div class="col s4">
+          <input type="checkbox" name="overallProgramming" id="overallProgramming" checked/>
+          <label for="overallProgramming">Overall Programming</label>
+        </div>
+        <div class="switch col s4">
+          <label>
+            Optional
+            <input type="checkbox" name="overallProgrammingRequired" id="overallProgrammingRequired" checked />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+        <div class="col s4">
+          <label for="overallProgrammingWeight">Weight</label>
+          <input type="number" name="overallProgrammingWeight" id="overallProgrammingWeight" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s4">
+          <input type="checkbox" name="databaseDevelopment" id="databaseDevelopment" checked />
+          <label for="databaseDevelopment">Database Development</label>
+        </div>
+        <div class="switch col s4">
+          <label>
+            Optional
+            <input type="checkbox" name="databaseDevelopmentRequired" id="databaseDevelopmentRequired" checked />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+        <div class="col s4">
+          <label for="databaseDevelopmentWeight">Weight</label>
+          <input type="number" name="databaseDevelopmentWeight" id="databaseDevelopmentWeight" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s4">
+          <input type="checkbox" name="embeddedSystems" id="embeddedSystems" checked />
+          <label for="embeddedSystems">Embedded Systems</label>
+        </div>
+        <div class="switch col s4">
+          <label>
+            Optional
+            <input type="checkbox" name="embeddedSystemsRequired" id="embeddedSystemsRequired" checked />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+        <div class="col s4">
+          <label for="embeddedSystemsWeight">Weight</label>
+          <input type="number" name="embeddedSystemsWeight" id="embeddedSystemsWeight" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s4">
+          <input type="checkbox" name="webApplications" id="webApplications" checked />
+          <label for="webApplications">Web Applications</label>
+        </div>
+        <div class="switch col s4">
+          <label>
+            Optional
+            <input type="checkbox" name="webApplicationsRequired" id="webApplicationsRequired" checked />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+        <div class="col s4">
+          <label for="webApplicationsWeight">Weight</label>
+          <input type="number" name="webApplicationsWeight" id="webApplicationsWeight" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s4">
+          <input type="checkbox" name="mobileApplications" id="mobileApplications" checked />
+          <label for="mobileApplications">Mobile Applications</label>
+        </div>
+        <div class="switch col s4">
+          <label>
+            Optional
+            <input type="checkbox" name="mobileApplicationsRequired" id="mobileApplicationsRequired" checked />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+        <div class="col s4">
+          <label for="mobileApplicationsWeight">Weight</label>
+          <input type="number" name="mobileApplicationsWeight" id="mobileApplicationsWeight" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s4">
+          <input type="checkbox" name="userInterface" id="userInterface" checked />
+          <label for="userInterface">User Interface/Experience</label>
+        </div>
+        <div class="switch col s4">
+          <label>
+            Optional
+            <input type="checkbox" name="userInterfaceRequired" id="userInterfaceRequired" checked />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+        <div class="col s4">
+          <label for="userInterfaceWeight">Weight</label>
+          <input type="number" name="userInterfaceWeight" id="userInterfaceWeight" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s4">
+          <input type="checkbox" name="statistics" id="statistics" checked />
+          <label for="statistics">Statistics</label>
+        </div>
+        <div class="switch col s4">
+          <label>
+            Optional
+            <input type="checkbox" name="statisticsRequired" id="statisticsRequired" checked />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+        <div class="col s4">
+          <label for="statisticsWeight">Weight</label>
+          <input type="number" name="statisticsWeight" id="statisticsWeight" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s4">
+          <input type="checkbox" name="socialNetworking" id="socialNetworking" checked />
+          <label for="socialNetworking">(Social/Professional) Networking</label>
+        </div>
+        <div class="switch col s4">
+          <label>
+            Optional
+            <input type="checkbox" name="socialNetworkingRequired" id="socialNetworkingRequired" checked />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+        <div class="col s4">
+          <label for="socialNetworkingWeight">Weight</label>
+          <input type="number" name="socialNetworkingWeight" id="socialNetworkingWeight" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s4">
+          <input type="checkbox" name="security" id="security" checked />
+          <label for="security">Security</label>
+        </div>
+        <div class="switch col s4">
+          <label>
+            Optional
+            <input type="checkbox" name="securityRequired" id="securityRequired" checked />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+        <div class="col s4">
+          <label for="securityWeight">Weight</label>
+          <input type="number" name="securityWeight" id="securityWeight" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s4">
+          <input type="checkbox" name="robotics" id="robotics" checked />
+          <label for="robotics">Robotics</label>
+        </div>
+        <div class="switch col s4">
+          <label>
+            Optional
+            <input type="checkbox" name="roboticsRequired" id="roboticsRequired" checked />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+        <div class="col s4">
+          <label for="roboticsWeight">Weight</label>
+          <input type="number" name="roboticsWeight" id="roboticsWeight" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s4">
+          <input type="checkbox" name="computerVision" id="computerVision" checked />
+          <label for="computerVision">Computer Vision</label>
+        </div>
+        <div class="switch col s4">
+          <label>
+            Optional
+            <input type="checkbox" name="computerVisionRequired" id="computerVisionRequired" checked />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+        <div class="col s4">
+          <label for="computerVisionWeight">Weight</label>
+          <input type="number" name="computerVisionWeight" id="computerVisionWeight" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s4">
+          <input type="checkbox" name="algorithms" id="algorithms" checked />
+          <label for="algorithms">Algorithms</label>
+        </div>
+        <div class="switch col s4">
+          <label>
+            Optional
+            <input type="checkbox" name="algorithmsRequired" id="algorithmsRequired" checked />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+        <div class="col s4">
+          <label for="algorithmsWeight">Weight</label>
+          <input type="number" name="algorithmsWeight" id="algorithmsWeight" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s4">
+          <input type="checkbox" name="machineLearning" id="machineLearning" checked />
+          <label for="machineLearning">Machine Learning</label>
+        </div>
+        <div class="switch col s4">
+          <label>
+            Optional
+            <input type="checkbox" name="machineLearningRequired" id="machineLearningRequired" checked />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+        <div class="col s4">
+          <label for="machineLearningWeight">Weight</label>
+          <input type="number" name="machineLearningWeight" id="machineLearningWeight" />
+        </div>
+      </div>
+
+      <div>
+        <!--<div chips ng-model="desiredSkills"></div>-->
+        <md-chips ng-model="desiredSkills"></md-chips>
+      </div>
+    </div>
+
+    <div class="container">
+
+    </div>
+
+    <button type="submit" ng-click="createSurvey(createSurveyForm)" class="btn btn-default">Create Survey!</button>
+
+  </form>
+
 </div>
