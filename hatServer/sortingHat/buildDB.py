@@ -20,14 +20,14 @@ def parseStudent(data):
         identikey=values[2],
         known_skills=values[3].split('.'),
         learn_skills=values[4].split('.'),
-        leadership=values[5]
+        leadership=values[5],
+        ip_pref=values[6]
     )
     student_to_add.save()
     prefs = []
-    for i in range(6, 11):
+    for i in range(7, 12):
 #    for i in range(6, 9):
         g_name = values[i].rstrip('\n')
-        print(g_name)
         group_to_add = Groups.objects.get(group_name=g_name)
         student_to_add.update(add_to_set__preferences=group_to_add)
         #print(group_to_add.group_name)
@@ -37,14 +37,19 @@ def parseStudent(data):
 def addWorkWith(data):
     values = data.split(',')
     student = Students.objects.get(identikey=values[2])
-    ids = values[11].split('.')
-    print("IDs: " + values[11])
+    ids = values[12].split('.')
     for identikey in ids:
         if identikey == '0':
             break
-        print("\tSearching for identikey: " + identikey)
         student_to_work_with = Students.objects.get(identikey=identikey)
         student.update(add_to_set__work_with=student_to_work_with)
+    bad_ids = values[13].rstrip('\n')
+    bad_ids = bad_ids.split('.')
+    for identikey in bad_ids:
+        if identikey == '0':
+            break
+        student_to_avoid = Students.objects.get(identikey=identikey)
+        student.update(add_to_set__dont_work_with=student_to_avoid)
     student.save()
 
 def parseGroups(data):
@@ -53,8 +58,9 @@ def parseGroups(data):
     group_to_add.save()
     paid = bool(int(values[1]))
     group_to_add.update(paid=paid)
+    group_to_add.update(ip=values[2])
     skills = []
-    for i in range(2, len(values)):
+    for i in range(3, len(values)):
         group_to_add.update(add_to_set__skills=values[i])
 #    group_to_add.update(remove_from_set__skills='\n')
 #    skills.remove('\n')

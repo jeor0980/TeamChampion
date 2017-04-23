@@ -64,10 +64,12 @@ def calcStudentPreference(known, learn, preference):
     return pref
 
 ##! Use this to make list a group preferences for gale-shapley
-def calcGroupPreference(known, learn):
+def calcGroupPreference(known, learn, ip_score):
     assert (known >= 0)
     assert (learn >= 0)
-    pref = LEARN_WEIGHT * learn + KNOWN_WEIGHT * known
+    assert (ip_score >= -1)
+    pref = LEARN_WEIGHT * learn + KNOWN_WEIGHT * known \
+            + IP_WEIGHT * ip_score
 #    pref = pref/(KNOWN_WEIGHT + LEARN_WEIGHT)
     return pref
 
@@ -76,6 +78,7 @@ def calcGroupPreference(known, learn):
 def registerUser(student, groups):
     known_score = 0
     learn_score = 0
+    ip_score = 0
     for grp in student.preferences:
         grp_name = grp.group_name
         index = 0
@@ -90,7 +93,14 @@ def registerUser(student, groups):
                 known_score += 1 
             if attr in student.learn_skills and learn_score < MAX_SKILL_LEN:
                 learn_score += 1
-        pref = calcGroupPreference(known_score, learn_score)
+        if student.ip_pref == 'NO_PREF':
+            ##! No pref, no score
+            ip_score = 0
+        elif student.ip_pref == 'RETAIN' and groups[index].ip == 'OPEN':
+            ip_score = 2
+        else: # student.ip_pref == 'RETAIN' and groups[index].ip == 'CLOSED'
+            ip_score = -1
+        pref = calcGroupPreference(known_score, learn_score, ip_score)
         groups[index].preferences[student] = pref
         for db_group in Groups.objects:
             if db_group.group_name == groups[index].group_name:
@@ -145,6 +155,42 @@ def nopeBitches(student, group):
                   key=group.preferences.__getitem__,
                   reverse=True)
 
+def modPrefsForBitches(groups):
+    for group in groups:
+        if group.paid:
+            pref_list = []
+            for s in group.preferences:
+                index = 1
+                for g in s.preferences:
+                    if g.group_name == group.group_name:
+                        pref_list.append(index)
+                        break
+                    else:
+                        index += 1
+            avg = numpy.mean(pref_list)
+            if SUBVERT_FOR_PAY:
+                if avg >= MIN_PAID_AVG_PREF_SCORE:
+                    for s in group.preferences:
+                        s.preferences.remove(group)
+                        s.preferences = [group] + s.preferences
+
+def payForBitches(groups):
+    paid_dict = {}
+    for group in groups:
+        if group.paid and len(group.preferences) < MIN_SIZE:
+            print("MATCHING FAILED: paid group was not chosen enough")
+            return None
+        if group.paid and len(group.preferences) <= OPT_SIZE:
+            ##! We'll return the list of students in this paid group, assign
+            ##! them to the group and remove them from the free pool
+            print(group.group_name + " is being filled first with:")
+            for s in group.preferences:
+                print("\t" + s.student_name)
+                val.append(s)
+            paid_dict[group] = val
+    ##! TODO What if there's more than one paid group?
+    return paid_dict
+
 def swapThemBitches(shortGroup, firstPass, groups):
     print("Fixing " + shortGroup.group_name)
     for group in groups:
@@ -179,6 +225,7 @@ def sortThemBitches(students, groups):
     matched = {}
     student_prefers = {}
     group_prefers = {}
+    modPrefsForBitches(groups)
     for student in students:
 #        pref_list = sorted(student.preferences,
 #                           key=student.preferences.__getitem__,
@@ -190,6 +237,14 @@ def sortThemBitches(students, groups):
                            key=group.preferences.__getitem__,
                            reverse=True)
         group_prefers[group] = pref_list
+
+    ##! First step is to ensure lightly chosen paid groups are filled
+    paid_dict = payForBitches(groups)
+    if paid_dict:
+        for g in paid_dict:
+            for s in paid_dict[g]:
+                matched[g].append(s)
+                students_free.remove(s)
 
     while students_free:
         s = students_free.pop(0)
@@ -209,21 +264,25 @@ def sortThemBitches(students, groups):
         if not match:
             # group has no matches yet
             matched[g] = [s]
-            if s.leadership == "STRONG_LEAD":
+            if s.leadership != "STRONG_FOLLOW":
                 g.has_leader = True
+            if s.leadership == "STRONG_LEAD":
+                g.has_strong_leader = True
             group_prefers[g] = partnerUpBitches(s, g)
             group_prefers[g] = nopeBitches(s, g)
 
         elif len(match) <= OPT_SIZE:
             #Open space in group
-                if g.has_leader and s.leadership == "STRONG_LEAD" and\
+                if g.has_strong_leader and s.leadership == "STRONG_LEAD" and\
                 LEADERSHIP_MATTERS and len(s_list) > 1:
                     print(s.student_name + "not allowed in" + g.group_name)
                     students_free.append(s)
                 else:
                     matched[g].append(s)
-                    if s.leadership == "STRONG_LEAD":
+                    if s.leadership != "STRONG_FOLLOW":
                         g.has_leader = True
+                    if s.leadership == "STRONG_LEAD":
+                        g.has_strong_leader = True
                     group_prefers[g] = partnerUpBitches(s, g)
                     group_prefers[g] = nopeBitches(s, g)
 
@@ -233,15 +292,17 @@ def sortThemBitches(students, groups):
             for m in match:
                 if g_list.index(m) > g_list.index(s):
                     #replace less preferred student with current student
-                    if g.has_leader and s.leadership == "STRONG_LEAD" and\
+                    if g.has_strong_leader and s.leadership == "STRONG_LEAD" and\
                     LEADERSHIP_MATTERS and len(s_list) > 1:
                         print(s.student_name + "not allowed in" + g.group_name)
-                        continue
+                        break
                     else:
                         matched[g].remove(m)
                         matched[g].append(s)
-                        if s.leadership == "STRONG_LEAD":
+                        if s.leadership != "STRONG_FOLLOW":
                             g.has_leader = True
+                        if s.leadership == "STRONG_LEAD":
+                            g.has_strong_leader = True
                         if len(student_prefers[m]) > 0:
                             students_free.append(m)
                         else:
@@ -263,6 +324,8 @@ def sortThemBitches(students, groups):
 
     for group in matched:
         leader_present = False
+        if not group.has_leader:
+            print("WARNING: no leader in this group")
         for student in matched[group]:
             if student.leadership == "STRONG_LEAD" and not leader_present:
                 leader_present = True
@@ -274,7 +337,6 @@ def sortThemBitches(students, groups):
             swapThemBitches(group, True, groups)
             if len(group.members) < MIN_SIZE:
                 swapThemBitches(group, False, groups)
-
     for group in matched:
         matched[group] = group.members
         for student in group.members:
@@ -282,16 +344,22 @@ def sortThemBitches(students, groups):
 
     for group in groups:
         if group.paid and len(group.members) < MIN_SIZE:
-            print("MATCHING FAILED")
+            print("MATCHING FAILED: paid group was unfilled")
 
     return matched
 
 def averagePreference(matched):
     prefs = []
-    for g in matched:
-        for s in matched[g]:
-            index = 5 - len(s.preferences)
-            prefs.append(index)
+#    for g in matched:
+#        for s in matched[g]:
+#            index = 5 - len(s.preferences)
+#            prefs.append(index)
+#    avg_pref = numpy.mean(prefs)
+    for student in Students.objects:
+        grp = student.group_assigned
+        index = student.preferences.index(grp)
+        ##! + 1 since preferences aren't zero indexed
+        prefs.append(index + 1)
     avg_pref = numpy.mean(prefs)
     return avg_pref
 

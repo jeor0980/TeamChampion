@@ -13,6 +13,7 @@ class Students(Document):
     preferences = ListField(ReferenceField('Groups'))
     work_with = ListField(ReferenceField('self'))
     dont_work_with = ListField(ReferenceField('self'))
+    ip_pref = StringField()
 
 class Groups(Document):
     meta = {
@@ -25,3 +26,5 @@ class Groups(Document):
     preferences = DictField()
     paid = BooleanField()
     has_leader = BooleanField()
+    has_strong_leader = BooleanField()
+    ip = StringField()

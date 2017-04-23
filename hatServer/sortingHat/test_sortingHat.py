@@ -32,10 +32,10 @@ class SortingHatTest(unittest.TestCase):
             sortingHat.calcStudentPreference(-1, 1, 1)
 
     def testCalcGroupPreference(self):
-        test1 = sortingHat.calcGroupPreference(3, 3)
-        self.assertEqual(round(test1, 1), 0.9)
+        test1 = sortingHat.calcGroupPreference(3, 3, 2)
+        self.assertEqual(round(test1, 1), 1.9)
         with self.assertRaises(AssertionError):
-            sortingHat.calcGroupPreference(-1, 1)
+            sortingHat.calcGroupPreference(-1, 1, -1.5)
 
     def testNoEnemies(self):
         for g in self.matched:
@@ -66,6 +66,18 @@ class SortingHatTest(unittest.TestCase):
             for s in self.matched[g]:
                 self.assertNotIn(s, students)
                 students.append(s)
+    
+    def testForStrongLeaders(self):
+        if LEADERSHIP_MATTERS:
+            for g in self.matched:
+                strong_leader_present = False
+                for s in self.matched[g]:
+                    if strong_leader_present:
+                        self.assertNotEqual(s.leadership, "STRONG_LEAD")
+                    elif s.leadership == "STRONG_LEAD":
+                        strong_leader_present = True
+                    else:
+                        self.assertTrue(True)
 
 """
     def testSortThemBitches(self):
