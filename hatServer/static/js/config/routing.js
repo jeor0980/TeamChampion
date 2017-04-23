@@ -20,13 +20,20 @@ sortingApp.config(function($routeProvider) {
         .when('/about', {
         		title: 'About',
             templateUrl : 'static/partials/about.html',
-            // controller  : 'aboutController'
+            controller  : 'userController'
         })
 
         // route for the contact page
         .when('/dashboard', {
         		title: 'Dashboard',
             templateUrl : 'static/partials/dashboard.html',
+            controller  : 'dashboardController'
+        })
+
+        // route for the contact page
+        .when('/instructorDashboard', {
+                title: 'Instructor Dashboard',
+            templateUrl : 'static/partials/instructorDashboard.html',
             controller  : 'dashboardController'
         })
 

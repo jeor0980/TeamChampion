@@ -2,13 +2,13 @@
 sortingApp.controller('mainController', function($scope, userInformation) {
     // create a message to display in our view
     $scope.message = 'I AM YOUR FATHER!';
-
-    $scope.printt = function() {
-      console.log('Tacos are the best!');
-  }
 });
 
+
+
 sortingApp.controller('profileController', function($scope, $window, userInformation) {
+    //TODO: Destroy function
+
     // $scope.pageTitle = 'My Profile | Sorting Hat';
     $scope.message = 'Look! I am an about page.';
 
@@ -18,16 +18,14 @@ sortingApp.controller('profileController', function($scope, $window, userInforma
       $window.location.href = '/';
     }
     
-    // $scope.fullName = userInformation.getFullName();
+    $scope.role = userInformation.getRole();
+    $scope.fullName = userInformation.getFullName();
     $scope.givenName = userInformation.getGivenName();
     $scope.familyName = userInformation.getFamilyName();
     $scope.email = userInformation.getEmail();
     $scope.imageUrl = userInformation.getImageUrl();
 });
 
-sortingApp.controller('contactController', function($scope) {
-    $scope.message = 'Contact us! JK. This is just a demo.';
-});
 
 sortingApp.controller('loginController', function($scope) {
 
@@ -150,7 +148,19 @@ sortingApp.controller('surveySuccessController', function($scope) {
     $scope.message = 'Congratulations! Your results have been submitted!';
 });
 
-sortingApp.controller('GoogleCtrl', function($route, $scope, $window, userInformation) {
+
+sortingApp.controller("userController", ['$scope','$http', function($scope, $http)
+    {    
+      $http.get('../static/js/config/users.json').success (function(data){
+        $scope.userData = data;
+        console.log($scope.userData);
+        console.log($scope.userData["jeor0980"]); // Output: Jason Lengstorf
+    });
+ 
+    }]
+);
+
+sortingApp.controller('GoogleCtrl', function($route, $scope, $window, $http, userInformation) {
 
   function onSignIn(googleUser) {
     
@@ -162,20 +172,68 @@ sortingApp.controller('GoogleCtrl', function($route, $scope, $window, userInform
 
     //This variable is passed to userService to for Google Authentication
     var authentication = gapi.auth2.getAuthInstance();
-    userInformation.setIsLoggedIn(true);
     userInformation.setId(profile.getId()); // Don't send this directly to your server!
-    userInformation.setFullName(profile.getName());
-    userInformation.setGivenName(profile.getGivenName());
-    userInformation.setFamilyName(profile.getFamilyName());
-    userInformation.setImageUrl(profile.getImageUrl());
-    userInformation.setEmail(profile.getEmail());
     userInformation.setIdToken(id_token);
     userInformation.setAuthInstance(authentication);
-    // console.log(userInformation.getIsLoggedIn());
 
-    console.log("User Authenticated Successfully!");
-    Materialize.toast('Logged In Successfully!', 5000) // 5000 is the duration of the toast
-    $window.location.href = '/#/dashboard';
+    //Grab first 8 characters from email, which in theory should be the indentikey (aaaaxxxx)@colorado.edu
+    userInformation.setIdentikey(profile.getEmail().substring(0, 8));
+
+    // Check if user is allowed to be in this site
+    $http.get('../static/js/config/users.json').success (function(data){
+      $scope.userData = data;
+
+      // Case 1: Identikey is found in users.json file
+      if ($scope.userData.hasOwnProperty(userInformation.getIdentikey())) {
+
+        
+        userInformation.setFullName(profile.getName());
+        userInformation.setGivenName(profile.getGivenName());
+        userInformation.setFamilyName(profile.getFamilyName());
+        userInformation.setImageUrl(profile.getImageUrl());
+        userInformation.setEmail(profile.getEmail());
+        userInformation.setIsLoggedIn(true);
+        userInformation.setRole($scope.userData[userInformation.getIdentikey()].role);
+
+        //Role Stuff
+        console.log("what is your role?");
+        console.log("My role is " + userInformation.getRole());
+        console.log(userInformation.getIdentikey() + " The identikey in JSON File!");
+        console.log("User Authenticated Successfully!");
+
+        //Confirm login to user
+        Materialize.toast('Logged In Successfully!', 5000) // 5000 is the duration of the toast
+
+        //Redirect to appropriate dashboard after login
+        // Case 1: Student Dashboard
+        if (userInformation.getRole() == 'student') {
+          $window.location.href = '/#/dashboard';
+        }
+
+        //Case 2: Instructore Dashboard
+        else if (userInformation.getRole() == 'instructor') {
+          $window.location.href = '/#/instructorDashboard';
+        }
+
+        //Case 3 (unlikely, mostly for debugging purposes)
+        //If identikey is in user.json but has no role or an invalid role
+        else {
+          console.log('You are neither a student or instructor, what is your role?')
+        }
+      }
+
+      else {
+        //Case 2: If identikey is not found in users.json file
+        console.log(userInformation.getEmail() + " Not in JSON File!")
+        var auth2 = userInformation.getAuthInstance();
+        auth2.signOut();
+        userInformation.setIsLoggedIn(false);
+        userInformation.destroy();
+        Materialize.toast('Please log in with a Colorado.edu account!', 5000); // 5000 is the duration of the toast
+        console.log("Setting Logged in to False");
+        console.log('User signed out.');
+      }
+    });
 
   }
 
@@ -186,6 +244,8 @@ sortingApp.controller('GoogleCtrl', function($route, $scope, $window, userInform
 sortingApp.controller('dashboardController', function($scope, $window, userInformation) {
 
     //Check if user is authenticated
+    $scope.givenName = userInformation.getGivenName();
+
     if (userInformation.getIsLoggedIn() == false){
       window.alert("You must be logged in to view this page.");
       $window.location.href = '/';
@@ -198,13 +258,18 @@ sortingApp.controller('headerController', function($scope, userInformation, $win
   $scope.isLoggedIn = function() {
     //Check for undefined or true
     // console.log("headerController accessed!")
+
     if (userInformation.getIsLoggedIn() == false) {
       // console.log("The navbar should be log in!" + userInformation.getIsLoggedIn())
       return $scope.myText = '<li><a href="#about"><i class="material-icons left">info_outline</i>About</a></li><li><a href="#login"><i class="material-icons left">lock</i>Login</a></li>';
 
-    } else{
+    } else if (userInformation.getIsLoggedIn() == true && userInformation.getRole() == "student"){
       // console.log("The Navbar should be log out!" + userInformation.getIsLoggedIn())
       return $scope.myText = '<li><a href="#about"><i class="material-icons left">info_outline</i>About</a></li><li><a href="#dashboard"><i class="material-icons left">dashboard</i>Dashboard</a></li><li><a href="#myprofile"><i class="material-icons left">person</i>My Profile</a></li><li></li><li><a href="" ng-click="signOut()"><i class="material-icons left">exit_to_app</i>Log Out</a>';
+    
+    } else if (userInformation.getIsLoggedIn() == true && userInformation.getRole() == "instructor"){
+      // console.log("The Navbar should be log out!" + userInformation.getIsLoggedIn())
+      return $scope.myText = '<li><a href="#about"><i class="material-icons left">info_outline</i>About</a></li><li><a href="#instructorDashboard"><i class="material-icons left">dashboard</i>Instructor Dashboard</a></li><li><a href="#myprofile"><i class="material-icons left">person</i>My Profile</a></li><li></li><li><a href="" ng-click="signOut()"><i class="material-icons left">exit_to_app</i>Log Out</a>';
     }
   }
 
