@@ -10,6 +10,179 @@ sortingApp.service('surveyQuestions', function () {
         included: true,
         required: true
     };
+    var lastName = {
+        included: true,
+        required: true
+    };
+    var preferredName = {
+        included: true,
+        required: false
+    };
+    var overallGPA = {
+        included: true,
+        required: true,
+        weight: 1
+    };
+    var csGPA = {
+        included: true,
+        required: true,
+        weight: 1
+    };
+    var skillCategories = {
+        expert: true,
+        good: true,
+        basic: true,
+        none: true
+    };
+    var overallProgramming = {
+        included: true,
+        required: true,
+        weight: 1
+    };
+    var databaseDevelopment = {
+        included: true,
+        required: true,
+        weight: 1
+    };
+    var embeddedSystems = {
+        included: true,
+        required: true,
+        weight: 1
+    };
+    var webApplications = {
+        included: true,
+        required: true,
+        weight: 1
+    };
+    var mobileApplications = {
+        included: true,
+        required: true,
+        weight: 1
+    };
+    var userInterface = {
+        included: true,
+        required: true,
+        weight: 1
+    };
+    var statistics = {
+        included: true,
+        required: true,
+        weight: 1
+    };
+    var networking = {
+        included: true,
+        required: true,
+        weight: 1
+    };
+    var security = {
+        included: true,
+        required: true,
+        weight: 1
+    };
+    var robotics = {
+        included: true,
+        required: true,
+        weight: 1
+    };
+    var computerVision = {
+        included: true,
+        required: true,
+        weight: 1
+    };
+    var algorithms = {
+        included: true,
+        required: true,
+        weight: 1
+    };
+    var machineLearning = {
+        included: true,
+        required: true,
+        weight: 1
+    };
+    var firstChoice = {
+        included: true,
+        required: true,
+        weight: 2
+    };
+    var firstComment = {
+        included: true,
+        required: false
+    };
+    var secondChoice = {
+        included: true,
+        required: true,
+        weight: 2
+    };
+    var secondComment = {
+        included: true,
+        required: false
+    };
+    var thirdChoice = {
+        included: true,
+        required: true,
+        weight: 2
+    };
+    var thirdComment = {
+        included: true,
+        required: false
+    };
+    var fourthChoice = {
+        included: true,
+        required: true,
+        weight: 2
+    };
+    var fourthComment = {
+        included: true,
+        required: false
+    };
+    var fifthChoice = {
+        included: true,
+        required: true,
+        weight: 2
+    };
+    var fifthComment = {
+        included: true,
+        required: false
+    };
+    var ipPreference = {
+        included: true,
+        required: true,
+        weight: 1
+    };
+    var ipOptions = {
+        retain: 'Prefer to retain IP rights to my work',
+        retainIncluded: true,
+        depends: 'Depends on the project',
+        dependsIncluded: true,
+        noPref: 'I don\'t have a preference to retain IP rights to my work',
+        noPrefIncluded: true
+    };
+    var leadership = {
+        included: true,
+        required: true,
+        weight: 1
+    };
+    var leadershipOptions = {
+        strongFollow: 'Strongly prefer to be a follower rather than a leader',
+        strongFollowIncluded: true,
+        preferFollow: 'Prefer to be a follower, but will lead when necessary',
+        preferFollowIncluded: true,
+        equalLead: 'Enjoy leading and following equally',
+        equalLeadIncluded: true,
+        preferLead: 'Prefer to be a leader, but will follow when necessary',
+        preferLeadIncluded: true,
+        strongLead: 'Strongly prefer to be the leader; do not enjoy being a follower',
+        strongLeadIncluded: true
+    };
+    var preferredPartners = {
+        included: true,
+        required: false,
+        weight: 1
+    };
+    var bannedPartners = {
+        included: true,
+        required: false
+    };
 
     return {
         getSurveyName: function () {
@@ -43,9 +216,246 @@ sortingApp.service('surveyQuestions', function () {
         getFirstName: function () {
             return firstName;
         },
-        setFirstName: function (field, value) {
-            console.log('Set some stuff!');
-            firstName[field] = value;
+        setFirstName: function (value) {
+            firstName = value;
+        },
+
+        getLastName: function () {
+            return lastName;
+        },
+        setLastName: function (value) {
+            lastName = value;
+        },
+
+        getPreferredName: function () {
+            return preferredName;
+        },
+        setPreferredName: function (value) {
+            preferredName = preferredName;
+        },
+
+        getOverallGPA: function () {
+            return overallGPA;
+        },
+        setOverallGPA: function (value) {
+            overallGPA = value;
+        },
+
+        getCsGPA: function () {
+            return csGPA;
+        },
+        setCsGPA: function (value) {
+            csGPA = value;
+        },
+
+        getSkillCategories: function () {
+            return skillCategories;
+        },
+        setSkillCategories: function (value) {
+            skillCategories = value;
+        },
+
+        getOverallProgramming: function () {
+            return overallProgramming;
+        },
+        setOverallProgramming: function (value) {
+            overallProgramming = value;
+        },
+
+        getDatabaseDevelopment: function () {
+            return databaseDevelopment;
+        },
+        setDatabaseDevelopment: function (value) {
+            databaseDevelopment = value;
+        },
+
+        getEmbeddedSystems: function () {
+            return embeddedSystems;
+        },
+        setEmbeddedSystems: function (value) {
+            embeddedSystems = value;
+        },
+
+        getWebApplications: function () {
+            return webApplications;
+        },
+        setWebApplications: function (value) {
+            webApplications = value;
+        },
+
+        getMobileApplications: function () {
+            return mobileApplications;
+        },
+        setMobileApplications: function (value) {
+            mobileApplications = value;
+        },
+
+        getUserInterface: function () {
+            return userInterface;
+        },
+        setUserInterface: function (value) {
+            userInterface = value;
+        },
+
+        getStatistics: function () {
+            return statistics;
+        },
+        setStatistics: function (value) {
+            statistics = value;
+        },
+
+        getNetworking: function() {
+            return networking;
+        },
+        setNetworking: function(value) {
+            networking = value;
+        },
+
+        getSecurity: function() {
+            return security;
+        },
+        setSecurity: function (value) {
+            security = value;
+        },
+
+        getRobotics: function () {
+            return robotics;
+        },
+        setRobotics: function (value) {
+            robotics = value;
+        },
+
+        getComputerVision: function () {
+            return computerVision;
+        },
+        setComputerVision: function (value) {
+            computerVision = value;
+        },
+
+        getAlgorithms: function () {
+            return algorithms;
+        },
+        setAlgorithms: function (value) {
+            algorithms = value;
+        },
+
+        getMachineLearning: function () {
+            return machineLearning;
+        },
+        setMachineLearning: function (value) {
+            machineLearning = value;
+        },
+
+        getFirstChoice: function () {
+            return firstChoice;
+        },
+        setFirstChoice: function (value) {
+            firstChoice = value;
+        },
+
+        getFirstComment: function () {
+            return firstComment;
+        },
+        setFirstComment: function (value) {
+            firstComment = value;
+        },
+
+        getSecondChoice: function () {
+            return secondChoice;
+        },
+        setSecondChoice: function (value) {
+            secondChoice = value;
+        },
+
+        getSecondComment: function () {
+            return secondComment;
+        },
+        setSecondComment: function (value) {
+            secondComment = value;
+        },
+
+        getThirdChoice: function () {
+            return thirdChoice;
+        },
+        setThirdChoice: function (value) {
+            thirdChoice = value;
+        },
+
+        getThirdComment: function () {
+            return thirdComment;
+        },
+        setThirdComment: function (value) {
+            thirdComment = value;
+        },
+
+        getFourthChoice: function () {
+            return fourthChoice;
+        },
+        setFourthChoice: function (value) {
+            fourthChoice = value;
+        },
+
+        getFourthComment: function () {
+            return fourthComment;
+        },
+        setFourthComment: function (value) {
+            fourthComment = value;
+        },
+
+        getFifthChoice: function () {
+            return fifthChoice;
+        },
+        setFifthChoice: function (value) {
+            fifthChoice = value;
+        },
+
+        getFifthComment: function () {
+            return fifthComment;
+        },
+        setFifthComment: function (value) {
+            fifthComment = value;
+        },
+
+        getIpPreference: function () {
+            return ipPreference;
+        },
+        setIpPreference: function (value) {
+            ipPreference = value;
+        },
+
+        getIpOptions: function () {
+            return ipOptions;
+        },
+        setIpOptions: function (value) {
+            ipOptions = value;
+        },
+
+        getLeadership: function () {
+            return leadership;
+        },
+        setLeadership: function (value) {
+            leadership = value;
+        },
+
+        getLeadershipOptions: function () {
+            return leadershipOptions;
+        },
+        setLeadershipOptions: function (value) {
+            leadershipOptions = value;
+        },
+
+        getPreferredPartners: function () {
+            return preferredPartners;
+        },
+        setPreferredPartners: function (value) {
+            preferredPartners = value;
+        },
+
+        getBannedPartners: function () {
+            return bannedPartners;
+        },
+        setBannedPartners: function (value) {
+            bannedPartners = value;
         }
     }
 })
