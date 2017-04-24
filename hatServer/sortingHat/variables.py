@@ -1,7 +1,10 @@
 import configparser
+import sys
+sys.path.append('..')
+sys.path.append('../..')
 
 cfg = configparser.RawConfigParser()
-cfg.read("variables.cfg")
+cfg.read(["./hatServer/sortingHat/variables.cfg", "variables.cfg"])
 
 MAX_SKILL_LEN = cfg.getint('Vars', 'MAX_SKILL_LEN')
 LEARN_WEIGHT = cfg.getfloat('Vars', 'LEARN_WEIGHT')

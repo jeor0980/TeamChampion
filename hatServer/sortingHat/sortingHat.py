@@ -4,53 +4,13 @@ import csv
 import sys
 sys.path.append("..")
 sys.path.append("../..")
-from hatServer.models import Groups, Students
+from hatServer.models import Groups, Students, Preference
 from hatServer.sortingHat.variables import *
 
 import numpy
 import random
+import json
 
-"""
-Global variables here, not great but it works for now. Next step would be to
-populate these through form input so that the instructor can change these as
-we've planned. The skills list should also be handled differently at some
-point, probably something else the instructor should populate.
-"""
-"""
-MAX_SKILL_LEN = 10
-LEARN_WEIGHT = 0.2
-KNOWN_WEIGHT = 0.1
-GROUP_WEIGHT = 5.0
-MIN_SIZE = 4
-MAX_SIZE = 6
-OPT_SIZE = 5
-"""
-
-class Lead(Enum):
-    NO_PREF = 0
-    STRONG_LEAD = 1
-    PREFER_LEAD = 2
-    PREFER_FOLLOW = 3
-    STRONG_FOLLOW = 4
-"""
-def createGraph():
-    print("Creating graph")
-    G = nx.Graph()
-    G.add_nodes_from(students, bipartite=0)
-    G.add_nodes_from(groups, bipartite=1)
-    print(G.number_of_nodes())
-    for student in students:
-        for g in student.preferences:
-            G.add_edge(student, g)
-    print(G.number_of_edges())
-    X, Y = bipartite.sets(G)
-    pos = {}
-    pos.update( (n, (1, i*2)) for i, n in enumerate(X) )
-    pos.update( (n, (2, i*10)) for i, n in enumerate(Y) )
-
-    nx.draw(G, with_labels=True, pos=pos, node_size=1)
-    plt.show()
-"""
 ##! This function combines all variables, but unused in current implementation
 ##! May be more applicable to a hungarian algorithm approad
 def calcStudentPreference(known, learn, preference):
@@ -73,6 +33,53 @@ def calcGroupPreference(known, learn, ip_score):
 #    pref = pref/(KNOWN_WEIGHT + LEARN_WEIGHT)
     return pref
 
+def addStudent(data):
+    name = data["firstName"] + data["lastName"]
+    identikey = data["identikey"]
+    first_name = data["firstChoice"]
+    second_name = data["secondChoice"]
+    third_name = data["thirdChoice"]
+    fourth_name = data["fourthChoice"]
+    fifth_name = data["fifthChoice"]
+    work_with = data["requestedPartners"]
+    dont_work_with = data["bannedPartners"]
+    known_skills = data["skills"]
+    learn_skills = data["desired"]
+    ip_pref = data["ipPref"]
+    leadership = data["lead"]
+    student_to_add = Students(
+        student_name=name,
+        identikey=identikey,
+        known_skills=known_skills,
+        learn_skills=learn_skills,
+        leadership=leadership,
+        ip_pref=ip_pref
+    )
+    student_to_add.save()
+    
+    for name in work_with:
+        student_to_add.update(add_to_set__temp_work_with=name)
+    for name in dont_work_with:
+        student_to_add.update(add_to_set__temp_dont_work_with=name)
+    student_to_add.save()
+    
+    first_pref = Groups.objects.get(group_name=first_name)
+    student_to_add.update(add_to_set__preferences=first_pref)
+
+    second_pref = Groups.objects.get(group_name=second_name)
+    student_to_add.update(add_to_set__preferences=second_pref)
+    
+    third_pref = Groups.objects.get(group_name=third_name)
+    student_to_add.update(add_to_set__preferences=third_pref)
+    
+    fourth_pref = Groups.objects.get(group_name=fourth_name)
+    student_to_add.update(add_to_set__preferences=fourth_pref)
+    
+    fifth_pref = Groups.objects.get(group_name=fifth_name)
+    student_to_add.update(add_to_set__preferences=fifth_pref)
+    
+    student_to_add.save()
+    registerUser(student_to_add)
 ##! This function registers students with each connected group and adds the
 ##! student to the group's preference list with the associated preference score
 def registerUser(student, groups):
@@ -104,9 +111,33 @@ def registerUser(student, groups):
         groups[index].preferences[student] = pref
         for db_group in Groups.objects:
             if db_group.group_name == groups[index].group_name:
-                db_group.preferences[student.student_name] =\
-                groups[index].preferences[student]
+                db_group.preferences[student.identikey] = pref
                 db_group.save()
+"""
+def registerUser(student):
+    known_score = 0
+    learn_score = 0
+    ip_score = 0
+    for grp in student.preferences:
+        for attr in grp.skills:
+            if attr in student.known_skills and known_score < MAX_SKILL_LEN:
+                known_score += 1
+            if attr in student.learn_skills and learn_score < MAX_SKILL_LEN:
+                learn_score += 1
+        if student.ip_pref == 'NO_PREF':
+            ip_score = 0
+        elif student.ip_pref == 'RETAIN' and grp.ip == 'OPEN':
+            ip_score = 2
+        elif student.ip_pref == 'RETAIN' and grp.ip == 'CLOSED':
+            ip_score = -1
+        pref = calcGroupPreference(known_score, learn_score, ip_score)
+        #grp.preferences[student.identikey] = pref
+        pref_doc = Preference(student=student, pref_score=pref)
+        db_group = Groups.objects.get(group_name=grp.group_name)
+        print("adding pref scores to " + db_group.group_name)
+        db_group.update(add_to_set__preferences=pref_doc)
+        db_group.save()
+"""
 
 def trimGroups(students, groups):
     g_count = int(float(len(students))/OPT_SIZE)
@@ -363,23 +394,49 @@ def averagePreference(matched):
     avg_pref = numpy.mean(prefs)
     return avg_pref
 
+def updateDb(l_students, l_groups):
+    for l_student in l_students:
+        s_to_update = Students.objects.get(identikey=l_student.identikey)
+        s_to_update.update(
+            group_assigned=l_student.group_assigned,
+        )
+    for l_group in l_groups:
+        g_to_update = Groups.objects.get(group_name=l_group.group_name)
+        g_to_update.update(
+            has_leader=l_group.has_leader,
+            has_strong_leader=l_group.has_strong_leader,
+        )
+        for s in l_group.members:
+            g_to_update.update(add_to_set__members=s)
+        g_to_update.save()
+
 # This function is a controller, basically it abstracts all the stuff that
 # was in main. This way we can import this function when we want to call
 # the sorting stuff from the server
 ##! This version of dumbledore creates a local copy of the db collections
 ##! and operates on them, but it makes updating the db cumbersome
 def dumbledore():
+    matched = None
     l_students = []
     l_groups = []
-    for student in Students.objects:
-        l_students.append(student)
     for group in Groups.objects:
         group.modify(members=[], preferences={})
         l_groups.append(group)
-    for student in l_students:
+    for student in Students.objects:
         registerUser(student, l_groups)
+#        registerUser(student)
+        l_students.append(student)
+#    for group in Groups.objects:
+#        group.modify(members=[], preferences={})
+#        l_groups.append(group)
     unpopular(l_groups)
     matched = sortThemBitches(l_students, l_groups)
+    updateDb(l_students, l_groups)
+    """
+    for l_student in l_students:
+        s_to_update = Students.objects.get(identikey=l_student.identikey)
+        s_to_update.modify(group_assigned=l_student.group_assigned)
+        s_to_update.save()
     for student in Students.objects:
         for l_student in l_students:
             if student.identikey == l_student.identikey:
@@ -393,6 +450,12 @@ def dumbledore():
                     group.update(add_to_set__members=student)
                 group.save
                 break
+    for l_group in l_groups:
+        g_to_update = Groups.objects.get(group_name=l_group.group_name)
+        for s in l_group.members:
+            g_to_update.update(add_to_set__members=s)
+        g_to_update.save()
+    """
     if matched:
         for group in l_groups:
 #           print(group._id)

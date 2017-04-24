@@ -1,13 +1,15 @@
 from flask import Flask, request, Response
 from flask import render_template, url_for, redirect, send_from_directory
 from flask import send_file, make_response, abort
-
+import json
+import sys
 import os
-
+sys.path.append('..')
 from hatServer import app
 
 from hatServer.models import Groups, Students
-from hatServer.sortingHat.sortingHat import dumbledore
+from hatServer.sortingHat.sortingHat import addStudent, registerUser
+from hatServer.sortingHat.sortingHat import dumbledore 
 from hatServer.sortingHat.buildDB import buildDB
 
 # This shouldn't be needed, should be handled in __init__.py
@@ -19,11 +21,24 @@ def index():
     print ("TYPICAL BITCH")
     return render_template('index.html')
 
+@app.route('/sort', methods=['GET', 'POST'])
+def sort():
+    print("Yer a wizard Harry")
+    dumbledore()
+    return render_template('index.html')
+
+@app.route('/build', methods=['GET', 'POST'])
+def build():
+    print("Building a database")
+    buildDB('testData/2014_test_data.csv', 'testData/test_groups.csv')
+    return render_template('index.html')
+
 @app.route('/takeSurvey3', methods=['GET', 'POST'])
 def create_survey():
     # get data from form object 
     print("TAKE SURVEY HOMES")
     data = json.loads(request.data.decode())
+    addStudent(data)
 
     firstName = data["firstName"]
     lastName = data["lastName"]
@@ -57,6 +72,10 @@ def create_survey():
 def basic_pages(**kwargs):
     return make_response(open('hatServer/templates/index.html').read())
 
+@app.route('/submit')
+def submitSurvey():
+   return None
+"""
 # This function will change once Jesus' code is checked in,
 # but for now it just makes the login button not return 404
 @app.route('/login', methods=['GET', 'POST'])
@@ -66,12 +85,14 @@ def login():
         flash('Login requested for identikey="%s", remember_me=%s' %
               (form.identikey.data, str(form.remember_me.data)))
     return basic_pages()
-
+"""
+"""
 @app.route('/sort', methods=['GET'])
 def sort_students():
     dumbledore()
     return basic_pages() 
-
+"""
+"""
 @app.route('/display', methods=['GET'])
 def display_sorted_groups():
     groups = []
@@ -108,7 +129,8 @@ def add_student():
         results = "Student Collection Error"
         errors = "Failed to add student to Database"
         return render_template('index.html', errors=errors, results=results)
-
+"""
+"""
 @app.route('/add/group', methods=['POST'])
 def add_group():
     try:
@@ -120,6 +142,7 @@ def add_group():
         results = "Group Collection Error"
         errors = "Failed to add group to Database"
         return render_template('index.html', errors=errors, results=results)
+"""
 """
 @app.route('/', methods=['GET', 'POST'])
 def index():

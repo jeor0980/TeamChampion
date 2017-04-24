@@ -3,7 +3,6 @@ import sys
 sys.path.append("..")
 sys.path.append("../..")
 from hatServer.models import Groups, Students
-import hatServer.sortingHat.leadership as l
 
 class dataSet:
     """
@@ -73,6 +72,10 @@ def parseGroups(data):
 
 def buildDB(student_path, group_path):
     #assert(len(student_path) > 0)
+    if len(Groups.objects.all()) > 0:
+        Groups.drop_collection()
+    if len(Students.objects.all()) > 0:
+        Students.drop_collection()
     student_data = dataSet(student_path)
     group_data = dataSet(group_path)
     for line in group_data.readData:
