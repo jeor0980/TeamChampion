@@ -8,6 +8,32 @@ sortingApp.controller('mainController', function($scope, userInformation) {
   }
 });
 
+sortingApp.controller('buildController', function ($scope, $http) {
+    data = {};
+
+    $scope.buildBitches = function () {
+        // Fire the API request
+        $http.post('/build', data).success(function (results) {
+            console.log('BUILDING THEM BITCHES');
+        }).error(function (err) {
+            console.log(err);
+        });
+    }
+});
+
+sortingApp.controller('sortController', function ($scope, $http) {
+    data = {};
+
+    $scope.sortBitches = function () {
+        // Fire the API request
+        $http.post('/sort', data).success(function (results) {
+            console.log('SORTING THEM BITHCES');
+        }).error(function (err) {
+            console.log(err);
+        });
+    }
+});
+
 sortingApp.controller('profileController', function($scope, $window, userInformation) {
     $scope.message = 'Look! I am an about page.';
 
