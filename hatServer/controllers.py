@@ -41,6 +41,7 @@ def create_survey():
     addStudent(data)
 
     firstName = data["firstName"]
+    """
     lastName = data["lastName"]
     #email = data["email"]
     comments = data["comments"]
@@ -64,7 +65,7 @@ def create_survey():
     desired = data["desired"]
     ipPref = data["ipPref"]
     lead = data["lead"]
-    
+    """ 
     return firstName
 
 @app.route('/')
@@ -72,9 +73,6 @@ def create_survey():
 def basic_pages(**kwargs):
     return make_response(open('hatServer/templates/index.html').read())
 
-@app.route('/submit')
-def submitSurvey():
-   return None
 """
 # This function will change once Jesus' code is checked in,
 # but for now it just makes the login button not return 404

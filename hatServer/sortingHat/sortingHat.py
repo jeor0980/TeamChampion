@@ -34,6 +34,7 @@ def calcGroupPreference(known, learn, ip_score):
     return pref
 
 def addStudent(data):
+    print("Adding student " + data["identikey"])
     name = data["firstName"] + data["lastName"]
     identikey = data["identikey"]
     first_name = data["firstChoice"]
@@ -41,8 +42,6 @@ def addStudent(data):
     third_name = data["thirdChoice"]
     fourth_name = data["fourthChoice"]
     fifth_name = data["fifthChoice"]
-    work_with = data["requestedPartners"]
-    dont_work_with = data["bannedPartners"]
     known_skills = data["skills"]
     learn_skills = data["desired"]
     ip_pref = data["ipPref"]
@@ -57,10 +56,14 @@ def addStudent(data):
     )
     student_to_add.save()
     
-    for name in work_with:
-        student_to_add.update(add_to_set__temp_work_with=name)
-    for name in dont_work_with:
-        student_to_add.update(add_to_set__temp_dont_work_with=name)
+    if "requestedPartners" in data:
+        work_with = data["requestedPartners"]
+        for name in work_with:
+            student_to_add.update(add_to_set__temp_work_with=name)
+    if "bannedPartners" in data:
+        dont_work_with = data["bannedPartners"]
+        for name in dont_work_with:
+            student_to_add.update(add_to_set__temp_dont_work_with=name)
     student_to_add.save()
     
     first_pref = Groups.objects.get(group_name=first_name)
@@ -79,7 +82,7 @@ def addStudent(data):
     student_to_add.update(add_to_set__preferences=fifth_pref)
     
     student_to_add.save()
-    registerUser(student_to_add)
+    #registerUser(student_to_add)
 ##! This function registers students with each connected group and adds the
 ##! student to the group's preference list with the associated preference score
 def registerUser(student, groups):
