@@ -1,0 +1,18 @@
+First Name,Last Name,Identikey,Known Skills,Skills to Learn,"Leadership Role (1 - only leader, 2 - prefer to lead but will follow, 3 - either works, 4 - prefer to follow but can lead, 5 - will only follow)",pref 1,pref 2,pref 3,,,Prefertoworkwith,Prefernottoworkwith
+Harry,Potter,HarryPotter,VG.DB.WA.MA.UI ST.NW,MA.WA.VG.DB.UI.NW,STRONG_LEAD,DreamTeam,NiceGuys,Weasleys,0,0,RonWeasley.HermioneGranger,DracoMalfoy
+Hermione,Granger,HermioneGranger,VG.WA,MA.WA.VG.DB.UI.SC.AI,PREFER_FOLLOW,DreamTeam,Weasleys,Teachers,0,0,HarryPotter.RonWeasley,DracoMalfoy
+Ron,Weasley,RonWeasley,ES.WA.UI.ST.NW.SC,MA.WA.ES.UI.NW.SC,PREFER_FOLLOW,DreamTeam,Weasleys,NiceGuys,0,0,HarryPotter.HermioneGranger,DracoMalfoy
+Minerva,McGonogall,MinervaMcGonogall,WA.MA.UI,MA.WA.VG.ES.DB.UI.ST.NW.SC,PREFER_LEAD,Teachers,NiceGuys,DreamTeam,0,0,0,0
+Albus,Dumbledore,AlbusDumbledore,DB.WA.MA.ST.NW,VG.DB.UI,STRONG_LEAD,NiceGuys,Teachers,DreamTeam,0,0,0,0
+Pomona,Sprout,PomonaSprout,DB.ES.WA.MA.UI.SC,MA.WA.DB.UI,STRONG_LEAD,Teachers,NiceGuys,Weasleys,0,0,0,0
+Fillius,Flitwick,FilliusFlitwick,WA.UI.ST.NW,MA.WA,NO_PREF,Teachers,NiceGuys,Weasleys,0,0,0,0
+Severus,Snape,SeverusSnape,DB.ES.WA.MA.UI.ST.NW.SC,MA.WA.VG.ES.UI.NW.SC,PREFER_FOLLOW,Teachers,NiceGuys,BadGuys,0,0,LilyPotter,SiriusBlack.JamesPotter
+Sirius,Black,SiriusBlack,DB.WA.MA.UI.ST,MA.WA.DB.UI.NW.SC,STRONG_LEAD,NiceGuys,DreamTeam,Teachers,0,0,SiriusBlack,0
+James,Potter,JamesPotter,VG.DB.WA.MA.UI.ST.NW,WA.DB.UI,STRONG_LEAD,NiceGuys,DreamTeam,Weasleys,0,0,LilyPotter.SiriusBlack,0
+Lily,Potter,LilyPotter,VG.WA,MA.WA.VG,NO_PREF,NiceGuys,DreamTeam,Teachers,0,0,SeverusSnape,0
+Ginny,Weasley,GinnyWeasley,DB.WA.UI.NW,WA.DB.UI.NW.SC,NO_PREF,DreamTeam,Weasleys,NiceGuys,0,0,0,0
+Fred,Weasley,FredWeasley,DB.ES.WA.MA.UI,MA.WA.DB.UI,NO_PREF,DreamTeam,Weasleys,NiceGuys,0,0,GeorgeWeasley,0
+George,Weasley,GeorgeWeasley,VG.ES.WA.ST,WA.ES.DB.UI.NW.SC,NO_PREF,DreamTeam,Weasleys,NiceGuys,0,0,FredWeasley,0
+Bill,Weasley,BillWeasley,VG.WA.MA.ST,MA.WA.VG.ES.DB.UI.ST.NW.SC,NO_PREF,Weasleys,Teachers,NiceGuys,0,0,0,0
+Tom,Riddle,TomRiddle,VG.WA.MA.UI,MA.ES,STRONG_LEAD,BadGuys,Teachers,NiceGuys,0,0,SeverusSnape,0
+Draco,Malfoy,DracoMalfoy,VG.WA.MA.UI,WA.VG.UI.NW.SC,NO_PREF,DreamTeam,BadGuys,NiceGuys,0,0,HermioneGranger,HarryPotter.RonWeasley
