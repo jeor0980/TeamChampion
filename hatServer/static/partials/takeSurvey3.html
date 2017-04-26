@@ -79,11 +79,11 @@
     <div class="form-group">
       <span class="label label-danger" ng-show="submitted && takeSurveyForm.ipPref.$error.required">Required!</span>
       <label>IP Preference<span class="required-asterisk" style="color: red"> *</span><div class="secondary-text">Sponsor preference with respect to Intellectual Property rights has been posted on Moodle. Options range from the sponsors possibly requesting to retain all IP rights, to the students retaining IP rights.</div></label><br>
-      <input type="radio" class="with-gap" name="ipPref" ng-model="ipPref" id="retain" value="retain" required />
+      <input type="radio" class="with-gap" name="ipPref" ng-model="ipPref" id="retain" value="RETAIN" required />
       <label for="retain">Prefer to retain IP rights to my work</label><br>
-      <input type="radio" class="with-gap" name="ipPref" ng-model="ipPref" id="depends" value="depends" required />
+      <input type="radio" class="with-gap" name="ipPref" ng-model="ipPref" id="depends" value="NO_PREF" required />
       <label for="depends">Depends on the project</label><br>
-      <input type="radio" class="with-gap" name="ipPref" ng-model="ipPref" id="noIPPref" value="noIPPref" required />
+      <input type="radio" class="with-gap" name="ipPref" ng-model="ipPref" id="noIPPref" value="NO_PREF" required />
       <label for="noIPPref">I don't have a preference to retain IP rights to my work</label><br>
     </div><br>
 
@@ -91,16 +91,16 @@
     <div class="form-group">
       <span class="label label-danger" ng-show="submitted && takeSurveyForm.lead.$error.required">Required!</span>
       <label>Leadership Role<span class="required-asterisk" style="color: red"> *</span><div class="secondary-text">What is your preferred leadership role?</div></label><br>
-      <input type="radio" class="with-gap" name="lead" ng-model="lead" id="strongFollow" value="strongFollow" required />
-      <label for="strongFollow">Strongly prefer to be a follower rather than a leader</label><br>
-      <input type="radio" class="with-gap" name="lead" ng-model="lead" id="preferFollow" value="preferFollow" required />
-      <label for="preferFollow">Prefer to be a follower, but will lead when necessary</label><br>
-      <input type="radio" class="with-gap" name="lead" ng-model="lead" id="equalLead" value="equalLead" required />
-      <label for="equalLead">Enjoy leading and following equally</label><br>
-      <input type="radio" class="with-gap" name="lead" ng-model="lead" id="preferLead" value="preferLead" required />
-      <label for="preferLead">Prefer to be a leader, but will follow when necessary</label><br>
-      <input type="radio" class="with-gap" name="lead" ng-model="lead" id="strongLead" value="strongLead" required />
-      <label for="strongLead">Strongly prefer to be the leader; do not enjoy being a follower</label>
+      <input type="radio" class="with-gap" name="lead" ng-model="lead" id="STRONG_FOLLOW" value="STRONG_FOLLOW" required />
+      <label for="STRONG_FOLLOW">Strongly prefer to be a follower rather than a leader</label><br>
+      <input type="radio" class="with-gap" name="lead" ng-model="lead" id="PREFER_FOLLOW" value="PREFER_FOLLOW" required />
+      <label for="PREFER_FOLLOW">Prefer to be a follower, but will lead when necessary</label><br>
+      <input type="radio" class="with-gap" name="lead" ng-model="lead" id="NO_PREF" value="NO_PREF" required />
+      <label for="NO_PREF">Enjoy leading and following equally</label><br>
+      <input type="radio" class="with-gap" name="lead" ng-model="lead" id="PREFER_LEAD" value="PREFER_LEAD" required />
+      <label for="PREFER_LEAD">Prefer to be a leader, but will follow when necessary</label><br>
+      <input type="radio" class="with-gap" name="lead" ng-model="lead" id="STRONG_LEAD" value="STRONG_LEAD" required />
+      <label for="STRONG_LEAD">Strongly prefer to be the leader; do not enjoy being a follower</label>
     </div><br>
 
     <!-- Place to input requested partners -->
