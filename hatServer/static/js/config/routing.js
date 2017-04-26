@@ -60,7 +60,7 @@ sortingApp.config(function($routeProvider) {
         .when('/takeSurvey', {
             title: 'Take Survey',
             templateUrl : 'static/partials/takeSurvey.html',
-            controller : 'takeSurveyController's
+            controller : 'takeSurveyController'
         })
 
         // route for the second page of the survey
