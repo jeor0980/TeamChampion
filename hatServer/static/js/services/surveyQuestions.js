@@ -20,13 +20,11 @@ sortingApp.service('surveyQuestions', function () {
     };
     var overallGPA = {
         included: true,
-        required: true,
-        weight: 1
+        required: true
     };
     var csGPA = {
         included: true,
-        required: true,
-        weight: 1
+        required: true
     };
     var skillCategories = {
         expert: true,
@@ -36,73 +34,59 @@ sortingApp.service('surveyQuestions', function () {
     };
     var overallProgramming = {
         included: true,
-        required: true,
-        weight: 1
+        required: true
     };
     var databaseDevelopment = {
         included: true,
-        required: true,
-        weight: 1
+        required: true
     };
     var embeddedSystems = {
         included: true,
-        required: true,
-        weight: 1
+        required: true
     };
     var webApplications = {
         included: true,
-        required: true,
-        weight: 1
+        required: true
     };
     var mobileApplications = {
         included: true,
-        required: true,
-        weight: 1
+        required: true
     };
     var userInterface = {
         included: true,
-        required: true,
-        weight: 1
+        required: true
     };
     var statistics = {
         included: true,
-        required: true,
-        weight: 1
+        required: true
     };
     var networking = {
         included: true,
-        required: true,
-        weight: 1
+        required: true
     };
     var security = {
         included: true,
-        required: true,
-        weight: 1
+        required: true
     };
     var robotics = {
         included: true,
-        required: true,
-        weight: 1
+        required: true
     };
     var computerVision = {
         included: true,
-        required: true,
-        weight: 1
+        required: true
     };
     var algorithms = {
         included: true,
-        required: true,
-        weight: 1
+        required: true
     };
     var machineLearning = {
         included: true,
-        required: true,
-        weight: 1
+        required: true
     };
     var firstChoice = {
         included: true,
-        required: true,
-        weight: 2
+        required: true
     };
     var firstComment = {
         included: true,
@@ -110,8 +94,7 @@ sortingApp.service('surveyQuestions', function () {
     };
     var secondChoice = {
         included: true,
-        required: true,
-        weight: 2
+        required: true
     };
     var secondComment = {
         included: true,
@@ -119,8 +102,7 @@ sortingApp.service('surveyQuestions', function () {
     };
     var thirdChoice = {
         included: true,
-        required: true,
-        weight: 2
+        required: true
     };
     var thirdComment = {
         included: true,
@@ -128,8 +110,7 @@ sortingApp.service('surveyQuestions', function () {
     };
     var fourthChoice = {
         included: true,
-        required: true,
-        weight: 2
+        required: true
     };
     var fourthComment = {
         included: true,
@@ -137,8 +118,7 @@ sortingApp.service('surveyQuestions', function () {
     };
     var fifthChoice = {
         included: true,
-        required: true,
-        weight: 2
+        required: true
     };
     var fifthComment = {
         included: true,
@@ -146,8 +126,7 @@ sortingApp.service('surveyQuestions', function () {
     };
     var ipPreference = {
         included: true,
-        required: true,
-        weight: 1
+        required: true
     };
     var ipOptions = {
         retain: 'Prefer to retain IP rights to my work',
@@ -159,8 +138,7 @@ sortingApp.service('surveyQuestions', function () {
     };
     var leadership = {
         included: true,
-        required: true,
-        weight: 1
+        required: true
     };
     var leadershipOptions = {
         strongFollow: 'Strongly prefer to be a follower rather than a leader',
@@ -176,8 +154,7 @@ sortingApp.service('surveyQuestions', function () {
     };
     var preferredPartners = {
         included: true,
-        required: false,
-        weight: 1
+        required: false
     };
     var bannedPartners = {
         included: true,

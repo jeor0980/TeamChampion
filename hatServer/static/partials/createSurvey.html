@@ -22,11 +22,11 @@
     <div class="card-panel">
       <div class="form-control">
         <div class="row">
-          <div class="col s4">
+          <div class="col s6">
             <input type="checkbox" name="firstName" id="firstName" ng-model="firstName['included']" />
             <label for="firstName">Student First Name</label>
           </div>
-          <div class="switch col s4">
+          <div class="switch col s6">
             <label for="firstNameRequired">
               Optional
               <input type="checkbox" name="firstNameRequired" id="firstNameRequired" ng-model="firstName['required']" />
@@ -36,11 +36,11 @@
           </div>
         </div>
         <div class="row">
-          <div class="col s4">
+          <div class="col s6">
             <input type="checkbox" name="lastName" id="lastName" ng-model="lastName['included']" />
             <label for="lastName">Student Last Name</label>
           </div>
-          <div class="switch col s4">
+          <div class="switch col s6">
             <label for="lastNameRequired">
               Optional
               <input type="checkbox" name="lastNameRequired" id="lastNameRequired" ng-model="lastName['required']" />
@@ -50,11 +50,11 @@
           </div>
         </div>
         <div class="row">
-          <div class="col s4">
+          <div class="col s6">
             <input type="checkbox" name="preferredName" id="preferredName" ng-model="preferredName['included']" />
             <label for="preferredName">Student Preferred Name</label>
           </div>
-          <div class="switch col s4">
+          <div class="switch col s6">
             <label for="preferredNameRequired">
               Optional
               <input type="checkbox" name="preferredNameRequired" id="preferredNameRequired" ng-model="preferredName['required']" />
@@ -64,11 +64,11 @@
           </div>
         </div>
         <div class="row">
-          <div class="col s4">
+          <div class="col s6">
             <input type="checkbox" name="gpa" id="gpa" ng-model="overallGPA['included']" />
             <label for="gpa">Overall GPA</label>
           </div>
-          <div class="switch col s4">
+          <div class="switch col s6">
             <label for="gpaRequired">
               Optional
               <input type="checkbox" name="gpaRequired" id="gpaRequired" ng-model="overallGPA['required']" />
@@ -76,27 +76,19 @@
               Required
             </label>
           </div>
-          <div class="col s4">
-            <label for="gpaWeight">Weight</label>
-            <input type="number" name="gpaWeight" ng-model="overallGPA['weight']" />
-          </div>
         </div>
         <div class="row">
-          <div class="col s4">
+          <div class="col s6">
             <input type="checkbox" name="csgpa" id="csgpa" ng-model="csGPA['included']" />
             <label for="csgpa">Compter Science GPA</label>
           </div>
-          <div class="switch col s4">
+          <div class="switch col s6">
             <label for="csgpaRequired">
               Optional
               <input type="checkbox" name="csgpaRequired" id="csgpaRequired" ng-model="csGPA['required']" />
               <span class="lever"></span>
               Required
             </label>
-          </div>
-          <div class="col s4">
-            <label for="csgpaWeight">Weight</label>
-            <input type="number" name="csgpaWeight" ng-model="csGPA['weight']" />
           </div>
         </div>
       </div>
@@ -132,11 +124,11 @@
       </div>
 
       <div class="row">
-        <div class="col s4">
+        <div class="col s6">
           <input type="checkbox" name="overallProgramming" id="overallProgramming" ng-model="overallProgramming['included']" />
           <label for="overallProgramming">Overall Programming</label>
         </div>
-        <div class="switch col s4">
+        <div class="switch col s6">
           <label>
             Optional
             <input type="checkbox" name="overallProgrammingRequired" id="overallProgrammingRequired" ng-model="overallProgramming['required']" />
@@ -144,18 +136,14 @@
             Required
           </label>
         </div>
-        <div class="col s4">
-          <label for="overallProgrammingWeight">Weight</label>
-          <input type="number" name="overallProgrammingWeight" id="overallProgrammingWeight" ng-model="overallProgramming['weight']" />
-        </div>
       </div>
 
       <div class="row">
-        <div class="col s4">
+        <div class="col s6">
           <input type="checkbox" name="databaseDevelopment" id="databaseDevelopment" ng-model="databaseDevelopment['included']" />
           <label for="databaseDevelopment">Database Development</label>
         </div>
-        <div class="switch col s4">
+        <div class="switch col s6">
           <label>
             Optional
             <input type="checkbox" name="databaseDevelopmentRequired" id="databaseDevelopmentRequired" ng-model="databaseDevelopment['required']" />
@@ -163,18 +151,14 @@
             Required
           </label>
         </div>
-        <div class="col s4">
-          <label for="databaseDevelopmentWeight">Weight</label>
-          <input type="number" name="databaseDevelopmentWeight" id="databaseDevelopmentWeight" ng-model="databaseDevelopment['weight']" />
-        </div>
       </div>
 
       <div class="row">
-        <div class="col s4">
+        <div class="col s6">
           <input type="checkbox" name="embeddedSystems" id="embeddedSystems" ng-model="embeddedSystems['included']" />
           <label for="embeddedSystems">Embedded Systems</label>
         </div>
-        <div class="switch col s4">
+        <div class="switch col s6">
           <label>
             Optional
             <input type="checkbox" name="embeddedSystemsRequired" id="embeddedSystemsRequired" ng-model="embeddedSystems['required']" />
@@ -182,18 +166,14 @@
             Required
           </label>
         </div>
-        <div class="col s4">
-          <label for="embeddedSystemsWeight">Weight</label>
-          <input type="number" name="embeddedSystemsWeight" id="embeddedSystemsWeight" ng-model="embeddedSystems['weight']" />
-        </div>
       </div>
 
       <div class="row">
-        <div class="col s4">
+        <div class="col s6">
           <input type="checkbox" name="webApplications" id="webApplications" ng-model="webApplications['included']" />
           <label for="webApplications">Web Applications</label>
         </div>
-        <div class="switch col s4">
+        <div class="switch col s6">
           <label>
             Optional
             <input type="checkbox" name="webApplicationsRequired" id="webApplicationsRequired" ng-model="webApplications['required']" />
@@ -201,18 +181,14 @@
             Required
           </label>
         </div>
-        <div class="col s4">
-          <label for="webApplicationsWeight">Weight</label>
-          <input type="number" name="webApplicationsWeight" id="webApplicationsWeight" ng-model="webApplications['weight']" />
-        </div>
       </div>
 
       <div class="row">
-        <div class="col s4">
+        <div class="col s6">
           <input type="checkbox" name="mobileApplications" id="mobileApplications" ng-model="mobileApplications['included']" />
           <label for="mobileApplications">Mobile Applications</label>
         </div>
-        <div class="switch col s4">
+        <div class="switch col s6">
           <label>
             Optional
             <input type="checkbox" name="mobileApplicationsRequired" id="mobileApplicationsRequired" ng-model="mobileApplications['required']" />
@@ -220,18 +196,14 @@
             Required
           </label>
         </div>
-        <div class="col s4">
-          <label for="mobileApplicationsWeight">Weight</label>
-          <input type="number" name="mobileApplicationsWeight" id="mobileApplicationsWeight" ng-model="mobileApplications['weight']" />
-        </div>
       </div>
 
       <div class="row">
-        <div class="col s4">
+        <div class="col s6">
           <input type="checkbox" name="userInterface" id="userInterface" ng-model="userInterface['included']" />
           <label for="userInterface">User Interface/Experience</label>
         </div>
-        <div class="switch col s4">
+        <div class="switch col s6">
           <label>
             Optional
             <input type="checkbox" name="userInterfaceRequired" id="userInterfaceRequired" ng-model="userInterface['required']" />
@@ -239,18 +211,14 @@
             Required
           </label>
         </div>
-        <div class="col s4">
-          <label for="userInterfaceWeight">Weight</label>
-          <input type="number" name="userInterfaceWeight" id="userInterfaceWeight" ng-model="userInterface['weight']" />
-        </div>
       </div>
 
       <div class="row">
-        <div class="col s4">
+        <div class="col s6">
           <input type="checkbox" name="statistics" id="statistics" ng-model="statistics['included']" />
           <label for="statistics">Statistics</label>
         </div>
-        <div class="switch col s4">
+        <div class="switch col s6">
           <label>
             Optional
             <input type="checkbox" name="statisticsRequired" id="statisticsRequired" ng-model="statistics['required']" />
@@ -258,18 +226,14 @@
             Required
           </label>
         </div>
-        <div class="col s4">
-          <label for="statisticsWeight">Weight</label>
-          <input type="number" name="statisticsWeight" id="statisticsWeight" ng-model="statistics['weight']" />
-        </div>
       </div>
 
       <div class="row">
-        <div class="col s4">
+        <div class="col s6">
           <input type="checkbox" name="socialNetworking" id="socialNetworking" ng-model="networking['included']" />
           <label for="socialNetworking">(Social/Professional) Networking</label>
         </div>
-        <div class="switch col s4">
+        <div class="switch col s6">
           <label>
             Optional
             <input type="checkbox" name="socialNetworkingRequired" id="socialNetworkingRequired" ng-model="networking['required']" />
@@ -277,18 +241,14 @@
             Required
           </label>
         </div>
-        <div class="col s4">
-          <label for="socialNetworkingWeight">Weight</label>
-          <input type="number" name="socialNetworkingWeight" id="socialNetworkingWeight" ng-model="networking['weight']" />
-        </div>
       </div>
 
       <div class="row">
-        <div class="col s4">
+        <div class="col s6">
           <input type="checkbox" name="security" id="security" ng-model="security['included']" />
           <label for="security">Security</label>
         </div>
-        <div class="switch col s4">
+        <div class="switch col s6">
           <label>
             Optional
             <input type="checkbox" name="securityRequired" id="securityRequired" ng-model="security['required']" />
@@ -296,18 +256,14 @@
             Required
           </label>
         </div>
-        <div class="col s4">
-          <label for="securityWeight">Weight</label>
-          <input type="number" name="securityWeight" id="securityWeight" ng-model="security['weight']" />
-        </div>
       </div>
 
       <div class="row">
-        <div class="col s4">
+        <div class="col s6">
           <input type="checkbox" name="robotics" id="robotics" ng-model="robotics['included']" />
           <label for="robotics">Robotics</label>
         </div>
-        <div class="switch col s4">
+        <div class="switch col s6">
           <label>
             Optional
             <input type="checkbox" name="roboticsRequired" id="roboticsRequired" ng-model="robotics['required']" />
@@ -315,18 +271,14 @@
             Required
           </label>
         </div>
-        <div class="col s4">
-          <label for="roboticsWeight">Weight</label>
-          <input type="number" name="roboticsWeight" id="roboticsWeight" ng-model="robotics['weight']" />
-        </div>
       </div>
 
       <div class="row">
-        <div class="col s4">
+        <div class="col s6">
           <input type="checkbox" name="computerVision" id="computerVision" ng-model="computerVision['included']" />
           <label for="computerVision">Computer Vision</label>
         </div>
-        <div class="switch col s4">
+        <div class="switch col s6">
           <label>
             Optional
             <input type="checkbox" name="computerVisionRequired" id="computerVisionRequired" ng-model="computerVision['required']" />
@@ -334,18 +286,14 @@
             Required
           </label>
         </div>
-        <div class="col s4">
-          <label for="computerVisionWeight">Weight</label>
-          <input type="number" name="computerVisionWeight" id="computerVisionWeight" ng-model="computerVision['weight']" />
-        </div>
       </div>
 
       <div class="row">
-        <div class="col s4">
+        <div class="col s6">
           <input type="checkbox" name="algorithms" id="algorithms" ng-model="algorithms['included']" />
           <label for="algorithms">Algorithms</label>
         </div>
-        <div class="switch col s4">
+        <div class="switch col s6">
           <label>
             Optional
             <input type="checkbox" name="algorithmsRequired" id="algorithmsRequired" ng-model="algorithms['required']" />
@@ -353,28 +301,20 @@
             Required
           </label>
         </div>
-        <div class="col s4">
-          <label for="algorithmsWeight">Weight</label>
-          <input type="number" name="algorithmsWeight" id="algorithmsWeight" ng-model="algorithms['weight']" />
-        </div>
       </div>
 
       <div class="row">
-        <div class="col s4">
+        <div class="col s6">
           <input type="checkbox" name="machineLearning" id="machineLearning" ng-model="machineLearning['included']" />
           <label for="machineLearning">Machine Learning</label>
         </div>
-        <div class="switch col s4">
+        <div class="switch col s6">
           <label>
             Optional
             <input type="checkbox" name="machineLearningRequired" id="machineLearningRequired" ng-model="machineLearning['required']" />
             <span class="lever"></span>
             Required
           </label>
-        </div>
-        <div class="col s4">
-          <label for="machineLearningWeight">Weight</label>
-          <input type="number" name="machineLearningWeight" id="machineLearningWeight" ng-model="machineLearning['weight']" />
         </div>
       </div>
 
@@ -390,11 +330,11 @@
       </div>
 
       <div class="row">
-        <div class="col s4">
+        <div class="col s6">
           <input type="checkbox" name="firstChoice" id="firstChoice" ng-model="firstChoice['included']" />
           <label for="firstChoice">First Choice</label>
         </div>
-        <div class="switch col s4">
+        <div class="switch col s6">
           <label>
             Optional
             <input type="checkbox" name="firstChoiceRequired" id="firstChoiceRequired" ng-model="firstChoice['required']" />
@@ -402,18 +342,14 @@
             Required
           </label>
         </div>
-        <div class="col s4">
-          <label for="firstChoiceWeight">Weight</label>
-          <input type="number" name="firstChoiceWeight" id="firstChoiceWeight" ng-model="firstChoice['weight']" />
-        </div>
       </div>
 
       <div class="row">
-        <div class="col s4">
+        <div class="col s6">
           <input type="checkbox" name="firstChoiceComment" id="firstChoiceComment" ng-model="firstComment['included']" />
           <label for="firstChoiceComment">First Choice Comment</label>
         </div>
-        <div class="switch col s4">
+        <div class="switch col s6">
           <label>
             Optional
             <input type="checkbox" name="firstCommentRequired" id="firstCommentRequired" ng-model="firstComment['required']" />
@@ -424,11 +360,11 @@
       </div>
 
       <div class="row">
-        <div class="col s4">
+        <div class="col s6">
           <input type="checkbox" name="secondChoice" id="secondChoice" ng-model="secondChoice['included']" />
           <label for="secondChoice">Second Choice</label>
         </div>
-        <div class="switch col s4">
+        <div class="switch col s6">
           <label>
             Optional
             <input type="checkbox" name="secondChoiceRequired" id="secondChoiceRequired" ng-model="secondChoice['required']" />
@@ -436,18 +372,14 @@
             Required
           </label>
         </div>
-        <div class="col s4">
-          <label for="secondChoiceWeight">Weight</label>
-          <input type="number" name="secondChoiceWeight" id="secondChoiceWeight" ng-model="secondChoice['weight']" />
-        </div>
       </div>
 
       <div class="row">
-        <div class="col s4">
+        <div class="col s6">
           <input type="checkbox" name="secondChoiceComment" id="secondChoiceComment" ng-model="secondComment['included']" />
           <label for="secondChoiceComment">Second Choice Comment</label>
         </div>
-        <div class="switch col s4">
+        <div class="switch col s6">
           <label>
             Optional
             <input type="checkbox" name="secondCommentRequired" id="secondCommentRequired" ng-model="secondComment['required']" />
@@ -458,11 +390,11 @@
       </div>
 
       <div class="row">
-        <div class="col s4">
+        <div class="col s6">
           <input type="checkbox" name="thirdChoice" id="thirdChoice" ng-model="thirdChoice['included']" />
           <label for="thirdChoice">Third Choice</label>
         </div>
-        <div class="switch col s4">
+        <div class="switch col s6">
           <label>
             Optional
             <input type="checkbox" name="thirdChoiceRequired" id="thirdChoiceRequired" ng-model="thirdChoice['required']" />
@@ -470,18 +402,14 @@
             Required
           </label>
         </div>
-        <div class="col s4">
-          <label for="thirdChoiceWeight">Weight</label>
-          <input type="number" name="thirdChoiceWeight" id="thirdChoiceWeight" ng-model="thirdChoice['weight']" />
-        </div>
       </div>
 
       <div class="row">
-        <div class="col s4">
+        <div class="col s6">
           <input type="checkbox" name="thirdChoiceComment" id="thirdChoiceComment" ng-model="thirdComment['included']" />
           <label for="thirdChoiceComment">Third Choice Comment</label>
         </div>
-        <div class="switch col s4">
+        <div class="switch col s6">
           <label>
             Optional
             <input type="checkbox" name="thirdCommentRequired" id="thirdCommentRequired" ng-model="thirdComment['required']" />
@@ -492,11 +420,11 @@
       </div>
 
       <div class="row">
-        <div class="col s4">
+        <div class="col s6">
           <input type="checkbox" name="fourthChoice" id="fourthChoice" ng-model="fourthChoice['included']" />
           <label for="fourthChoice">Fourth Choice</label>
         </div>
-        <div class="switch col s4">
+        <div class="switch col s6">
           <label>
             Optional
             <input type="checkbox" name="fourthChoiceRequired" id="fourthChoiceRequired" ng-model="fourthChoice['required']" />
@@ -504,18 +432,14 @@
             Required
           </label>
         </div>
-        <div class="col s4">
-          <label for="fourthChoiceWeight">Weight</label>
-          <input type="number" name="fourthChoiceWeight" id="fourthChoiceWeight" ng-model="fourthChoice['weight']" />
-        </div>
       </div>
 
       <div class="row">
-        <div class="col s4">
+        <div class="col s6">
           <input type="checkbox" name="fourthChoiceComment" id="fourthChoiceComment" ng-model="fourthComment['included']" />
           <label for="fourthChoiceComment">Fourth Choice Comment</label>
         </div>
-        <div class="switch col s4">
+        <div class="switch col s6">
           <label>
             Optional
             <input type="checkbox" name="fourthCommentRequired" id="fourthCommentRequired" ng-model="fourthComment['required']" />
@@ -526,11 +450,11 @@
       </div>
 
       <div class="row">
-        <div class="col s4">
+        <div class="col s6">
           <input type="checkbox" name="fifthChoice" id="fifthChoice" ng-model="fifthChoice['included']" />
           <label for="fifthChoice">Fifth Choice</label>
         </div>
-        <div class="switch col s4">
+        <div class="switch col s6">
           <label>
             Optional
             <input type="checkbox" name="fifthChoiceRequired" id="fifthChoiceRequired" ng-model="fifthChoice['required']" />
@@ -538,18 +462,14 @@
             Required
           </label>
         </div>
-        <div class="col s4">
-          <label for="fifthChoiceWeight">Weight</label>
-          <input type="number" name="fifthChoiceWeight" id="fifthChoiceWeight" ng-model="fifthChoice['weight']" />
-        </div>
       </div>
 
       <div class="row">
-        <div class="col s4">
+        <div class="col s6">
           <input type="checkbox" name="fifthChoiceComment" id="fifthChoiceComment" ng-model="fifthComment['included']" />
           <label for="fifthChoiceComment">Fifth Choice Comment</label>
         </div>
-        <div class="switch col s4">
+        <div class="switch col s6">
           <label>
             Optional
             <input type="checkbox" name="fifthCommentRequired" id="fifthCommentRequired" ng-model="fifthComment['required']" />
@@ -560,21 +480,17 @@
       </div>
 
       <div class="row">
-        <div class="col s4">
+        <div class="col s6">
           <input type="checkbox" name="ipPref" id="ipPref" ng-model="ipPreference['included']" />
           <label for="ipPref">IP Preference</label>
         </div>
-        <div class="switch col s4">
+        <div class="switch col s6">
           <label>
             Optional
             <input type="checkbox" name="ipPrefRequired" id="ipPrefRequired" ng-model="ipPreference['required']" />
             <span class="lever"></span>
             Required
           </label>
-        </div>
-        <div class="col s4">
-          <label for="ipPrefWeight">Weight</label>
-          <input type="number" name="ipPrefWeight" id="ipPrefWeight" ng-model="ipPreference['weight']" />
         </div>
       </div>
 
@@ -595,21 +511,17 @@
       </div>
 
       <div class="row">
-        <div class="col s4">
+        <div class="col s6">
           <input type="checkbox" name="lead" id="lead" ng-model="leadership['included']" />
           <label for="lead">Leadership Role</label>
         </div>
-        <div class="switch col s4">
+        <div class="switch col s6">
           <label>
             Optional
             <input type="checkbox" name="leadRequired" id="leadRequired" ng-model="leadership['required']" />
             <span class="lever"></span>
             Required
           </label>
-        </div>
-        <div class="col s4">
-          <label for="leadWeight">Weight</label>
-          <input type="number" name="leadWeight" id="leadWeight" ng-model="leadership['weight']" />
         </div>
       </div>
 
@@ -638,11 +550,11 @@
       </div>
 
       <div class="row">
-        <div class="col s4">
+        <div class="col s6">
           <input type="checkbox" name="preferredPartners" id="preferredPartners" ng-model="preferredPartners['included']" />
           <label for="preferredPartners">Preferred Partners</label>
         </div>
-        <div class="switch col s4">
+        <div class="switch col s6">
           <label>
             Optional
             <input type="checkbox" name="preferredPartnersRequired" id="preferredPartnersRequired" ng-model="preferredPartners['required']" />
@@ -650,18 +562,14 @@
             Required
           </label>
         </div>
-        <div class="col s4">
-          <label for="preferredPartnersWeight">Weight</label>
-          <input type="number" name="PreferredPartnersWeight" id="preferredPartnersWeight" ng-model="preferredPartners['weight']" />
-        </div>
       </div>
 
       <div class="row">
-        <div class="col s4">
+        <div class="col s6">
           <input type="checkbox" name="bannedPartners" id="bannedPartners" ng-model="bannedPartners['included']" />
           <label for="bannedPartners">Banned Partners</label>
         </div>
-        <div class="switch col s4">
+        <div class="switch col s6">
           <label>
             Optional
             <input type="checkbox" name="bannedPartnersRequired" id="bannedPartnersRequired" ng-model="bannedPartners['required']" />
