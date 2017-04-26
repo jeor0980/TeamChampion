@@ -1,16 +1,10 @@
 // create the controller and inject Angular's $scope
 sortingApp.controller('mainController', function($scope, userInformation) {
-    // create a message to display in our view
-    $scope.message = 'I AM YOUR FATHER!';
+
 });
-
-
 
 sortingApp.controller('profileController', function($scope, $window, userInformation) {
     //TODO: Destroy function
-
-    // $scope.pageTitle = 'My Profile | Sorting Hat';
-    $scope.message = 'Look! I am an about page.';
 
     //Check if user is authenticated
     if (userInformation.getIsLoggedIn() == false){
@@ -18,12 +12,15 @@ sortingApp.controller('profileController', function($scope, $window, userInforma
       $window.location.href = '/';
     }
     
+    // Grab user information to display on page from the userInformation service 
     $scope.role = userInformation.getRole();
     $scope.fullName = userInformation.getFullName();
     $scope.givenName = userInformation.getGivenName();
     $scope.familyName = userInformation.getFamilyName();
     $scope.email = userInformation.getEmail();
     $scope.imageUrl = userInformation.getImageUrl();
+
+
 });
 
 
@@ -149,17 +146,6 @@ sortingApp.controller('surveySuccessController', function($scope) {
 });
 
 
-sortingApp.controller("userController", ['$scope','$http', function($scope, $http)
-    {    
-      $http.get('../static/js/config/users.json').success (function(data){
-        $scope.userData = data;
-        console.log($scope.userData);
-        console.log($scope.userData["jeor0980"]); // Output: Jason Lengstorf
-    });
- 
-    }]
-);
-
 sortingApp.controller('GoogleCtrl', function($route, $scope, $window, $http, userInformation) {
 
   function onSignIn(googleUser) {
@@ -185,8 +171,8 @@ sortingApp.controller('GoogleCtrl', function($route, $scope, $window, $http, use
 
       // Case 1: Identikey is found in users.json file
       if ($scope.userData.hasOwnProperty(userInformation.getIdentikey())) {
-
         
+        //Get data from google and set information in the userInformation controls        
         userInformation.setFullName(profile.getName());
         userInformation.setGivenName(profile.getGivenName());
         userInformation.setFamilyName(profile.getFamilyName());
@@ -196,10 +182,10 @@ sortingApp.controller('GoogleCtrl', function($route, $scope, $window, $http, use
         userInformation.setRole($scope.userData[userInformation.getIdentikey()].role);
 
         //Role Stuff
-        console.log("what is your role?");
-        console.log("My role is " + userInformation.getRole());
-        console.log(userInformation.getIdentikey() + " The identikey in JSON File!");
-        console.log("User Authenticated Successfully!");
+        // console.log("what is your role?");
+        // console.log("My role is " + userInformation.getRole());
+        // console.log(userInformation.getIdentikey() + " The identikey in JSON File!");
+        // console.log("User Authenticated Successfully!");
 
         //Confirm login to user
         Materialize.toast('Logged In Successfully!', 5000) // 5000 is the duration of the toast

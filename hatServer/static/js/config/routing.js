@@ -20,7 +20,7 @@ sortingApp.config(function($routeProvider) {
         .when('/about', {
         		title: 'About',
             templateUrl : 'static/partials/about.html',
-            controller  : 'userController'
+            // controller  : ''
         })
 
         // route for the contact page
