@@ -2,7 +2,9 @@
 
 sortingApp.service('userInformation', function () {
     var isLoggedIn = false;
+    var role = null;
     var id = null;
+    var identikey = null;
     var fullName = null;
     var givenName = null;
     var familyName = null;
@@ -73,8 +75,21 @@ sortingApp.service('userInformation', function () {
       setIsLoggedIn: function(value) {
           isLoggedIn = value;
       },
+      getIdentikey: function () {
+          return identikey;
+      },
+      setIdentikey: function(value) {
+          identikey = value;
+      },
+      getRole: function () {
+          return role;
+      },
+      setRole: function(value) {
+          role = value;
+      },
 
       destroy: function() {
+        role = null;
         isLoggedIn = false;
         id = null;
         fullName = null;

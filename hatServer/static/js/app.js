@@ -5,4 +5,3 @@
 
 //var sortingApp = angular.module('sortingApp', ['ngRoute', 'ngSanitize']);
 var sortingApp = angular.module('sortingApp', ['ngRoute']);
-

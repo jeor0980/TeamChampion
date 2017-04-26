@@ -1,15 +1,25 @@
 ﻿<!DOCTYPE html>
+<!-- Declare entire website as an angular application which we named sortingApp -->
 <html lang="en" ng-app="sortingApp">
   <head>
+    <!-- Google Sign in required information -->
     <meta name="google-signin-scope" content="profile email">
+    <!-- Specify Google Client ID -->
+    <!-- Replace YOUR_CLIENT_ID in the line below -->
+    <!-- <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com"> -->
+    
     <meta name="google-signin-client_id" content="675406248196-d9jaiq867t6e0lfdi47ps0r398imc2ce.apps.googleusercontent.com">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
     <link rel="icon" type="image/png" href="../static/images/cu_favicon.png"/>
-    <title>Sorting Hat</title>
+
+    <!-- Title of each different page (partial) can be modified in js/config/routing.js -->
+    <title ng-bind="title"></title>
+
+    <!-- Load Material Icons from Google for Navigation Bar-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- Materialize CSS  -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="../static/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
     <link href="../static/css/custom.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 
@@ -20,45 +30,45 @@
     <header>
       <!-- Navigation Bar Code  -->
       <nav role="navigation" ng-controller="headerController">
-        <div class="nav-wrapper container">
 
+        <div class="nav-wrapper container">
+          <!-- Navigation Bar Logo -->
           <a href="#/" class="brand-logo"><img src="../static/images/whitehatlogo.png">Sorting Hat</a>
-          
+          <!-- Navigation Bar Items -->
           <ul class="right hide-on-med-and-down">
+            <!-- Navigation Bar Items are loaded from the headerController -->
             <div compile="isLoggedIn()"></div> 
           </ul>
 
+          <!-- Condensed Navbar Links-->
           <ul id="nav-mobile" class="side-nav">
-            <!-- Condensed Navbar Links Make sure to change these -->
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li><a href="#dashboard">Dashboard</a></li>
-            <li><a href="#myprofile">My Profile</a></li>   
-            <li><a href="#login">Login</a></li>
-            <!-- <li><a href="#/">Log out</a></li>   -->
-
+            <div compile="isLoggedIn()"></div> 
           </ul>
           <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
         </div>
+
       </nav>
     </header>
 
-    <!-- Added Main Tag for Sticky Footer -->
+    <!-- Added main tag for sticky footer functionality-->
+    <!-- mainController loaded, acts as a global scope if needed -->
     <main ng-controller="mainController">
-        <!-- Main page content -->
-
-        <!-- this is where content will be injected -->
-         <div ng-view></div>
+      <!-- Main page content -->
+      
+       <div ng-view></div>
+       <!-- this is where content will be injected -->
          
     </main>
 
+    <!-- Page Footer -->
     <footer class="page-footer">
       <div class="container">
         <div class="row">
-
+        <!-- Content for the top section of footer goes here -->
         </div>
       </div>
       <div class="footer-copyright ">
+        <!-- Content for bottom section of footer goes here  -->
         <div class="container">
         <p> Designed and built with &#10084 by Team Champion. Check out our <a href="https://github.com/jeor0980/TeamChampion">Github Project Repo</a> </p>
         </div>
@@ -66,7 +76,6 @@
     </footer>
 
     <!-- Scripts, loaded at the end as good practice -->
-
     <!-- Jquery and Materialize  -->
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="../static/js/materialize/materialize.min.js"></script>
@@ -76,7 +85,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-sanitize.min.js"></script>
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
     
     <!-- Our own scripts for our application -->
@@ -87,7 +95,9 @@
     <script src="/static/js/config/routing.js"></script>
     <script src="/static/js/controllers/main.js"></script>
 
+
     <!-- Google API -->
+    <!-- You must include the Google Platform Library on your web pages that integrate Google Sign-In. -->
     <script src="https://apis.google.com/js/platform.js" async defer></script>
   </body>
 </html>
