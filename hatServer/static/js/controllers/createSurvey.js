@@ -92,6 +92,6 @@ sortingApp.controller('createSurveyController', function ($scope, $window, surve
         surveyQuestions.setPreferredPartners($scope.preferredPartners);
         surveyQuestions.setBannedPartners($scope.bannedPartners);
 
-        $window.location.href = '#dashboard';
+        $window.location.href = '#projectsInput';
     }
 });

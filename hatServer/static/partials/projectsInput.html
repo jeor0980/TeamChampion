@@ -1,0 +1,46 @@
+﻿<div class="container">
+  <h1>Project Information</h1>
+  <p>Please input the requested information regarding each project.</p>
+
+  <div ng-repeat="project in projects">
+    <div class="card-panel">
+      <h2>Project {{ project.number }}</h2>
+      <form name="{{ 'project' + project.number + 'Form' }}" novalidate role="form">
+        <div class="form-control">
+          <label for="{{ project.number + 'Name' }}">Name</label>
+          <input type="text" name="{{ project.number + 'Name' }}" ng-model="project['name']" />
+        </div>
+    
+        <div class="form-control">
+          <div class="row">
+            <label for="{{ 'ip' + project.number }}">IP Preference</label>
+          </div>
+          <div class="row">
+            <input type="radio" class="with-gap" name="{{ 'ip' + project.number }}" id="{{ project.number +  '_open' }}"  ng-model="project['ipPref']" value="OPEN" />
+            <label for="{{ project.number + '_open' }}">Project does not care to retain IP rights</label>
+          </div>
+          <div class="row">
+            <input type="radio" class="with-gap" name="{{ 'ip' + project.number }}" id="{{ project.number +   '_closed' }}" ng-model="project['ipPref']" value="CLOSED" />
+            <label for="{{ project.number + '_closed' }}">Project wishes to keep its IP rights</label>
+          </div>
+        </div>
+
+        <div class="form-control">
+          <input type="checkbox" name="{{ 'paid' + project.number }}" id="{{ 'paid' + project.number }}" ng-model="project['paid']" />
+          <label for="{{ 'paid' + project.number }}">Check if this sponsor is paying and must be assigned a team</label>
+        </div>
+
+        <div class="form-control">
+          Select skills required for this project.
+          <div ng-repeat="skill in desiredSkills">
+            <input type="checkbox" name="{{ skill + project.number }}" id="{{ skill + project.number }}" ng-model="project['skills'][skill]" />
+            <label for="{{ skill + project.number }}">{{ skill }}</label>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+  <a href="#createSurvey" class="btn btn-default">Back</a>
+  <button type="submit" ng-click="updateProjects()" class="btn btn-default">Submit!</button>
+</div>

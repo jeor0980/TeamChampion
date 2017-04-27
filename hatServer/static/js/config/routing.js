@@ -75,6 +75,11 @@ sortingApp.config(function($routeProvider) {
             controller: 'sortController'
         })
 
+        .when('/projectsInput', {
+            templateUrl: 'static/partials/projectsInput.html',
+            controller: 'projectsInputController'
+        })
+
         .when('/build', {
             templateUrl: 'static/partials/build.html',
             controller: 'buildController'
