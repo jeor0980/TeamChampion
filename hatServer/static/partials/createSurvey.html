@@ -1,5 +1,655 @@
 <div class="container">
-	<h1>Create a New Survey</h1>
+  <h1>Create a New Survey</h1>
 
-	<p>{{ message }}</p>
+  <p>{{ message }}</p>
+
+  <form name="createSurveyForm" novalidate role="form">
+    <div class="card-panel">
+      <div class="form-control">
+        <span class="label label-danger" ng-show="submitted && createSurveyForm.surveyTitle.$error.required">Required!</span>
+        <label for="surveyName">Survey Name<span class="required-asterisk" style="color: red"> *</span></label>
+        <input type="text" name="surveyName" ng-model="surveyName" class="form-control" required />
+      </div>
+
+      <div class="form-control">
+        <label for="surveyDescription">Survey Description</label>
+        <textarea name="surveyDescription" ng-model="surveyDescription" class="materialize-textarea"></textarea>
+      </div>
+
+      <div class="row">
+        <span class="label label-danger" ng-show="submitted && createSurveyForm.studentCount.$error.requred">Required!</span>
+        <label for="studentCount">How many students will need to be sorted into a team?<span class="required-asterisk" style="color: red"> *</span></label>
+        <input type="number" ng-model="studentCount" class="form-control" required />
+      </div>
+
+      <p>You may select the minimum, maximum, and optimum group sizes the algorithm will create.</p>
+      <div class="row">
+        <div class="col s4">
+          <label for="minGroupSize">Minimum Group Size</label>
+          <input type="number" name="minGroupSize" ng-model="groupSizes['min']" />
+        </div>
+        <div class="col s4">
+          <label for="maxGroupSize">Maximum Group Size</label>
+          <input type="number" name="maxGroupSize" ng-model="groupSizes['max']" />
+        </div>
+        <div class="col s4">
+          <label for="optGroupSize">Optimum Group Size</label>
+          <input type="number" name="optGroupSize" ng-model="groupSizes['opt']" />
+        </div>
+      </div>
+    </div>
+
+    <p>Select questions that you would like your students to be asked, and customize them according to your needs.</p>
+
+    <div class="card-panel">
+      <div class="form-control">
+        <div class="row">
+          <div class="col s6">
+            <input type="checkbox" name="firstName" id="firstName" ng-model="firstName['included']" />
+            <label for="firstName">Student First Name</label>
+          </div>
+          <div class="switch col s6">
+            <label for="firstNameRequired">
+              Optional
+              <input type="checkbox" name="firstNameRequired" id="firstNameRequired" ng-model="firstName['required']" />
+              <span class="lever"></span>
+              Required
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s6">
+            <input type="checkbox" name="lastName" id="lastName" ng-model="lastName['included']" />
+            <label for="lastName">Student Last Name</label>
+          </div>
+          <div class="switch col s6">
+            <label for="lastNameRequired">
+              Optional
+              <input type="checkbox" name="lastNameRequired" id="lastNameRequired" ng-model="lastName['required']" />
+              <span class="lever"></span>
+              Required
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s6">
+            <input type="checkbox" name="preferredName" id="preferredName" ng-model="preferredName['included']" />
+            <label for="preferredName">Student Preferred Name</label>
+          </div>
+          <div class="switch col s6">
+            <label for="preferredNameRequired">
+              Optional
+              <input type="checkbox" name="preferredNameRequired" id="preferredNameRequired" ng-model="preferredName['required']" />
+              <span class="lever"></span>
+              Required
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s6">
+            <input type="checkbox" name="gpa" id="gpa" ng-model="overallGPA['included']" />
+            <label for="gpa">Overall GPA</label>
+          </div>
+          <div class="switch col s6">
+            <label for="gpaRequired">
+              Optional
+              <input type="checkbox" name="gpaRequired" id="gpaRequired" ng-model="overallGPA['required']" />
+              <span class="lever"></span>
+              Required
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s6">
+            <input type="checkbox" name="csgpa" id="csgpa" ng-model="csGPA['included']" />
+            <label for="csgpa">Compter Science GPA</label>
+          </div>
+          <div class="switch col s6">
+            <label for="csgpaRequired">
+              Optional
+              <input type="checkbox" name="csgpaRequired" id="csgpaRequired" ng-model="csGPA['required']" />
+              <span class="lever"></span>
+              Required
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p>Select skills that your students will be asked to rank themselves in terms of competency.</p>
+    <div class="card-panel">
+      <div class="row">
+        Categories students may use to rank themselves:
+      </div>
+
+      <div class="row">
+        <div class="col s3">
+          <input type="checkbox" name="expert" id="expert" ng-model="skillCategories['expert']" />
+          <label for="expert">Expert</label>
+        </div>
+        <div class="col s3">
+          <input type="checkbox" name="good" id="good" ng-model="skillCategories['good']" />
+          <label for="good">Good</label>
+        </div>
+        <div class="col s3">
+          <input type="checkbox" name="basic" id="basic" ng-model="skillCategories['basic']" />
+          <label for="basic">Basic</label>
+        </div>
+        <div class="col s3">
+          <input type="checkbox" name="none" id="none" ng-model="skillCategories['none']" />
+          <label for="none">None</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <p>Skills the students will be asked about.</p>
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          <input type="checkbox" name="overallProgramming" id="overallProgramming" ng-model="overallProgramming['included']" />
+          <label for="overallProgramming">Overall Programming</label>
+        </div>
+        <div class="switch col s6">
+          <label>
+            Optional
+            <input type="checkbox" name="overallProgrammingRequired" id="overallProgrammingRequired" ng-model="overallProgramming['required']" />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          <input type="checkbox" name="databaseDevelopment" id="databaseDevelopment" ng-model="databaseDevelopment['included']" />
+          <label for="databaseDevelopment">Database Development</label>
+        </div>
+        <div class="switch col s6">
+          <label>
+            Optional
+            <input type="checkbox" name="databaseDevelopmentRequired" id="databaseDevelopmentRequired" ng-model="databaseDevelopment['required']" />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          <input type="checkbox" name="embeddedSystems" id="embeddedSystems" ng-model="embeddedSystems['included']" />
+          <label for="embeddedSystems">Embedded Systems</label>
+        </div>
+        <div class="switch col s6">
+          <label>
+            Optional
+            <input type="checkbox" name="embeddedSystemsRequired" id="embeddedSystemsRequired" ng-model="embeddedSystems['required']" />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          <input type="checkbox" name="webApplications" id="webApplications" ng-model="webApplications['included']" />
+          <label for="webApplications">Web Applications</label>
+        </div>
+        <div class="switch col s6">
+          <label>
+            Optional
+            <input type="checkbox" name="webApplicationsRequired" id="webApplicationsRequired" ng-model="webApplications['required']" />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          <input type="checkbox" name="mobileApplications" id="mobileApplications" ng-model="mobileApplications['included']" />
+          <label for="mobileApplications">Mobile Applications</label>
+        </div>
+        <div class="switch col s6">
+          <label>
+            Optional
+            <input type="checkbox" name="mobileApplicationsRequired" id="mobileApplicationsRequired" ng-model="mobileApplications['required']" />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          <input type="checkbox" name="userInterface" id="userInterface" ng-model="userInterface['included']" />
+          <label for="userInterface">User Interface/Experience</label>
+        </div>
+        <div class="switch col s6">
+          <label>
+            Optional
+            <input type="checkbox" name="userInterfaceRequired" id="userInterfaceRequired" ng-model="userInterface['required']" />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          <input type="checkbox" name="statistics" id="statistics" ng-model="statistics['included']" />
+          <label for="statistics">Statistics</label>
+        </div>
+        <div class="switch col s6">
+          <label>
+            Optional
+            <input type="checkbox" name="statisticsRequired" id="statisticsRequired" ng-model="statistics['required']" />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          <input type="checkbox" name="socialNetworking" id="socialNetworking" ng-model="networking['included']" />
+          <label for="socialNetworking">(Social/Professional) Networking</label>
+        </div>
+        <div class="switch col s6">
+          <label>
+            Optional
+            <input type="checkbox" name="socialNetworkingRequired" id="socialNetworkingRequired" ng-model="networking['required']" />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          <input type="checkbox" name="security" id="security" ng-model="security['included']" />
+          <label for="security">Security</label>
+        </div>
+        <div class="switch col s6">
+          <label>
+            Optional
+            <input type="checkbox" name="securityRequired" id="securityRequired" ng-model="security['required']" />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          <input type="checkbox" name="robotics" id="robotics" ng-model="robotics['included']" />
+          <label for="robotics">Robotics</label>
+        </div>
+        <div class="switch col s6">
+          <label>
+            Optional
+            <input type="checkbox" name="roboticsRequired" id="roboticsRequired" ng-model="robotics['required']" />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          <input type="checkbox" name="computerVision" id="computerVision" ng-model="computerVision['included']" />
+          <label for="computerVision">Computer Vision</label>
+        </div>
+        <div class="switch col s6">
+          <label>
+            Optional
+            <input type="checkbox" name="computerVisionRequired" id="computerVisionRequired" ng-model="computerVision['required']" />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          <input type="checkbox" name="algorithms" id="algorithms" ng-model="algorithms['included']" />
+          <label for="algorithms">Algorithms</label>
+        </div>
+        <div class="switch col s6">
+          <label>
+            Optional
+            <input type="checkbox" name="algorithmsRequired" id="algorithmsRequired" ng-model="algorithms['required']" />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          <input type="checkbox" name="machineLearning" id="machineLearning" ng-model="machineLearning['included']" />
+          <label for="machineLearning">Machine Learning</label>
+        </div>
+        <div class="switch col s6">
+          <label>
+            Optional
+            <input type="checkbox" name="machineLearningRequired" id="machineLearningRequired" ng-model="machineLearning['required']" />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+      </div>
+
+      <div>
+        <div class="row">
+          <label for="maxSkills">Select the maximum number of skills students may profess a desire to learn.</label>
+          <input type="number" name="maxSkills" ng-model="maxSkills" />
+        </div>
+
+        <!--<div chips ng-model="desiredSkills"></div>-->
+        <md-chips ng-model="desiredSkills"></md-chips>
+      </div>
+    </div>
+
+    <div class="card-panel">
+
+      <div class="row">
+        <div class="col s6">
+          <input type="checkbox" name="firstChoice" id="firstChoice" ng-model="firstChoice['included']" />
+          <label for="firstChoice">First Choice</label>
+        </div>
+        <div class="switch col s6">
+          <label>
+            Optional
+            <input type="checkbox" name="firstChoiceRequired" id="firstChoiceRequired" ng-model="firstChoice['required']" />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          <input type="checkbox" name="firstChoiceComment" id="firstChoiceComment" ng-model="firstComment['included']" />
+          <label for="firstChoiceComment">First Choice Comment</label>
+        </div>
+        <div class="switch col s6">
+          <label>
+            Optional
+            <input type="checkbox" name="firstCommentRequired" id="firstCommentRequired" ng-model="firstComment['required']" />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          <input type="checkbox" name="secondChoice" id="secondChoice" ng-model="secondChoice['included']" />
+          <label for="secondChoice">Second Choice</label>
+        </div>
+        <div class="switch col s6">
+          <label>
+            Optional
+            <input type="checkbox" name="secondChoiceRequired" id="secondChoiceRequired" ng-model="secondChoice['required']" />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          <input type="checkbox" name="secondChoiceComment" id="secondChoiceComment" ng-model="secondComment['included']" />
+          <label for="secondChoiceComment">Second Choice Comment</label>
+        </div>
+        <div class="switch col s6">
+          <label>
+            Optional
+            <input type="checkbox" name="secondCommentRequired" id="secondCommentRequired" ng-model="secondComment['required']" />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          <input type="checkbox" name="thirdChoice" id="thirdChoice" ng-model="thirdChoice['included']" />
+          <label for="thirdChoice">Third Choice</label>
+        </div>
+        <div class="switch col s6">
+          <label>
+            Optional
+            <input type="checkbox" name="thirdChoiceRequired" id="thirdChoiceRequired" ng-model="thirdChoice['required']" />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          <input type="checkbox" name="thirdChoiceComment" id="thirdChoiceComment" ng-model="thirdComment['included']" />
+          <label for="thirdChoiceComment">Third Choice Comment</label>
+        </div>
+        <div class="switch col s6">
+          <label>
+            Optional
+            <input type="checkbox" name="thirdCommentRequired" id="thirdCommentRequired" ng-model="thirdComment['required']" />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          <input type="checkbox" name="fourthChoice" id="fourthChoice" ng-model="fourthChoice['included']" />
+          <label for="fourthChoice">Fourth Choice</label>
+        </div>
+        <div class="switch col s6">
+          <label>
+            Optional
+            <input type="checkbox" name="fourthChoiceRequired" id="fourthChoiceRequired" ng-model="fourthChoice['required']" />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          <input type="checkbox" name="fourthChoiceComment" id="fourthChoiceComment" ng-model="fourthComment['included']" />
+          <label for="fourthChoiceComment">Fourth Choice Comment</label>
+        </div>
+        <div class="switch col s6">
+          <label>
+            Optional
+            <input type="checkbox" name="fourthCommentRequired" id="fourthCommentRequired" ng-model="fourthComment['required']" />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          <input type="checkbox" name="fifthChoice" id="fifthChoice" ng-model="fifthChoice['included']" />
+          <label for="fifthChoice">Fifth Choice</label>
+        </div>
+        <div class="switch col s6">
+          <label>
+            Optional
+            <input type="checkbox" name="fifthChoiceRequired" id="fifthChoiceRequired" ng-model="fifthChoice['required']" />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          <input type="checkbox" name="fifthChoiceComment" id="fifthChoiceComment" ng-model="fifthComment['included']" />
+          <label for="fifthChoiceComment">Fifth Choice Comment</label>
+        </div>
+        <div class="switch col s6">
+          <label>
+            Optional
+            <input type="checkbox" name="fifthCommentRequired" id="fifthCommentRequired" ng-model="fifthComment['required']" />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          <input type="checkbox" name="ipPref" id="ipPref" ng-model="ipPreference['included']" />
+          <label for="ipPref">IP Preference</label>
+        </div>
+        <div class="switch col s6">
+          <label>
+            Optional
+            <input type="checkbox" name="ipPrefRequired" id="ipPrefRequired" ng-model="ipPreference['required']" />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+      </div>
+
+      <div class="card-panel">
+        IP Preference Options:
+        <div class="row">
+          <input type="checkbox" name="retain" id="retain" ng-model="ipOptions['retainIncluded']" />
+          <label for="retain">{{ ipOptions['retain'] }}</label>
+        </div>
+        <div class="row">
+          <input type="checkbox" name="depends" id="depends" ng-model="ipOptions['dependsIncluded']" />
+          <label for="depends">{{ ipOptions['depends'] }}</label>
+        </div>
+        <div class="row">
+          <input type="checkbox" name="noPref" id="noPref" ng-model="ipOptions['noPrefIncluded']" />
+          <label for="noPref">{{ ipOptions['noPref'] }}</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          <input type="checkbox" name="lead" id="lead" ng-model="leadership['included']" />
+          <label for="lead">Leadership Role</label>
+        </div>
+        <div class="switch col s6">
+          <label>
+            Optional
+            <input type="checkbox" name="leadRequired" id="leadRequired" ng-model="leadership['required']" />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+      </div>
+
+      <div class="card-panel">
+        Leadership Role Options:
+        <div class="row">
+          <input type="checkbox" name="strongFollow" id="strongFollow" ng-model="leadershipOptions['strongFollowIncluded']" />
+          <label for="strongFollow">{{ leadershipOptions['strongFollow'] }}</label>
+        </div>
+        <div class="row">
+          <input type="checkbox" name="preferFollow" id="preferFollow" ng-model="leadershipOptions['preferFollowIncluded']" />
+          <label for="preferFollow">{{ leadershipOptions['preferFollow'] }}</label>
+        </div>
+        <div class="row">
+          <input type="checkbox" name="equalLead" id="equalLead" ng-model="leadershipOptions['equalLeadIncluded']" />
+          <label for="equalLead">{{ leadershipOptions['equalLead'] }}</label>
+        </div>
+        <div class="row">
+          <input type="checkbox" name="preferLead" id="preferLead" ng-model="leadershipOptions['preferLeadIncluded']" />
+          <label for="preferLead">{{ leadershipOptions['preferLead'] }}</label>
+        </div>
+        <div class="row">
+          <input type="checkbox" name="strongLead" id="strongLead" ng-model="leadershipOptions['strongLeadIncluded']" />
+          <label for="strongLead">{{ leadershipOptions['strongLead'] }}</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          <input type="checkbox" name="preferredPartners" id="preferredPartners" ng-model="preferredPartners['included']" />
+          <label for="preferredPartners">Preferred Partners</label>
+        </div>
+        <div class="switch col s6">
+          <label>
+            Optional
+            <input type="checkbox" name="preferredPartnersRequired" id="preferredPartnersRequired" ng-model="preferredPartners['required']" />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6">
+          <input type="checkbox" name="bannedPartners" id="bannedPartners" ng-model="bannedPartners['included']" />
+          <label for="bannedPartners">Banned Partners</label>
+        </div>
+        <div class="switch col s6">
+          <label>
+            Optional
+            <input type="checkbox" name="bannedPartnersRequired" id="bannedPartnersRequired" ng-model="bannedPartners['required']" />
+            <span class="lever"></span>
+            Required
+          </label>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="card-panel">
+      <p>Our algorithm seeks to minimize the group ranking that each student ends in (to therefore ensure the most students are getting their top choices) while still ensuring that all projects that must get a group do in fact receive a group. We have a maximum preference value that all teams must have in order to be formed, paid or otherwise. In the case that a required project does not have a low enough overall preference score, we have an option to manually change the student rankings of that project to ensure it still passes our maximum score requirements and receives a group.</p>
+      <div class="row">
+        <label for="maxScore">Maximum preference score allowed for any group</label>
+        <input type="number" name="maxScore" ng-model="maxScore" />
+      </div>
+      <div class="row">
+        <input type="checkbox" name="changeRatings" id="changeRatings" ng-model="changeRatings" />
+        <label for="changeRatings">Change group rankings if preference requirements are not met</label>
+      </div>
+
+      <p>Similarly, our algorithm operates by weighting certain criterion higher than others. If you wish to change the weighting of any criteria different from the default, please input those changes here</p>
+      <div class="row">
+        <label for="knownWeight">Weight of skills students already have</label>
+        <input type="number" name="knownWeight" ng-model="weights['known']" />
+      </div>
+      <div class="row">
+        <label for="learnWeight">Weight of the skills students would like to learn</label>
+        <input type="number" name="learnWeight" ng-model="weights['learn']" />
+      </div>
+      <div class="row">
+        <label for="groupWeight">Weight of the student's preference score for the groups</label>
+        <input type="number" name="groupWeight" ng-model="weights['group']" />
+      </div>
+      <div class="row">
+        <label for="ipWeight">Weight of a student's preference to retain IP rights</label>
+        <input type="number" name="ipWeight" ng-model="weights['ip']" />
+      </div>
+      <div class="row">
+        <label for="ecWeight">How much of a boost should students receive for doing the extra credit?</label>
+        <input type="number" name="ecWeight" ng-model="weights['extraCredit']" />
+      </div>
+      <div class="row">
+        <input type="checkbox" name="leadImportant" id="leadImportant" ng-model="leadership['important']" />
+        <label for="leadImportant">Is it important that teams have one, and only one, leader?</label>
+      </div>
+    </div>
+
+    <button type="submit" ng-click="createSurvey(createSurveyForm)" class="btn btn-default">Input Projects</button>
+
+  </form>
+
 </div>
+
+<!-- TODO
+  - Disable fields if the box is not selected
+  - Made the IP preference and leadership and all of those prompts editable
+  - Partition the projects stuff out into multiple pages -->
