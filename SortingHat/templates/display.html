@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>The Sorting Hat Completeth its task</title>
+    <meta name="viewport" content="width=device-width, initial-scal=1.0">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <style>
+      .container {
+        max-width: 1000px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-5 col-sm-offset-1">
+          <h1>The Sorted Groups</h1>
+          <br>
+          <div id="Groups">
+            <table class="table table-striped" style="max-width: 300px;">
+              <thead>
+                <tr>
+                  <th>Group Name</th>
+                  <th>Member One</th>
+                  <th>Member Two</th>
+                  <th>Member Three</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">{{ groups[0] }}</th>
+                  <td>{{ students[0][0] }}</td>
+                  <td>{{ students[0][1] }}</td>
+                  <td>{{ students[0][2] }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">{{ groups[1] }}</th>
+                  <td>{{ students[1][0] }}</td>
+                  <td>{{ students[1][1] }}</td>
+                  <td>{{ students[1][2] }}</td>
+                </tr>
+                <tr>
+                  <th scope="row">{{ groups[2] }}</th>
+                  <td>{{ students[2][0] }}</td>
+                  <td>{{ students[2][1] }}</td>
+                  <td>{{ students[2][2] }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <a href="/">
+              <input type="button" value="OK"/>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br><br>
+    <script src="//code.jquery.com/jquery-2.2.1.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  </body>
+</html>
