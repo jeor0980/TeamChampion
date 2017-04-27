@@ -15,6 +15,28 @@
         <label for="surveyDescription">Survey Description</label>
         <textarea name="surveyDescription" ng-model="surveyDescription" class="materialize-textarea"></textarea>
       </div>
+
+      <div class="row">
+        <span class="label label-danger" ng-show="submitted && createSurveyForm.studentCount.$error.requred">Required!</span>
+        <label for="studentCount">How many students will need to be sorted into a team?<span class="required-asterisk" style="color: red"> *</span></label>
+        <input type="number" ng-model="studentCount" class="form-control" required />
+      </div>
+
+      <p>You may select the minimum, maximum, and optimum group sizes the algorithm will create.</p>
+      <div class="row">
+        <div class="col s4">
+          <label for="minGroupSize">Minimum Group Size</label>
+          <input type="number" name="minGroupSize" ng-model="groupSizes['min']" />
+        </div>
+        <div class="col s4">
+          <label for="maxGroupSize">Maximum Group Size</label>
+          <input type="number" name="maxGroupSize" ng-model="groupSizes['max']" />
+        </div>
+        <div class="col s4">
+          <label for="optGroupSize">Optimum Group Size</label>
+          <input type="number" name="optGroupSize" ng-model="groupSizes['opt']" />
+        </div>
+      </div>
     </div>
 
     <p>Select questions that you would like your students to be asked, and customize them according to your needs.</p>
@@ -319,15 +341,17 @@
       </div>
 
       <div>
+        <div class="row">
+          <label for="maxSkills">Select the maximum number of skills students may profess a desire to learn.</label>
+          <input type="number" name="maxSkills" ng-model="maxSkills" />
+        </div>
+
         <!--<div chips ng-model="desiredSkills"></div>-->
         <md-chips ng-model="desiredSkills"></md-chips>
       </div>
     </div>
 
     <div class="card-panel">
-      <div class="row">
-        <md-chips ng-model="projects" secondary-placeholder="Input project names"></md-chips>
-      </div>
 
       <div class="row">
         <div class="col s6">
@@ -494,7 +518,7 @@
         </div>
       </div>
 
-      <div>
+      <div class="card-panel">
         IP Preference Options:
         <div class="row">
           <input type="checkbox" name="retain" id="retain" ng-model="ipOptions['retainIncluded']" />
@@ -525,7 +549,7 @@
         </div>
       </div>
 
-      <div>
+      <div class="card-panel">
         Leadership Role Options:
         <div class="row">
           <input type="checkbox" name="strongFollow" id="strongFollow" ng-model="leadershipOptions['strongFollowIncluded']" />
@@ -579,6 +603,44 @@
         </div>
       </div>
 
+    </div>
+
+    <div class="card-panel">
+      <p>Our algorithm seeks to minimize the group ranking that each student ends in (to therefore ensure the most students are getting their top choices) while still ensuring that all projects that must get a group do in fact receive a group. We have a maximum preference value that all teams must have in order to be formed, paid or otherwise. In the case that a required project does not have a low enough overall preference score, we have an option to manually change the student rankings of that project to ensure it still passes our maximum score requirements and receives a group.</p>
+      <div class="row">
+        <label for="maxScore">Maximum preference score allowed for any group</label>
+        <input type="number" name="maxScore" ng-model="maxScore" />
+      </div>
+      <div class="row">
+        <input type="checkbox" name="changeRatings" id="changeRatings" ng-model="changeRatings" />
+        <label for="changeRatings">Change group rankings if preference requirements are not met</label>
+      </div>
+
+      <p>Similarly, our algorithm operates by weighting certain criterion higher than others. If you wish to change the weighting of any criteria different from the default, please input those changes here</p>
+      <div class="row">
+        <label for="knownWeight">Weight of skills students already have</label>
+        <input type="number" name="knownWeight" ng-model="weights['known']" />
+      </div>
+      <div class="row">
+        <label for="learnWeight">Weight of the skills students would like to learn</label>
+        <input type="number" name="learnWeight" ng-model="weights['learn']" />
+      </div>
+      <div class="row">
+        <label for="groupWeight">Weight of the student's preference score for the groups</label>
+        <input type="number" name="groupWeight" ng-model="weights['group']" />
+      </div>
+      <div class="row">
+        <label for="ipWeight">Weight of a student's preference to retain IP rights</label>
+        <input type="number" name="ipWeight" ng-model="weights['ip']" />
+      </div>
+      <div class="row">
+        <label for="ecWeight">How much of a boost should students receive for doing the extra credit?</label>
+        <input type="number" name="ecWeight" ng-model="weights['extraCredit']" />
+      </div>
+      <div class="row">
+        <input type="checkbox" name="leadImportant" id="leadImportant" ng-model="leadership['important']" />
+        <label for="leadImportant">Is it important that teams have one, and only one, leader?</label>
+      </div>
     </div>
 
     <button type="submit" ng-click="createSurvey(createSurveyForm)" class="btn btn-default">Input Projects</button>

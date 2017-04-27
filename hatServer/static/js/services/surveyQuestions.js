@@ -3,9 +3,15 @@
 sortingApp.service('surveyQuestions', function () {
     var surveyName = "";
     var surveyDescription = 'HELLO JESSICA YOU DA BEST';
+    var maxSkills = 10;
     var desiredSkills = ['Java', 'Python', 'PHP', 'C/C++', 'Mobile App Development (Android/iOS)', 'Web Applications', 'Embedded Systems', 'Database (MySQL, SQL, etc.)', 'User Interface/Experience', 'Statistics', 'Networking',
         'Robotics', 'Computer Vision', 'Algorithms', 'Machine Learning'];
-    var projects = [];
+    var studentCount = null;
+    var groupSizes = {
+        min: 4,
+        max: 6,
+        opt: 5
+    };
     var firstName = {
         included: true,
         required: true
@@ -138,7 +144,8 @@ sortingApp.service('surveyQuestions', function () {
     };
     var leadership = {
         included: true,
-        required: true
+        required: true,
+        important: true
     };
     var leadershipOptions = {
         strongFollow: 'Strongly prefer to be a follower rather than a leader',
@@ -160,6 +167,15 @@ sortingApp.service('surveyQuestions', function () {
         included: true,
         required: false
     };
+    var maxScore = 3.5;
+    var changeRatings = true;
+    var weights = {
+        known: 1,
+        learn: 2,
+        group: 5,
+        ip: 0.5,
+        extraCredit: 1
+    };
 
     return {
         getSurveyName: function () {
@@ -174,6 +190,27 @@ sortingApp.service('surveyQuestions', function () {
         },
         setSurveyDescription: function (value) {
             surveyDescription = value;
+        },
+
+        getStudentCount: function () {
+            return studentCount;
+        },
+        setStudentCount: function (value) {
+            studentCount = value;
+        },
+
+        getGroupSizes: function () {
+            return groupSizes;
+        },
+        setGroupSizes: function (value) {
+            groupSizes = value;
+        },
+
+        getMaxSkills: function () {
+            return maxSkills;
+        },
+        setMaxSkills: function (value) {
+            maxSkills = value;
         },
 
         getDesiredSkills: function () {
@@ -433,6 +470,27 @@ sortingApp.service('surveyQuestions', function () {
         },
         setBannedPartners: function (value) {
             bannedPartners = value;
+        },
+
+        getMaxScore: function () {
+            return maxScore;
+        }, 
+        setMaxScore: function (value) {
+            maxScore = value;
+        },
+
+        getChangeRatings: function () {
+            return changeRatings;
+        },
+        setChangeRatings: function (value) {
+            changeRatings = value;
+        },
+
+        getWeights: function () {
+            return weights;
+        },
+        setWeights: function (value) {
+            weights = value;
         }
     }
 })
