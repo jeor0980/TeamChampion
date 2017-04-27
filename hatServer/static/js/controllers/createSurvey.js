@@ -1,6 +1,10 @@
 'use strict';
 
-sortingApp.controller('createSurveyController', function ($scope, $window, surveyQuestions) {
+sortingApp.controller('createSurveyController', function ($scope, $window, $http, surveyQuestions) {
+    $http.get('../sortingHat/variables.json').success(function (data) {
+        console.log(data);
+    });
+
     $scope.submitted = false;
 
     $scope.maxSkills = surveyQuestions.getMaxSkills();
@@ -103,7 +107,7 @@ sortingApp.controller('createSurveyController', function ($scope, $window, surve
         surveyQuestions.setChangeRatings($scope.changeRatings);
         surveyQuestions.setWeights($scope.weights);
 
-        data = {
+        var data = {
             'MAX_SKILL_LEN': surveyQuestions.getMaxSkills(),
             'LEARN_WEIGHT': surveyQuestions.getWeights()['learn'],
             'KNOWN_WEIGHT': surveyQuestions.getWeights()['known'],
@@ -119,7 +123,16 @@ sortingApp.controller('createSurveyController', function ($scope, $window, surve
         };
 
         // TODO: send http request to write all this data to Hayden's json file
+        // Fire the API request
+        $http.post('/createSurvey', data).success(function (data) {
+            $scope.submitted = false;
 
-        $window.location.href = '#projectsInput';
+            console.log('writing to json?');
+
+            $window.location.href = '#projectsInput';
+        }).error(function (err) {
+            console.log(err);
+        });
+
     }
 });

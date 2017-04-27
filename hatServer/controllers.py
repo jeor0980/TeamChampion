@@ -68,6 +68,15 @@ def create_survey():
     """ 
     return firstName
 
+@app.route('/createSurvey', methods=['GET', 'POST'])
+def createSurvey():
+    print('hey')
+    data = json.loads(request.data.decode())
+
+    with open('hatServer/sortingHat/variables.json', 'w') as json_file:
+        json.dump(data, json_file)
+    return 'success'
+
 @app.route('/')
 @app.route('/about')
 def basic_pages(**kwargs):

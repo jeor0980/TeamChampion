@@ -65,6 +65,7 @@ sortingApp.config(function($routeProvider) {
 
         // route for the second page of the survey
         .when('/takeSurvey2', {
+            tite: 'Take Survey',
             templateUrl: 'static/partials/takeSurvey2.html',
             controller: 'takeSurveyController'
         })
@@ -72,20 +73,22 @@ sortingApp.config(function($routeProvider) {
         // route for the third page of the survey 
         // there should be a way to generically do this
         .when('/takeSurvey3', {
+            title: 'Take Survey',
             templateUrl: 'static/partials/takeSurvey3.html',
             controller: 'takeSurveyController'
         })
 
         // route for creating survey
         .when('/createSurvey', {
+            title: 'Create Survey',
             templateUrl: 'static/partials/createSurvey.html',
             controller: 'createSurveyController'
         })
 
         // route for when survey is submitted
         .when('/surveySuccess', {
+            title: 'Submitted Survey',
             templateUrl: 'static/partials/surveySuccess.html',
-            controller: 'surveySuccessController'
         })
 
         .when('/sort', {
@@ -94,6 +97,7 @@ sortingApp.config(function($routeProvider) {
         })
 
         .when('/projectsInput', {
+            title: 'Projects',
             templateUrl: 'static/partials/projectsInput.html',
             controller: 'projectsInputController'
         })
