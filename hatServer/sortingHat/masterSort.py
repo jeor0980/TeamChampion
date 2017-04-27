@@ -237,16 +237,20 @@ def sortThemBitches():
 			# group has no matches yet
 			# print(g.group_name + " has no matches yet.")
 			matched[g] = [s]
-			if s.leadership != "STRONG_FOLLOW":
+			if (s.leadership != "STRONG_FOLLOW"
+				and s.leadership != "STRONG_LEAD"):
 				Groups.objects(
 					group_name=g.group_name
 					).update(has_leader=True)
 				g.reload()
 				s.reload()
-			if s.leadership == "STRONG_LEAD":
+			elif s.leadership == "STRONG_LEAD":
 				Groups.objects(
 					group_name=g.group_name
-					).update(has_strong_leader=True)
+					).update(
+					has_strong_leader=True,
+					has_leader=True
+					)
 				g.reload()
 				s.reload()
 				print("Strong lead set: " + str(g.has_strong_leader))
@@ -260,7 +264,8 @@ def sortThemBitches():
 				students_free.append(s)
 			else:
 				matched[g].append(s)
-				if s.leadership != "STRONG_FOLLOW":
+				if (s.leadership != "STRONG_FOLLOW"
+					and s.leadership != "STRONG_LEAD"):
 					Groups.objects(
 						group_name=g.group_name
 						).update(has_leader=True)
@@ -269,7 +274,10 @@ def sortThemBitches():
 				if s.leadership == "STRONG_LEAD":
 					Groups.objects(
 						group_name=g.group_name
-						).update(has_strong_leader=True)
+						).update(
+						has_strong_leader=True,
+						has_leader=True
+						)
 					g.reload()
 					s.reload()
 					print("Strong lead set: " + str(g.has_strong_leader))
@@ -283,7 +291,8 @@ def sortThemBitches():
 				students_free.append(s)
 			else:
 				matched[g].append(s)
-				if s.leadership != "STRONG_FOLLOW":
+				if (s.leadership != "STRONG_FOLLOW"
+					and s.leadership != "STRONG_LEAD"):
 					Groups.objects(
 						group_name=g.group_name
 						).update(has_leader=True)
@@ -292,7 +301,10 @@ def sortThemBitches():
 				if s.leadership == "STRONG_LEAD":
 					Groups.objects(
 						group_name=g.group_name
-						).update(has_strong_leader=True)
+						).update(
+						has_strong_leader=True,
+						has_leader=True
+						)
 					g.reload()
 					s.reload()
 					print("Strong lead set: " + str(g.has_strong_leader))
@@ -311,14 +323,15 @@ def sortThemBitches():
 						new_pref = pref.pref_score
 				if cur_pref < new_pref:
 					#replace less preferred student with current student
-					print("Replacing " + m.student_name + " with " + s.student_name)
+					# print("Replacing " + m.student_name + " with " + s.student_name)
 					if (checkLeader(s, g) 
 						and not (m.leadership == "STRONG_LEAD")):
 						continue
 					else:
 						matched[g].remove(m)
 						matched[g].append(s)
-						if s.leadership != "STRONG_FOLLOW":
+						if (s.leadership != "STRONG_FOLLOW"
+							and s.leadership != "STRONG_LEAD"):
 							Groups.objects(
 								group_name=g.group_name
 								).update(has_leader=True)
@@ -327,9 +340,13 @@ def sortThemBitches():
 						if s.leadership == "STRONG_LEAD":
 							Groups.objects(
 								group_name=g.group_name
-								).update(has_strong_leader=True)
+								).update(
+								has_strong_leader=True,
+								has_leader=True
+								)
 							g.reload()
 							s.reload()
+							##! For some reason, a lot of these are not being hit
 							print("Strong lead set: " + str(g.has_strong_leader))
 						if len(student_prefers[m]) > 0:
 							students_free.append(m)
@@ -338,6 +355,7 @@ def sortThemBitches():
 							#solution, but:
 							#TODO: make this work better
 							if len(match) < MAX_SIZE:
+								print("Hitting a less weird edge case")
 								matched[g].append(m)
 						replaced = True
 						group_prefers[g] = partnerUpBitches(s, g)
@@ -348,12 +366,18 @@ def sortThemBitches():
 					students_free.append(s)
 				else:
 					if len(match) < MAX_SIZE:
+						print("Hitting what should be an edge case")
 						matched[g].append(s)
 
 		if len(students_free) < 1:
 			unsorted = checkComplete(matched)
 			if len(unsorted) > 0:
 				for identikey in unsorted:
+					##! This process takes an obscenely long time.
+					##! I don't know how to streamline these updates,
+					##! but this operation is one of the slowest in the
+					##! entire algorithm
+					##! TODO OPTIMIZE PRIME
 					student = Students.objects.get(identikey=identikey)
 					for group in student.preferences:
 						for pref in group.preferences:

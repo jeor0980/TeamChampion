@@ -42,7 +42,6 @@ def dumbledore():
 	if ret_val != 0:
 		return ret_val
 	ret_val, matched = sortThemBitches()
-	print(ret_val)
 #    updateDb(l_students, l_groups)
 	if ret_val != 0:
 		return ret_val

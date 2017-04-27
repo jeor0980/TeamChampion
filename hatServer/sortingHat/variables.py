@@ -28,6 +28,7 @@ LEADERSHIP_MATTERS = data['LEADERSHIP_MATTERS']
 STUDENT_COUNT = data['STUDENT_COUNT']
 SUBVERT_FOR_PAY = data['SUBVERT_FOR_PAY']
 MIN_PAID_AVG_PREF_SCORE = data['MIN_PAID_AVG_PREF_SCORE']
+EXTRA_CREDIT = data['EXTRA_CREDIT']
 
 # cfg = configparser.RawConfigParser()
 # cfg.read(["./hatServer/sortingHat/variables.cfg", "variables.cfg"])

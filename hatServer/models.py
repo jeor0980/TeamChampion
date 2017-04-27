@@ -38,4 +38,5 @@ class Students(Document):
     temp_work_with = ListField(StringField())
     temp_dont_work_with = ListField(StringField())
     ip_pref = StringField()
+    extra_credit = BooleanField()
 

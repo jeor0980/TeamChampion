@@ -1,105 +1,106 @@
-Northrop Grumman: Airport Traffic Analytics:
-	Justin Olson
-	Michael Muehlbradt
-	Parker Illig
-	Peter McPadden
-	Mitchell Zinser
-	Mitchell Lewis
-CU Environmental Studies: Species Identification App:
-	Chase Springer
-	D'Vreaux  Fontaine
-	Ryan O'Connell
-	Brian Larson
-	Kevin Rau
-	Darren White
-Benefactors:
-	Emma Montross
-	Taylor Andrews
-	Benjamin Droste
-	Justin Olson
 The Ultimate Wine App:
+	Bryan Hawthorne
 	Alexandra Okeson
 	Paige Johnson
 	David Becker
-	Jacob Brauchler
-	Nicholas Riffel
-	Jennifer Dooley
-My Support Partners Project:
-	Justin Schiller
-	Weipeng Cao
-	Jessica Petty
-	Jesus Ortiz Tovar
-	Jordan Peters
-CU College of Engineering and Applied Science: University Communications App:
 	Patrick Severy
-	Landon Bedell
-	Peilun Zhang
-	Elanor Hoak
-	Taylor Thomas
-	Travis Roundy
+	Richard Blanchard
+My Support Partners Project:
+	Jessica Petty
+	Justin Schiller
+	Jesus Ortiz Tovar
+	Weipeng Cao
+	Jordan Peters
+	Nika Shafranov
+Building Brains:
+	Pieter Bork
+	Justin Barnitz
+	Phillip Leonowens
+	Brian Alfano
+	Yang Song
+	Jennifer Dooley
+CU Environmental Studies: Species Identification App:
+	D'Vreaux Fontaine
+	Ryan O'Connell
+	Brian Larson
+	Kevin Rau
+	Ryan Tabler
+	Jennifer Baumann
+Tactile Picture Book Project: Co-Make 3D Modeling:
+	Chia-Lo Hsu
+	Zachary Lamb
+	Ian Char
+	Artur Meletyan
+	Sean Hansberry
+	Seth Perry
+Food for Thought and Golden Backpack: Volunteer Mobile App:
+	Rachel Lewis
+	Slaton Spangler
+	Darren White
+	Kyle Knight
+	James Huynh
 Last Words Project:
+	Dongyao Wang
 	Brooke Robinson
 	Jennifer Michael
 	Steven Conflenti
 	Cameron Taylor
+	Landon Bedell
+Conference on World Affairs: Volunteer Management Services:
+	Nicholas Riffel
+	Justin Tang
+	Jonathan Odom
+	Dylan Cole
+	Jacob Brauchler
+	Matthew Oakley
+CU College of Engineering and Applied Science: University Communications App:
+	Aubree Lytwyn
+	Elanor Hoak
+	Peilun Zhang
+	Taylor Thomas
+	Travis Roundy
+Northrop Grumman: Airport Traffic Analytics:
+	Kristen Hanslik
+	Mitchell Lewis
+	Justin Olson
+	Michael Muehlbradt
+	Daniel Thompson
+	Parker Illig
+CU Cognitive Psychology: The Self-Tester:
+	Dylan Nguyen
+	Oliver Hanna
+	Cameron Tierney
+	Bu Sun Kim
+	Hayden Reich
+	Lauren Jensen
+Benefactors:
+	Emma Montross
+	Taylor Andrews
+	Benjamin Droste
+	Spencer Wilson
+	Peter McPadden
 	Peter Huynh
-	Yang Song
+NTIA: Crowd Source Based Spectrum Monitoring and Characterization:
+	Dilara Madinger
+	Sean Tranchetti
+	Kristen Hanslik
+	Pieter Bork
 Northrop Grumman: Computing Project(s):
+	Ryan  Riley
 	Joseph Marylander
 	Tom Lillis
 	Camilla Lambrocco
-	Hayden Reich
 	Mikhail Chowdhury
-Food for Thought and Golden Backpack: Volunteer Mobile App:
-	Kyle Knight
-	Nika Shafranov
-	Cameron Tierney
-	James Huynh
-	Rachel Lewis
-	Slaton Spangler
-Building Brains:
-	Phillip Leonowens
-	Brian Alfano
-	Pieter Bork
-	Justin Barnitz
-	Lauren Jensen
-	Dongyao Wang
-CU Cognitive Psychology: The Self-Tester:
-	Dylan Nguyen
-	Bu Sun Kim
-	Spencer Wilson
-	Zachary Lamb
-	Oliver Hanna
-	Ryan Tabler
-Conference on World Affairs: Volunteer Management Services:
-	Justin Tang
-	Jonathan Odom
-	Daniel Thompson
-	Dylan Cole
-	Matthew Oakley
-	Jennifer Baumann
+	Mitchell Zinser
 CU College of Music: Music U: Share and Learn:
 	Adam Heaton
 	Robert Kendl
 	Nicholas Schardt
 	Brandon Boylan-Peck
 	Jake Traut
-	Richard Blanchard
-NTIA: Crowd Source Based Spectrum Monitoring and Characterization:
-	Dilara Madinger
-	Sean Tranchetti
-	Kristen Hanslik
-	Ryan  Riley
-Tactile Picture Book Project: Co-Make 3D Modeling:
-	Chia-Lo Hsu
-	Ian Char
-	Artur Meletyan
-	Sean Hansberry
-	Seth Perry
-	Aubree Lytwyn
+	Chase Springer
 David Clark Cause: Cause Flash:
-	Matthew Uhlar
+	Jacob Morales
 	Dylan McKinney
 	Joshua Rinaldi
-	Jacob Morales
-	Bryan Hawthorne
+	Matthew Uhlar
