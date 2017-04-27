@@ -1,8 +1,10 @@
 from mongoengine import *
+import json
 import sys
 sys.path.append("..")
 sys.path.append("../..")
 from hatServer.models import Groups, Students
+from hatServer.sortingHat.masterSort import * 
 
 class dataSet:
     """
@@ -33,22 +35,55 @@ def parseStudent(data):
     student_to_add.save()
     return student_to_add
 
+def convertNameToId(name):
+    count = Students.objects(student_name=name).count()
+    if count == 1:
+        Students.objects.get(student_name=name).identikey
+    else:
+        print("Counted " + str(count) + " results")
+        print(name + " is not unique. Which student did you mean?")
+
+def updateCountJson():
+    with open("variables.json", "r") as jsonFile:
+        data = json.load(jsonFile)
+
+    count = Students.objects.count()
+    data["STUDENT_COUNT"] = count
+
+    with open("variables.json", "w") as jsonFile:
+        json.dump(data, jsonFile, indent=4)
+
+def storeIdentikeyListJson():
+    data = buildIdentikeyList()
+    with open('id_map.json', 'w') as fp:
+        json.dump(data, fp, indent=4)
+
+def buildIdentikeyList():
+    ids = {}
+    for student in Students.objects:
+        ids[student.student_name] = student.identikey
+    return ids
+
 def addWorkWith(data):
     values = data.split(',')
     student = Students.objects.get(identikey=values[2])
-    ids = values[12].split('.')
-    for identikey in ids:
-        if identikey == '0':
+    names = values[12].rstrip('\n').split('.')
+    for name in names:
+        if name == '0':
             break
-        student_to_work_with = Students.objects.get(identikey=identikey)
-        student.update(add_to_set__work_with=student_to_work_with)
-    bad_ids = values[13].rstrip('\n')
-    bad_ids = bad_ids.split('.')
-    for identikey in bad_ids:
-        if identikey == '0':
+        identikey = convertNameToId(name)
+        if identikey:
+            student_to_work_with = Students.objects.get(identikey=identikey)
+            student.update(add_to_set__work_with=student_to_work_with)
+    bad_names = values[13].rstrip('\n')
+    bad_names = bad_names.split('.')
+    for name in bad_names:
+        if name == '0':
             break
-        student_to_avoid = Students.objects.get(identikey=identikey)
-        student.update(add_to_set__dont_work_with=student_to_avoid)
+        identikey = convertNameToId(name)
+        if identikey:
+            student_to_avoid = Students.objects.get(identikey=identikey)
+            student.update(add_to_set__dont_work_with=student_to_avoid)
     student.save()
 
 def parseGroups(data):
@@ -58,9 +93,14 @@ def parseGroups(data):
     paid = bool(int(values[1]))
     group_to_add.update(paid=paid)
     group_to_add.update(ip=values[2])
+    option = bool(int(values[3]))
+    group_to_add.update(option=option)
+    if option:
+        group_to_add.update(opt_category=values[4])
     skills = []
-    for i in range(3, len(values)):
-        group_to_add.update(add_to_set__skills=values[i])
+    for i in range(5, len(values)):
+        skill = values[i].rstrip('\n')
+        group_to_add.update(add_to_set__skills=skill)
 #    group_to_add.update(remove_from_set__skills='\n')
 #    skills.remove('\n')
 #    print(skills)
@@ -85,6 +125,8 @@ def buildDB(student_path, group_path):
         s = parseStudent(line)
     for line in student_data.readData:
         s_with = addWorkWith(line)
+    storeIdentikeyListJson()
+    updateCountJson()
 
 def main(args):
     register_connection('testDatabase')
