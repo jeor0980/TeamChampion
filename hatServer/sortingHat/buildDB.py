@@ -5,6 +5,7 @@ sys.path.append("..")
 sys.path.append("../..")
 from hatServer.models import Groups, Students
 from hatServer.sortingHat.masterSort import * 
+from hatServer.sortingHat.addStudent import addStudent
 
 class dataSet:
     """
@@ -16,54 +17,87 @@ class dataSet:
 
 def parseStudent(data):
     values = data.split(',')
-    student_to_add = Students(
-        student_name=values[0] + " " + values[1],
-        identikey=values[2],
-        known_skills=values[3].split('.'),
-        learn_skills=values[4].split('.'),
-        extra_credit=bool(int(values[5])),
-        leadership=values[6],
-        ip_pref=values[7]
-    )
-    student_to_add.save()
-    prefs = []
-    for i in range(8, 13):
-#    for i in range(6, 9):
-        g_name = values[i].rstrip('\n')
-        group_to_add = Groups.objects.get(group_name=g_name)
-        student_to_add.update(add_to_set__preferences=group_to_add)
-        #print(group_to_add.group_name)
-    student_to_add.save()
-    return student_to_add
+    json_data = {}
+    json_data["firstName"] = values[0]
+    json_data["lastName"] = values[1]
+    json_data["identikey"] = values[2]
+    json_data["skills"] = values[3].split('.')
+    json_data["desired"] = values[4].split('.')
+    json_data["extraCredit"] = bool(int(values[5]))
+    json_data["lead"] = values[6]
+    json_data["ipPref"] = values[7]
+    g_name = values[8].rstrip('\n')
+    json_data["firstChoice"] = g_name
+    g_name = values[9].rstrip('\n')
+    json_data["secondChoice"] = g_name
+    g_name = values[10].rstrip('\n')
+    json_data["thirdChoice"] = g_name
+    g_name = values[11].rstrip('\n')
+    json_data["fourthChoice"] = g_name
+    g_name = values[12].rstrip('\n')
+    json_data["fifthChoice"] = g_name
+    names = values[13].rstrip('\n').split('.')
+    if names != '0':
+        json_data["requestedPartners"] = names
+        # for name in names:
+        #     data["requestedPartners"].append(name)
+    bad_names = values[14].rstrip('\n').split('.')
+    if bad_names != '0':
+        json_data["bannedPartners"] = bad_names
+        # for name in bad_names:
+        #     data["bannedPartners"].append(name)
+    addStudent(json_data)
 
-def convertNameToId(name):
-    count = Students.objects(student_name=name).count()
-    if count == 1:
-        Students.objects.get(student_name=name).identikey
-    else:
-        print("Counted " + str(count) + " results")
-        print(name + " is not unique. Which student did you mean?")
+# def parseStudent(data):
+#     values = data.split(',')
+#     student_to_add = Students(
+#         student_name=values[0] + " " + values[1],
+#         identikey=values[2],
+#         known_skills=values[3].split('.'),
+#         learn_skills=values[4].split('.'),
+#         extra_credit=bool(int(values[5])),
+#         leadership=values[6],
+#         ip_pref=values[7]
+#     )
+#     student_to_add.save()
+#     prefs = []
+#     for i in range(8, 13):
+# #    for i in range(6, 9):
+#         g_name = values[i].rstrip('\n')
+#         group_to_add = Groups.objects.get(group_name=g_name)
+#         student_to_add.update(add_to_set__preferences=group_to_add)
+#         #print(group_to_add.group_name)
+#     student_to_add.save()
+#     return student_to_add
 
-def updateCountJson():
-    with open("variables.json", "r") as jsonFile:
-        data = json.load(jsonFile)
+# def convertNameToId(name):
+#     count = Students.objects(student_name=name).count()
+#     if count == 1:
+#         Students.objects.get(student_name=name).identikey
+#     else:
+#         print("Counted " + str(count) + " results")
+#         print(name + " is not unique. Which student did you mean?")
 
-    count = Students.objects.count()
-    data["STUDENT_COUNT"] = count
+# def updateCountJson():
+#     with open("variables.json", "r") as jsonFile:
+#         data = json.load(jsonFile)
 
-    with open("variables.json", "w") as jsonFile:
-        json.dump(data, jsonFile, indent=4)
+#     count = Students.objects.count()
+#     data["STUDENT_COUNT"] = count
 
-def storeIdentikeyListJson():
-    data = buildIdentikeyList()
-    with open('id_map.json', 'w') as fp:
-        json.dump(data, fp, indent=4)
+#     with open("variables.json", "w") as jsonFile:
+#         json.dump(data, jsonFile, indent=4)
 
-def buildIdentikeyList():
-    ids = {}
-    for student in Students.objects:
-        ids[student.student_name] = student.identikey
-    return ids
+# def storeIdentikeyListJson():
+#     data = buildIdentikeyList()
+#     with open('id_map.json', 'w') as fp:
+#         json.dump(data, fp, indent=4)
+
+# def buildIdentikeyList():
+#     ids = {}
+#     for student in Students.objects:
+#         ids[student.student_name] = student.identikey
+#     return ids
 
 def addWorkWith(data):
     values = data.split(',')
@@ -124,10 +158,10 @@ def buildDB(student_path, group_path):
         # TODO add proper mongoengine command here if this doesn't work
     for line in student_data.readData:
         s = parseStudent(line)
-    for line in student_data.readData:
-        s_with = addWorkWith(line)
-    storeIdentikeyListJson()
-    updateCountJson()
+    # for line in student_data.readData:
+    #     s_with = addWorkWith(line)
+    # storeIdentikeyListJson()
+    # updateCountJson()
 
 def main(args):
     register_connection('testDatabase')

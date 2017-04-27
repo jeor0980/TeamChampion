@@ -5,6 +5,56 @@ sys.path.append("../..")
 from hatServer.models import Groups, Students, Preference
 from hatServer.sortingHat.variables import *
 
+def updateCountJson():
+	with open("variables.json", "r") as jsonFile:
+		data = json.load(jsonFile)
+
+	count = Students.objects.count()
+	data["STUDENT_COUNT"] = count
+
+	with open("variables.json", "w") as jsonFile:
+		json.dump(data, jsonFile, indent=4)
+
+def convertNameToId(name):
+	count = Students.objects(student_name=name).count()
+	if count == 1:
+		Students.objects.get(student_name=name).identikey
+	else:
+		print("Counted " + str(count) + " results")
+		print(name + " is not unique. Which student did you mean?")
+
+def storeIdentikeyListJson():
+	data = buildIdentikeyList()
+	with open('id_map.json', 'w') as fp:
+		json.dump(data, fp, indent=4)
+
+def buildIdentikeyList():
+	ids = {}
+	for student in Students.objects:
+		ids[student.student_name] = student.identikey
+	return ids
+
+def addWorkWith(student):
+	# values = data.split('.')
+	# student = Students.objects.get(identikey=values[2])
+	names = student.temp_work_with
+	for name in names:
+		if name == '0':
+			break
+		identikey = convertNameToId(name)
+		if identikey:
+			student_to_work_with = Students.objects.get(identikey=identikey)
+			student.update(add_to_set__work_with=student_to_work_with)
+	bad_names = student.temp_dont_work_with
+	for name in bad_names:
+		if name == '0':
+			break
+		identikey = convertNameToId(name)
+		if identikey:
+			student_to_avoid = Students.objects.get(identikey=identikey)
+			student.update(add_to_set__dont_work_with=student_to_avoid)
+	student.save()
+
 ##! Use this to make list a group preferences for gale-shapley
 def calcGroupPreference(known, learn, ip_score, ec):
 	assert (known >= 0)
@@ -15,11 +65,14 @@ def calcGroupPreference(known, learn, ip_score, ec):
 	return pref
 
 def registerStudents():
+	buildIdentikeyList()
+	updateCountJson()
 	known_score = 0
 	learn_score = 0
 	ip_score = 0
 	ec = 0
 	for student in Students.objects:
+		addWorkWith(student)
 		for group in student.preferences:
 			for attr in group.skills:
 				if attr in student.known_skills and known_score < MAX_SKILL_LEN:

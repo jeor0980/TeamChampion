@@ -12,7 +12,7 @@ import numpy
 import random
 import json
 
-def averagePreference(matched):
+def averagePreference():
 	prefs = []
 #    for g in matched:
 #        for s in matched[g]:
@@ -44,15 +44,25 @@ def dumbledore():
 #    updateDb(l_students, l_groups)
 	if ret_val != 0:
 		return ret_val
-	if matched:
-		for group in matched:
-			value = group.members
-			print(group.group_name + ":")
-			for student in value:
-				print("\t{student.student_name}".format(student=student))
-#               student.save()
-		avg_pref = averagePreference(matched)
-		print(avg_pref)
+
+	for group in Groups.objects:
+		print(group.group_name + ":")
+		for student in group.members:
+			if student.group_assigned != group:
+				print(student.student_name + " thinks they're in " +
+					student.group_assigned.group_name + " but they're in " +
+					group.group_name)
+			else:
+				print("\t" + student.student_name)
+# 	if matched:
+# 		for group in matched:
+# 			value = group.members
+# 			print(group.group_name + ":")
+# 			for student in value:
+# 				print("\t{student.student_name}".format(student=student))
+# #               student.save()
+	avg_pref = averagePreference()
+	print(avg_pref)
 
 	return ret_val, matched
 

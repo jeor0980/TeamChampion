@@ -8,8 +8,9 @@ sys.path.append('..')
 from hatServer import app
 
 from hatServer.models import Groups, Students
-from hatServer.sortingHat.sortingHat_orig import addStudent, registerUser
-from hatServer.sortingHat.sortingHat_orig import dumbledore 
+from hatServer.sortingHat.addStudent import addStudent
+from hatServer.sortingHat.registerStudents import registerStudents
+from hatServer.sortingHat.sortingHat import dumbledore 
 from hatServer.sortingHat.buildDB import buildDB
 
 # This shouldn't be needed, should be handled in __init__.py

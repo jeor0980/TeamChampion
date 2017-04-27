@@ -23,6 +23,8 @@ def modPrefsForBitches():
 			avg = numpy.mean(pref_list)
 			if SUBVERT_FOR_PAY:
 				if avg >= MIN_PAID_AVG_PREF_SCORE:
+					print("WARNING: Promoting " + group.group_name + 
+						" with an average score of " + str(avg))
 					for pref in group.preferences:
 						s = Students.objects.get(
 							identikey=pref.student.identikey,
@@ -160,19 +162,19 @@ def swapThemBitches(shortGroup, firstPass):
 						).update(add_to_set__members=student)
 					shortGroup.reload()
 
-def swapController(matched):
-	for group in matched:
+def swapController():
+	for group in Groups.objects:
 		if len(group.members) < MIN_SIZE:
 			swapThemBitches(group, True)
 			if len(group.members) < MIN_SIZE:
 				swapThemBitches(group, False)
 
-def warnLeaders(matched):
-	for group in matched:
+def warnLeaders():
+	for group in Groups.objects:
 		leader_present = False
 		if not group.has_leader:
 			print("WARNING: no leader in group " + group.group_name)
-		for student in matched[group]:
+		for student in group.members:
 			if student.leadership == "STRONG_LEAD" and not leader_present:
 				leader_present = True
 			elif student.leadership == "STRONG_LEAD" and leader_present:
@@ -400,14 +402,15 @@ def sortThemBitches():
 				)
 			group.reload()
 			# group.members.append(student)
-	swapController(matched)
-	warnLeaders(matched)
+	swapController()
+	warnLeaders()
 	for group in Groups.objects:
 		if group.paid and len(group.members) < MIN_SIZE:
 			print("MATCHING FAILED: paid group was unfilled: " + 
 				group.group_name)
 			return 1, matched
 	for group in Groups.objects:
+		matched[group] = []
 		matched[group] = group.members
 		for student in group.members:
 			Students.objects.get(
