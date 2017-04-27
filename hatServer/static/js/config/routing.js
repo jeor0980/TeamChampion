@@ -11,38 +11,56 @@ sortingApp.config(function($routeProvider) {
 
         // route for the home page
         .when('/', {
-            templateUrl: 'static/partials/home.html',
+            title: 'Home',
+            templateUrl : 'static/partials/home.html'
             // controller  : 'mainController'
         })
 
         // route for the about page
         .when('/about', {
-            templateUrl: 'static/partials/about.html',
-            // controller  : 'aboutController'
+            title: 'About',
+            templateUrl : 'static/partials/about.html'
+            // controller  : ''
         })
 
         // route for the contact page
         .when('/dashboard', {
-            templateUrl: 'static/partials/dashboard.html',
-            controller: 'dashboardController'
+            title: 'Dashboard',
+            templateUrl : 'static/partials/dashboard.html',
+            controller  : 'dashboardController'
+        })
+
+        // route for the contact page
+        .when('/instructorDashboard', {
+            title: 'Instructor Dashboard',
+            templateUrl : 'static/partials/instructorDashboard.html',
+            controller  : 'dashboardController'
         })
 
         // route for the profile page
         .when('/myprofile', {
-            templateUrl: 'static/partials/myprofile.html',
-            controller: 'profileController'
+            title: 'My Profile',
+            templateUrl : 'static/partials/myprofile.html',
+            controller  : 'profileController'
         })
 
         // route for the login page
         .when('/login', {
-            templateUrl: 'static/partials/login.html',
+            title: 'Login',
+            templateUrl : 'static/partials/login.html',
+        })
+
+        // route for the login page
+        .when('/login', {
+            templateUrl: 'static/partials/login.html'
             // controller  : 'loginController'
         })
 
         // route for taking a new survey
         .when('/takeSurvey', {
-            templateUrl: 'static/partials/takeSurvey.html',
-            controller: 'takeSurveyController'
+            title: 'Take Survey',
+            templateUrl : 'static/partials/takeSurvey.html',
+            controller : 'takeSurveyController'
         })
 
         // route for the second page of the survey
@@ -87,3 +105,8 @@ sortingApp.config(function($routeProvider) {
 
 });
 
+sortingApp.run(['$rootScope', function($rootScope) {
+    $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
+        $rootScope.title = current.$$route.title + ' | Sorting Hat';
+    });
+}]);
