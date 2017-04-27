@@ -1,8 +1,24 @@
 'use strict';
 
 sortingApp.controller('createSurveyController', function ($scope, $window, $http, surveyQuestions) {
-    $http.get('../sortingHat/variables.json').success(function (data) {
+    $http.get('../static/js/config/variables.json').success(function (data) {
         console.log(data);
+
+        surveyQuestions.setWeight('learn', data['LEARN_WEIGHT']);
+        surveyQuestions.setWeight('known', data['KNOWN_WEIGHT']);
+        surveyQuestions.setWeight('group', data['GROUP_WEIGHT']);
+        surveyQuestions.setWeight('ip', data['IP_WEIGHT']);
+        surveyQuestions.setMaxSkills(data['MAX_SKILL_LEN']);
+        surveyQuestions.setGroupSize('min', data['MIN_SIZE']);
+        surveyQuestions.setGroupSize('max', data['MAX_SIZE']);
+        surveyQuestions.setGroupSize('opt', data['OPT_SIZE']);
+        surveyQuestions.setLeadershipValue('important', data['LEADERSHIP_MATTERS']);
+        surveyQuestions.setStudentCount(data['STUDENT_COUNT']);
+        surveyQuestions.setChangeRatings(data['SUBVERT_FOR_PAY']);
+        surveyQuestions.setMaxScore(data['MIN_PAID_AVG_PREF_SCORE']);
+
+        console.log(surveyQuestions.getStudentCount());
+        console.log(data['STUDENT_COUNT']);
     });
 
     $scope.submitted = false;

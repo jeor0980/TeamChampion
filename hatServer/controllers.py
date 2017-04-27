@@ -73,8 +73,9 @@ def createSurvey():
     print('hey')
     data = json.loads(request.data.decode())
 
-    with open('hatServer/sortingHat/variables.json', 'w') as json_file:
+    with open('hatServer/static/js/config/variables.json', 'w') as json_file:
         json.dump(data, json_file)
+
     return 'success'
 
 @app.route('/')

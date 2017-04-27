@@ -3,14 +3,14 @@
 sortingApp.service('surveyQuestions', function () {
     var surveyName = "";
     var surveyDescription = 'HELLO JESSICA YOU DA BEST';
-    var maxSkills = 10;
+    var maxSkills = null;
     var desiredSkills = ['Java', 'Python', 'PHP', 'C/C++', 'Mobile App Development (Android/iOS)', 'Web Applications', 'Embedded Systems', 'Database (MySQL, SQL, etc.)', 'User Interface/Experience', 'Statistics', 'Networking',
         'Robotics', 'Computer Vision', 'Algorithms', 'Machine Learning'];
     var studentCount = null;
     var groupSizes = {
-        min: 4,
-        max: 6,
-        opt: 5
+        min: null,
+        max: null,
+        opt: null
     };
     var firstName = {
         included: true,
@@ -167,14 +167,14 @@ sortingApp.service('surveyQuestions', function () {
         included: true,
         required: false
     };
-    var maxScore = 3.5;
-    var changeRatings = true;
+    var maxScore = null;
+    var changeRatings = false;
     var weights = {
-        known: 1,
-        learn: 2,
-        group: 5,
-        ip: 0.5,
-        extraCredit: 1
+        known: null,
+        learn: null,
+        group: null,
+        ip: null,
+        extraCredit: null
     };
 
     return {
@@ -204,6 +204,9 @@ sortingApp.service('surveyQuestions', function () {
         },
         setGroupSizes: function (value) {
             groupSizes = value;
+        },
+        setGroupSize: function (field, value) {
+            groupSizes[field] = value;
         },
 
         getMaxSkills: function () {
@@ -450,6 +453,9 @@ sortingApp.service('surveyQuestions', function () {
         setLeadership: function (value) {
             leadership = value;
         },
+        setLeadershipValue: function (field, value) {
+            leadership[field] = value;
+        },
 
         getLeadershipOptions: function () {
             return leadershipOptions;
@@ -491,6 +497,9 @@ sortingApp.service('surveyQuestions', function () {
         },
         setWeights: function (value) {
             weights = value;
+        },
+        setWeight: function (field, value) {
+            weights[field] = value;
         }
     }
 })
