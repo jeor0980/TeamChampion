@@ -38,7 +38,6 @@ def dumbledore():
 
 	registerStudents()
 	ret_val = unpopular()
-	print(ret_val)
 	if ret_val != 0:
 		return ret_val
 	ret_val, matched = sortThemBitches()

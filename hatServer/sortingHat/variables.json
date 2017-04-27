@@ -7,7 +7,7 @@
     "MIN_SIZE": 4,
     "MAX_SIZE": 6,
     "OPT_SIZE": 5,
-    "LEADERSHIP_MATTERS": true,
+    "LEADERSHIP_MATTERS": false,
     "STUDENT_COUNT": 88,
     "SUBVERT_FOR_PAY": true,
     "MIN_PAID_AVG_PREF_SCORE": 3.5,

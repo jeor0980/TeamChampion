@@ -28,7 +28,7 @@ class SortingHatTest(unittest.TestCase):
 
     def testCalcGroupPreference(self):
         test1 = registerStudents.calcGroupPreference(3, 3, 2, 1)
-        self.assertEqual(round(test1, 1), 1.9)
+        self.assertEqual(test1, 8)
         with self.assertRaises(AssertionError):
             registerStudents.calcGroupPreference(-1, 1, -1.5, 1)
 

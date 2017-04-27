@@ -184,7 +184,7 @@ def checkLeader(student, group):
 	if (group.has_strong_leader 
 		and student.leadership == "STRONG_LEAD" 
 		and LEADERSHIP_MATTERS):
-			print(s.student_name + " is not allowed in " + g.group_name)
+			print(student.student_name + " is not allowed in " + group.group_name)
 			return True
 	return False
 
@@ -253,7 +253,6 @@ def sortThemBitches():
 					)
 				g.reload()
 				s.reload()
-				print("Strong lead set: " + str(g.has_strong_leader))
 			group_prefers[g] = partnerUpBitches(s, g)
 			group_prefers[g], matched = nopeBitches(s, g, matched)
 
@@ -280,7 +279,6 @@ def sortThemBitches():
 						)
 					g.reload()
 					s.reload()
-					print("Strong lead set: " + str(g.has_strong_leader))
 				group_prefers[g] = partnerUpBitches(s, g)
 				group_prefers[g], matched = nopeBitches(s, g, matched)
 		##! Be more lenient on group size for second pass students
@@ -307,7 +305,6 @@ def sortThemBitches():
 						)
 					g.reload()
 					s.reload()
-					print("Strong lead set: " + str(g.has_strong_leader))
 				group_prefers[g] = partnerUpBitches(s, g)
 				group_prefers[g], matched = nopeBitches(s, g, matched)
 
@@ -346,8 +343,6 @@ def sortThemBitches():
 								)
 							g.reload()
 							s.reload()
-							##! For some reason, a lot of these are not being hit
-							print("Strong lead set: " + str(g.has_strong_leader))
 						if len(student_prefers[m]) > 0:
 							students_free.append(m)
 						else:
@@ -355,7 +350,6 @@ def sortThemBitches():
 							#solution, but:
 							#TODO: make this work better
 							if len(match) < MAX_SIZE:
-								print("Hitting a less weird edge case")
 								matched[g].append(m)
 						replaced = True
 						group_prefers[g] = partnerUpBitches(s, g)
@@ -366,7 +360,6 @@ def sortThemBitches():
 					students_free.append(s)
 				else:
 					if len(match) < MAX_SIZE:
-						print("Hitting what should be an edge case")
 						matched[g].append(s)
 
 		if len(students_free) < 1:
