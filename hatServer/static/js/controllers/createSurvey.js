@@ -22,6 +22,7 @@ sortingApp.controller('createSurveyController', function ($scope, $window, $http
     });
 
     $scope.submitted = false;
+    $scope.projectPreferences = surveyQuestions.getProjectPreferences();
 
     $scope.maxSkills = surveyQuestions.getMaxSkills();
     $scope.desiredSkills = surveyQuestions.getDesiredSkills();
@@ -49,16 +50,6 @@ sortingApp.controller('createSurveyController', function ($scope, $window, $http
     $scope.computerVision = surveyQuestions.getComputerVision();
     $scope.algorithms = surveyQuestions.getAlgorithms();
     $scope.machineLearning = surveyQuestions.getMachineLearning();
-    $scope.firstChoice = surveyQuestions.getFirstChoice();
-    $scope.firstComment = surveyQuestions.getFirstComment();
-    $scope.secondChoice = surveyQuestions.getSecondChoice();
-    $scope.secondComment = surveyQuestions.getSecondComment();
-    $scope.thirdChoice = surveyQuestions.getThirdChoice();
-    $scope.thirdComment = surveyQuestions.getThirdComment();
-    $scope.fourthChoice = surveyQuestions.getFourthChoice();
-    $scope.fourthComment = surveyQuestions.getFourthComment();
-    $scope.fifthChoice = surveyQuestions.getFifthChoice();
-    $scope.fifthComment = surveyQuestions.getFifthComment();
     $scope.ipPreference = surveyQuestions.getIpPreference();
     $scope.ipOptions = surveyQuestions.getIpOptions();
     $scope.leadership = surveyQuestions.getLeadership();
@@ -77,6 +68,7 @@ sortingApp.controller('createSurveyController', function ($scope, $window, $http
         if (form.$invalid) {
             return;
         }
+        surveyQuestions.setProjectPreferences($scope.projectPreferences);
 
         surveyQuestions.setSurveyName($scope.surveyName);
         surveyQuestions.setSurveyDescription($scope.surveyDescription);
@@ -103,16 +95,6 @@ sortingApp.controller('createSurveyController', function ($scope, $window, $http
         surveyQuestions.setMachineLearning($scope.machineLearning);
         surveyQuestions.setMaxSkills($scope.maxSkills);
         surveyQuestions.setDesiredSkills($scope.desiredSkills);
-        surveyQuestions.setFirstChoice($scope.firstChoice);
-        surveyQuestions.setFirstComment($scope.firstComment);
-        surveyQuestions.setSecondChoice($scope.secondChoice);
-        surveyQuestions.setSecondComment($scope.secondComment);
-        surveyQuestions.setThirdChoice($scope.thirdChoice);
-        surveyQuestions.setThirdComment($scope.thirdComment);
-        surveyQuestions.setFourthChoice($scope.fourthChoice);
-        surveyQuestions.setFourthComment($scope.fourthComment);
-        surveyQuestions.setFifthChoice($scope.fifthChoice);
-        surveyQuestions.setFifthComment($scope.fifthComment);
         surveyQuestions.setIpPreference($scope.ipPreference);
         surveyQuestions.setIpOptions($scope.ipOptions);
         surveyQuestions.setLeadership($scope.leadership);

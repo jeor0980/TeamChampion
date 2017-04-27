@@ -90,45 +90,67 @@ sortingApp.service('surveyQuestions', function () {
         included: true,
         required: true
     };
-    var firstChoice = {
-        included: true,
-        required: true
-    };
-    var firstComment = {
-        included: true,
-        required: false
-    };
-    var secondChoice = {
-        included: true,
-        required: true
-    };
-    var secondComment = {
-        included: true,
-        required: false
-    };
-    var thirdChoice = {
-        included: true,
-        required: true
-    };
-    var thirdComment = {
-        included: true,
-        required: false
-    };
-    var fourthChoice = {
-        included: true,
-        required: true
-    };
-    var fourthComment = {
-        included: true,
-        required: false
-    };
-    var fifthChoice = {
-        included: true,
-        required: true
-    };
-    var fifthComment = {
-        included: true,
-        required: false
+    var projectPreferences = {
+        firstChoice: {
+            included: true,
+            required: true,
+            label: 'First Choice',
+            name: 'firstChoice'
+        },
+        firstComment: {
+            included: true,
+            required: false,
+            label: 'First Choice Comment',
+            name: 'firstComment'
+        },
+        secondChoice: {
+            included: true,
+            required: true,
+            label: 'Second Choice',
+            name: 'secondChoice'
+        },
+        secondComment: {
+            included: true,
+            required: false,
+            label: 'Second Choice Comment',
+            name: 'secondComment'
+        },
+        thirdChoice: {
+            included: true,
+            required: true,
+            label: 'Third Choice',
+            name: 'thirdChoice'
+        },
+        thirdComment: {
+            included: true,
+            required: false,
+            label: 'Third Choice Comment',
+            name: 'thirdComment'
+        },
+        fourthChoice: {
+            included: true,
+            required: true,
+            label: 'Fourth Choice',
+            name: 'fourthChoice'
+        },
+        fourthComment: {
+            included: true,
+            required: false,
+            label: 'Fourth Choice Comment',
+            name: 'fourthComment'
+        },
+        fifthChoice: {
+            included: true,
+            required: true,
+            label: 'Fifth Choice',
+            name: 'fifthChoice'
+        },
+        fifthComment: {
+            included: true,
+            required: false,
+            label: 'Fifth Choice Comment',
+            name: 'fifthComment'
+        }
     };
     var ipPreference = {
         included: true,
@@ -363,74 +385,11 @@ sortingApp.service('surveyQuestions', function () {
             machineLearning = value;
         },
 
-        getFirstChoice: function () {
-            return firstChoice;
+        getProjectPreferences: function () {
+            return projectPreferences;
         },
-        setFirstChoice: function (value) {
-            firstChoice = value;
-        },
-
-        getFirstComment: function () {
-            return firstComment;
-        },
-        setFirstComment: function (value) {
-            firstComment = value;
-        },
-
-        getSecondChoice: function () {
-            return secondChoice;
-        },
-        setSecondChoice: function (value) {
-            secondChoice = value;
-        },
-
-        getSecondComment: function () {
-            return secondComment;
-        },
-        setSecondComment: function (value) {
-            secondComment = value;
-        },
-
-        getThirdChoice: function () {
-            return thirdChoice;
-        },
-        setThirdChoice: function (value) {
-            thirdChoice = value;
-        },
-
-        getThirdComment: function () {
-            return thirdComment;
-        },
-        setThirdComment: function (value) {
-            thirdComment = value;
-        },
-
-        getFourthChoice: function () {
-            return fourthChoice;
-        },
-        setFourthChoice: function (value) {
-            fourthChoice = value;
-        },
-
-        getFourthComment: function () {
-            return fourthComment;
-        },
-        setFourthComment: function (value) {
-            fourthComment = value;
-        },
-
-        getFifthChoice: function () {
-            return fifthChoice;
-        },
-        setFifthChoice: function (value) {
-            fifthChoice = value;
-        },
-
-        getFifthComment: function () {
-            return fifthComment;
-        },
-        setFifthComment: function (value) {
-            fifthComment = value;
+        setProjectPreferences: function (value) {
+            projectPreferences = value;
         },
 
         getIpPreference: function () {

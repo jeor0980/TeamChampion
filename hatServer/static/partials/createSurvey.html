@@ -353,153 +353,21 @@
 
     <div class="card-panel">
 
-      <div class="row">
-        <div class="col s6">
-          <input type="checkbox" name="firstChoice" id="firstChoice" ng-model="firstChoice['included']" />
-          <label for="firstChoice">First Choice</label>
-        </div>
-        <div class="switch col s6">
-          <label>
-            Optional
-            <input type="checkbox" name="firstChoiceRequired" id="firstChoiceRequired" ng-model="firstChoice['required']" />
-            <span class="lever"></span>
-            Required
-          </label>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col s6">
-          <input type="checkbox" name="firstChoiceComment" id="firstChoiceComment" ng-model="firstComment['included']" />
-          <label for="firstChoiceComment">First Choice Comment</label>
-        </div>
-        <div class="switch col s6">
-          <label>
-            Optional
-            <input type="checkbox" name="firstCommentRequired" id="firstCommentRequired" ng-model="firstComment['required']" />
-            <span class="lever"></span>
-            Required
-          </label>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col s6">
-          <input type="checkbox" name="secondChoice" id="secondChoice" ng-model="secondChoice['included']" />
-          <label for="secondChoice">Second Choice</label>
-        </div>
-        <div class="switch col s6">
-          <label>
-            Optional
-            <input type="checkbox" name="secondChoiceRequired" id="secondChoiceRequired" ng-model="secondChoice['required']" />
-            <span class="lever"></span>
-            Required
-          </label>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col s6">
-          <input type="checkbox" name="secondChoiceComment" id="secondChoiceComment" ng-model="secondComment['included']" />
-          <label for="secondChoiceComment">Second Choice Comment</label>
-        </div>
-        <div class="switch col s6">
-          <label>
-            Optional
-            <input type="checkbox" name="secondCommentRequired" id="secondCommentRequired" ng-model="secondComment['required']" />
-            <span class="lever"></span>
-            Required
-          </label>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col s6">
-          <input type="checkbox" name="thirdChoice" id="thirdChoice" ng-model="thirdChoice['included']" />
-          <label for="thirdChoice">Third Choice</label>
-        </div>
-        <div class="switch col s6">
-          <label>
-            Optional
-            <input type="checkbox" name="thirdChoiceRequired" id="thirdChoiceRequired" ng-model="thirdChoice['required']" />
-            <span class="lever"></span>
-            Required
-          </label>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col s6">
-          <input type="checkbox" name="thirdChoiceComment" id="thirdChoiceComment" ng-model="thirdComment['included']" />
-          <label for="thirdChoiceComment">Third Choice Comment</label>
-        </div>
-        <div class="switch col s6">
-          <label>
-            Optional
-            <input type="checkbox" name="thirdCommentRequired" id="thirdCommentRequired" ng-model="thirdComment['required']" />
-            <span class="lever"></span>
-            Required
-          </label>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col s6">
-          <input type="checkbox" name="fourthChoice" id="fourthChoice" ng-model="fourthChoice['included']" />
-          <label for="fourthChoice">Fourth Choice</label>
-        </div>
-        <div class="switch col s6">
-          <label>
-            Optional
-            <input type="checkbox" name="fourthChoiceRequired" id="fourthChoiceRequired" ng-model="fourthChoice['required']" />
-            <span class="lever"></span>
-            Required
-          </label>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col s6">
-          <input type="checkbox" name="fourthChoiceComment" id="fourthChoiceComment" ng-model="fourthComment['included']" />
-          <label for="fourthChoiceComment">Fourth Choice Comment</label>
-        </div>
-        <div class="switch col s6">
-          <label>
-            Optional
-            <input type="checkbox" name="fourthCommentRequired" id="fourthCommentRequired" ng-model="fourthComment['required']" />
-            <span class="lever"></span>
-            Required
-          </label>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col s6">
-          <input type="checkbox" name="fifthChoice" id="fifthChoice" ng-model="fifthChoice['included']" />
-          <label for="fifthChoice">Fifth Choice</label>
-        </div>
-        <div class="switch col s6">
-          <label>
-            Optional
-            <input type="checkbox" name="fifthChoiceRequired" id="fifthChoiceRequired" ng-model="fifthChoice['required']" />
-            <span class="lever"></span>
-            Required
-          </label>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col s6">
-          <input type="checkbox" name="fifthChoiceComment" id="fifthChoiceComment" ng-model="fifthComment['included']" />
-          <label for="fifthChoiceComment">Fifth Choice Comment</label>
-        </div>
-        <div class="switch col s6">
-          <label>
-            Optional
-            <input type="checkbox" name="fifthCommentRequired" id="fifthCommentRequired" ng-model="fifthComment['required']" />
-            <span class="lever"></span>
-            Required
-          </label>
+      <div ng-repeat="option in projectPreferences">
+        <div class="row">
+          <div class="col s6">
+            <input type="checkbox" name="{{ option.name }}" id="{{ option.name }}" ng-model="projectPreferences[option.name]['included']" />
+            <label for="{{ option.name }}">{{ option.label }}</label>
+          </div>
+          <div class="switch col s6">
+            <label>
+              Optional
+              <input type="checkbox" name="{{ option.name + 'Required'}}" id="{{ option.name + 'Required' }}" ng-model="projectPreferences[option.name]['required']" />
+              <span class="lever"></span>
+              Required
+              {{ projectPreferences[option]['required']}}
+            </label>
+          </div>
         </div>
       </div>
 
