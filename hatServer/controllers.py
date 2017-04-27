@@ -75,7 +75,7 @@ def createSurvey():
     data = json.loads(request.data.decode())
 
     with open('hatServer/static/js/config/variables.json', 'w') as json_file:
-        json.dump(data, json_file)
+        json.dump(data, json_file, indent=4)
 
     return 'success'
 

@@ -6,6 +6,7 @@ sys.path.append("../..")
 from hatServer.models import Groups, Students
 from hatServer.sortingHat.masterSort import * 
 from hatServer.sortingHat.addStudent import addStudent
+from hatServer.sortingHat.addGroup import addGroup
 
 class dataSet:
     """
@@ -99,51 +100,66 @@ def parseStudent(data):
 #         ids[student.student_name] = student.identikey
 #     return ids
 
-def addWorkWith(data):
-    values = data.split(',')
-    student = Students.objects.get(identikey=values[2])
-    names = values[13].rstrip('\n').split('.')
-    for name in names:
-        if name == '0':
-            break
-        identikey = convertNameToId(name)
-        if identikey:
-            student_to_work_with = Students.objects.get(identikey=identikey)
-            student.update(add_to_set__work_with=student_to_work_with)
-    bad_names = values[14].rstrip('\n')
-    bad_names = bad_names.split('.')
-    for name in bad_names:
-        if name == '0':
-            break
-        identikey = convertNameToId(name)
-        if identikey:
-            student_to_avoid = Students.objects.get(identikey=identikey)
-            student.update(add_to_set__dont_work_with=student_to_avoid)
-    student.save()
+# def addWorkWith(data):
+#     values = data.split(',')
+#     student = Students.objects.get(identikey=values[2])
+#     names = values[13].rstrip('\n').split('.')
+#     for name in names:
+#         if name == '0':
+#             break
+#         identikey = convertNameToId(name)
+#         if identikey:
+#             student_to_work_with = Students.objects.get(identikey=identikey)
+#             student.update(add_to_set__work_with=student_to_work_with)
+#     bad_names = values[14].rstrip('\n')
+#     bad_names = bad_names.split('.')
+#     for name in bad_names:
+#         if name == '0':
+#             break
+#         identikey = convertNameToId(name)
+#         if identikey:
+#             student_to_avoid = Students.objects.get(identikey=identikey)
+#             student.update(add_to_set__dont_work_with=student_to_avoid)
+#     student.save()
 
 def parseGroups(data):
     values = data.split(',')
-    group_to_add = Groups(group_name=values[0])
-    group_to_add.save()
-    paid = bool(int(values[1]))
-    group_to_add.update(paid=paid)
-    group_to_add.update(ip=values[2])
-    option = bool(int(values[3]))
-    group_to_add.update(option=option)
-    if option:
-        group_to_add.update(opt_category=values[4])
-    skills = []
+    json_data = {}
+    json_data["name"] = values[0]
+    json_data["paid"] = values[1]
+    json_data["ipPref"] = values[2]
+    json_data["option"] = bool(int(values[3]))
+    if json_data["option"]:
+        json_data["optionCategory"] = values[4]
+    json_data["skills"] = []
     for i in range(5, len(values)):
         skill = values[i].rstrip('\n')
-        group_to_add.update(add_to_set__skills=skill)
-#    group_to_add.update(remove_from_set__skills='\n')
-#    skills.remove('\n')
-#    print(skills)
-   # group_to_add.skills = skills
-   # group_to_add.save()
-#    group_to_add.members = []
-#    group_to_add.save(cascade=True)
-    return group_to_add
+        json_data["skills"].append(skill)
+    addGroup(json_data)
+
+# def parseGroups(data):
+#     values = data.split(',')
+#     group_to_add = Groups(group_name=values[0])
+#     group_to_add.save()
+#     paid = bool(int(values[1]))
+#     group_to_add.update(paid=paid)
+#     group_to_add.update(ip=values[2])
+#     option = bool(int(values[3]))
+#     group_to_add.update(option=option)
+#     if option:
+#         group_to_add.update(opt_category=values[4])
+#     skills = []
+#     for i in range(5, len(values)):
+#         skill = values[i].rstrip('\n')
+#         group_to_add.update(add_to_set__skills=skill)
+# #    group_to_add.update(remove_from_set__skills='\n')
+# #    skills.remove('\n')
+# #    print(skills)
+#    # group_to_add.skills = skills
+#    # group_to_add.save()
+# #    group_to_add.members = []
+# #    group_to_add.save(cascade=True)
+#     return group_to_add
 
 def buildDB(student_path, group_path):
     #assert(len(student_path) > 0)
@@ -164,12 +180,12 @@ def buildDB(student_path, group_path):
     # updateCountJson()
 
 def main(args):
-    register_connection('testDatabase')
-    connect('testDatabase')
-    if len(Groups.objects.all()) > 0:
-        Groups.drop_collection()
-    if len(Students.objects.all()) > 0:
-        Students.drop_collection()
+    # register_connection('testDatabase')
+    # connect('testDatabase')
+    # if len(Groups.objects.all()) > 0:
+    #     Groups.drop_collection()
+    # if len(Students.objects.all()) > 0:
+    #     Students.drop_collection()
     buildDB(args[1], args[2])
 
 if __name__ == '__main__':

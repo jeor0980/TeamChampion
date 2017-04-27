@@ -10,7 +10,7 @@ def loadJson():
 			data = json.load(fp)
 			return data
 	else:
-		with open("./hatServer/sortingHat/vaiables.json", 'r') as fp:
+		with open("./hatServer/static/js/config/variables.json", 'r') as fp:
 			data = json.load(fp)
 			return data
 
