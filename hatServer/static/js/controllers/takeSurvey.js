@@ -13,6 +13,9 @@ sortingApp.controller('takeSurveyController', function ($scope, $http, $window, 
         $scope.surveyGpa = data['gpa'];
         $scope.surveyCsgpa = data['csgpa'];
 
+        $scope.rankedSkills = data['rankedCategories'];
+        $scope.desiredSkills = data['desiredSkills'];
+
         console.log('got dat old survey data yo');
     });
 
@@ -30,7 +33,6 @@ sortingApp.controller('takeSurveyController', function ($scope, $http, $window, 
             surveyResults.setFirstName($scope.firstName);
             surveyResults.setLastName($scope.lastName);
             surveyResults.setPreferredName($scope.preferredName);
-            surveyResults.setIdentikey($scope.identikey);
             surveyResults.setOverallGPA($scope.gpa);
             surveyResults.setCsGPA($scope.csgpa);
 
