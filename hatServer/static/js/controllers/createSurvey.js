@@ -30,6 +30,7 @@ sortingApp.controller('createSurveyController', function ($scope, $window, $http
     $scope.surveyName = surveyQuestions.getSurveyName();
     $scope.surveyDescription = surveyQuestions.getSurveyDescription();
     $scope.studentCount = surveyQuestions.getStudentCount();
+    $scope.projectCount = surveyQuestions.getProjectCount();
     $scope.groupSizes = surveyQuestions.getGroupSizes();
     $scope.firstName = surveyQuestions.getFirstName();
     $scope.lastName = surveyQuestions.getLastName();
@@ -61,6 +62,7 @@ sortingApp.controller('createSurveyController', function ($scope, $window, $http
         surveyQuestions.setSurveyName($scope.surveyName);
         surveyQuestions.setSurveyDescription($scope.surveyDescription);
         surveyQuestions.setStudentCount($scope.studentCount);
+        surveyQuestions.setProjectCount($scope.projectCount);
         surveyQuestions.setGroupSizes($scope.groupSizes);
         surveyQuestions.setFirstName($scope.firstName);
         surveyQuestions.setLastName($scope.lastName);

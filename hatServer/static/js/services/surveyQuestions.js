@@ -7,6 +7,7 @@ sortingApp.service('surveyQuestions', function () {
     var desiredSkills = ['Java', 'Python', 'PHP', 'C/C++', 'Mobile App Development (Android/iOS)', 'Web Applications', 'Embedded Systems', 'Database (MySQL, SQL, etc.)', 'User Interface/Experience', 'Statistics', 'Networking',
         'Robotics', 'Computer Vision', 'Algorithms', 'Machine Learning'];
     var studentCount = null;
+    var projectCount = 25;
     var groupSizes = {
         min: null,
         max: null,
@@ -247,6 +248,13 @@ sortingApp.service('surveyQuestions', function () {
         },
         setStudentCount: function (value) {
             studentCount = value;
+        },
+
+        getProjectCount: function () {
+            return projectCount;
+        },
+        setProjectCount: function (value) {
+            projectCount = value;
         },
 
         getGroupSizes: function () {
