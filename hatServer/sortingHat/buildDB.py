@@ -126,7 +126,7 @@ def parseGroups(data):
     values = data.split(',')
     json_data = {}
     json_data["name"] = values[0]
-    json_data["paid"] = values[1]
+    json_data["paid"] = bool(int(values[1]))
     json_data["ipPref"] = values[2]
     json_data["option"] = bool(int(values[3]))
     if json_data["option"]:

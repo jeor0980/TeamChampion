@@ -77,7 +77,6 @@ def partnerUpBitches(student, group):
 	return group.preferences
 
 def nopeBitches(student, group, matched):
-	removed_students = []
 	if len(student.dont_work_with) > 0:
 		for s in student.dont_work_with:
 			if s in matched[group]:
@@ -87,10 +86,21 @@ def nopeBitches(student, group, matched):
 				group_name=group.group_name,
 				preferences__student=s
 				).update(
-				dec__preferences__S__pref_score=GROUP_WEIGHT
+				dec__preferences__S__pref_score=GROUP_WEIGHT * 2
 				)
 			group.reload()		
 	return group.preferences, matched
+
+def finalNopeBitches(student, group):
+	if len(student.dont_work_with) > 0:
+		for s in student.dont_work_with:
+			if s in group.members:
+				return True
+	for stdnt in group.members:
+		if len(stdnt.dont_work_with) > 0:
+			if student in stdnt.dont_work_with:
+				return True
+	return False
 
 def getJsonFromFile():
 	with open("id_map.json") as json_file:
@@ -128,7 +138,8 @@ def swapThemBitches(shortGroup, firstPass):
 				if len(shortGroup.members) >= MIN_SIZE:
 					return
 				if (shortGroup in student.preferences
-					and not checkLeader(student, shortGroup)):
+					and not checkLeader(student, shortGroup)
+					and not finalNopeBitches(student, shortGroup)):
 					Groups.objects(
 						group_name=group.group_name
 						).update(pull__members=student)
@@ -151,7 +162,8 @@ def swapThemBitches(shortGroup, firstPass):
 				if len(shortGroup.members) >= MIN_SIZE:
 					return
 				if (shortGroup in student.preferences
-					and not checkLeader(student, shortGroup)):
+					and not checkLeader(student, shortGroup)
+					and not finalNopeBitches(student, shortGroup)):
 					Groups.objects(
 						group_name=group.group_name
 						).update(pull__members=student)

@@ -18,7 +18,7 @@ def updateCountJson():
 def convertNameToId(name):
 	count = Students.objects(student_name=name).count()
 	if count == 1:
-		Students.objects.get(student_name=name).identikey
+		return Students.objects.get(student_name=name).identikey
 	else:
 		print("Counted " + str(count) + " results")
 		print(name + " is not unique. Which student did you mean?")
@@ -45,6 +45,7 @@ def addWorkWith(student):
 		if identikey:
 			student_to_work_with = Students.objects.get(identikey=identikey)
 			student.update(add_to_set__work_with=student_to_work_with)
+			student.reload()
 	bad_names = student.temp_dont_work_with
 	for name in bad_names:
 		if name == '0':
@@ -53,6 +54,7 @@ def addWorkWith(student):
 		if identikey:
 			student_to_avoid = Students.objects.get(identikey=identikey)
 			student.update(add_to_set__dont_work_with=student_to_avoid)
+			student.reload()
 	student.save()
 
 ##! Use this to make list a group preferences for gale-shapley

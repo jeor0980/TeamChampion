@@ -1,8 +1,8 @@
 {
-    "MAX_SKILL_LEN": 10,
-    "LEARN_WEIGHT": 2,
-    "KNOWN_WEIGHT": 1,
-    "GROUP_WEIGHT": 5.0,
+    "MAX_SKILL_LEN": 20,
+    "LEARN_WEIGHT": 1,
+    "KNOWN_WEIGHT": 2,
+    "GROUP_WEIGHT": 4,
     "IP_WEIGHT": 0.5,
     "MIN_SIZE": 4,
     "MAX_SIZE": 6,
@@ -10,6 +10,6 @@
     "LEADERSHIP_MATTERS": false,
     "STUDENT_COUNT": 88,
     "SUBVERT_FOR_PAY": true,
-    "MIN_PAID_AVG_PREF_SCORE": 3.5,
+    "MIN_PAID_AVG_PREF_SCORE": 4.5,
     "EXTRA_CREDIT": 1
 }

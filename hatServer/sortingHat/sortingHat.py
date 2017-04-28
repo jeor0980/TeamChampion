@@ -45,15 +45,32 @@ def dumbledore():
 	if ret_val != 0:
 		return ret_val
 
+##! This is all stuff to format for different outputs
+##! Trying to make some of the analytics easier
+	out_string = ""
 	for group in Groups.objects:
+		s_list = []
 		print(group.group_name + ":")
+		for student in group.members:
+			s_list.append(student)
 		for student in group.members:
 			if student.group_assigned != group:
 				print(student.student_name + " thinks they're in " +
 					student.group_assigned.group_name + " but they're in " +
 					group.group_name)
 			else:
+				success = 0
+				if len(student.work_with) > 0:
+					for s in student.work_with:
+						if s in s_list:
+							success += 1
+				out_string += (student.student_name + ","
+					+ group.group_name + ","
+					+ str(success) + "\n")
 				print("\t" + student.student_name)
+
+	with open("results.csv", 'w') as fp:
+		fp.write(out_string)
 # 	if matched:
 # 		for group in matched:
 # 			value = group.members
