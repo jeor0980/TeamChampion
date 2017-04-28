@@ -8,6 +8,7 @@ sortingApp.controller('createSurveyController', function ($scope, $window, $http
         surveyQuestions.setWeight('known', data['KNOWN_WEIGHT']);
         surveyQuestions.setWeight('group', data['GROUP_WEIGHT']);
         surveyQuestions.setWeight('ip', data['IP_WEIGHT']);
+        surveyQuestions.setWeight('extraCredit', data['EXTRA_CREDIT']);
         surveyQuestions.setMaxSkills(data['MAX_SKILL_LEN']);
         surveyQuestions.setGroupSize('min', data['MIN_SIZE']);
         surveyQuestions.setGroupSize('max', data['MAX_SIZE']);

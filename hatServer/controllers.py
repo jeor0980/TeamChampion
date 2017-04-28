@@ -34,7 +34,7 @@ def build():
     return render_template('index.html')
 
 @app.route('/takeSurvey3', methods=['GET', 'POST'])
-def create_survey():
+def take_survey():
     # get data from form object 
     print("TAKE SURVEY HOMES")
     data = json.loads(request.data.decode())
@@ -69,11 +69,21 @@ def create_survey():
     return firstName
 
 @app.route('/createSurvey', methods=['GET', 'POST'])
-def createSurvey():
+def create_survey():
     print('hey')
     data = json.loads(request.data.decode())
 
     with open('hatServer/static/js/config/variables.json', 'w') as json_file:
+        json.dump(data, json_file)
+
+    return 'success'
+
+@app.route('/projectsInput', methods=['GET', 'POST'])
+def projects_input():
+    print('got dem projects done homes')
+    data = json.loads(request.data.decode())
+
+    with open('hatServer/static/js/config/survey.json', 'w') as json_file:
         json.dump(data, json_file)
 
     return 'success'
