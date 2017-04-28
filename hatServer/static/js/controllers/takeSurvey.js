@@ -1,18 +1,23 @@
 'use strict';
 
 sortingApp.controller('takeSurveyController', function ($scope, $http, $window, surveyResults) {
-    $scope.message1 = 'Survey to gather student preferences and abilities in support of forming teams for CU Boulder Senior Projects.';
+    $http.get('../static/js/config/survey.json').success(function (data) {
+        // projects is an array of dictionaries with data about each project :) 
+        $scope.projects = data['projects'];
+        $scope.title = data['title'];
+        $scope.description = data['description'];
+
+        $scope.surveyFirstName = data['firstName'];
+        $scope.surveyLastName = data['lastName'];
+        $scope.surveyPreferredName = data['preferredName'];
+        $scope.surveyGpa = data['gpa'];
+        $scope.surveyCsgpa = data['csgpa'];
+
+        console.log('got dat old survey data yo');
+    });
+
     $scope.message2 = 'The following are some questions about your skillset and experiences that will help us diversify team talents.';
     $scope.message3 = 'And now the moment you have been waiting for. Please rank your top five project choices, and indicate your primary motivation for wanting to work on each project you rank. (Note that while the survey allows you to choose the same project for all five ranks, actually doing so will only make things more difficult for yourself and for us if we are not able to honor your top choice.';
-    $scope.title = '2017 Senior Projects Group Formation Survey';
-    $scope.firstChoiceComment = "";
-    $scope.secondChoiceComment = "";
-    $scope.thirdChoiceComment = "";
-    $scope.comments = "";
-
-    // TODO: change this from hard-coding to getting data from instructor form
-    $scope.projects = ['Proj 1', 'Proj 2', 'Proj 3', 'Proj 4', 'Proj 5', 'Proj 6', 'Proj 7',
-        'Proj 8', 'Proj 9', 'Proj 10'];
 
     $scope.sendSurveyPage1 = function (form) {
         console.log('boutta redirect this bitch');

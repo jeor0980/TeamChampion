@@ -11,7 +11,7 @@
     <div class="form-group">
       <span class="label label-danger" ng-show="submitted && takeSurveyForm.firstChoice.$error.required">Required!</span>
       <label for="firstChoice">First Choice Project<span class="required-asterisk" style="color: red"> *</span><div class="secondary-text">Select your first preference of project.</div></label>
-      <select name="firstChoice" ng-model="firstChoice" ng-options="item for item in projects" class="browser-default" required></select>
+      <select name="firstChoice" ng-model="firstChoice" ng-options="item.name for item in projects" class="browser-default" required></select>
     </div>
 
     <!-- TODO: allow instructor to choose if this comment is mandatory and toggle respectively -->
@@ -25,7 +25,7 @@
     <div class="form-group">
       <span class="label label-danger" ng-show="submitted && takeSurveyForm.secondChoice.$error.required">Required!</span>
       <label for="secondChoice">Second Choice Project<span class="required-asterisk" style="color: red"> *</span><div class="secondary-text">Select your first preference of project.</div></label>
-      <select name="secondChoice" ng-model="secondChoice" ng-options="item for item in projects" class="browser-default" required></select>
+      <select name="secondChoice" ng-model="secondChoice" ng-options="item.name for item in projects" class="browser-default" required></select>
     </div>
 
     <!-- TODO: allow instructor to choose if this comment is mandatory and toggle respectively -->
@@ -39,7 +39,7 @@
     <div class="form-group">
       <span class="label label-danger" ng-show="submitted && takeSurveyForm.thirdChoice.$error.required">Required!</span>
       <label for="thirdChoice">Third Choice Project<span class="required-asterisk" style="color: red"> *</span><div class="secondary-text">Select your third preference of project.</div></label>
-      <select name="thirdChoice" ng-model="thirdChoice" ng-options="item for item in projects" class="browser-default" required></select>
+      <select name="thirdChoice" ng-model="thirdChoice" ng-options="item.name for item in projects" class="browser-default" required></select>
     </div>
 
     <!-- TODO: allow instructor to choose if this comment is mandatory and toggle respectively -->
@@ -53,7 +53,7 @@
     <div class="form-group">
       <span class="label label-danger" ng-show="submitted && takeSurveyForm.fourthChoice.$error.required">Required!</span>
       <label for="fourthChoice">Fourth Choice Project<span class="required-asterisk" style="color: red"> *</span><div class="secondary-text">Select your fourth preference of project.</div></label>
-      <select name="fourthChoice" ng-model="fourthChoice" ng-options="item for item in projects" class="browser-default" required></select>
+      <select name="fourthChoice" ng-model="fourthChoice" ng-options="item.name for item in projects" class="browser-default" required></select>
     </div>
 
     <!-- Place to leave motivation for the fourth project selection -->
@@ -66,7 +66,7 @@
     <div class="form-group">
       <span class="label label-danger" ng-show="submitted && takeSurveyForm.fifthChoice.$error.required">Required!</span>
       <label for="fifthChoice">Fifth Choice Project<span class="required-asterisk" style="color: red"> *</span><div class="secondary-text">Select your first preference of project.</div></label>
-      <select name="fifthChoice" ng-model="fifthChoice" ng-options="item for item in projects" class="browser-default" required></select>
+      <select name="fifthChoice" ng-model="fifthChoice" ng-options="item.name for item in projects" class="browser-default" required></select>
     </div>
 
     <!-- Place to leave motivation for the fifth project selection -->
