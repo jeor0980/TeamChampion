@@ -23,6 +23,7 @@ sortingApp.controller('createSurveyController', function ($scope, $window, $http
 
     $scope.submitted = false;
     $scope.projectPreferences = surveyQuestions.getProjectPreferences();
+    $scope.rankedCategories = surveyQuestions.getRankedCategories();
 
     $scope.maxSkills = surveyQuestions.getMaxSkills();
     $scope.desiredSkills = surveyQuestions.getDesiredSkills();
@@ -36,20 +37,6 @@ sortingApp.controller('createSurveyController', function ($scope, $window, $http
     $scope.overallGPA = surveyQuestions.getOverallGPA();
     $scope.csGPA = surveyQuestions.getCsGPA();
     $scope.skillCategories = surveyQuestions.getSkillCategories();
-    // ALL OF THIS IS GOING TO BE BETTER DON'T WORRY IT WON'T ALWAYS BE THIS DISGUSTING
-    $scope.overallProgramming = surveyQuestions.getOverallProgramming();
-    $scope.databaseDevelopment = surveyQuestions.getDatabaseDevelopment();
-    $scope.embeddedSystems = surveyQuestions.getEmbeddedSystems();
-    $scope.webApplications = surveyQuestions.getWebApplications();
-    $scope.mobileApplications = surveyQuestions.getMobileApplications();
-    $scope.userInterface = surveyQuestions.getUserInterface();
-    $scope.statistics = surveyQuestions.getStatistics();
-    $scope.networking = surveyQuestions.getNetworking();
-    $scope.security = surveyQuestions.getSecurity();
-    $scope.robotics = surveyQuestions.getRobotics();
-    $scope.computerVision = surveyQuestions.getComputerVision();
-    $scope.algorithms = surveyQuestions.getAlgorithms();
-    $scope.machineLearning = surveyQuestions.getMachineLearning();
     $scope.ipPreference = surveyQuestions.getIpPreference();
     $scope.ipOptions = surveyQuestions.getIpOptions();
     $scope.leadership = surveyQuestions.getLeadership();
@@ -69,6 +56,7 @@ sortingApp.controller('createSurveyController', function ($scope, $window, $http
             return;
         }
         surveyQuestions.setProjectPreferences($scope.projectPreferences);
+        surveyQuestions.setRankedCategories($scope.rankedCategories);
 
         surveyQuestions.setSurveyName($scope.surveyName);
         surveyQuestions.setSurveyDescription($scope.surveyDescription);
@@ -80,19 +68,6 @@ sortingApp.controller('createSurveyController', function ($scope, $window, $http
         surveyQuestions.setOverallGPA($scope.overallGPA);
         surveyQuestions.setCsGPA($scope.csGPA);
         surveyQuestions.setSkillCategories($scope.skillCategories);
-        surveyQuestions.setOverallProgramming($scope.overallProgramming);
-        surveyQuestions.setDatabaseDevelopment($scope.databaseDevelopment);
-        surveyQuestions.setEmbeddedSystems($scope.embeddedSystems);
-        surveyQuestions.setWebApplications($scope.webApplications);
-        surveyQuestions.setMobileApplications($scope.mobileApplications);
-        surveyQuestions.setUserInterface($scope.userInterface);
-        surveyQuestions.setStatistics($scope.statistics);
-        surveyQuestions.setNetworking($scope.networking);
-        surveyQuestions.setSecurity($scope.security);
-        surveyQuestions.setRobotics($scope.robotics);
-        surveyQuestions.setComputerVision($scope.computerVision);
-        surveyQuestions.setAlgorithms($scope.algorithms);
-        surveyQuestions.setMachineLearning($scope.machineLearning);
         surveyQuestions.setMaxSkills($scope.maxSkills);
         surveyQuestions.setDesiredSkills($scope.desiredSkills);
         surveyQuestions.setIpPreference($scope.ipPreference);

@@ -38,57 +38,85 @@ sortingApp.service('surveyQuestions', function () {
         basic: true,
         none: true
     };
-    var overallProgramming = {
-        included: true,
-        required: true
-    };
-    var databaseDevelopment = {
-        included: true,
-        required: true
-    };
-    var embeddedSystems = {
-        included: true,
-        required: true
-    };
-    var webApplications = {
-        included: true,
-        required: true
-    };
-    var mobileApplications = {
-        included: true,
-        required: true
-    };
-    var userInterface = {
-        included: true,
-        required: true
-    };
-    var statistics = {
-        included: true,
-        required: true
-    };
-    var networking = {
-        included: true,
-        required: true
-    };
-    var security = {
-        included: true,
-        required: true
-    };
-    var robotics = {
-        included: true,
-        required: true
-    };
-    var computerVision = {
-        included: true,
-        required: true
-    };
-    var algorithms = {
-        included: true,
-        required: true
-    };
-    var machineLearning = {
-        included: true,
-        required: true
+    var rankedCategories = {
+        overallProgramming: {
+            included: true,
+            required: true,
+            name: 'overallProgramming',
+            label: 'Overall Programming'
+        },
+        databaseDevelopment: {
+            included: true,
+            required: true,
+            name: 'databaseDevelopment',
+            label: 'Database Development'
+        },
+        embeddedSystems: {
+            included: true,
+            required: true,
+            name: 'embeddedSystems',
+            label: 'Embedded Systems'
+        },
+        webApplications: {
+            included: true,
+            required: true,
+            name: 'webApplications',
+            label: 'Web Applications'
+        },
+        mobileApplications: {
+            included: true,
+            required: true,
+            name: 'mobileApplications',
+            label: 'Mobile Applications'
+        },
+        userInterface: {
+            included: true,
+            required: true,
+            name: 'userInterface',
+            label: 'User Interface/Experience'
+        },
+        statistics: {
+            included: true,
+            required: true,
+            name: 'statistics',
+            label: 'Statistics'
+        },
+        networking: {
+            included: true,
+            required: true,
+            name: 'networking',
+            label: '(Social/Professional) Networking'
+        },
+        security: {
+            included: true,
+            required: true,
+            name: 'security',
+            label: 'Security'
+        },
+        robotics: {
+            included: true,
+            required: true,
+            name: 'robotics',
+            label: 'Robotics'
+        },
+        computerVision: {
+            included: true,
+            required: true,
+            name: 'computerVision',
+            label: 'Computer Vision'
+        },
+        algorithms: {
+            included: true,
+            required: true,
+            name: 'algorithms',
+            label: 'Algorithms'
+        },
+        machineLearning: {
+            included: true,
+            required: true,
+            name: 'machineLearning',
+            label: 'Machine Learning'
+        }
     };
     var projectPreferences = {
         firstChoice: {
@@ -245,13 +273,6 @@ sortingApp.service('surveyQuestions', function () {
             desiredSkills = value;
         },
 
-        getProjects: function () {
-            return projects;
-        },
-        setProjects: function (value) {
-            projects = value;
-        },
-
         getFirstName: function () {
             return firstName;
         },
@@ -294,95 +315,11 @@ sortingApp.service('surveyQuestions', function () {
             skillCategories = value;
         },
 
-        getOverallProgramming: function () {
-            return overallProgramming;
+        getRankedCategories: function () {
+            return rankedCategories;
         },
-        setOverallProgramming: function (value) {
-            overallProgramming = value;
-        },
-
-        getDatabaseDevelopment: function () {
-            return databaseDevelopment;
-        },
-        setDatabaseDevelopment: function (value) {
-            databaseDevelopment = value;
-        },
-
-        getEmbeddedSystems: function () {
-            return embeddedSystems;
-        },
-        setEmbeddedSystems: function (value) {
-            embeddedSystems = value;
-        },
-
-        getWebApplications: function () {
-            return webApplications;
-        },
-        setWebApplications: function (value) {
-            webApplications = value;
-        },
-
-        getMobileApplications: function () {
-            return mobileApplications;
-        },
-        setMobileApplications: function (value) {
-            mobileApplications = value;
-        },
-
-        getUserInterface: function () {
-            return userInterface;
-        },
-        setUserInterface: function (value) {
-            userInterface = value;
-        },
-
-        getStatistics: function () {
-            return statistics;
-        },
-        setStatistics: function (value) {
-            statistics = value;
-        },
-
-        getNetworking: function() {
-            return networking;
-        },
-        setNetworking: function(value) {
-            networking = value;
-        },
-
-        getSecurity: function() {
-            return security;
-        },
-        setSecurity: function (value) {
-            security = value;
-        },
-
-        getRobotics: function () {
-            return robotics;
-        },
-        setRobotics: function (value) {
-            robotics = value;
-        },
-
-        getComputerVision: function () {
-            return computerVision;
-        },
-        setComputerVision: function (value) {
-            computerVision = value;
-        },
-
-        getAlgorithms: function () {
-            return algorithms;
-        },
-        setAlgorithms: function (value) {
-            algorithms = value;
-        },
-
-        getMachineLearning: function () {
-            return machineLearning;
-        },
-        setMachineLearning: function (value) {
-            machineLearning = value;
+        setRankedCategories: function (value) {
+            rankedCategories = value;
         },
 
         getProjectPreferences: function () {
