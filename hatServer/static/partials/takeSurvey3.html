@@ -5,6 +5,7 @@
   <p>{{ message3 }}</p>
 
   <form name="takeSurveyForm" novalidate role="form">
+    <!-- I couldn't figure out how to distinguish comments from choices so that one was a text input and one was a select (hence, we go through it the old-fashioned way)-->
   <!--  <div ng-repeat="object in projectPreferences">
       <div class="form-group" ng-show="object.included">
         <span class="label label-danger" ng-show="object.required && takeSurveyForm.object['name'].$error.required">Required!</span>
@@ -21,7 +22,6 @@
       <select name="firstChoice" ng-model="firstChoice" ng-options="item.name for item in projects" class="browser-default" ng-required="projectPreferences['firstChoice']['required']"></select>
     </div>
 
-    <!-- TODO: allow instructor to choose if this comment is mandatory and toggle respectively -->
     <!-- Place to leave motivation for the first project selection -->
     <div class="form-group" ng-show="projectPreferences['firstComment']['included']">
       <span class="label label-danger" ng-show="projectPreferences['firstComment']['required'] && submitted && takeSurveyForm.firstChoiceComment.$error.required">Required!</span>
@@ -36,7 +36,6 @@
       <select name="secondChoice" ng-model="secondChoice" ng-options="item.name for item in projects" class="browser-default" ng-required="projectPreferences['secondChoice']['required']"></select>
     </div>
 
-    <!-- TODO: allow instructor to choose if this comment is mandatory and toggle respectively -->
     <!-- Place to leave motivation for the second project selection -->
     <div class="form-group" ng-show="projectPreferences['secondComment']['included']">
       <span class="label label-danger" ng-show="projectPreferences['secondComment']['required'] && submitted && takeSurveyForm.secondChoiceComment.$error.required">Required!</span>
@@ -51,7 +50,6 @@
       <select name="thirdChoice" ng-model="thirdChoice" ng-options="item.name for item in projects" class="browser-default" ng-required="projectPreferences['thirdChoice']['required']"></select>
     </div>
 
-    <!-- TODO: allow instructor to choose if this comment is mandatory and toggle respectively -->
     <!-- Place to leave motivation for the third project selection -->
     <div class="form-group" ng-show="projectPreferences['thirdComment']['included']">
       <span class="label label-danger" ng-show="projectPreferences['thirdComment']['required'] && submitted && takeSurveyForm.thirdChoiceComment.$error.required">Required!</span>
@@ -129,6 +127,7 @@
       <input name="bannedPartners" ng-model="bannedPartners" ng-list ng-required="banned['required']" />
     </div><br>
 
+    <!-- Survey navigation buttons -->
     <a href="#takeSurvey2" class="btn btn-default">Back</a>
     <button type="submit" ng-click="sendSurvey(takeSurveyForm)" class="btn btn-default">Submit!</button>
 

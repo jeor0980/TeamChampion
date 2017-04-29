@@ -2,8 +2,7 @@
 
 sortingApp.controller('createSurveyController', function ($scope, $window, $http, surveyQuestions) {
     $http.get('../static/js/config/variables.json').success(function (data) {
-        console.log(data);
-
+        // Update the service with information from the json file before we begin
         surveyQuestions.setWeight('learn', data['LEARN_WEIGHT']);
         surveyQuestions.setWeight('known', data['KNOWN_WEIGHT']);
         surveyQuestions.setWeight('group', data['GROUP_WEIGHT']);
@@ -17,15 +16,13 @@ sortingApp.controller('createSurveyController', function ($scope, $window, $http
         surveyQuestions.setStudentCount(data['STUDENT_COUNT']);
         surveyQuestions.setChangeRatings(data['SUBVERT_FOR_PAY']);
         surveyQuestions.setMaxScore(data['MIN_PAID_AVG_PREF_SCORE']);
-
-        console.log(surveyQuestions.getStudentCount());
-        console.log(data['STUDENT_COUNT']);
     });
-
+    // we'll need a way to validate that the survey is filled before instructors may submit
     $scope.submitted = false;
+
+    // get values from our service to begin two-way data binding in Angular
     $scope.projectPreferences = surveyQuestions.getProjectPreferences();
     $scope.rankedCategories = surveyQuestions.getRankedCategories();
-
     $scope.maxSkills = surveyQuestions.getMaxSkills();
     $scope.desiredSkills = surveyQuestions.getDesiredSkills();
     $scope.surveyName = surveyQuestions.getSurveyName();
@@ -49,17 +46,18 @@ sortingApp.controller('createSurveyController', function ($scope, $window, $http
     $scope.changeRatings = surveyQuestions.getChangeRatings();
     $scope.weights = surveyQuestions.getWeights();
 
+    // Called when the instructor has finished selecting survey options, required and otherwise
+    // It validates the form and sends an object to the backend to create a json file read in by the algorithm
     $scope.createSurvey = function (form) {
-        console.log('creating dat survey do');
-
+        // validate survey was completed correctly
         $scope.submitted = true;
-
         if (form.$invalid) {
             return;
         }
+
+        // set service values with the updated values from the instructors
         surveyQuestions.setProjectPreferences($scope.projectPreferences);
         surveyQuestions.setRankedCategories($scope.rankedCategories);
-
         surveyQuestions.setSurveyName($scope.surveyName);
         surveyQuestions.setSurveyDescription($scope.surveyDescription);
         surveyQuestions.setStudentCount($scope.studentCount);
@@ -83,6 +81,7 @@ sortingApp.controller('createSurveyController', function ($scope, $window, $http
         surveyQuestions.setChangeRatings($scope.changeRatings);
         surveyQuestions.setWeights($scope.weights);
 
+        // json object to be recorded for the algorithm to use
         var data = {
             'MAX_SKILL_LEN': surveyQuestions.getMaxSkills(),
             'LEARN_WEIGHT': surveyQuestions.getWeights()['learn'],
@@ -95,20 +94,18 @@ sortingApp.controller('createSurveyController', function ($scope, $window, $http
             'LEADERSHIP_MATTERS': surveyQuestions.getLeadership()['important'],
             'STUDENT_COUNT': surveyQuestions.getStudentCount(),
             'SUBVERT_FOR_PAY': surveyQuestions.getChangeRatings(),
-            'MIN_PAID_AVG_PREF_SCORE': surveyQuestions.getMaxScore()
+            'MIN_PAID_AVG_PREF_SCORE': surveyQuestions.getMaxScore(),
+            'EXTRA_CREDIT': surveyQuestions.getWeights()['extraCredit']
         };
-
-        // TODO: send http request to write all this data to Hayden's json file
-        // Fire the API request
+        
+        // Fire the API request to send data to backend for further use
         $http.post('/createSurvey', data).success(function (data) {
             $scope.submitted = false;
 
-            console.log('writing to json?');
-
+            // redirect to where the instructors can input project information
             $window.location.href = '#projectsInput';
         }).error(function (err) {
             console.log(err);
         });
-
     }
 });

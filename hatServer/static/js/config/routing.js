@@ -50,12 +50,6 @@ sortingApp.config(function($routeProvider) {
             templateUrl : 'static/partials/login.html',
         })
 
-        // route for the login page
-        .when('/login', {
-            templateUrl: 'static/partials/login.html'
-            // controller  : 'loginController'
-        })
-
         // route for taking a new survey
         .when('/takeSurvey', {
             title: 'Take Survey',
@@ -91,22 +85,26 @@ sortingApp.config(function($routeProvider) {
             templateUrl: 'static/partials/surveySuccess.html',
         })
 
+        // route for when the instructor has successfully created a survey
         .when('/surveyCreated', {
             title: 'Survey Created',
             templateUrl: 'static/partials/surveyCreated.html'
         })
 
+        // route to sort the students
         .when('/sort', {
             templateUrl: 'static/partials/sort.html',
             controller: 'sortController'
         })
 
+        // route for instructors to input the project options
         .when('/projectsInput', {
             title: 'Projects',
             templateUrl: 'static/partials/projectsInput.html',
             controller: 'projectsInputController'
         })
 
+        // route for instructors to build a database with fake data
         .when('/build', {
             templateUrl: 'static/partials/build.html',
             controller: 'buildController'

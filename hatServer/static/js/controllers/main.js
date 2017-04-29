@@ -3,6 +3,7 @@ sortingApp.controller('mainController', function($scope, userInformation) {
 
 });
 
+// This should change when we have full functionality
 sortingApp.controller('buildController', function ($scope, $http) {
     data = {};
 
@@ -16,6 +17,7 @@ sortingApp.controller('buildController', function ($scope, $http) {
     }
 });
 
+// This should change when we have full functionality
 sortingApp.controller('sortController', function ($scope, $http) {
     data = {};
 
@@ -45,12 +47,6 @@ sortingApp.controller('profileController', function($scope, $window, userInforma
     $scope.familyName = userInformation.getFamilyName();
     $scope.email = userInformation.getEmail();
     $scope.imageUrl = userInformation.getImageUrl();
-
-
-});
-
-
-sortingApp.controller('loginController', function($scope) {
 
 });
 

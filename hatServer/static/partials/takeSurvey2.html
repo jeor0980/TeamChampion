@@ -5,8 +5,6 @@
   <p>{{ message2 }}</p>
 
   <form name="takeSurveyForm" novalidate role="form">
-    <!-- TODO: I think this chunk of code should eventually be partitioned out, but tbd -->
-    <!-- TODO: make an error appear if required section is not filled in -->
     <!-- Table where users select their ability at different skills -->
     <div class="form-group">
       <label>Software Development Skill Levels<div class="secondary-text">How strong are your skills in the following areas?</div></label>
@@ -21,21 +19,27 @@
           </tr>
         </thead>
         <tbody>
+          <!-- Loops through all skills student needs to rank themselves in and makes a row in the table-->
           <tr role="radiogroup" ng-repeat="skill in rankedSkills" ng-show="skill.included">
+            <!-- Display skill's name and whether or not it's required -->
             <td class="leftlabel" label for="{{ skill.name }}"><span class="label label-danger" ng-show="skill.required && submitted && takeSurveyForm.skill['name'].$error.required">Required!</span>{{ skill.label }}<span class="required-asterisk" ng-show="skill.required" style="color: red"> *</span></td>
             <td>
+              <!-- 'Expert' Option for a student to input-->
               <input type="radio" class="with-gap" name="{{ skill.name }}" ng-model="skills[skill.name]" id="{{ 'expert' + skill.name}}" value="expert" ng-required="skill.required" />
               <label for="{{ 'expert' + skill.name }}"></label>
             </td>
             <td>
+              <!-- 'Good' option for a student to input -->
               <input type="radio" class="with-gap" name="{{ skill.name }}" ng-model="skills[skill.name]" id="{{ 'good' + skill.name }}" value="good" ng-required="skill.required" />
               <label for="{{ 'good' + skill.name }}"></label>
             </td>
             <td>
+              <!-- 'Basic' option for a student to select -->
               <input type="radio" class="with-gap" name="{{ skill.name }}" ng-model="skills[skill.name]" id="{{ 'basic' + skill.name }}" value="basic" ng-required="skill.required" />
               <label for="{{ 'basic' + skill.name }}"></label>
             </td>
             <td>
+              <!-- 'None' option for a student to select -->
               <input type="radio" class="with-gap" name="{{ skill.name }}" ng-model="skills[skill.name]" id="{{ 'none' + skill.name }}" value="none" ng-required="skill.required" />
               <label for="{{ 'none' + skill.name }}"></label>
             </td>
@@ -48,6 +52,7 @@
     <div class="form-group">
       <label>Skill Improvement<div class="secondary-text">What areas are you interested in learning or strengthening your skill set?</div></label>
 
+      <!-- Loop through skills instructor set as being options to improve, allow the students to check each-->
       <div class="row" ng-repeat="skill in desiredSkills">
         <input type="checkbox" name="{{skill}}" ng-model="desired[skill]" id="{{skill}}" />
         <label for="{{skill}}">{{ skill }}</label>

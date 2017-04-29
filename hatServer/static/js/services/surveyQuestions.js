@@ -3,16 +3,20 @@
 sortingApp.service('surveyQuestions', function () {
     var surveyName = "";
     var surveyDescription = 'HELLO JESSICA YOU DA BEST';
-    var maxSkills = null;
+    var maxSkills = null; // max number of skills a student can request to learn
+    // skills a student may want to learn
     var desiredSkills = ['Java', 'Python', 'PHP', 'C/C++', 'Mobile App Development (Android/iOS)', 'Web Applications', 'Embedded Systems', 'Database (MySQL, SQL, etc.)', 'User Interface/Experience', 'Statistics', 'Networking',
         'Robotics', 'Computer Vision', 'Algorithms', 'Machine Learning'];
-    var studentCount = null;
-    var projectCount = 25;
+    var studentCount = null; // student count for the algorithm
+    var projectCount = 25; // project count to dynamically load only the projects that are needed
+    // algorithm requests knowing the instructor's minimum, maximum, and optimum group sizes
     var groupSizes = {
         min: null,
         max: null,
         opt: null
     };
+    // variables for creating the student surveys: 
+    // included denotes whether a field will be displayed, required denotes whether a student must provide information
     var firstName = {
         included: true,
         required: true
@@ -33,12 +37,14 @@ sortingApp.service('surveyQuestions', function () {
         included: true,
         required: true
     };
+    // students will be asked to rank themselves in certain skills, of these categories
     var skillCategories = {
         expert: true,
         good: true,
         basic: true,
         none: true
     };
+    // Categories a student will be asked to rank themselves in terms of competency
     var rankedCategories = {
         overallProgramming: {
             included: true,
@@ -119,6 +125,7 @@ sortingApp.service('surveyQuestions', function () {
             label: 'Machine Learning'
         }
     };
+    // Holds data about what elements of project preferences students will be required to input
     var projectPreferences = {
         firstChoice: {
             included: true,
@@ -181,10 +188,12 @@ sortingApp.service('surveyQuestions', function () {
             name: 'fifthComment'
         }
     };
+    // Whether a student will be asked and required to answer questions about their ip preferences
     var ipPreference = {
         included: true,
         required: true
     };
+    // the different options a student may answer for their ip preferences
     var ipOptions = {
         retain: 'Prefer to retain IP rights to my work',
         retainIncluded: true,
@@ -193,11 +202,14 @@ sortingApp.service('surveyQuestions', function () {
         noPref: 'I don\'t have a preference to retain IP rights to my work',
         noPrefIncluded: true
     };
+    // whether a student will be asked and required to answer questions about their leadership preferences
+    // important is for the algorithm: whether leadership should play a factor in group formation
     var leadership = {
         included: true,
         required: true,
         important: true
     };
+    // The options a student may select for their leadership preferences
     var leadershipOptions = {
         strongFollow: 'Strongly prefer to be a follower rather than a leader',
         strongFollowIncluded: true,
@@ -210,16 +222,21 @@ sortingApp.service('surveyQuestions', function () {
         strongLead: 'Strongly prefer to be the leader; do not enjoy being a follower',
         strongLeadIncluded: true
     };
+    // whether a student will be asked and required to input who they'd like to work with
     var preferredPartners = {
         included: true,
         required: false
     };
+    // whether a student will be asked and required to input who they won't work with
     var bannedPartners = {
         included: true,
         required: false
     };
+    // highest (in magnitude) preference score allowed for any paid project
     var maxScore = null;
+    // flag whether the preference rankings of paid projects may be altered
     var changeRatings = false;
+    // The algorithm will use these weights to sort accounting for the relative importance of each of these
     var weights = {
         known: null,
         learn: null,
@@ -228,6 +245,7 @@ sortingApp.service('surveyQuestions', function () {
         extraCredit: null
     };
 
+    // getter and setter methods for all of the above fields
     return {
         getSurveyName: function () {
             return surveyName;
@@ -263,6 +281,7 @@ sortingApp.service('surveyQuestions', function () {
         setGroupSizes: function (value) {
             groupSizes = value;
         },
+        // set the group size of an individual field in the dictionary
         setGroupSize: function (field, value) {
             groupSizes[field] = value;
         },
@@ -286,6 +305,8 @@ sortingApp.service('surveyQuestions', function () {
         },
         setFirstName: function (value) {
             firstName = value;
+            // ensure that if a field is not included, the survey won't think it's a required field
+            if (!firstName.included) firstName.required = false;
         },
 
         getLastName: function () {
@@ -293,6 +314,7 @@ sortingApp.service('surveyQuestions', function () {
         },
         setLastName: function (value) {
             lastName = value;
+            if (!lastName.included) lastName.required = false;
         },
 
         getPreferredName: function () {
@@ -300,6 +322,7 @@ sortingApp.service('surveyQuestions', function () {
         },
         setPreferredName: function (value) {
             preferredName = preferredName;
+            if (!preferredName.included) preferredName.required = false;
         },
 
         getOverallGPA: function () {
@@ -307,6 +330,7 @@ sortingApp.service('surveyQuestions', function () {
         },
         setOverallGPA: function (value) {
             overallGPA = value;
+            if (!overallGPA.included) overallGPA.required = false;
         },
 
         getCsGPA: function () {
@@ -314,6 +338,7 @@ sortingApp.service('surveyQuestions', function () {
         },
         setCsGPA: function (value) {
             csGPA = value;
+            if (!csGPA.included) csGPA.required = false;
         },
 
         getSkillCategories: function () {
@@ -328,6 +353,11 @@ sortingApp.service('surveyQuestions', function () {
         },
         setRankedCategories: function (value) {
             rankedCategories = value;
+            // loop through all categories students are asked to rank and make sure they're only required
+            // if they're included
+            for (category in rankedCategories) {
+                if (!category.included) category.required = false;
+            }
         },
 
         getProjectPreferences: function () {
@@ -335,6 +365,9 @@ sortingApp.service('surveyQuestions', function () {
         },
         setProjectPreferences: function (value) {
             projectPreferences = value;
+            for (question in projectPreferences) {
+                if (!question.included) question.required = false;
+            }
         },
 
         getIpPreference: function () {
@@ -342,6 +375,7 @@ sortingApp.service('surveyQuestions', function () {
         },
         setIpPreference: function (value) {
             ipPreference = value;
+            if (!ipPreference.included) ipPreference.required = false;
         },
 
         getIpOptions: function () {
@@ -356,6 +390,7 @@ sortingApp.service('surveyQuestions', function () {
         },
         setLeadership: function (value) {
             leadership = value;
+            if (!leadership.included) leadership.required = false;
         },
         setLeadershipValue: function (field, value) {
             leadership[field] = value;
@@ -373,6 +408,7 @@ sortingApp.service('surveyQuestions', function () {
         },
         setPreferredPartners: function (value) {
             preferredPartners = value;
+            if (!preferredPartners.included) preferredPartners.required = false;
         },
 
         getBannedPartners: function () {
@@ -380,6 +416,7 @@ sortingApp.service('surveyQuestions', function () {
         },
         setBannedPartners: function (value) {
             bannedPartners = value;
+            if (!bannedPartners.included) bannedPartners.required = false;
         },
 
         getMaxScore: function () {
@@ -402,6 +439,7 @@ sortingApp.service('surveyQuestions', function () {
         setWeights: function (value) {
             weights = value;
         },
+        // method to set a single weight out of the dictionary of weights
         setWeight: function (field, value) {
             weights[field] = value;
         }
