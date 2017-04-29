@@ -20,6 +20,7 @@ MAX_SKILL_LEN = data['MAX_SKILL_LEN']
 LEARN_WEIGHT = data['LEARN_WEIGHT']
 KNOWN_WEIGHT = data['KNOWN_WEIGHT']
 GROUP_WEIGHT = data['GROUP_WEIGHT']
+ENEMY_WEIGHT = data['ENEMY_WEIGHT']
 IP_WEIGHT = data['IP_WEIGHT']
 MIN_SIZE = data['MIN_SIZE']
 MAX_SIZE = data['MAX_SIZE']
@@ -29,6 +30,7 @@ STUDENT_COUNT = data['STUDENT_COUNT']
 SUBVERT_FOR_PAY = data['SUBVERT_FOR_PAY']
 MIN_PAID_AVG_PREF_SCORE = data['MIN_PAID_AVG_PREF_SCORE']
 EXTRA_CREDIT = data['EXTRA_CREDIT']
+ATTEMPT_REPLACE = data['ATTEMPT_REPLACE']
 
 # cfg = configparser.RawConfigParser()
 # cfg.read(["./hatServer/sortingHat/variables.cfg", "variables.cfg"])

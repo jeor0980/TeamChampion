@@ -1,15 +1,17 @@
 {
-    "MAX_SKILL_LEN": 20,
-    "LEARN_WEIGHT": 1,
-    "KNOWN_WEIGHT": 2,
-    "GROUP_WEIGHT": 4,
-    "IP_WEIGHT": 0.5,
+    "MAX_SKILL_LEN": 15,
+    "LEARN_WEIGHT": 5,
+    "KNOWN_WEIGHT": 1,
+    "GROUP_WEIGHT": 5,
+    "ENEMY_WEIGHT": 5,
+    "IP_WEIGHT": 1,
     "MIN_SIZE": 4,
     "MAX_SIZE": 6,
     "OPT_SIZE": 5,
-    "LEADERSHIP_MATTERS": false,
-    "STUDENT_COUNT": 88,
+    "LEADERSHIP_MATTERS": true,
+    "STUDENT_COUNT": 72,
     "SUBVERT_FOR_PAY": true,
     "MIN_PAID_AVG_PREF_SCORE": 4.5,
-    "EXTRA_CREDIT": 1
+    "EXTRA_CREDIT": 1,
+    "ATTEMPT_REPLACE": false
 }

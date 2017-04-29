@@ -23,7 +23,8 @@ class SortingHatTest(unittest.TestCase):
 #        with sortingHat.app.app_context():
 #            sortingHat.init_db()
         super(SortingHatTest, cls).setUpClass()
-        cls.ret_val, cls.matched = sortingHat.dumbledore()
+        # cls.ret, cls.matched = sortingHat.dumbledore()
+        cls.matched = sortingHat.alt_dum()
         return
 
     def testCalcGroupPreference(self):

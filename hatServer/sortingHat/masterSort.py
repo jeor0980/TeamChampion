@@ -86,7 +86,7 @@ def nopeBitches(student, group, matched):
 				group_name=group.group_name,
 				preferences__student=s
 				).update(
-				dec__preferences__S__pref_score=GROUP_WEIGHT * 2
+				dec__preferences__S__pref_score=GROUP_WEIGHT * 10
 				)
 			group.reload()		
 	return group.preferences, matched
@@ -250,6 +250,7 @@ def sortThemBitches():
 		if not match:
 			# group has no matches yet
 			# print(g.group_name + " has no matches yet.")
+			##! TODO So much code repetition, fix this noise
 			matched[g] = [s]
 			if (s.leadership != "STRONG_FOLLOW"
 				and s.leadership != "STRONG_LEAD"):
@@ -405,6 +406,7 @@ def sortThemBitches():
 					print(student.student_name + " is being re-sorted.")
 				fall_through = True
 
+	##! TODO this should be separate, single responsibility principle and all
 	for group in matched:
 		for student in matched[group]:
 			Groups.objects(
@@ -416,11 +418,13 @@ def sortThemBitches():
 			# group.members.append(student)
 	swapController()
 	warnLeaders()
+	##! TODO same here
 	for group in Groups.objects:
 		if group.paid and len(group.members) < MIN_SIZE:
 			print("MATCHING FAILED: paid group was unfilled: " + 
 				group.group_name)
 			return 1, matched
+	##! TODO this is a weird way to update the local object
 	for group in Groups.objects:
 		matched[group] = []
 		matched[group] = group.members
