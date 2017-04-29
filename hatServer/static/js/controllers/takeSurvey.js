@@ -16,6 +16,14 @@ sortingApp.controller('takeSurveyController', function ($scope, $http, $window, 
         $scope.rankedSkills = data['rankedCategories'];
         $scope.desiredSkills = data['desiredSkills'];
 
+        $scope.projectPreferences = data['projectPreferences'];
+        $scope.ipPreference = data['ipPreference'];
+        $scope.ipOptions = data['ipOptions'];
+        $scope.leadership = data['leadership'];
+        $scope.leadershipOptions = data['leadershipOptions'];
+        $scope.preferred = data['preferredPartners'];
+        $scope.banned = data['bannedPartners'];
+
         console.log('got dat old survey data yo');
     });
 
