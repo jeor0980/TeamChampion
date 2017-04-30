@@ -26,9 +26,7 @@ def index():
 def file_upload():
     projectFile = request.files['file']
 
-    print(projectFile.read())
-
-    loadStudents(projectFile)
+    loadStudents(projectFile.read().decode('utf-8').split('\r\n')[1:])
 
     return render_template('index.html')
 
@@ -36,9 +34,9 @@ def file_upload():
 def group_upload():
     projectFile = request.files['file']
 
-    print(projectFile.read())
+    # print(projectFile.read().decode('utf-8'))
 
-    loadProjects(projectFile)
+    loadProjects(projectFile.read().decode('utf-8').split('\r\n')[1:])
 
     return render_template('index.html')
     

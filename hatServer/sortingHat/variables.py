@@ -4,7 +4,7 @@ import os
 sys.path.append('..')
 sys.path.append('../..')
 
-def loadJson():
+def loadVariableJson():
 	if os.path.isfile("variables.json"):
 		with open("variables.json", 'r') as fp:
 			data = json.load(fp)
@@ -14,7 +14,7 @@ def loadJson():
 			data = json.load(fp)
 			return data
 
-data = loadJson()
+data = loadVariableJson()
 
 MAX_SKILL_LEN = data['MAX_SKILL_LEN']
 LEARN_WEIGHT = data['LEARN_WEIGHT']

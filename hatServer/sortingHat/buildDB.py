@@ -167,23 +167,28 @@ def loadStudents(student_data):
         return
     if len(Students.objects.all()) > 0:
         Students.drop_collection()
-    for line in student_data.readlines():
+    for line in student_data:
         parseStudent(line)
 
 def loadProjects(group_data):
+    print("In Load projects")
     if len(Groups.objects.all()) > 0:
         Groups.drop_collection()
-    for line in group_data.readlines():
+        print("Dropping collections")
+    # group_data = dataSet(group_path)
+
+    for line in group_data:
+        print("parsing: " + line)
         parseGroups(line)
 
 
-def addGroup(group_data):
-    for line in group_data.readlines():
-        parseGroups(line)
+# def addGroup(group_data):
+#     for line in group_data.readlines():
+#         parseGroups(line)
 
-def addStudent(student_data):
-    for line in student_data.readlines():
-        parseStudent(line)
+# def addStudent(student_data):
+#     for line in student_data.readlines():
+#         parseStudent(line)
 
 def buildDB(student_path, group_path):
     #assert(len(student_path) > 0)

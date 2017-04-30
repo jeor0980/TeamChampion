@@ -204,9 +204,14 @@ def replaceStudent(s_incoming, s_outgoing, group, group_prefers, matched, studen
 ##! INPUT:	None
 ##! OUTPUT:	json object
 def getJsonFromFile():
-	with open("id_map.json") as json_file:
-		json_data = json.load(json_file)
-		return json_data
+	if os.path.isfile("id_map.json"):
+		with open("id_map.json", 'r') as json_file:
+			json_data = json.load(json_file)
+			return json_data
+	else:
+		with open("./hatServer/static/js/config/id_map.json", 'r') as json_file:
+			json_data = json.load(json_file)
+			return json_data
 
 ##! Checks to see if there are students in the db that have not been
 ##! sorted. Pulls identikeys from a json file that's built when the

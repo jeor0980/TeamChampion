@@ -5,15 +5,21 @@ sys.path.append("../..")
 from hatServer.models import Groups, Students, Preference
 from hatServer.sortingHat.variables import *
 
+def writeVariableJson(data):
+	if os.path.isfile("variables.json"):
+		with open("variables.json", 'w') as jsonFile:
+			json.dump(data, jsonFile, indent=4)
+	else:
+		with open("./hatServer/static/js/config/variables.json", 'w') as jsonFile:
+			json.dump(data, jsonFile, indent=4)
+
 def updateCountJson():
-	with open("variables.json", "r") as jsonFile:
-		data = json.load(jsonFile)
+	data = loadVariableJson()
 
 	count = Students.objects.count()
 	data["STUDENT_COUNT"] = count
 
-	with open("variables.json", "w") as jsonFile:
-		json.dump(data, jsonFile, indent=4)
+	writeVariableJson(data)
 
 def convertNameToId(name):
 	count = Students.objects(student_name=name).count()
@@ -25,8 +31,12 @@ def convertNameToId(name):
 
 def storeIdentikeyListJson():
 	data = buildIdentikeyList()
-	with open('id_map.json', 'w') as fp:
-		json.dump(data, fp, indent=4)
+	if os.path.isfile("id_map.json"):
+		with open("id_map.json", 'w') as fp:
+			json.dump(data, fp, indent=4)
+	else:
+		with open("./hatServer/static/js/config/id_map.json", 'w') as fp:
+			json.dump(data, fp, indent=4)
 
 def buildIdentikeyList():
 	ids = {}
@@ -67,7 +77,7 @@ def calcGroupPreference(known, learn, ip_score, ec):
 	return pref
 
 def registerStudents():
-	buildIdentikeyList()
+	storeIdentikeyListJson()
 	updateCountJson()
 	known_score = 0
 	learn_score = 0
