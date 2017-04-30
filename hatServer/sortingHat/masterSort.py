@@ -405,8 +405,6 @@ def sortThemStudents(students, groups):
 	# Now we can make the free list with the potentially modified
 	# students array
 	students_free = students[:]
-	# for student in students_free:
-	# 	student.second_pass = False
 	# Build the student_prefers dictionary, easy mode
 	for student in students:
 		student_prefers[student] = list(student.preferences)
@@ -431,7 +429,6 @@ def sortThemStudents(students, groups):
 		match = matched.get(g)
 		if not match:
 			# group has no matches yet
-			# print(g.group_name + " has no matches yet.")
 			# Don't have to check leadership, since FIRST!
 			# TODO log first entry
 			matched[g] = [s]
@@ -440,7 +437,6 @@ def sortThemStudents(students, groups):
 
 		elif len(match) < OPT_SIZE:
 			#Open space in group
-			# print(g.group_name + " is being filled")
 			if leadershipCheck(s, g, matched) or checkForNopes(s, g, matched):
 				if ATTEMPT_REPLACE:
 					group_prefers[g], matched, students_free = attemptPlacement(
@@ -461,7 +457,6 @@ def sortThemStudents(students, groups):
 		##! Be more lenient on group size for second pass students
 		elif len(match) < MAX_SIZE and fall_through:
 			#Open space in group
-			# print(g.group_name + " is being filled even more")
 			if leadershipCheck(s, g, matched) or checkForNopes(s, g, matched):
 				if ATTEMPT_REPLACE:
 					group_prefers[g], matched, students_free = attemptPlacement(
@@ -496,6 +491,9 @@ def sortThemStudents(students, groups):
 			else:
 				g_list = group_prefers[g]
 				for m in match:
+					# So, even re-sorting the list of students by preference everytime for
+					# some reason does not work as well as comparing raw preference scores.
+					# This does that, rather than comparing list indices
 					for pref in g.preferences:
 						if pref.student == m:
 							cur_pref = pref.pref_score
@@ -537,7 +535,6 @@ def sortThemStudents(students, groups):
 							group_prefers[group] = incGroupPref(student, group)
 				fall_through = True
 
-	##! TODO this should be separate, single responsibility principle and all
 
 	matched = swapController(matched, group_prefers)
 

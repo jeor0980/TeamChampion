@@ -1,9 +1,9 @@
 {
-    "MAX_SKILL_LEN": 15,
-    "LEARN_WEIGHT": 5,
-    "KNOWN_WEIGHT": 1,
-    "GROUP_WEIGHT": 5,
-    "ENEMY_WEIGHT": 5,
+    "MAX_SKILL_LEN": 10,
+    "LEARN_WEIGHT": 2,
+    "KNOWN_WEIGHT": 2,
+    "GROUP_WEIGHT": 2,
+    "ENEMY_WEIGHT": 3,
     "IP_WEIGHT": 1,
     "MIN_SIZE": 4,
     "MAX_SIZE": 6,
@@ -13,5 +13,5 @@
     "SUBVERT_FOR_PAY": true,
     "MIN_PAID_AVG_PREF_SCORE": 4.5,
     "EXTRA_CREDIT": 1,
-    "ATTEMPT_REPLACE": false
+    "ATTEMPT_REPLACE": true
 }
