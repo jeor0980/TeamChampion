@@ -1,4 +1,5 @@
 // create the controller and inject Angular's $scope
+<<<<<<< HEAD
 sortingApp.controller('mainController', function ($scope, userInformation, Upload) {
     $scope.uploadGroup = function (file) {
         console.log(file)
@@ -88,6 +89,9 @@ sortingApp.controller('sortController', function ($scope, $http, userInformation
             console.log(err);
         });
     }
+=======
+sortingApp.controller('mainController', function ($scope, userInformation) {
+>>>>>>> 3a9513255fe820ccb5575c8827602d40e089efa4
 });
 
 sortingApp.controller('profileController', function($scope, $window, userInformation) {
