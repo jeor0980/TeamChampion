@@ -16,21 +16,7 @@
     <a class="carousel-item" href=""><img src="../static/images/home/expo4.jpg"></a>
     <a class="carousel-item" href=""><img src="../static/images/home/expo5.jpg"></a>
 
-  </div>
-
-  <div class="interlude" id="customer-logos">
-    <div class="row center-align no-margin">
-      <div class="col s4 m2 offset-m3">
-        <img src="images/logo_box_bn.png" />
-      </div>
-      <div class="col s4 m2">
-        <img src="images/logo_cisco_bn.png" />
-      </div>
-      <div class="col s4 m2">
-        <img class="visa" src="images/logo_visa.png"/>
-      </div> 
-    </div>
-  </div>  
+  </div> 
 
   <div class="section no-pad-bot" id="index-banner">
     <div class="container">
@@ -60,12 +46,19 @@
     </div>
   </div>
 
-  
+  <script>
+
+    var options = [{ selector:"#staggered-test", offset: 50, callback: function(el) {
+        Materialize.showStaggeredList($(el));
+      }}];
+    Materialize.scrollFire(options);
+
+  </script>
 
   <!--   Icon Section   -->
   <div class="row">
     <div class="col s12 m4">
-      <div class="icon-block" id = "icon-1">
+      <div class="icon-block">
         <h2 class="center grey-darken-4-text"><i class="material-icons">flash_on</i></h2>
         <h5 class="center">Making group formation a breeze</h5>
 
@@ -74,7 +67,7 @@
     </div>
 
     <div class="col s12 m4">
-      <div class="icon-block" id = "icon-2">
+      <div class="icon-block">
         <h2 class="center grey-darken-4-text"><i class="material-icons">group</i></h2>
         <h5 class="center">Finding the optimal group for everyone</h5>
 
@@ -83,7 +76,7 @@
     </div>
 
     <div class="col s12 m4">
-      <div class="icon-block" id = "icon-3">
+      <div class="icon-block">
         <h2 class="center grey-darken-4-text"><i class="material-icons">dashboard</i></h2>
         <h5 class="center">Sorting Hat Dashboard</h5>
 
@@ -93,17 +86,15 @@
   </div>
 </div>
 
-<!--   <div class="parallax-container">
-    <div class="parallax"><img src="../static/images/home/expo3.jpg"></div>
-  </div> -->
-
-
 
 	<script>
     $('.carousel.carousel-slider').carousel({fullWidth: true});
 
 
+
 	</script>
+
+
 
 </div>
 
