@@ -405,8 +405,8 @@ def sortThemBitches_new(students, groups):
 	# Now we can make the free list with the potentially modified
 	# students array
 	students_free = students[:]
-	for student in students_free:
-		student.second_pass = False
+	# for student in students_free:
+	# 	student.second_pass = False
 	# Build the student_prefers dictionary, easy mode
 	for student in students:
 		student_prefers[student] = list(student.preferences)
@@ -496,7 +496,13 @@ def sortThemBitches_new(students, groups):
 			else:
 				g_list = group_prefers[g]
 				for m in match:
-					if g_list.index(m) > g_list.index(s):
+					for pref in g.preferences:
+						if pref.student == m:
+							cur_pref = pref.pref_score
+						elif pref.student == s:
+							new_pref = pref.pref_score
+					# if g_list.index(m) > g_list.index(s):
+					if cur_pref < new_pref:
 					#replace less preferred student with current student
 						# print("Replacing " + m.student_name + " with " + s.student_name)
 						group_prefers[g], matched, students_free = replaceStudent(
