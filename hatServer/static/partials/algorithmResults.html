@@ -1,3 +1,22 @@
 ﻿<div class="container">
   <h1>Algorithm Complete!</h1>
+  <div ng-repeat="group in groups">
+    <div class="card-panel">
+      <h3>{{ group['group_name'] }}</h3>
+      <div ng-repeat="member in group.members">
+        <p>{{ member['student_name'] }}</p>
+      </div>
+      <h4>Average Group Preference: {{ group['avg_pref'] }}</h4>
+    </div>
+  </div>
+
+  <div class="card-panel">
+    <h3>Overall Distribution</h3>
+    <h5>First: {{ distribution.first }}</h5>
+    <h5>Second: {{ distribution.second }}</h5>
+    <h5>Third: {{ distribution.third }}</h5>
+    <h5>Fourth: {{ distribution.fourth }}</h5>
+    <h5>Fifth: {{ distributuion.fifth }}</h5>
+    <h3>Overall Preference Score: {{ overall }}</h3>
+  </div>
 </div>

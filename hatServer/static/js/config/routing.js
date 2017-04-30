@@ -111,6 +111,7 @@ sortingApp.config(function($routeProvider) {
         .when('/algorithmResults', {
             title: 'Algorithm Results',
             templateUrl: 'static/partials/algorithmResults.html',
+            controller: 'displayResultsController'
         })
 
         .when('/build', {

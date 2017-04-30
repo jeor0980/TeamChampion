@@ -48,7 +48,5 @@ sortingApp.controller('formGroupsController', function ($scope, $http, $window, 
         }).error(function (err) {
             console.log(err);
         });
-
-        $window.location.href = "#algorithm";
     }
 });
