@@ -83,6 +83,20 @@ def writeToDatabase(matched):
 def dumbledore():
 	l_groups = []
 	l_students = []
+	for group in Groups.objects:
+		Groups.objects(
+			group_name=group.group_name
+			).update(
+			members=[], preferences=[]
+			)
+		group.reload()
+	for student in Students.objects:
+		Students.objects(
+			identikey=student.identikey
+			).update(
+			group_assigned=None
+			)
+		student.reload()
 	removeExtraGroups()
 	registerStudents()
 	ret_val = unpopular()
