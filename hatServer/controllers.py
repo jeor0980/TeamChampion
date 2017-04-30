@@ -10,7 +10,7 @@ from hatServer import app
 from hatServer.models import Groups, Students
 from hatServer.sortingHat.sortingHat import addStudent, registerUser
 from hatServer.sortingHat.sortingHat import dumbledore 
-from hatServer.sortingHat.buildDB import buildDB
+from hatServer.sortingHat.buildDB import buildDB, loadProjects, loadStudents
 
 # This shouldn't be needed, should be handled in __init__.py
 # app.config['MONGODB_DB'] = 'flask_test'
@@ -21,20 +21,26 @@ def index():
     print ("TYPICAL BITCH")
     return render_template('index.html')
 
-@app.route('/upload/url', methods=['GET', 'POST'])
+@app.route('/upload/student', methods=['GET', 'POST'])
 def file_upload():
     projectFile = request.files['file']
-    print(projectFile.filename)
-    #print(projectFile.type)
-    #print(projectFile.data)
-    print(projectFile)
 
-    with open(projectFile.filename, 'r') as file:
-        file.readlines()
+    print(projectFile.read())
 
-    #projectFile.save(os.path.join('hatServer/static/js/config'), projectFile.filename)
+    loadStudents(projectFile)
 
     return render_template('index.html')
+
+@app.route('/upload/group', methods=['GET', 'POST'])
+def group_upload():
+    projectFile = request.files['file']
+
+    print(projectFile.read())
+
+    loadProjects(projectFile)
+
+    return render_template('index.html')
+    
 
 @app.route('/sort', methods=['GET', 'POST'])
 def sort():
