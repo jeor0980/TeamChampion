@@ -12,55 +12,49 @@ sortingApp.config(function($routeProvider) {
         // route for the home page
         .when('/', {
             title: 'Home',
-            templateUrl : 'static/partials/home.html'
+            templateUrl: 'static/partials/home.html'
             // controller  : 'mainController'
         })
 
         // route for the about page
         .when('/about', {
             title: 'About',
-            templateUrl : 'static/partials/about.html'
+            templateUrl: 'static/partials/about.html'
             // controller  : ''
         })
 
         // route for the contact page
         .when('/dashboard', {
             title: 'Dashboard',
-            templateUrl : 'static/partials/dashboard.html',
-            controller  : 'dashboardController'
+            templateUrl: 'static/partials/dashboard.html',
+            controller: 'dashboardController'
         })
 
         // route for the contact page
         .when('/instructorDashboard', {
             title: 'Instructor Dashboard',
-            templateUrl : 'static/partials/instructorDashboard.html',
-            controller  : 'dashboardController'
+            templateUrl: 'static/partials/instructorDashboard.html',
+            controller: 'dashboardController'
         })
 
         // route for the profile page
         .when('/myprofile', {
             title: 'My Profile',
-            templateUrl : 'static/partials/myprofile.html',
-            controller  : 'profileController'
+            templateUrl: 'static/partials/myprofile.html',
+            controller: 'profileController'
         })
 
         // route for the login page
         .when('/login', {
             title: 'Login',
-            templateUrl : 'static/partials/login.html',
-        })
-
-        // route for the login page
-        .when('/login', {
-            templateUrl: 'static/partials/login.html'
-            // controller  : 'loginController'
+            templateUrl: 'static/partials/login.html',
         })
 
         // route for taking a new survey
         .when('/takeSurvey', {
             title: 'Take Survey',
-            templateUrl : 'static/partials/takeSurvey.html',
-            controller : 'takeSurveyController'
+            templateUrl: 'static/partials/takeSurvey.html',
+            controller: 'takeSurveyController'
         })
 
         // route for the second page of the survey
@@ -91,34 +85,26 @@ sortingApp.config(function($routeProvider) {
             templateUrl: 'static/partials/surveySuccess.html',
         })
 
-        .when('/sort', {
-            templateUrl: 'static/partials/sort.html',
-            controller: 'sortController'
-        })
-
+        // route for when instructor is either uploading survey data or running the algorithm
         .when('/formGroups', {
             title: 'Form Groups',
             templateUrl: 'static/partials/formGroups.html',
             controller: 'formGroupsController'
         })
 
+        // route for when instructor is manually inputting project data
         .when('/projectsInput', {
             title: 'Projects',
             templateUrl: 'static/partials/projectsInput.html',
             controller: 'projectsInputController'
         })
 
+        // route for when algorithm has finished running and is displaying grouping information
         .when('/algorithmResults', {
             title: 'Algorithm Results',
             templateUrl: 'static/partials/algorithmResults.html',
             controller: 'displayResultsController'
-        })
-
-        .when('/build', {
-            templateUrl: 'static/partials/build.html',
-            controller: 'buildController'
         });
-
 });
 
 sortingApp.run(['$rootScope', function($rootScope) {

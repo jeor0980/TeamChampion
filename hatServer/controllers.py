@@ -49,12 +49,6 @@ def sort():
     dumbledore()
     return render_template('index.html')
 
-@app.route('/build', methods=['GET', 'POST'])
-def build():
-    print("Building a database")
-    buildDB('testData/2014_test_data.csv', 'testData/test_groups.csv')
-    return render_template('index.html')
-
 @app.route('/takeSurvey3', methods=['GET', 'POST'])
 def create_survey():
     # get data from form object 
