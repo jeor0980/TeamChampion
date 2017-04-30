@@ -161,21 +161,19 @@ def parseGroups(data):
 # #    group_to_add.save(cascade=True)
 #     return group_to_add
 
-def loadStudents(student_path):
+def loadStudents(student_data):
     if len(Groups.objects.all()) < 1:
-        print("Please input projects before attempting to load students")
+        print("UPLOAD FAILED: Please input projects before attempting to load students")
         return
     if len(Students.objects.all()) > 0:
         Students.drop_collection()
-    student_data = dataSet(student_path)
-    for line in student_data.readData:
+    for line in student_data.readlines():
         parseStudent(line)
 
-def loadProjects(group_path):
+def loadProjects(group_data):
     if len(Groups.objects.all()) > 0:
         Groups.drop_collection()
-    group_data = dataSet(group_path)
-    for line in group_data.readData:
+    for line in group_data.readlines():
         parseGroups(line)
 
 
