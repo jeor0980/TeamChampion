@@ -24,6 +24,7 @@ def index():
 
 @app.route('/upload/student', methods=['GET', 'POST'])
 def file_upload():
+    print("HELLO JESSICA")
     projectFile = request.files['file']
 
     loadStudents(projectFile.read().decode('utf-8').split('\r\n')[1:])
@@ -32,6 +33,7 @@ def file_upload():
 
 @app.route('/upload/group', methods=['GET', 'POST'])
 def group_upload():
+    print("NICE TO SEE YOU HERE JESSICA")
     projectFile = request.files['file']
 
     # print(projectFile.read().decode('utf-8'))

@@ -96,10 +96,21 @@ sortingApp.config(function($routeProvider) {
             controller: 'sortController'
         })
 
+        .when('/formGroups', {
+            title: 'Form Groups',
+            templateUrl: 'static/partials/formGroups.html',
+            controller: 'formGroupsController'
+        })
+
         .when('/projectsInput', {
             title: 'Projects',
             templateUrl: 'static/partials/projectsInput.html',
             controller: 'projectsInputController'
+        })
+
+        .when('/algorithmResults', {
+            title: 'Algorithm Results',
+            templateUrl: 'static/partials/algorithmResults.html',
         })
 
         .when('/build', {
