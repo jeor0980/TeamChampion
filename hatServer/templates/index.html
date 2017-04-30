@@ -29,25 +29,28 @@
     <!-- Added Header Tag for Sticky Footer -->
     <header>
       <!-- Navigation Bar Code  -->
-      <nav role="navigation" ng-controller="headerController">
 
-        <div class="nav-wrapper container">
-          <!-- Navigation Bar Logo -->
-          <a href="#/" class="brand-logo"><img src="../static/images/whitehatlogo.png">Sorting Hat</a>
-          <!-- Navigation Bar Items -->
-          <ul class="right hide-on-med-and-down">
-            <!-- Navigation Bar Items are loaded from the headerController -->
-            <div compile="isLoggedIn()"></div> 
-          </ul>
+      <div class="navbar-fixed">
+        <nav role="navigation" ng-controller="headerController">
 
-          <!-- Condensed Navbar Links-->
-          <ul id="nav-mobile" class="side-nav">
-            <div compile="isLoggedIn()"></div> 
-          </ul>
-          <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-        </div>
+          <div class="nav-wrapper container">
+            <!-- Navigation Bar Logo -->
+            <a href="#/" class="brand-logo"><img src="../static/images/whitehatlogo.png">Sorting Hat</a>
+            <!-- Navigation Bar Items -->
+            <ul class="right hide-on-med-and-down">
+              <!-- Navigation Bar Items are loaded from the headerController -->
+              <div compile="isLoggedIn()"></div> 
+            </ul>
 
-      </nav>
+            <!-- Condensed Navbar Links-->
+            <ul id="nav-mobile" class="side-nav">
+              <div compile="isLoggedIn()"></div> 
+            </ul>
+            <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+          </div>
+          
+        </nav>
+      </div>
     </header>
 
     <!-- Added main tag for sticky footer functionality-->
