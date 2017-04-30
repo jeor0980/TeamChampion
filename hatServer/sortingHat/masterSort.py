@@ -8,8 +8,18 @@ import json
 from hatServer.models import Groups, Students, Preference
 from hatServer.sortingHat.variables import *
 
-def modPrefsForBitches():
-	for group in Groups.objects:
+##! This function first calculates the average preference score
+##! for a paid group. 'Preference score' meaning the average ranking
+##! that students chose for it when selecting groups.
+##! If the calculated average preference score is less than the 
+##! defined minimum (see variables.json), we call the modPrefs
+##! function.
+##! INPUT:	students - local array of all student documents in db
+##!			CONST groups - local array of group documents CONST
+##!
+##! OUTPUT:	students - the modified students array returned by mod
+def calcPaidGroupPrefAvg(students, groups):
+	for group in groups:
 		if group.paid:
 			pref_list = []
 			for pref in group.preferences:
@@ -23,102 +33,191 @@ def modPrefsForBitches():
 			avg = numpy.mean(pref_list)
 			if SUBVERT_FOR_PAY:
 				if avg >= MIN_PAID_AVG_PREF_SCORE:
-					print("WARNING: Promoting " + group.group_name + 
-						" with an average score of " + str(avg))
-					for pref in group.preferences:
-						s = Students.objects.get(
-							identikey=pref.student.identikey,
-							)
-						s.update(pull__preferences=group)
-						old_list = s.preferences
-						new_list = [group] + old_list
-						s.update(pull_all__preferences=old_list)
-						s.update(add_to_set__preferences=new_list)
+					students = modPrefsForStudents(students, group, avg)
+	return students
 
-def payForBitches():
-	paid_dict = {}
-	for group in Groups.objects:
+##! This function changes the order of a student's preferences
+##! if dictated by calcPaidGroupPrefAvg.
+##!
+##! INPUT:	students - local array of students
+##!			CONST group - the paid group which will be shifted in students'
+##!					preference lists
+##!	OUTPUT:	students - the modified students array	
+def modPrefsForStudents(students, group, avg):
+	print("WARNING: Promoting " + group.group_name + 
+		" with an average score of " + str(avg))
+	for pref in group.preferences:
+		for s in students:
+			if s.identikey == pref.student.identikey:
+				s.preferences.remove(group)
+				s.preferences = [group] + s.preferences
+				break
+	return students
+
+##! This function prefills paid group that were not chosen by only
+##! the minimum number of students. If a group was chosen by less
+##! than the minimum number of students, the algorithm will exit
+##! and log the appropriate error.
+##!
+##! INPUT:	matched - the dictionary containing groups and their members
+##!					should be empty when this is called
+##!			students - array of free students
+##!			CONST groups - local array of groups CONST
+##! OUTPUT:	int - This return value dictates how the program will exit if
+##!				if the matching fails
+##!			matched - updated matched dictionary
+##!			students - updated array of free students
+def payForStudents(matched, students, groups):
+	for group in groups:
 		if group.paid and len(group.preferences) < MIN_SIZE:
 			print("MATCHING FAILED: paid group " + group.group_name + 
 				"  was not chosen enough")
-			return 1, None
-		if group.paid and len(group.preferences) <= OPT_SIZE:
+			return 1, None, None
+		if group.paid and len(group.preferences) < MAX_SIZE:
 			##! We'll return the list of students in this paid group, assign
 			##! them to the group and remove them from the free pool
 			print(group.group_name + " is being filled first with:")
+			matched[group] = []
 			for pref in group.preferences:
 				print("\t" + pref.student.student_name)
-				val.append(pref.student)
-			paid_dict[group] = val
+				matched[group].append(pref.student)
+				students.remove(pref.student)
 	##! TODO What if there's more than one paid group?
-	return 0, paid_dict
+	return 0, matched, students
 
-def partnerUpBitches(student, group):
+##! Increase the preference score for people requested by a student
+##! just sorted into the group
+##! TODO Instead of doing this as each student is added for all other
+##! students yet to be added, check for existing students in the group, 
+##! than increment
+##!
+##! INPUT:	student - the student we just added
+##!			group - the group we just added to
+##! OUTPUT:	function - casts the single group to a list and
+##!						and passes it into the function we use
+##!						to order lists of preference documents
+def partnerUpStudents(student, group, group_prefers):
 	if len(student.work_with) > 0:
-		# group.update(inc__preferences__S__pref_score=GROUP_WEIGHT)
-		Groups.objects(
-			group_name=group.group_name, 
-			preferences__student=student
-			).update(
-			inc__preferences__S__pref_score=GROUP_WEIGHT
-			)
-		group.reload()
-		# s_to_update = group(preferences__student=student)
-		# new_score = s_to_update.pref_score + GROUP_WEIGHT
-		# s_to_update.update(pref_score=new_score)
-		for s in student.work_with:
-			Groups.objects(
-				group_name=group.group_name,
-				preferences__student=s
-				).update(
-				inc__preferences__S__pref_score=GROUP_WEIGHT
-				)
-			group.reload()
-	return group.preferences
+		for pref in group.preferences:
+			if pref.student == student:
+				group_prefers = incGroupPref(student, group)
+				continue
+			if pref.student in student.work_with:
+				group_prefers = incGroupPref(pref.student, group)
+	return group_prefers
 
-def nopeBitches(student, group, matched):
+##! Basically, do the opposite of partnerUp, we'll decrement pref
+##! score for people who someone just added to a group doesn't want
+##! to work with.
+##!
+##! INPUT:	student - the student we just added
+##!			group - the group we just added to
+##! OUTPUT:	function - build an ordered list
+##! TODO This might be causing the poorer performance
+def nopeStudents(student, group, group_prefers, matched):
 	if len(student.dont_work_with) > 0:
 		for s in student.dont_work_with:
 			if s in matched[group]:
 				matched[group].remove(s)
-				print("Removing " + s.student_name + " from group " + group.group_name)	
-			Groups.objects(
-				group_name=group.group_name,
-				preferences__student=s
-				).update(
-				dec__preferences__S__pref_score=GROUP_WEIGHT * 10
-				)
-			group.reload()		
-	return group.preferences, matched
+				for pref in group.preferences:
+					if pref.s == s:
+						# This favors people already grouped over their 'enemies'
+						pref.pref_score -= ENEMY_WEIGHT
+						group_prefers = extractOrderFromPrefs(group)
+	return group_prefers, matched
 
-def finalNopeBitches(student, group):
-	if len(student.dont_work_with) > 0:
-		for s in student.dont_work_with:
-			if s in group.members:
-				return True
-	for stdnt in group.members:
-		if len(stdnt.dont_work_with) > 0:
-			if student in stdnt.dont_work_with:
-				return True
+##! Check if we're trying to add a student to a group that has an enemy
+##! of if the student to be added is on any existing group members' enemy
+##! lists
+def checkForNopes(student, group, matched):
+	for s in matched[group]:
+		if (s in student.dont_work_with) or (student in s.dont_work_with):
+			return True
 	return False
 
+##! This compares the indices of a student to be added with the students
+##! already in a group and determines which student will stay in the group
+##! TWO STUDENTS ENTER, ONE STUDENT LEAVES
+##!
+##! INPUT:	student - duh
+##! 		group - you've figured this out by now
+##!			group_prefers - ordered list of group preferences
+##!			matched - dictionary
+##!			students - array of free students
+##! OUTPUT:	matched - updated dictionary
+##!			students - updated list of free students
+def compareNopes(student, group, group_prefers, matched, students):
+	# If there's more than one student already in the group who either is
+	# disliked by the student being added, or is disliked by that student, 
+	# we just won't let the student trying to get in, in.
+	count = 0
+	for s in matched[group]:
+		if (s in student.dont_work_with) or (student in s.dont_work_with):
+			count += 1
+	if count > 1:
+		students.append(student)
+		return matched, students
+	else:
+		for s in matched[group]:
+			if (s in student.dont_work_with) or (student in s.dont_work_with):
+				# ordered list, so lower index is more preferred
+				if group_prefers.index(student) < group_prefers.index(s):
+					return s
+				else:
+					students.append(student)
+					return None
+
+##! Similar thing to compareNopes, but for leadership instead of banned
+##!
+##! INPUTs and OUTPUT are the same
+def compareLeaders(student, group, group_prefers, matched, students):
+	for s in matched[group]:
+		if s.leadership == "STRONG_LEAD":
+			if group_prefers.index(student) < group_prefers.index(s):
+				return s
+			else:
+				students.append(student)
+				return None
+
+##! Replaces one student with another in the matched dictionary
+##!
+##! INPUT:	s_incoming - the student to be put into the group
+##!			s_outgoing - the student to be replaced
+##!			group - the group we're replacing in
+##!			group_preferes - ordered list of preferences
+##!			matched - dictionary
+##!			students - list of free students
+##! OUTPUT:	changed objects
+def replaceStudent(s_incoming, s_outgoing, group, group_prefers, matched, students):
+	# print("Replacing " + s_outgoing.student_name + " with " + s_incoming.student_name)
+	index = matched[group].index(s_outgoing)
+	matched[group].remove(s_outgoing)
+	matched[group].append(s_incoming)
+	# Instead, we let replaced student drop out and start over
+	# students.append(s_outgoing)
+	group_prefers = partnerUpStudents(s_incoming, group, group_prefers)
+	group_prefers, matched = nopeStudents(s_incoming, group, group_prefers, matched)
+	return group_prefers, matched, students
+
+##! Helper function to read in json data from file
+##!
+##! INPUT:	None
+##! OUTPUT:	json object
 def getJsonFromFile():
 	with open("id_map.json") as json_file:
 		json_data = json.load(json_file)
 		return json_data
 
-def convertNameToIdJson(name):
-	data = getJsonFromFile()
-	if name in data:
-		return data[name]
-	else:
-		print("You made a typo in the data file")
-		return None
-
+##! Checks to see if there are students in the db that have not been
+##! sorted. Pulls identikeys from a json file that's built when the
+##! algorithm starts
+##!
+##! INPUT:	matched - dictionary
+##! OUTPUT:	list - list of student identikeys that were not sorted
 def checkComplete(matched):
-	all_ids = []
 	matched_ids = []
 	unsorted = []
+	all_ids = []
 	data = getJsonFromFile()
 	for name in data:
 		all_ids.append(data[name])
@@ -128,310 +227,318 @@ def checkComplete(matched):
 	unsorted = set(all_ids) - set(matched_ids)
 	return list(unsorted)
 
-def swapThemBitches(shortGroup, firstPass):
+##! Swaps students from full groups into groups that are underfilled
+##!
+##! INPUT:	shortGroup - the small group
+##!			firstPass - bool that determines the size threshold of the
+##!						group to pull from
+##!			matched - dictionary
+##! OUTPUT:	matched - updated dictionary
+def swapThemStudents(shortGroup, firstPass, matched):
 	print("Fixing " + shortGroup.group_name)
-	for group in Groups.objects:
+	for group in matched:
 		if group == shortGroup:
 			continue
-		if len(group.members) > OPT_SIZE:
-			for student in group.members:
-				if len(shortGroup.members) >= MIN_SIZE:
-					return
-				if (shortGroup in student.preferences
-					and not checkLeader(student, shortGroup)
-					and not finalNopeBitches(student, shortGroup)):
-					Groups.objects(
-						group_name=group.group_name
-						).update(pull__members=student)
-					group.reload()
-					# group.members.remove(student)
-					Groups.objects(
-						group_name=shortGroup.group_name
-						).update(add_to_set__members=student)
-					shortGroup.reload()
+		if len(matched[group]) > OPT_SIZE:
+			for student in matched[group]:
+				if len(matched[shortGroup]) >= MIN_SIZE:
+					return matched
+				if (shortGroup in student.preferences) and not leadershipCheck(student, shortGroup, matched) and not checkForNopes(student, shortGroup, matched):
+					matched[group].remove(student)
+					matched[shortGroup].append(student)
 					# shortGroup.members.append(student)
-					if len(group.members) == OPT_SIZE:
+					if len(matched[shortGroup]) >= MIN_SIZE:
+						return matched
+					if len(matched[group]) == OPT_SIZE:
 						break
-				if len(group.members) == 0:
+				if len(matched[group]) == 0:
 					break
-		elif not firstPass and len(group.members) > MIN_SIZE:
+		elif not firstPass and len(matched[group]) > MIN_SIZE:
 			#TODO add guard against overdrawing from group to below min_size
-			for student in group.members:
-				if len(group.members) == MIN_SIZE:
+			for student in matched[group]:
+				if len(matched[group]) == MIN_SIZE:
 					break
-				if len(shortGroup.members) >= MIN_SIZE:
-					return
-				if (shortGroup in student.preferences
-					and not checkLeader(student, shortGroup)
-					and not finalNopeBitches(student, shortGroup)):
-					Groups.objects(
-						group_name=group.group_name
-						).update(pull__members=student)
-					group.reload()
-					# group.members.remove(student)
-					Groups.objects(
-						group_name=shortGroup.group_name
-						).update(add_to_set__members=student)
-					shortGroup.reload()
+				if len(matched[shortGroup]) >= MIN_SIZE:
+					return matched
+				if (shortGroup in student.preferences) and not leadershipCheck(student, shortGroup, matched) and not checkForNopes(student, shortGroup, matched):
+					matched[group].remove(student)
+					matched[shortGroup].append(student)
+					# shortGroup.members.append(student)
+					if len(matched[shortGroup]) >= MIN_SIZE:
+						return matched
+					if len(matched[group]) == OPT_SIZE:
+						break
+				if len(matched[group]) == 0:
+					break
+	return matched
 
-def swapController():
-	for group in Groups.objects:
-		if len(group.members) < MIN_SIZE:
-			swapThemBitches(group, True)
-			if len(group.members) < MIN_SIZE:
-				swapThemBitches(group, False)
+##! Handles the calls to swapThemStudents
+##!
+##! INPUT:	matched - dictionary
+##!			group_prefers - also a dictionary
+##! OUTPUT:	matched - updated dictionary
+def swapController(matched, group_prefers):
+	for group in matched:
+		if len(matched[group]) < MIN_SIZE:
+			matched = swapThemStudents(group, True, matched)
+			if len(matched[group]) < MIN_SIZE:
+				matched = swapThemStudents(group, False, matched)
+	return matched
 
-def warnLeaders():
-	for group in Groups.objects:
-		leader_present = False
-		if not group.has_leader:
-			print("WARNING: no leader in group " + group.group_name)
-		for student in group.members:
-			if student.leadership == "STRONG_LEAD" and not leader_present:
-				leader_present = True
-			elif student.leadership == "STRONG_LEAD" and leader_present:
-				print("WARNING: too many cooks in the kitchen for group " + 
-					group.group_name)
-				print("Try running the algorithm once more without modifying the database. This may resolve the duplicate leader issue.")
-
-def checkLeader(student, group):
-	if (group.has_strong_leader 
-		and student.leadership == "STRONG_LEAD" 
-		and LEADERSHIP_MATTERS):
-			print(student.student_name + " is not allowed in " + group.group_name)
-			return True
+##! Checks if we're trying to put a student who is a strong leader
+##! into a group that already has a strong leader
+##!
+##! INPUT:	student - the student we're trying to add
+##!			group - the group we're trying to add to
+##!			matched - dictionary of existing matches
+##! OUTPUT:	bool - True if there is a conflict
+def leadershipCheck(student, group, matched):
+	if student.leadership == "STRONG_LEAD" and LEADERSHIP_MATTERS:
+		for s in matched[group]:
+			if s.leadership == "STRONG_LEAD":
+				return True
 	return False
+
+##! Little function that pulls the student and associated score
+##! out of the list of Preference embedded documents in each Group
+##! object, sorts them by preference score then sticks that list into
+##! into a dictionary which is returned
+##!
+##! INPUT:	groups - the local array of groups UNCHANGED
+##! OUTPUT:	ret_val - list of ordered students
+def extractOrderFromPrefs(group):
+	ret_val = []
+	temp_dict = {}
+	for pref in group.preferences:
+		temp_dict[pref.student] = pref.pref_score
+	ret_val = sorted(temp_dict,
+					key=temp_dict.__getitem__,
+					reverse=True)
+	return ret_val
+
+##! Confusing function that checks a student to be added against potential
+##! leadership or banned student conflicts. Swaps the students if the student
+##! that's trying to be added is a better match.
+##!
+##! INPUT:	all the stuff
+##! OUTPUT: the changed stuff
+def attemptPlacement(student, group, group_prefers, matched, students):
+	nope = checkForNopes(student, group, matched)
+	lead = leadershipCheck(student, group, matched)
+	if nope:
+		# This handles the assignment
+		nope_to_replace = compareNopes(
+			student, 
+			group, 
+			group_prefers, 
+			matched, 
+			students
+			)
+		if nope_to_replace in matched[group]:
+			if lead:
+				leader_to_replace = compareLeaders(
+					student,
+					group,
+					group_prefers,
+					matched,
+					students
+					)
+				if leader_to_replace:
+					group_prefers, matched, students = replaceStudent(
+						student,
+						nope_to_replace,
+						group,
+						group_prefers,
+						matched,
+						students
+						)
+					if leader_to_replace != nope_to_replace:
+						matched[group].remove(leader_to_replace)
+
+			else:
+				group_prefers, matched, students = replaceStudent(
+					student,
+					nope_to_replace,
+					group,
+					group_prefers,
+					matched,
+					students
+					)
+
+	elif lead:
+		leader_to_replace = compareLeaders(
+			student,
+			group,
+			group_prefers,
+			matched,
+			students
+			)
+		if leader_to_replace:
+			group_prefers, matched, students = replaceStudent(
+				student,
+				leader_to_replace,
+				group,
+				group_prefers,
+				matched,
+				students
+				)
+	return group_prefers, matched, students
+
+def incGroupPref(student, group):
+	for pref in group.preferences:
+		if pref.student == student:
+			# TODO make this a variable
+			pref.pref_score += GROUP_WEIGHT
+			return extractOrderFromPrefs(group)
 
 ##! This is an implementation of the Gale/Shapley algorithm. It's modeled off
 ##! of this code: https://rosettacode.org/wiki/Stable_marriage_problem#Python
-def sortThemBitches():
+def sortThemStudents(students, groups):
 	fall_through = False
+	# Don't actually create the local free list yet...
 	students_free = []
-	for student in Students.objects:
-		students_free.append(student)
 	matched = {}
 	student_prefers = {}
+	master_student_prefers = {}
 	group_prefers = {}
-	modPrefsForBitches()
-	for student in Students.objects:
-		student_prefers[student] = student.preferences
-
-	for group in Groups.objects:
-		# pref_list = []
-		# for pref in group.preferences:
-		# 	pref_list.append(pref)
-		group_prefers[group] = group.preferences
+	students = calcPaidGroupPrefAvg(students, groups)
+	# Now we can make the free list with the potentially modified
+	# students array
+	students_free = students[:]
+	# for student in students_free:
+	# 	student.second_pass = False
+	# Build the student_prefers dictionary, easy mode
+	for student in students:
+		student_prefers[student] = list(student.preferences)
+	# Build group_prefers was hard mode, so outsource it
+	for group in groups:
+		group_prefers[group] = extractOrderFromPrefs(group)
 
 	##! First step is to ensure lightly chosen paid groups are filled
-	ret, paid_dict = payForBitches()
+	ret, matched, students_free = payForStudents(matched, 
+									students_free, groups)
 	if ret != 0:
-		return ret
-	if paid_dict:
-		for g in paid_dict:
-			for s in paid_dict[g]:
-				matched[g].append(s)
-				students_free.remove(s)
+		# Return format for this function is: int(return value), {matched}
+		return None
 
 	while students_free:
 		s = students_free.pop(0)
 		s_list = student_prefers[s]
 		if len(s_list) < 1:
-			print(s.student_name + " is out of options")
-			return 1, matched
-		g = s_list.pop(0)
-		# g_name = g_ref.group_name
-		# index = 0
-		# g = None
-		# for group in groups:
-		#     if group.group_name == g_name:
-		#         g = group
+			continue
+		g = student_prefers[s].pop(0)
 
 		match = matched.get(g)
 		if not match:
 			# group has no matches yet
 			# print(g.group_name + " has no matches yet.")
-			##! TODO So much code repetition, fix this noise
+			# Don't have to check leadership, since FIRST!
+			# TODO log first entry
 			matched[g] = [s]
-			if (s.leadership != "STRONG_FOLLOW"
-				and s.leadership != "STRONG_LEAD"):
-				Groups.objects(
-					group_name=g.group_name
-					).update(has_leader=True)
-				g.reload()
-				s.reload()
-			elif s.leadership == "STRONG_LEAD":
-				Groups.objects(
-					group_name=g.group_name
-					).update(
-					has_strong_leader=True,
-					has_leader=True
-					)
-				g.reload()
-				s.reload()
-			group_prefers[g] = partnerUpBitches(s, g)
-			group_prefers[g], matched = nopeBitches(s, g, matched)
+			group_prefers[g] = partnerUpStudents(s, g, group_prefers[g])
+			group_prefers[g], matched = nopeStudents(s, g, group_prefers[g], matched)
 
-		elif len(match) < OPT_SIZE and not fall_through:
+		elif len(match) < OPT_SIZE:
 			#Open space in group
 			# print(g.group_name + " is being filled")
-			if checkLeader(s, g):
-				students_free.append(s)
+			if leadershipCheck(s, g, matched) or checkForNopes(s, g, matched):
+				if ATTEMPT_REPLACE:
+					group_prefers[g], matched, students_free = attemptPlacement(
+						s,
+						g,
+						group_prefers[g],
+						matched,
+						students_free
+						)
+				else:
+					students_free.append(s)
+
 			else:
 				matched[g].append(s)
-				if (s.leadership != "STRONG_FOLLOW"
-					and s.leadership != "STRONG_LEAD"):
-					Groups.objects(
-						group_name=g.group_name
-						).update(has_leader=True)
-					g.reload()
-					s.reload()
-				if s.leadership == "STRONG_LEAD":
-					Groups.objects(
-						group_name=g.group_name
-						).update(
-						has_strong_leader=True,
-						has_leader=True
-						)
-					g.reload()
-					s.reload()
-				group_prefers[g] = partnerUpBitches(s, g)
-				group_prefers[g], matched = nopeBitches(s, g, matched)
+				group_prefers[g] = partnerUpStudents(s, g, group_prefers[g])
+				group_prefers[g], matched = nopeStudents(s, g, group_prefers[g], matched)
+
 		##! Be more lenient on group size for second pass students
 		elif len(match) < MAX_SIZE and fall_through:
 			#Open space in group
 			# print(g.group_name + " is being filled even more")
-			if checkLeader(s, g):
-				students_free.append(s)
+			if leadershipCheck(s, g, matched) or checkForNopes(s, g, matched):
+				if ATTEMPT_REPLACE:
+					group_prefers[g], matched, students_free = attemptPlacement(
+						s,
+						g,
+						group_prefers[g],
+						matched,
+						students_free
+						)
+				else:
+					students_free.append(s)
+			# if leadershipCheck(s, g, matched):
+			# 	student_free.append(s)
 			else:
 				matched[g].append(s)
-				if (s.leadership != "STRONG_FOLLOW"
-					and s.leadership != "STRONG_LEAD"):
-					Groups.objects(
-						group_name=g.group_name
-						).update(has_leader=True)
-					g.reload()
-					s.reload()
-				if s.leadership == "STRONG_LEAD":
-					Groups.objects(
-						group_name=g.group_name
-						).update(
-						has_strong_leader=True,
-						has_leader=True
-						)
-					g.reload()
-					s.reload()
-				group_prefers[g] = partnerUpBitches(s, g)
-				group_prefers[g], matched = nopeBitches(s, g, matched)
+				group_prefers[g] = partnerUpStudents(s, g, group_prefers[g])
+				group_prefers[g], matched = nopeStudents(s, g, group_prefers[g], matched)			
 
 		else:
 			# print(g.group_name + " is competitive.")
-			g_list = group_prefers[g]
-			replaced = False
-			for m in match:
-				for pref in g_list:
-					if pref.student == m:
-						cur_pref = pref.pref_score
-					elif pref.student == s:
-						new_pref = pref.pref_score
-				if cur_pref < new_pref:
+			if leadershipCheck(s, g, matched) or checkForNopes(s, g, matched):
+				if ATTEMPT_REPLACE:
+					group_prefers[g], matched, students_free = attemptPlacement(
+						s,
+						g,
+						group_prefers[g],
+						matched,
+						students_free
+						)
+				else:
+					students_free.append(s)
+			else:
+				g_list = group_prefers[g]
+				for m in match:
+					for pref in g.preferences:
+						if pref.student == m:
+							cur_pref = pref.pref_score
+						elif pref.student == s:
+							new_pref = pref.pref_score
+					# if g_list.index(m) > g_list.index(s):
+					if cur_pref < new_pref:
 					#replace less preferred student with current student
-					# print("Replacing " + m.student_name + " with " + s.student_name)
-					if (checkLeader(s, g) 
-						and not (m.leadership == "STRONG_LEAD")):
-						continue
-					else:
-						matched[g].remove(m)
-						matched[g].append(s)
-						if (s.leadership != "STRONG_FOLLOW"
-							and s.leadership != "STRONG_LEAD"):
-							Groups.objects(
-								group_name=g.group_name
-								).update(has_leader=True)
-							g.reload()
-							s.reload()
-						if s.leadership == "STRONG_LEAD":
-							Groups.objects(
-								group_name=g.group_name
-								).update(
-								has_strong_leader=True,
-								has_leader=True
-								)
-							g.reload()
-							s.reload()
+						# print("Replacing " + m.student_name + " with " + s.student_name)
+						group_prefers[g], matched, students_free = replaceStudent(
+							s, 
+							m,
+							g, 
+							g_list, 
+							matched, 
+							students_free
+							)
 						if len(student_prefers[m]) > 0:
 							students_free.append(m)
 						else:
-							#No op, but this will break things, so here's one
-							#solution, but:
-							#TODO: make this work better
 							if len(match) < MAX_SIZE:
 								matched[g].append(m)
-						replaced = True
-						group_prefers[g] = partnerUpBitches(s, g)
-						group_prefers[g], matched = nopeBitches(s, g, matched)
 						break
-			if not replaced:
-				if len(s_list) > 0:
-					students_free.append(s)
 				else:
-					if len(match) < MAX_SIZE:
-						matched[g].append(s)
+					if len(s_list) > 0:
+						students_free.append(s)
+					else:
+						if len(match) < MAX_SIZE:
+							matched[g].append(s)
 
 		if len(students_free) < 1:
 			unsorted = checkComplete(matched)
 			if len(unsorted) > 0:
-				for identikey in unsorted:
-					##! This process takes an obscenely long time.
-					##! I don't know how to streamline these updates,
-					##! but this operation is one of the slowest in the
-					##! entire algorithm
-					##! TODO OPTIMIZE PRIME
-					student = Students.objects.get(identikey=identikey)
-					for group in student.preferences:
-						for pref in group.preferences:
-							Groups.objects(
-								group_name=group.group_name
-								).update(
-								pull__preferences__student=student
-								)
-							score = pref.pref_score + GROUP_WEIGHT
-							np = Preference(student=student, pref_score=score)
-							Groups.objects(
-								group_name=group.group_name
-								).update(add_to_set__preferences=np)
-							group.reload()
-							group_prefers[group] = group.preferences
-					students_free.append(student)
-					student_prefers[student] = student.preferences
-					print(student.student_name + " is being re-sorted.")
+				for student in students:
+					if student.identikey in unsorted:
+						student_prefers[student] = list(student.preferences)
+						students_free.append(student)
+						for group in student.preferences:
+							group_prefers[group] = incGroupPref(student, group)
 				fall_through = True
 
 	##! TODO this should be separate, single responsibility principle and all
-	for group in matched:
-		for student in matched[group]:
-			Groups.objects(
-				group_name=group.group_name
-				).update(
-				add_to_set__members=student
-				)
-			group.reload()
-			# group.members.append(student)
-	swapController()
-	warnLeaders()
-	##! TODO same here
-	for group in Groups.objects:
-		if group.paid and len(group.members) < MIN_SIZE:
-			print("MATCHING FAILED: paid group was unfilled: " + 
-				group.group_name)
-			return 1, matched
-	##! TODO this is a weird way to update the local object
-	for group in Groups.objects:
-		matched[group] = []
-		matched[group] = group.members
-		for student in group.members:
-			Students.objects.get(
-				identikey=student.identikey
-				).update(group_assigned=group)
-			student.reload()
 
-	return 0, matched
+	matched = swapController(matched, group_prefers)
+
+	return matched

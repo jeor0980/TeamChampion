@@ -6,10 +6,10 @@ sortingApp.controller('mainController', function($scope, userInformation) {
 sortingApp.controller('buildController', function ($scope, $http) {
     data = {};
 
-    $scope.buildBitches = function () {
+    $scope.buildStudents = function () {
         // Fire the API request
         $http.post('/build', data).success(function (results) {
-            console.log('BUILDING THEM BITCHES');
+            console.log('BUILDING THEM Students');
         }).error(function (err) {
             console.log(err);
         });
@@ -19,7 +19,7 @@ sortingApp.controller('buildController', function ($scope, $http) {
 sortingApp.controller('sortController', function ($scope, $http) {
     data = {};
 
-    $scope.sortBitches = function () {
+    $scope.sortStudents = function () {
         // Fire the API request
         $http.post('/sort', data).success(function (results) {
             console.log('SORTING THEM BITHCES');

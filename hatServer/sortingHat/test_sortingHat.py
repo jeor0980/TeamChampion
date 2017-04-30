@@ -24,7 +24,7 @@ class SortingHatTest(unittest.TestCase):
 #            sortingHat.init_db()
         super(SortingHatTest, cls).setUpClass()
         # cls.ret, cls.matched = sortingHat.dumbledore()
-        cls.matched = sortingHat.alt_dum()
+        cls.matched = sortingHat.dumbledore()
         return
 
     def testCalcGroupPreference(self):
@@ -79,7 +79,7 @@ class SortingHatTest(unittest.TestCase):
                         self.assertTrue(True)
 
 """
-    def testSortThemBitches(self):
+    def testSortThemStudents(self):
         csv_file = "test2014data.csv"
         group_csv_file = "groups.csv"
         data = sortingHat.dataSet(csv_file)
@@ -98,7 +98,7 @@ class SortingHatTest(unittest.TestCase):
             sortingHat.registerUser(student, groups)
         for grp in groups:
             print(grp.preferences)
-        matched = sortingHat.sortThemBitches(students, groups)
+        matched = sortingHat.sortThemStudents(students, groups)
         self.assertEqual(len(matched), len(groups))
         count = 0
         for group, students in matched:

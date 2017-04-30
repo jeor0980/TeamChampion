@@ -6,8 +6,7 @@ from hatServer.models import Groups, Students, Preference
 from hatServer.sortingHat.variables import *
 from hatServer.sortingHat.registerStudents import registerStudents
 from hatServer.sortingHat.preprocessGroups import removeExtraGroups, unpopular
-from hatServer.sortingHat.masterSort import sortThemBitches
-from hatServer.sortingHat.masterSort_alternate import sortThemBitches_new
+from hatServer.sortingHat.masterSort import sortThemStudents
 
 import numpy
 import random
@@ -81,11 +80,7 @@ def writeToDatabase(matched):
 			group.reload()
 			student.reload()
 
-
-
-
-
-def alt_dum():
+def dumbledore():
 	l_groups = []
 	l_students = []
 	removeExtraGroups()
@@ -97,7 +92,7 @@ def alt_dum():
 		l_groups.append(group)
 	for student in Students.objects:
 		l_students.append(student)
-	matched = sortThemBitches_new(l_students, l_groups)
+	matched = sortThemStudents(l_students, l_groups)
 	writeToDatabase(matched)
 
 	out_string = ""
@@ -129,71 +124,13 @@ def alt_dum():
 
 	return matched
 
-def dumbledore():
-	matched = None
-	removeExtraGroups()
-	for group in Groups.objects:
-		group.modify(members=[], preferences=[])
-#    for student in Students.objects:
-#        registerUser(student, l_groups)
-#        l_students.append(student)
-
-	registerStudents()
-	ret_val = unpopular()
-	if ret_val != 0:
-		return ret_val
-	ret_val, matched = sortThemBitches()
-#    updateDb(l_students, l_groups)
-	if ret_val != 0:
-		return ret_val
-
-##! This is all stuff to format for different outputs
-##! Trying to make some of the analytics easier
-	out_string = ""
-	success_list = []
-	for group in Groups.objects:
-		s_list = []
-		print(group.group_name + ":")
-		for student in group.members:
-			s_list.append(student)
-		for student in group.members:
-			if student.group_assigned != group:
-				print(student.student_name + " thinks they're in " +
-					student.group_assigned.group_name + " but they're in " +
-					group.group_name)
-			else:
-				success = 0
-				if len(student.work_with) > 0:
-					for s in student.work_with:
-						if s in s_list:
-							success += 1
-					success_list.append(success)
-				out_string += (student.student_name + ","
-					+ group.group_name + ","
-					+ str(success) + "\n")
-				print("\t" + student.student_name)
-
-	with open("results.csv", 'w') as fp:
-		fp.write(out_string)
-# 	if matched:
-# 		for group in matched:
-# 			value = group.members
-# 			print(group.group_name + ":")
-# 			for student in value:
-# 				print("\t{student.student_name}".format(student=student))
-# #               student.save()
-	print(averagePreference(matched))
-	print(avgFriendsPlaced(success_list))
-	prefDistribution(matched)
-	count(matched)
-
-	return ret_val, matched
-
 def main(args):
 	connect('sortingHat')
 	# ret_val, matched = dumbledore()
-	alt_dum()
-	return ret_val
+	matched = dumbledore()
+	if matched:
+		return 0
+	return 1
 
 if __name__ == '__main__':
 	import sys
