@@ -21,6 +21,21 @@ def index():
     print ("TYPICAL BITCH")
     return render_template('index.html')
 
+@app.route('/upload/url', methods=['GET', 'POST'])
+def file_upload():
+    projectFile = request.files['file']
+    print(projectFile.filename)
+    #print(projectFile.type)
+    #print(projectFile.data)
+    print(projectFile)
+
+    with open(projectFile.filename, 'r') as file:
+        file.readlines()
+
+    #projectFile.save(os.path.join('hatServer/static/js/config'), projectFile.filename)
+
+    return render_template('index.html')
+
 @app.route('/sort', methods=['GET', 'POST'])
 def sort():
     print("Yer a wizard Harry")
