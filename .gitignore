@@ -5,3 +5,4 @@ __pycache__
 *.swp
 hatServer/sortingHat/id_map.json
 hatServer/sortingHat/results.csv
+hatServer/static/js/config/results.json
