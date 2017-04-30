@@ -3,7 +3,7 @@
 
 	<div class="carousel carousel-slider center" data-indicators="true">
     <div class="carousel-fixed-item center">
-      <a class="btn waves-effect white grey-text darken-text-2">button</a>
+      <a class="btn waves-effect white grey-text darken-text-2" href="#createSurvey">button</a>
     </div>
     <div class="carousel-item red white-text" href="#one!">
       <h2>First Panel</h2>
@@ -22,6 +22,11 @@
       <p class="white-text">This is your fourth panel</p>
     </div>
 	</div>
+
+  <form name="fileUpload">
+    <div class="btn btn-default" ngf-select="uploadGroup($file)">Upload Group File</div>
+    <div class="btn btn-default" ngf-select="upload($file)">Upload Student File</div>
+  </form>
 
 	<script>
 		$('.carousel.carousel-slider').carousel({fullWidth: true});

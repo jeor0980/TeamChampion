@@ -8,9 +8,10 @@ sys.path.append('..')
 from hatServer import app
 
 from hatServer.models import Groups, Students
-from hatServer.sortingHat.sortingHat import addStudent, registerUser
+from hatServer.sortingHat.addStudent import addStudent
+from hatServer.sortingHat.registerStudents import registerStudents
 from hatServer.sortingHat.sortingHat import dumbledore 
-from hatServer.sortingHat.buildDB import buildDB
+from hatServer.sortingHat.buildDB import buildDB, loadProjects, loadStudents
 
 # This shouldn't be needed, should be handled in __init__.py
 # app.config['MONGODB_DB'] = 'flask_test'
@@ -20,6 +21,25 @@ from hatServer.sortingHat.buildDB import buildDB
 def index():
     print ("TYPICAL BITCH")
     return render_template('index.html')
+
+@app.route('/upload/student', methods=['GET', 'POST'])
+def file_upload():
+    projectFile = request.files['file']
+
+    loadStudents(projectFile.read().decode('utf-8').split('\r\n')[1:])
+
+    return render_template('index.html')
+
+@app.route('/upload/group', methods=['GET', 'POST'])
+def group_upload():
+    projectFile = request.files['file']
+
+    # print(projectFile.read().decode('utf-8'))
+
+    loadProjects(projectFile.read().decode('utf-8').split('\r\n')[1:])
+
+    return render_template('index.html')
+    
 
 @app.route('/sort', methods=['GET', 'POST'])
 def sort():
@@ -67,6 +87,16 @@ def create_survey():
     lead = data["lead"]
     """ 
     return firstName
+
+@app.route('/createSurvey', methods=['GET', 'POST'])
+def createSurvey():
+    print('hey')
+    data = json.loads(request.data.decode())
+
+    with open('hatServer/static/js/config/variables.json', 'w') as json_file:
+        json.dump(data, json_file, indent=4)
+
+    return 'success'
 
 @app.route('/')
 @app.route('/about')
