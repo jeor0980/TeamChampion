@@ -177,6 +177,14 @@ def loadProjects(group_data):
         parseGroups(line)
 
 
+def addGroup(group_data):
+    for line in group_data.readlines():
+        parseGroups(line)
+
+def addStudent(student_data):
+    for line in student_data.readlines():
+        parseStudent(line)
+
 def buildDB(student_path, group_path):
     #assert(len(student_path) > 0)
     if len(Groups.objects.all()) > 0:
