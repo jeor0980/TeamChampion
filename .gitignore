@@ -3,3 +3,4 @@ __pycache__
 *.[oa]
 *.pyc
 *.swp
+hatServer/sortingHat/id_map.json
