@@ -16,6 +16,12 @@
     <!-- Title of each different page (partial) can be modified in js/config/routing.js -->
     <title ng-bind="title"></title>
 
+    <!-- Jquery and Materialize  -->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="../static/js/materialize/materialize.min.js"></script>
+    <script src="../static/js/init.js"></script>
+
     <!-- Load Material Icons from Google for Navigation Bar-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -77,13 +83,20 @@
       </div>
     </footer>
 
-    <!-- Scripts, loaded at the end as good practice -->
-    <!-- Jquery and Materialize  -->
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="../static/js/materialize/materialize.min.js"></script>
-    <script src="../static/js/init.js"></script>
+    <script>
+      //Code for collapsible mobile navbar
+      $('.button-collapse').sideNav({
+          // menuWidth: 300, // Default is 300
+          // edge: 'right', // Choose the horizontal origin
+          closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+          draggable: true // Choose whether you can drag to open on touch screens
+        }
+      );
+    </script>
 
+
+
+    <!-- Scripts, loaded at the end as good practice -->
     <!-- Needed AngularJS and Angular Route -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
