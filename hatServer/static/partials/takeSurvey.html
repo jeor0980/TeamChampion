@@ -4,7 +4,7 @@
 
   <p>{{ message1 }}</p>
 
-  <form name="takeSurveyForm" novalidate role="form">
+  <form name="takeSurveyForm" novalidate role="form" id="takeSurveyForm">
     <!-- Place to input a first name --> 
     <div class="form-group">
       <!-- Use spans so it's consistent with select and actually shows warnings -->
@@ -68,9 +68,10 @@
   </form>
 </div>
 
-<!-- TODOS
-  -- Turn this form into multiple pages
-  -- Format it so it looks prettier
-  -- Add more content around the edges (like descriptions and stuff)
-  -- Make it more extensible and less hard-coded
--->
+<script>
+  $(function() {
+    $('#takeSurveyForm').areYouSure();
+  });
+</script>
+
+
