@@ -4,6 +4,15 @@ sortingApp.controller('mainController', function($scope, userInformation) {
 });
 
 sortingApp.controller('buildController', function ($scope, $http) {
+
+    //Check if user is authenticated
+    $scope.givenName = userInformation.getGivenName();
+
+    if (userInformation.getIsLoggedIn() == false){
+      window.alert("You must be logged in to view this page.");
+      $window.location.href = '/';
+    }   
+
     data = {};
 
     $scope.buildBitches = function () {
@@ -17,6 +26,24 @@ sortingApp.controller('buildController', function ($scope, $http) {
 });
 
 sortingApp.controller('sortController', function ($scope, $http) {
+
+
+
+        //Check if user is authenticated
+    $scope.givenName = userInformation.getGivenName();
+
+    if (userInformation.getIsLoggedIn() == false){
+      window.alert("You must be logged in to view this page.");
+      $window.location.href = '/';
+    }   
+//Check if user is authenticated
+    $scope.givenName = userInformation.getGivenName();
+
+    if (userInformation.getIsLoggedIn() == false){
+      window.alert("You must be logged in to view this page.");
+      $window.location.href = '/';
+    }   
+
     data = {};
 
     $scope.sortBitches = function () {
@@ -50,11 +77,16 @@ sortingApp.controller('profileController', function($scope, $window, userInforma
 });
 
 
-sortingApp.controller('loginController', function($scope) {
-
-});
-
 sortingApp.controller('takeSurveyController', function($scope, $http, $window, surveyResults) {
+
+    //Check if user is authenticated
+    $scope.givenName = userInformation.getGivenName();
+
+    if (userInformation.getIsLoggedIn() == false){
+      window.alert("You must be logged in to view this page.");
+      $window.location.href = '/';
+    }   
+
     $scope.message1 = 'Survey to gather student preferences and abilities in support of forming teams for CU Boulder Senior Projects.';
     $scope.message2 = 'The following are some questions about your skillset and experiences that will help us diversify team talents.';
     $scope.message3 = 'And now the moment you have been waiting for. Please rank your top five project choices, and indicate your primary motivation for wanting to work on each project you rank. (Note that while the survey allows you to choose the same project for all five ranks, actually doing so will only make things more difficult for yourself and for us if we are not able to honor your top choice.';
@@ -182,6 +214,15 @@ sortingApp.controller('takeSurveyController', function($scope, $http, $window, s
 });
 
 sortingApp.controller('surveySuccessController', function($scope) {
+
+    //Check if user is authenticated
+    $scope.givenName = userInformation.getGivenName();
+
+    if (userInformation.getIsLoggedIn() == false){
+      window.alert("You must be logged in to view this page.");
+      $window.location.href = '/';
+    }   
+
     $scope.message = 'Congratulations! Your results have been submitted!';
 });
 
@@ -220,12 +261,6 @@ sortingApp.controller('GoogleCtrl', function($route, $scope, $window, $http, use
         userInformation.setEmail(profile.getEmail());
         userInformation.setIsLoggedIn(true);
         userInformation.setRole($scope.userData[userInformation.getIdentikey()].role);
-
-        //Role Stuff
-        // console.log("what is your role?");
-        // console.log("My role is " + userInformation.getRole());
-        // console.log(userInformation.getIdentikey() + " The identikey in JSON File!");
-        // console.log("User Authenticated Successfully!");
 
         //Confirm login to user
         Materialize.toast('Logged In Successfully!', 5000) // 5000 is the duration of the toast
@@ -267,6 +302,8 @@ sortingApp.controller('GoogleCtrl', function($route, $scope, $window, $http, use
 
 });
 
+
+
 sortingApp.controller('dashboardController', function($scope, $window, userInformation) {
 
     //Check if user is authenticated
@@ -278,6 +315,10 @@ sortingApp.controller('dashboardController', function($scope, $window, userInfor
     }   
 
 });
+
+
+
+
 
 sortingApp.controller('headerController', function($scope, userInformation, $window) {
 
