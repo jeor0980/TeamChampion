@@ -355,8 +355,8 @@ sortingApp.service('surveyQuestions', function () {
             rankedCategories = value;
             // loop through all categories students are asked to rank and make sure they're only required
             // if they're included
-            for (category in rankedCategories) {
-                if (!category.included) category.required = false;
+            for (var category in rankedCategories) {
+                if (!rankedCategories[category]['included']) rankedCategories[category]['required'] = false;
             }
         },
 
@@ -365,8 +365,8 @@ sortingApp.service('surveyQuestions', function () {
         },
         setProjectPreferences: function (value) {
             projectPreferences = value;
-            for (question in projectPreferences) {
-                if (!question.included) question.required = false;
+            for (var question in projectPreferences) {
+                if (!projectPreferences[question]['included']) projectPreferences[question]['required'] = false;
             }
         },
 

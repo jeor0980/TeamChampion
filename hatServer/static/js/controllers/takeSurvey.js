@@ -1,6 +1,6 @@
 'use strict';
 
-sortingApp.controller('takeSurveyController', function ($scope, $http, $window, surveyResults) {
+sortingApp.controller('takeSurveyController', function ($scope, $http, $window, surveyResults, userInformation) {
     $http.get('../static/js/config/survey.json').success(function (data) {
         // Pull information to be displayed in the first survey page
         // projects is an array of dictionaries with data about each project :) 
@@ -110,7 +110,7 @@ sortingApp.controller('takeSurveyController', function ($scope, $http, $window, 
             'firstName': surveyResults.getFirstName(),
             'lastName': surveyResults.getLastName(),
             'preferredName': surveyResults.getPreferredName(),
-            //'identikey': surveyResults.getIdentikey(),
+            'identikey': userInformation.getIdentikey(),
             'gpa': surveyResults.getOverallGPA(),
             'csgpa': surveyResults.getCsGPA(),
             //'email' : $scope.email,

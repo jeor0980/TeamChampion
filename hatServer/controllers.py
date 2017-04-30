@@ -8,9 +8,10 @@ sys.path.append('..')
 from hatServer import app
 
 from hatServer.models import Groups, Students
-from hatServer.sortingHat.sortingHat import addStudent, registerUser
+from hatServer.sortingHat.addStudent import addStudent
+from hatServer.sortingHat.registerStudents import registerStudents
 from hatServer.sortingHat.sortingHat import dumbledore 
-from hatServer.sortingHat.buildDB import buildDB
+from hatServer.sortingHat.buildDB import buildDB, loadProjects, loadStudents
 
 # This shouldn't be needed, should be handled in __init__.py
 # app.config['MONGODB_DB'] = 'flask_test'
@@ -18,8 +19,24 @@ from hatServer.sortingHat.buildDB import buildDB
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    print ("TYPICAL BITCH")
     return render_template('index.html')
+
+@app.route('/upload/student', methods=['GET', 'POST'])
+def file_upload():
+    projectFile = request.files['file']
+
+    loadStudents(projectFile.read().decode('utf-8').split('\r\n')[1:])
+
+    return render_template('index.html')
+
+@app.route('/upload/group', methods=['GET', 'POST'])
+def group_upload():
+    projectFile = request.files['file']
+
+    loadProjects(projectFile.read().decode('utf-8').split('\r\n')[1:])
+
+    return render_template('index.html')
+    
 
 @app.route('/sort', methods=['GET', 'POST'])
 def sort():
@@ -36,7 +53,6 @@ def build():
 @app.route('/takeSurvey3', methods=['GET', 'POST'])
 def take_survey():
     # get data from form object 
-    print("TAKE SURVEY HOMES")
     data = json.loads(request.data.decode())
     addStudent(data)
 
@@ -66,11 +82,11 @@ def take_survey():
     ipPref = data["ipPref"]
     lead = data["lead"]
     """ 
+
     return firstName
 
 @app.route('/createSurvey', methods=['GET', 'POST'])
 def create_survey():
-    print('hey')
     data = json.loads(request.data.decode())
 
     with open('hatServer/static/js/config/variables.json', 'w') as json_file:
@@ -80,7 +96,6 @@ def create_survey():
 
 @app.route('/projectsInput', methods=['GET', 'POST'])
 def projects_input():
-    print('got dem projects done homes')
     data = json.loads(request.data.decode())
 
     with open('hatServer/static/js/config/survey.json', 'w') as json_file:
