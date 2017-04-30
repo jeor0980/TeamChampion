@@ -65,6 +65,23 @@ def prefDistribution(matched):
 	print("Fourth preference: " + str(four))
 	print("Fifth preference: " + str(five))
 
+def writeToDatabase(matched):
+	for group in matched:
+		for student in matched[group]:
+			Groups.objects(
+				group_name=group.group_name
+				).update(
+				add_to_set__members=student
+				)
+			Students.objects(
+				identikey=student.identikey
+				).update(
+				group_assigned=group
+				)
+			group.reload()
+			student.reload()
+
+
 
 
 
@@ -81,6 +98,7 @@ def alt_dum():
 	for student in Students.objects:
 		l_students.append(student)
 	matched = sortThemBitches_new(l_students, l_groups)
+	writeToDatabase(matched)
 
 	out_string = ""
 	success_list = []
