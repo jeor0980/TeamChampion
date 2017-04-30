@@ -50,12 +50,6 @@ sortingApp.config(function($routeProvider) {
             templateUrl : 'static/partials/login.html',
         })
 
-        // route for the login page
-        .when('/login', {
-            templateUrl: 'static/partials/login.html'
-            // controller  : 'loginController'
-        })
-
         // route for taking a new survey
         .when('/takeSurvey', {
             title: 'Take Survey',
