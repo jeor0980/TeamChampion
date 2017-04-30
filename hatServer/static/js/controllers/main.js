@@ -3,7 +3,7 @@ sortingApp.controller('mainController', function($scope, userInformation) {
 
 });
 
-sortingApp.controller('buildController', function ($scope, $http) {
+sortingApp.controller('buildController', function ($scope, $http, userInformation) {
 
     //Check if user is authenticated
     $scope.givenName = userInformation.getGivenName();
@@ -25,7 +25,7 @@ sortingApp.controller('buildController', function ($scope, $http) {
     }
 });
 
-sortingApp.controller('sortController', function ($scope, $http) {
+sortingApp.controller('sortController', function ($scope, $http, userInformation) {
 
 
 
@@ -77,7 +77,7 @@ sortingApp.controller('profileController', function($scope, $window, userInforma
 });
 
 
-sortingApp.controller('takeSurveyController', function($scope, $http, $window, surveyResults) {
+sortingApp.controller('takeSurveyController', function($scope, $http, $window, surveyResults, userInformation) {
 
     //Check if user is authenticated
     $scope.givenName = userInformation.getGivenName();
@@ -213,7 +213,7 @@ sortingApp.controller('takeSurveyController', function($scope, $http, $window, s
     };
 });
 
-sortingApp.controller('surveySuccessController', function($scope) {
+sortingApp.controller('surveySuccessController', function($scope, userInformation) {
 
     //Check if user is authenticated
     $scope.givenName = userInformation.getGivenName();
