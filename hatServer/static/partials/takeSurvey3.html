@@ -2,7 +2,7 @@
   <h1>{{ title }}</h1>
 
   <h2>Project Preferences</h2>
-  <p>{{ message3 }}</p>
+  <p>{{ description['page_three'] }}</p>
 
   <form name="takeSurveyForm" novalidate role="form">
     <!-- I couldn't figure out how to distinguish comments from choices so that one was a text input and one was a select (hence, we go through it the old-fashioned way)-->
@@ -18,77 +18,77 @@
     <!-- Place to select the first most desired project -->
     <div class="form-group" ng-show="projectPreferences['firstChoice']['included']">
       <span class="label label-danger" ng-show="projectPreferences['firstChoice']['required'] && submitted && takeSurveyForm.firstChoice.$error.required">Required!</span>
-      <label for="firstChoice">First Choice Project<span class="required-asterisk" style="color: red" ng-show="projectPreferences['firstChoice']['required']"> *</span><div class="secondary-text">Select your first preference of project.</div></label>
+      <label for="firstChoice">{{ projectPreferences['firstChoice']['label'] }}<span class="required-asterisk" style="color: red" ng-show="projectPreferences['firstChoice']['required']"> *</span><br /><span class="secondary-text">{{ projectPreferences['firstChoice']['subtext'] }}</span></label>
       <select name="firstChoice" ng-model="firstChoice" ng-options="item.name for item in projects" class="browser-default" ng-required="projectPreferences['firstChoice']['required']"></select>
     </div>
 
     <!-- Place to leave motivation for the first project selection -->
     <div class="form-group" ng-show="projectPreferences['firstComment']['included']">
       <span class="label label-danger" ng-show="projectPreferences['firstComment']['required'] && submitted && takeSurveyForm.firstChoiceComment.$error.required">Required!</span>
-      <label for="firstChoiceComment">First Preference Motivation<span class="required-asterisk" style="color: red" ng-show="projectPreferences['firstComment']['required']"> *</span><div class="secondary-text">What about this project makes it of interest to you? Please share your primary motivator in choosing this project (e.g. "Interest in working with sponsor," "Web app development," "Opportunities to develop skill X," etc.).</div></label>
+      <label for="firstChoiceComment">{{ projectPreferences['firstComment']['label'] }}<span class="required-asterisk" style="color: red" ng-show="projectPreferences['firstComment']['required']"> *</span><br /><span class="secondary-text">{{ projectPreferences['firstComment']['subtext'] }}</span></label>
       <textarea name="firstChoiceComment" ng-model="firstChoiceComment" class="materialize-textarea" ng-required="projectPreferences['firstComment']['required']"></textarea>
     </div>
 
     <!-- Place to select the second most desired project -->
     <div class="form-group" ng-show="projectPreferences['secondChoice']['included']">
       <span class="label label-danger" ng-show="projectPreferences['secondChoice']['required'] && submitted && takeSurveyForm.secondChoice.$error.required">Required!</span>
-      <label for="secondChoice">Second Choice Project<span class="required-asterisk" style="color: red" ng-show="projectPreferences['secondChoice']['required']"> *</span><div class="secondary-text">Select your first preference of project.</div></label>
+      <label for="secondChoice">{{ projectPreferences['secondChoice']['label'] }}<span class="required-asterisk" style="color: red" ng-show="projectPreferences['secondChoice']['required']"> *</span><br /><span class="secondary-text">{{ projectPreferences['secondChoice']['subtext'] }}</span></label>
       <select name="secondChoice" ng-model="secondChoice" ng-options="item.name for item in projects" class="browser-default" ng-required="projectPreferences['secondChoice']['required']"></select>
     </div>
 
     <!-- Place to leave motivation for the second project selection -->
     <div class="form-group" ng-show="projectPreferences['secondComment']['included']">
       <span class="label label-danger" ng-show="projectPreferences['secondComment']['required'] && submitted && takeSurveyForm.secondChoiceComment.$error.required">Required!</span>
-      <label for="secondChoiceComment">Second Preference Motivation<span class="required-asterisk" style="color: red" ng-show="projectPreferences['secondComment']['required']"> *</span><div class="secondary-text">What about this project makes it of interest to you? Please share your primary motivator in choosing this project (e.g. "Interest in working with sponsor," "Web app development," "Opportunities to develop skill X," etc.).</div></label>
+      <label for="secondChoiceComment">{{ projectPreferences['secondComment']['label'] }}<span class="required-asterisk" style="color: red" ng-show="projectPreferences['secondComment']['required']"> *</span><br /><span class="secondary-text">{{ projectPreferences['secondComment']['subtext'] }}</span></label>
       <textarea name="secondChoiceComment" ng-model="secondChoiceComment" class="materialize-textarea" ng-required="projectPreferences['secondComment']['required']"></textarea>
     </div>
 
     <!-- Place to select the third most desired project -->
     <div class="form-group" ng-show="projectPreferences['thirdChoice']['included']">
       <span class="label label-danger" ng-show="projectPreferences['thirdChoice']['required'] && submitted && takeSurveyForm.thirdChoice.$error.required">Required!</span>
-      <label for="thirdChoice">Third Choice Project<span class="required-asterisk" style="color: red" ng-show="projectPreferences['thirdChoice']['required']"> *</span><div class="secondary-text" >Select your third preference of project.</div></label>
+      <label for="thirdChoice">{{ projectPreferences['thirdChoice']['label'] }}<span class="required-asterisk" style="color: red" ng-show="projectPreferences['thirdChoice']['required']"> *</span><br /><span class="secondary-text" >{{ projectPreferences['thirdChoice']['subtext'] }}</span></label>
       <select name="thirdChoice" ng-model="thirdChoice" ng-options="item.name for item in projects" class="browser-default" ng-required="projectPreferences['thirdChoice']['required']"></select>
     </div>
 
     <!-- Place to leave motivation for the third project selection -->
     <div class="form-group" ng-show="projectPreferences['thirdComment']['included']">
       <span class="label label-danger" ng-show="projectPreferences['thirdComment']['required'] && submitted && takeSurveyForm.thirdChoiceComment.$error.required">Required!</span>
-      <label for="thirdChoieComment">Third Preference Motivation<span class="required-asterisk" style="color: red" ng-show="projectPreferences['thirdComment']['required']"> *</span><div class="secondary-text"><div class="secondary-text">What about this project makes it of interest to you? Please share your primary motivator in choosing this project (e.g. "Interest in working with sponsor," "Web app development," "Opportunities to develop skill X," etc.).</div></label>
+      <label for="thirdChoieComment">{{ projectPreferences['thirdComment']['label'] }}<span class="required-asterisk" style="color: red" ng-show="projectPreferences['thirdComment']['required']"> *</span><br /><span class="secondary-text">{{ projectPreferences['thirdComment']['subtext'] }}</span></label>
       <textarea name="thirdChoiceComment" ng-model="thirdChoiceComment" class="materialize-textarea" ng-required="projectPreferences['thirdComment']['required']"></textarea>
     </div>
 
     <!-- Place to select the fourth most desired project -->
     <div class="form-group" ng-show="projectPreferences['fourthChoice']['included']">
       <span class="label label-danger" ng-show="projectPreferences['fourthChoice']['required'] && submitted && takeSurveyForm.fourthChoice.$error.required">Required!</span>
-      <label for="fourthChoice">Fourth Choice Project<span class="required-asterisk" style="color: red" ng-show="projectPreferences['fourthChoice']['required']"> *</span><div class="secondary-text">Select your fourth preference of project.</div></label>
+      <label for="fourthChoice">{{ projectPreferences['fourthChoice']['label'] }}<span class="required-asterisk" style="color: red" ng-show="projectPreferences['fourthChoice']['required']"> *</span><br /><span class="secondary-text">{{ projectPreferences['fourthChoice']['subtext'] }}</span></label>
       <select name="fourthChoice" ng-model="fourthChoice" ng-options="item.name for item in projects" class="browser-default" ng-required="projectPreferences['fourthChoice']['required']"></select>
     </div>
 
     <!-- Place to leave motivation for the fourth project selection -->
     <div class="form-group" ng-show="projectPreferences['fourthComment']['included']">
       <span class="label label-danger" ng-show="projectPreferences['fourthComment']['required'] && submitted && takeSurveyForm.fourthChoiceComment.$error.required">Required!</span>
-      <label for="fourthChoiceComment">Fourth Preference Motivation<span class="required-asterisk" style="color: red" ng-show="projectPreferences['fourthComment']['required']"> *</span><div class="secondary-text">What about this project makes it of interest to you? Please share your primary motivator in choosing this project (e.g. "Interest in working with sponsor," "Web app development," "Opportunities to develop skill X," etc.).</div></label>
+      <label for="fourthChoiceComment">{{ projectPreferences['fourthComment']['label'] }}<span class="required-asterisk" style="color: red" ng-show="projectPreferences['fourthComment']['required']"> *</span><br /><span class="secondary-text">{{ projectPreferences['fourthComment']['subtext'] }}</span></label>
       <textarea name="fourthChoiceComment" ng-model="fourthChoiceComment" class="materialize-textarea" ng-required="projectPreferences['fourthComment']['required']"></textarea>
     </div>
 
     <!-- Place to select the fifth most desired project -->
     <div class="form-group" ng-show="projectPreferences['fifthChoice']['included']">
       <span class="label label-danger" ng-show="projectPreferences['fifthChoice']['required'] && submitted && takeSurveyForm.fifthChoice.$error.required">Required!</span>
-      <label for="fifthChoice">Fifth Choice Project<span class="required-asterisk" style="color: red" ng-show="projectPreferences['fifthChoice']['required']"> *</span><div class="secondary-text">Select your first preference of project.</div></label>
+      <label for="fifthChoice">{{ projectPreferences['fifthChoice']['label'] }}<span class="required-asterisk" style="color: red" ng-show="projectPreferences['fifthChoice']['required']"> *</span><br /><span class="secondary-text">{{ projectPreferences['fifthChoice']['subtext'] }}</span></label>
       <select name="fifthChoice" ng-model="fifthChoice" ng-options="item.name for item in projects" class="browser-default" ng-required="projectPreferences['fifthChoice']['required']"></select>
     </div>
 
     <!-- Place to leave motivation for the fifth project selection -->
     <div class="form-group" ng-show="projectPreferences['fifthComment']['included']">
       <span class="label label-danger" ng-show="projectPreferences['fifthComment']['required'] && submitted && takeSurveyForm.fifthChoiceComment.$error.required">Required!</span>
-      <label for="fifthChoiceComment">Fifth Preference Motivation<span class="required-asterisk" style="color: red" ng-show="projectPreferences['fifthComment']['required']"> *</span><div class="secondary-text">What about this project makes it of interest to you? Please share your primary motivator in choosing this project (e.g. "Interest in working with sponsor," "Web app development," "Opportunities to develop skill X," etc.).</div></label>
+      <label for="fifthChoiceComment">{{ projectPreferences['fifthComment']['label'] }}<span class="required-asterisk" style="color: red" ng-show="projectPreferences['fifthComment']['required']"> *</span><br /><span class="secondary-text">{{ projectPreferences['fifthComment']['subtext'] }}</span></label>
       <textarea name="fifthChoiceComment" ng-model="fifthChoiceComment" class="materialize-textarea" ng-required="projectPreferences['fifthComment']['required']"></textarea>
     </div><br>
 
     <!-- Area where students can input their ip preferences -->
     <div class="form-group" ng-show="ipPreference['included']">
       <span class="label label-danger" ng-show="ipPreference['required'] && submitted && takeSurveyForm.ipPref.$error.required">Required!</span>
-      <label>IP Preference<span class="required-asterisk" style="color: red" ng-show="ipPreference['required']"> *</span><div class="secondary-text">Sponsor preference with respect to Intellectual Property rights has been posted on Moodle. Options range from the sponsors possibly requesting to retain all IP rights, to the students retaining IP rights.</div></label><br>
+      <label>IP Preference<span class="required-asterisk" style="color: red" ng-show="ipPreference['required']"> *</span><br /><span class="secondary-text">{{ ipPreference.subtext }}</span></label><br>
       <input type="radio" class="with-gap" name="ipPref" ng-model="ipPref" id="retain" value="RETAIN" ng-required="ipPreference['required']" ng-show="ipOptions['retainIncluded']" />
       <label for="retain" ng-show="ipOptions['retainIncluded']">{{ ipOptions['retain'] }}</label><br>
       <input type="radio" class="with-gap" name="ipPref" ng-model="ipPref" id="depends" value="NO_PREF" ng-required="ipPreference['required']" ng-show="ipOptions['dependsIncluded']" />
@@ -100,7 +100,7 @@
     <!-- Area where students can designate what level of leadership they want -->
     <div class="form-group" ng-show="leadership['included']">
       <span class="label label-danger" ng-show="leadership['required'] && submitted && takeSurveyForm.lead.$error.required">Required!</span>
-      <label>Leadership Role<span class="required-asterisk" style="color: red" ng-show="leadership['required']"> *</span><div class="secondary-text">What is your preferred leadership role?</div></label><br>
+      <label>Leadership Role<span class="required-asterisk" style="color: red" ng-show="leadership['required']"> *</span><br /><span class="secondary-text">{{ leadership.subtext }}</span></label><br>
       <input type="radio" class="with-gap" name="lead" ng-model="lead" id="STRONG_FOLLOW" value="STRONG_FOLLOW" ng-required="leadership['required']" ng-show="leadershipOptions['strongFollowIncluded']" />
       <label for="STRONG_FOLLOW" ng-show="leadershipOptions['strongFollowIncluded']">{{ leadershipOptions.strongFollow }}</label><br>
       <input type="radio" class="with-gap" name="lead" ng-model="lead" id="PREFER_FOLLOW" value="PREFER_FOLLOW" ng-required="leadership['required']" ng-show="leadershipOptions['preferFollowIncluded']" />
@@ -116,14 +116,14 @@
     <!-- Place to input requested partners -->
     <div class="form-group" ng-show="preferred['included']">
       <span class="label label-danger" ng-show="preferred['required'] && submitted && takeSurveyForm.requestedPartners.$error.required">Required!</span>
-      <label for="requestedPartners">Prefer to work with<span class="required-asterisk" style="color: red" ng-show="preferred['required']"> *</span><div class="secondary-text">Identify any individuals you would like to be on your team.</div></label>
+      <label for="requestedPartners">Prefer to work with<span class="required-asterisk" style="color: red" ng-show="preferred['required']"> *</span><br /><span class="secondary-text">{{ preferred.subtext }}</span></label>
       <input name="requestedPartners" ng-model="requestedPartners" ng-list ng-required="preferred['required']" />
     </div>
 
     <!-- Area to input partners one doesn't want to work with -->
     <div class="form-group" ng-show="banned['included']">
       <span class="label label-danger" ng-show="banned['required'] && submitted && takeSurveyForm.bannedPartners.$error.required">Required!</span>
-      <label for="bannedPartners">Prefer not to work with<span class="required-asterisk" style="color: red" ng-show="banned['required']"> *</span><div class="secondary-text">Identify any individuals you would not work well with.</div></label>
+      <label for="bannedPartners">Prefer not to work with<span class="required-asterisk" style="color: red" ng-show="banned['required']"> *</span><br /><span class="secondary-text">{{ banned.subtext }}</span></label>
       <input name="bannedPartners" ng-model="bannedPartners" ng-list ng-required="banned['required']" />
     </div><br>
 

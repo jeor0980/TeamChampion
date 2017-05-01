@@ -2,12 +2,12 @@
   <h1>{{ title }}</h1>
 
   <h2>Skills and Background</h2>
-  <p>{{ message2 }}</p>
+  <p>{{ description['page_two'] }}</p>
 
   <form name="takeSurveyForm" novalidate role="form">
     <!-- Table where users select their ability at different skills -->
     <div class="form-group">
-      <label>Software Development Skill Levels<div class="secondary-text">How strong are your skills in the following areas?</div></label>
+      <label>Software Development Skill Levels<br /><span class="secondary-text">How strong are your skills in the following areas?</span></label>
       <table class="striped">
         <thead>
           <tr>
@@ -50,7 +50,7 @@
 
     <!-- Area where students can select which skills they'd like to improve upon -->
     <div class="form-group">
-      <label>Skill Improvement<div class="secondary-text">What areas are you interested in learning or strengthening your skill set?</div></label>
+      <label>Skill Improvement<br /><span class="secondary-text">What areas are you interested in learning or strengthening your skill set?</span></label>
 
       <!-- Loop through skills instructor set as being options to improve, allow the students to check each-->
       <div class="row" ng-repeat="skill in desiredSkills">

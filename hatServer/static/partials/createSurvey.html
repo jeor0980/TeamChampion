@@ -13,12 +13,6 @@
         <input type="text" name="surveyName" ng-model="surveyName" class="form-control" required />
       </div>
 
-      <!-- Section to input survey description for first page -->
-      <div class="form-control">
-        <label for="surveyDescription">Survey Description</label>
-        <textarea name="surveyDescription" ng-model="surveyDescription" class="materialize-textarea"></textarea>
-      </div>
-
       <!-- Section to input how many students will be sorted into teams -->
       <div class="row">
         <span class="label label-danger" ng-show="submitted && createSurveyForm.studentCount.$error.requred">Required!</span>
@@ -45,23 +39,29 @@
 
       <!-- Section to input how many projects there are for dynamic loading -->
       <div class="row">
-        <label for="projectCount">How many projects will there considered?</label>
+        <label for="projectCount">How many projects will be considered?</label>
         <input type="number" name="projectCount" ng-model="projectCount" />
       </div>
     </div>
 
-    <p>Select questions that you would like your students to be asked, and customize them according to your needs.</p>
+    <p>Select questions that you would like your students to be asked on the first page of the student survey, and customize them according to your needs.</p>
 
     <!-- Section to input information about the first page of the survey -->
     <div class="card-panel">
+      <!-- Section to input description of first page-->
+      <div class="form-control">
+        <label for="firstPage">What description/introduction would you like to display on the first page of the student survey?</label>
+        <textarea class="materialize-textarea" name="firstPage" ng-model="surveyDescription['page_one']"></textarea>
+      </div>
+
       <!-- Section to input first name information -->
       <div class="form-control">
         <div class="row">
-          <div class="col s6">
+          <div class="col s4">
             <input type="checkbox" name="firstName" id="firstName" ng-model="firstName['included']" />
             <label for="firstName">Student First Name</label>
           </div>
-          <div class="switch col s6">
+          <div class="switch col s4">
             <label for="firstNameRequired">
               Optional
               <input type="checkbox" name="firstNameRequired" id="firstNameRequired" ng-model="firstName['required']" />
@@ -69,14 +69,18 @@
               Required
             </label>
           </div>
+          <div class="col s4">
+            <label for="firstNameSubtext">Description of first name</label>
+            <textarea class="materialize-textarea" name="firstNameSubtext" ng-model="firstName['subtext']"></textarea>
+          </div>
         </div>
         <!-- Section to input last name information -->
         <div class="row">
-          <div class="col s6">
+          <div class="col s4">
             <input type="checkbox" name="lastName" id="lastName" ng-model="lastName['included']" />
             <label for="lastName">Student Last Name</label>
           </div>
-          <div class="switch col s6">
+          <div class="switch col s4">
             <label for="lastNameRequired">
               Optional
               <input type="checkbox" name="lastNameRequired" id="lastNameRequired" ng-model="lastName['required']" />
@@ -84,14 +88,18 @@
               Required
             </label>
           </div>
+          <div class="col s4">
+            <label for="lastNameSubtext">Description of last name</label>
+            <textarea class="materialize-textarea" name="lastNameSubtext" ng-model="lastName['subtext']"></textarea>
+          </div>
         </div>
         <!-- Section to input preferred name information -->
         <div class="row">
-          <div class="col s6">
+          <div class="col s4">
             <input type="checkbox" name="preferredName" id="preferredName" ng-model="preferredName['included']" />
             <label for="preferredName">Student Preferred Name</label>
           </div>
-          <div class="switch col s6">
+          <div class="switch col s4">
             <label for="preferredNameRequired">
               Optional
               <input type="checkbox" name="preferredNameRequired" id="preferredNameRequired" ng-model="preferredName['required']" />
@@ -99,14 +107,18 @@
               Required
             </label>
           </div>
+          <div class="col s4">
+            <label for="preferredNameSubtext">Description of preferred name</label>
+            <textarea class="materialize-textarea" name="preferredNameSubtext" ng-model="preferredName['subtext']"></textarea>
+          </div>
         </div>
         <!-- Section to input overall GPA information -->
         <div class="row">
-          <div class="col s6">
+          <div class="col s4">
             <input type="checkbox" name="gpa" id="gpa" ng-model="overallGPA['included']" />
             <label for="gpa">Overall GPA</label>
           </div>
-          <div class="switch col s6">
+          <div class="switch col s4">
             <label for="gpaRequired">
               Optional
               <input type="checkbox" name="gpaRequired" id="gpaRequired" ng-model="overallGPA['required']" />
@@ -114,14 +126,18 @@
               Required
             </label>
           </div>
+          <div class="col s4">
+            <label for="gpaSubtext">Description for Overall GPA</label>
+            <textarea class="materialize-textarea" name="gpaSubtext" ng-model="overallGPA['subtext']"></textarea>
+          </div>
         </div>
         <!-- Section to input CS GPA information -->
         <div class="row">
-          <div class="col s6">
+          <div class="col s4">
             <input type="checkbox" name="csgpa" id="csgpa" ng-model="csGPA['included']" />
             <label for="csgpa">Compter Science GPA</label>
           </div>
-          <div class="switch col s6">
+          <div class="switch col s4">
             <label for="csgpaRequired">
               Optional
               <input type="checkbox" name="csgpaRequired" id="csgpaRequired" ng-model="csGPA['required']" />
@@ -129,39 +145,25 @@
               Required
             </label>
           </div>
+          <div class="col s4">
+            <label for="csgpaSubtext">Description for CS GPA</label>
+            <textarea class="materialize-textarea" name="csgpaSubtext" ng-model="csGPA['subtext']"></textarea>
+          </div>
         </div>
       </div>
     </div>
 
-    <p>Select skills that your students will be asked to rank themselves in terms of competency.</p>
+    <p>The second page of the survey will be focused on students' skills and competencies. Select skills that your students will be asked to rank themselves in terms of competency.</p>
     <!-- Section to input information for the second page of the student survey -->
     <div class="card-panel">
-      <div class="row">
-        Categories students may use to rank themselves:
-      </div>
-
-      <!-- How students will be asked to rank themselves on skills they posses -->
-      <div class="row">
-        <div class="col s3">
-          <input type="checkbox" name="expert" id="expert" ng-model="skillCategories['expert']" />
-          <label for="expert">Expert</label>
-        </div>
-        <div class="col s3">
-          <input type="checkbox" name="good" id="good" ng-model="skillCategories['good']" />
-          <label for="good">Good</label>
-        </div>
-        <div class="col s3">
-          <input type="checkbox" name="basic" id="basic" ng-model="skillCategories['basic']" />
-          <label for="basic">Basic</label>
-        </div>
-        <div class="col s3">
-          <input type="checkbox" name="none" id="none" ng-model="skillCategories['none']" />
-          <label for="none">None</label>
-        </div>
+      <!-- Second page survey description-->
+      <div class="form-control">
+        <label for="secondPage">What description/introduction would you like to display on the second page of the student survey?</label>
+        <textarea class="materialize-textarea" name="secondPage" ng-model="surveyDescription['page_two']"></textarea>
       </div>
 
       <div class="row">
-        <p>Skills the students will be asked about.</p>
+        <p>Skills the students will be asked to rank themselves as: 'expert', 'good', 'basic', or 'none'.</p>
       </div>
 
       <!-- Loops through all skills students will be asked to rate themselves in, allows the instructor to set 
@@ -191,22 +193,28 @@
         </div>
 
         <!-- Section where instructor can add and remove skills the students might be interested in learning-->
+        <p>Select and input skills students may profess a desire to learn.</p>
         <md-chips ng-model="desiredSkills"></md-chips>
       </div>
     </div>
 
     <!-- Section to input information about the last page of the survey-->
     <div class="card-panel">
+      <!-- Description of second page -->
+      <div class="form-control">
+        <label for="thirdPage">What description/introduction would you like to display on the third page of the student survey?</label>
+        <textarea class="materialize-textarea" name="thirdPage" ng-model="surveyDescription['page_three']"></textarea>
+      </div>
 
       <!-- Loops through all the questions students will be asked about their project preferences; allows
         the instructors to set questions as required or included -->
       <div ng-repeat="option in projectPreferences">
         <div class="row">
-          <div class="col s6">
+          <div class="col s4">
             <input type="checkbox" name="{{ option.name }}" id="{{ option.name }}" ng-model="projectPreferences[option.name]['included']" />
             <label for="{{ option.name }}">{{ option.label }}</label>
           </div>
-          <div class="switch col s6">
+          <div class="switch col s4">
             <label>
               Optional
               <input type="checkbox" name="{{ option.name + 'Required'}}" id="{{ option.name + 'Required' }}" ng-model="projectPreferences[option.name]['required']" />
@@ -215,22 +223,30 @@
               {{ projectPreferences[option]['required']}}
             </label>
           </div>
+          <div class="col s4">
+            <label for="{{ option.name + 'Subtext' }}">Description for {{ option.label }}</label>
+            <textarea class="materialize-textarea" name="{{ option.name + 'Subtext' }}" ng-model="projectPreferences[option.name]['subtext']"></textarea>
+          </div>
         </div>
       </div>
 
       <!-- Section where instructor inputs information about the IP preference response -->
       <div class="row">
-        <div class="col s6">
+        <div class="col s4">
           <input type="checkbox" name="ipPref" id="ipPref" ng-model="ipPreference['included']" />
           <label for="ipPref">IP Preference</label>
         </div>
-        <div class="switch col s6">
+        <div class="switch col s4">
           <label>
             Optional
             <input type="checkbox" name="ipPrefRequired" id="ipPrefRequired" ng-model="ipPreference['required']" />
             <span class="lever"></span>
             Required
           </label>
+        </div>
+        <div class="col s4">
+          <label for="ipPrefSubtext">Description for IP Preference</label>
+          <textarea class="materialize-textarea" name="ipPrefSubtext" ng-model="ipPreference['subtext']"></textarea>
         </div>
       </div>
 
@@ -253,17 +269,21 @@
 
       <!-- Section where instructor can select if leadership is a required or available category -->
       <div class="row">
-        <div class="col s6">
+        <div class="col s4">
           <input type="checkbox" name="lead" id="lead" ng-model="leadership['included']" />
           <label for="lead">Leadership Role</label>
         </div>
-        <div class="switch col s6">
+        <div class="switch col s4">
           <label>
             Optional
             <input type="checkbox" name="leadRequired" id="leadRequired" ng-model="leadership['required']" />
             <span class="lever"></span>
             Required
           </label>
+        </div>
+        <div class="col s4">
+          <label for="leadSubtext">Description for leadership role</label>
+          <textarea class="materialize-textarea" name="leadSubtext" ng-model="leadership['subtext']"></textarea>
         </div>
       </div>
 
@@ -294,11 +314,11 @@
 
       <!-- Section where an instructor can change students inputting who they want to work with -->
       <div class="row">
-        <div class="col s6">
+        <div class="col s4">
           <input type="checkbox" name="preferredPartners" id="preferredPartners" ng-model="preferredPartners['included']" />
           <label for="preferredPartners">Preferred Partners</label>
         </div>
-        <div class="switch col s6">
+        <div class="switch col s4">
           <label>
             Optional
             <input type="checkbox" name="preferredPartnersRequired" id="preferredPartnersRequired" ng-model="preferredPartners['required']" />
@@ -306,21 +326,29 @@
             Required
           </label>
         </div>
+        <div class="col s4">
+          <label for="preferredPartnersSubtext">Description for requested partners</label>
+          <textarea class="materialize-textarea" name="preferredPartnersSubtext" ng-model="preferredPartners['subtext']"></textarea>
+        </div>
       </div>
 
       <!-- Section where an instructor can change students inputting who they CAN'T work with -->
       <div class="row">
-        <div class="col s6">
+        <div class="col s4">
           <input type="checkbox" name="bannedPartners" id="bannedPartners" ng-model="bannedPartners['included']" />
           <label for="bannedPartners">Banned Partners</label>
         </div>
-        <div class="switch col s6">
+        <div class="switch col s4">
           <label>
             Optional
             <input type="checkbox" name="bannedPartnersRequired" id="bannedPartnersRequired" ng-model="bannedPartners['required']" />
             <span class="lever"></span>
             Required
           </label>
+        </div>
+        <div class="col s4">
+          <label for="bannedPartnersSubtext">Description for students requested not to work with</label>
+          <textarea class="materialize-textarea" name="bannedPartnersSubtext" ng-model="bannedPartners['subtext']"></textarea>
         </div>
       </div>
 
@@ -334,10 +362,17 @@
         <label for="maxScore">Maximum preference score allowed for any group</label>
         <input type="number" name="maxScore" ng-model="maxScore" />
       </div>
+
       <!-- Section where rankings are changed if a paid group can't get a high enough average -->
       <div class="row">
         <input type="checkbox" name="changeRatings" id="changeRatings" ng-model="changeRatings" />
         <label for="changeRatings">Change group rankings if preference requirements are not met</label>
+      </div>
+
+      <!-- Section where one can toggle switching students out of groups or not -->
+      <div class="row">
+        <input type="checkbox" name="attemptReplace" id="attemptReplace" ng-model="attemptReplace" />
+        <label for="attemptReplace">Attempt to replace a student if a better match for that group can be found</label>
       </div>
 
       <p>Similarly, our algorithm operates by weighting certain criterion higher than others. If you wish to change the weighting of any criteria different from the default, please input those changes here</p>
@@ -361,6 +396,10 @@
       <div class="row">
         <label for="ecWeight">How much of a boost should students receive for doing the extra credit?</label>
         <input type="number" name="ecWeight" ng-model="weights['extraCredit']" />
+      </div>
+      <div class="row">
+        <label for="enemyWeight">Weight of a student's desire to avoid certain individuals</label>
+        <input type="number" name="enemyWeight" ng-model="weights['enemy']" />
       </div>
       <div class="row">
         <input type="checkbox" name="leadImportant" id="leadImportant" ng-model="leadership['important']" />

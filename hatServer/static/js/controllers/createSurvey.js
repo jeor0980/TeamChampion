@@ -16,6 +16,8 @@ sortingApp.controller('createSurveyController', function ($scope, $window, $http
         surveyQuestions.setStudentCount(data['STUDENT_COUNT']);
         surveyQuestions.setChangeRatings(data['SUBVERT_FOR_PAY']);
         surveyQuestions.setMaxScore(data['MIN_PAID_AVG_PREF_SCORE']);
+        surveyQuestions.setWeight('enemy', data['ENEMY_WEIGHT']);
+        surveyQuestions.setAttemptReplace(data['ATTEMPT_REPLACE']);
     });
     // we'll need a way to validate that the survey is filled before instructors may submit
     $scope.submitted = false;
@@ -35,7 +37,6 @@ sortingApp.controller('createSurveyController', function ($scope, $window, $http
     $scope.preferredName = surveyQuestions.getPreferredName();
     $scope.overallGPA = surveyQuestions.getOverallGPA();
     $scope.csGPA = surveyQuestions.getCsGPA();
-    $scope.skillCategories = surveyQuestions.getSkillCategories();
     $scope.ipPreference = surveyQuestions.getIpPreference();
     $scope.ipOptions = surveyQuestions.getIpOptions();
     $scope.leadership = surveyQuestions.getLeadership();
@@ -44,6 +45,7 @@ sortingApp.controller('createSurveyController', function ($scope, $window, $http
     $scope.bannedPartners = surveyQuestions.getBannedPartners();
     $scope.maxScore = surveyQuestions.getMaxScore();
     $scope.changeRatings = surveyQuestions.getChangeRatings();
+    $scope.attemptReplace = surveyQuestions.getAttemptReplace();
     $scope.weights = surveyQuestions.getWeights();
 
     // Called when the instructor has finished selecting survey options, required and otherwise
@@ -68,7 +70,6 @@ sortingApp.controller('createSurveyController', function ($scope, $window, $http
         surveyQuestions.setPreferredName($scope.preferredName);
         surveyQuestions.setOverallGPA($scope.overallGPA);
         surveyQuestions.setCsGPA($scope.csGPA);
-        surveyQuestions.setSkillCategories($scope.skillCategories);
         surveyQuestions.setMaxSkills($scope.maxSkills);
         surveyQuestions.setDesiredSkills($scope.desiredSkills);
         surveyQuestions.setIpPreference($scope.ipPreference);
@@ -95,7 +96,9 @@ sortingApp.controller('createSurveyController', function ($scope, $window, $http
             'STUDENT_COUNT': surveyQuestions.getStudentCount(),
             'SUBVERT_FOR_PAY': surveyQuestions.getChangeRatings(),
             'MIN_PAID_AVG_PREF_SCORE': surveyQuestions.getMaxScore(),
-            'EXTRA_CREDIT': surveyQuestions.getWeights()['extraCredit']
+            'EXTRA_CREDIT': surveyQuestions.getWeights()['extraCredit'],
+            'ENEMY_WEIGHT': surveyQuestions.getWeights()['enemy'],
+            'ATTEMPT_REPLACE': surveyQuestions.getAttemptReplace()
         };
         
         // Fire the API request to send data to backend for further use

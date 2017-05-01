@@ -2,7 +2,11 @@
 
 sortingApp.service('surveyQuestions', function () {
     var surveyName = "";
-    var surveyDescription = 'HELLO JESSICA YOU DA BEST';
+    var surveyDescription = {
+        'page_one': 'HELLO JESSICA YOU DA BEST',
+        'page_two': 'The following are some questions about your skillset and experiences that will help us diversify team talents',
+        'page_three': 'And now the moment you have been waiting for. Please rank your top five project choices, and indicate your primary motivation for wanting to work on each project you rank. (Note that while this survey allows you to choose the same project for all five ranks, actually doing so will only make things more difficult for yourself and for us if we are not able to honor your top choice).'
+    };
     var maxSkills = null; // max number of skills a student can request to learn
     // skills a student may want to learn
     var desiredSkills = ['Java', 'Python', 'PHP', 'C/C++', 'Mobile App Development (Android/iOS)', 'Web Applications', 'Embedded Systems', 'Database (MySQL, SQL, etc.)', 'User Interface/Experience', 'Statistics', 'Networking',
@@ -19,30 +23,28 @@ sortingApp.service('surveyQuestions', function () {
     // included denotes whether a field will be displayed, required denotes whether a student must provide information
     var firstName = {
         included: true,
-        required: true
+        required: true,
+        subtext: ""
     };
     var lastName = {
         included: true,
-        required: true
+        required: true,
+        subtext: ""
     };
     var preferredName = {
         included: true,
-        required: false
+        required: false,
+        subtext: "How would you like to be addressed, if different than your formal name?"
     };
     var overallGPA = {
         included: true,
-        required: true
+        required: true,
+        subtext: "What is your current overall GPA?"
     };
     var csGPA = {
         included: true,
-        required: true
-    };
-    // students will be asked to rank themselves in certain skills, of these categories
-    var skillCategories = {
-        expert: true,
-        good: true,
-        basic: true,
-        none: true
+        required: true,
+        subtext: "What is your current GPA, only considering your Computer Science classes?"
     };
     // Categories a student will be asked to rank themselves in terms of competency
     var rankedCategories = {
@@ -125,73 +127,85 @@ sortingApp.service('surveyQuestions', function () {
             label: 'Machine Learning'
         }
     };
+    var commentSubtext = "What about this project makes it of interest to you? Please share your primary motivator in choosing this project (e.g.\"Interest in working with sponsor, \" \"Web app development, \" \"Opportunities to develop skill X,\" etc.).";
     // Holds data about what elements of project preferences students will be required to input
     var projectPreferences = {
         firstChoice: {
             included: true,
             required: true,
             label: 'First Choice',
-            name: 'firstChoice'
+            name: 'firstChoice',
+            subtext: 'Select your first preference of project.'
         },
         firstComment: {
             included: true,
             required: false,
-            label: 'First Choice Comment',
-            name: 'firstComment'
+            label: 'First Preference Motivation',
+            name: 'firstComment',
+            subtext: commentSubtext
         },
         secondChoice: {
             included: true,
             required: true,
             label: 'Second Choice',
-            name: 'secondChoice'
+            name: 'secondChoice',
+            subtext: 'Select your second preference of project.'
         },
         secondComment: {
             included: true,
             required: false,
-            label: 'Second Choice Comment',
-            name: 'secondComment'
+            label: 'Second Preference Motivation',
+            name: 'secondComment',
+            subtext: commentSubtext
         },
         thirdChoice: {
             included: true,
             required: true,
             label: 'Third Choice',
-            name: 'thirdChoice'
+            name: 'thirdChoice',
+            subtext: 'Select your third preference of project.'
         },
         thirdComment: {
             included: true,
             required: false,
-            label: 'Third Choice Comment',
-            name: 'thirdComment'
+            label: 'Third Preference Motivation',
+            name: 'thirdComment',
+            subtext: commentSubtext
         },
         fourthChoice: {
             included: true,
             required: true,
             label: 'Fourth Choice',
-            name: 'fourthChoice'
+            name: 'fourthChoice',
+            subtext: 'Select your fourth preference of project.'
         },
         fourthComment: {
             included: true,
             required: false,
-            label: 'Fourth Choice Comment',
-            name: 'fourthComment'
+            label: 'Fourth Preference Motivation',
+            name: 'fourthComment',
+            subtext: commentSubtext
         },
         fifthChoice: {
             included: true,
             required: true,
             label: 'Fifth Choice',
-            name: 'fifthChoice'
+            name: 'fifthChoice',
+            subtext: 'Select your fifth preference of project.'
         },
         fifthComment: {
             included: true,
             required: false,
-            label: 'Fifth Choice Comment',
-            name: 'fifthComment'
+            label: 'Fifth Preference Motivation',
+            name: 'fifthComment',
+            subtext: commentSubtext
         }
     };
     // Whether a student will be asked and required to answer questions about their ip preferences
     var ipPreference = {
         included: true,
-        required: true
+        required: true,
+        subtext: "Sponsor preference with respect to Intellectual Property rights has been posted on Moodle. Options range from the sponsors possibly requesting to retain all IP rights, to the students retaining IP rights."
     };
     // the different options a student may answer for their ip preferences
     var ipOptions = {
@@ -207,7 +221,8 @@ sortingApp.service('surveyQuestions', function () {
     var leadership = {
         included: true,
         required: true,
-        important: true
+        important: true,
+        subtext: "What is your preferred leadership role?"
     };
     // The options a student may select for their leadership preferences
     var leadershipOptions = {
@@ -225,24 +240,29 @@ sortingApp.service('surveyQuestions', function () {
     // whether a student will be asked and required to input who they'd like to work with
     var preferredPartners = {
         included: true,
-        required: false
+        required: false,
+        subtext: "Identify any individuals you would like to be on your team."
     };
     // whether a student will be asked and required to input who they won't work with
     var bannedPartners = {
         included: true,
-        required: false
+        required: false,
+        subtext: "Identify any individuals you would not work well with."
     };
     // highest (in magnitude) preference score allowed for any paid project
     var maxScore = null;
     // flag whether the preference rankings of paid projects may be altered
     var changeRatings = false;
+    // Attempt to replace students if better matches are found
+    var attemptReplace = false;
     // The algorithm will use these weights to sort accounting for the relative importance of each of these
     var weights = {
         known: null,
         learn: null,
         group: null,
         ip: null,
-        extraCredit: null
+        extraCredit: null,
+        enemy: null
     };
 
     // getter and setter methods for all of the above fields
@@ -341,13 +361,6 @@ sortingApp.service('surveyQuestions', function () {
             if (!csGPA.included) csGPA.required = false;
         },
 
-        getSkillCategories: function () {
-            return skillCategories;
-        },
-        setSkillCategories: function (value) {
-            skillCategories = value;
-        },
-
         getRankedCategories: function () {
             return rankedCategories;
         },
@@ -431,6 +444,13 @@ sortingApp.service('surveyQuestions', function () {
         },
         setChangeRatings: function (value) {
             changeRatings = value;
+        },
+
+        getAttemptReplace: function () {
+            return attemptReplace;
+        },
+        setAttemptReplace: function (value) {
+            attemptReplace = value;
         },
 
         getWeights: function () {

@@ -27,10 +27,6 @@ sortingApp.controller('takeSurveyController', function ($scope, $http, $window, 
         $scope.banned = data['bannedPartners'];
     });
 
-    // TODO: ask the instructors to input these instead of having them hard-coded
-    $scope.message2 = 'The following are some questions about your skillset and experiences that will help us diversify team talents.';
-    $scope.message3 = 'And now the moment you have been waiting for. Please rank your top five project choices, and indicate your primary motivation for wanting to work on each project you rank. (Note that while the survey allows you to choose the same project for all five ranks, actually doing so will only make things more difficult for yourself and for us if we are not able to honor your top choice.';
-
     // function called after completion of the first survey page
     // validates form and redirects to the second page, after updating service variables
     $scope.sendSurveyPage1 = function (form) {

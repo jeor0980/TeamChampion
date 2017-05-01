@@ -22,7 +22,6 @@ sortingApp.controller('projectsInputController', function ($scope, $http, $windo
             'preferredName': surveyQuestions.getPreferredName(),
             'gpa': surveyQuestions.getOverallGPA(),
             'csgpa': surveyQuestions.getCsGPA(),
-            'skillCategories': surveyQuestions.getSkillCategories(),
             'rankedCategories': surveyQuestions.getRankedCategories(),
             'projects': projectInformation.getProjects(),
             'projectPreferences': surveyQuestions.getProjectPreferences(),
