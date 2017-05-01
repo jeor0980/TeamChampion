@@ -76,6 +76,15 @@ footer.page-footer .footer-copyright {
 }
 
 .carousel-slider {
-    height: 500px !important;
+    /*height: 800px !important;*/
     
+}
+
+/*.carousel.carousel-slider .carousel-fixed-item.with-indicators {
+     bottom: 15px; 
+}*/
+
+.carousel .indicators .indicator-item {
+    margin: 4px 4px;
+
 }
