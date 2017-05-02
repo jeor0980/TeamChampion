@@ -1,8 +1,106 @@
 // create the controller and inject Angular's $scope
+<<<<<<< HEAD
+<<<<<<< HEAD
+sortingApp.controller('mainController', function ($scope, userInformation, Upload) {
+    $scope.uploadGroup = function (file) {
+        console.log(file)
+        Upload.upload({
+            url: 'upload/group',
+            headers: {
+                'Content-Type': file.type
+            },
+            file: file
+        }).then(function (resp) {
+            console.log('Success ' + resp.config.file.name + ' uploaded. Response: ' + resp.config.file);
+        }, function (resp) {
+            console.log('Error status: ' + resp.status);
+        }, function (evt) {
+            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            console.log('Progress: ' + progressPercentage + '% ' + evt.config.file.name);
+        });
+    }
+=======
 sortingApp.controller('mainController', function($scope, userInformation) {
+>>>>>>> 6dca6076f5586e4c641b6790512650a83fca434d
 
+    $scope.upload = function (file) {
+        console.log(file)
+        Upload.upload({
+            url: 'upload/student',
+            headers: {
+                'Content-Type': file.type
+            },
+            file: file
+        }).then(function (resp) {
+            console.log('Success ' + resp.config.file.name + ' uploaded. Response: ' + resp.config.file);
+        }, function (resp) {
+            console.log('Error status: ' + resp.status);
+        }, function (evt) {
+            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            console.log('Progress: ' + progressPercentage + '% ' + evt.config.file.name);
+        });
+    }
 });
 
+<<<<<<< HEAD
+sortingApp.controller('buildController', function ($scope, $http, userInformation) {
+
+    //Check if user is authenticated
+    $scope.givenName = userInformation.getGivenName();
+
+    if (userInformation.getIsLoggedIn() == false){
+      window.alert("You must be logged in to view this page.");
+      $window.location.href = '/';
+    }   
+
+    data = {};
+
+    $scope.buildStudents = function () {
+        // Fire the API request
+        $http.post('/build', data).success(function (results) {
+            console.log('BUILDING THEM Students');
+        }).error(function (err) {
+            console.log(err);
+        });
+    }
+});
+
+sortingApp.controller('sortController', function ($scope, $http, userInformation) {
+
+
+
+        //Check if user is authenticated
+    $scope.givenName = userInformation.getGivenName();
+
+    if (userInformation.getIsLoggedIn() == false){
+      window.alert("You must be logged in to view this page.");
+      $window.location.href = '/';
+    }   
+//Check if user is authenticated
+    $scope.givenName = userInformation.getGivenName();
+
+    if (userInformation.getIsLoggedIn() == false){
+      window.alert("You must be logged in to view this page.");
+      $window.location.href = '/';
+    }   
+
+    data = {};
+
+    $scope.sortStudents = function () {
+        // Fire the API request
+        $http.post('/sort', data).success(function (results) {
+            console.log('SORTING THEM BITHCES');
+        }).error(function (err) {
+            console.log(err);
+        });
+    }
+=======
+sortingApp.controller('mainController', function ($scope, userInformation) {
+>>>>>>> 3a9513255fe820ccb5575c8827602d40e089efa4
+});
+
+=======
+>>>>>>> 6dca6076f5586e4c641b6790512650a83fca434d
 sortingApp.controller('profileController', function($scope, $window, userInformation) {
     //TODO: Destroy function
 
@@ -33,7 +131,12 @@ sortingApp.controller('takeSurveyController', function($scope, $http, $window, s
       window.alert("You must be logged in to view this page.");
       $window.location.href = '/';
     }   
+<<<<<<< HEAD
+
+<<<<<<< HEAD
+=======
  
+>>>>>>> 6dca6076f5586e4c641b6790512650a83fca434d
     $scope.message1 = 'Survey to gather student preferences and abilities in support of forming teams for CU Boulder Senior Projects.';
     $scope.message2 = 'The following are some questions about your skillset and experiences that will help us diversify team talents.';
     $scope.message3 = 'And now the moment you have been waiting for. Please rank your top five project choices, and indicate your primary motivation for wanting to work on each project you rank. (Note that while the survey allows you to choose the same project for all five ranks, actually doing so will only make things more difficult for yourself and for us if we are not able to honor your top choice.';
@@ -173,6 +276,12 @@ sortingApp.controller('surveySuccessController', function($scope, userInformatio
     $scope.message = 'Congratulations! Your results have been submitted!';
 });
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 0fc841a868ec2af40ea81c850feb9b7df0c143b7
+=======
+>>>>>>> 6dca6076f5586e4c641b6790512650a83fca434d
 sortingApp.controller('GoogleCtrl', function($route, $scope, $window, $http, userInformation) {
 
   function onSignIn(googleUser) {

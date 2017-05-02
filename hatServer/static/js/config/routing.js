@@ -47,7 +47,15 @@ sortingApp.config(function($routeProvider) {
         // route for the login page
         .when('/login', {
             title: 'Login',
+<<<<<<< HEAD
+<<<<<<< HEAD
+            templateUrl : 'static/partials/login.html',
+=======
             templateUrl: 'static/partials/login.html',
+>>>>>>> 3a9513255fe820ccb5575c8827602d40e089efa4
+=======
+            templateUrl: 'static/partials/login.html',
+>>>>>>> 6dca6076f5586e4c641b6790512650a83fca434d
         })
 
         // route for taking a new survey
