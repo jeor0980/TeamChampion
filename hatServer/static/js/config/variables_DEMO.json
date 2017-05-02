@@ -1,0 +1,17 @@
+{
+    "GROUP_WEIGHT": 2, 
+    "MAX_SKILL_LEN": null, 
+    "ENEMY_WEIGHT": 3, 
+    "KNOWN_WEIGHT": 2, 
+    "ATTEMPT_REPLACE": true, 
+    "OPT_SIZE": 5, 
+    "LEADERSHIP_MATTERS": true, 
+    "SUBVERT_FOR_PAY": false, 
+    "MIN_SIZE": 4, 
+    "LEARN_WEIGHT": 2, 
+    "STUDENT_COUNT": 97, 
+    "EXTRA_CREDIT": 1, 
+    "MIN_PAID_AVG_PREF_SCORE": null, 
+    "MAX_SIZE": 6, 
+    "IP_WEIGHT": 0.5
+}

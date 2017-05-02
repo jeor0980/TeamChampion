@@ -1,0 +1,423 @@
+{
+    "csgpa": {
+        "included": true, 
+        "required": true, 
+        "subtext": "What is your current GPA, only considering your Computer Science classes?"
+    }, 
+    "ipPreference": {
+        "included": true, 
+        "required": true, 
+        "subtext": "Sponsor preference with respect to Intellectual Property rights has been posted on Moodle. Options range from the sponsors possibly requesting to retain all IP rights, to the students retaining IP rights."
+    }, 
+    "description": {
+        "page_one": "Survey to gather student preferences and abilities in support of forming teams for CU Boulder Senior Projects.\nWe'll start with the basics", 
+        "page_two": "The following are some questions about your skillset and experiences that will help us diversify team talents", 
+        "page_three": "And now the moment you have been waiting for. Please rank your top five project choices, and indicate your primary motivation for wanting to work on each project you rank. (Note that while this survey allows you to choose the same project for all five ranks, actually doing so will only make things more difficult for yourself and for us if we are not able to honor your top choice)."
+    }, 
+    "firstName": {
+        "included": true, 
+        "required": true, 
+        "subtext": ""
+    }, 
+    "title": "2017 Senior Projects Group Formation Survey", 
+    "lastName": {
+        "included": true, 
+        "required": true, 
+        "subtext": ""
+    }, 
+    "gpa": {
+        "included": true, 
+        "required": true, 
+        "subtext": "What is your current overall GPA?"
+    }, 
+    "projectPreferences": {
+        "firstChoice": {
+            "included": true, 
+            "required": true, 
+            "subtext": "Select your first preference of project.", 
+            "name": "firstChoice", 
+            "label": "First Choice"
+        }, 
+        "fifthComment": {
+            "included": true, 
+            "required": false, 
+            "subtext": "What about this project makes it of interest to you? Please share your primary motivator in choosing this project (e.g.\"Interest in working with sponsor, \" \"Web app development, \" \"Opportunities to develop skill X,\" etc.).", 
+            "name": "fifthComment", 
+            "label": "Fifth Preference Motivation"
+        }, 
+        "fifthChoice": {
+            "included": true, 
+            "required": true, 
+            "subtext": "Select your fifth preference of project.", 
+            "name": "fifthChoice", 
+            "label": "Fifth Choice"
+        }, 
+        "secondComment": {
+            "included": true, 
+            "required": false, 
+            "subtext": "What about this project makes it of interest to you? Please share your primary motivator in choosing this project (e.g.\"Interest in working with sponsor, \" \"Web app development, \" \"Opportunities to develop skill X,\" etc.).", 
+            "name": "secondComment", 
+            "label": "Second Preference Motivation"
+        }, 
+        "secondChoice": {
+            "included": true, 
+            "required": true, 
+            "subtext": "Select your second preference of project.", 
+            "name": "secondChoice", 
+            "label": "Second Choice"
+        }, 
+        "thirdComment": {
+            "included": true, 
+            "required": false, 
+            "subtext": "What about this project makes it of interest to you? Please share your primary motivator in choosing this project (e.g.\"Interest in working with sponsor, \" \"Web app development, \" \"Opportunities to develop skill X,\" etc.).", 
+            "name": "thirdComment", 
+            "label": "Third Preference Motivation"
+        }, 
+        "thirdChoice": {
+            "included": true, 
+            "required": true, 
+            "subtext": "Select your third preference of project.", 
+            "name": "thirdChoice", 
+            "label": "Third Choice"
+        }, 
+        "fourthComment": {
+            "included": true, 
+            "required": false, 
+            "subtext": "What about this project makes it of interest to you? Please share your primary motivator in choosing this project (e.g.\"Interest in working with sponsor, \" \"Web app development, \" \"Opportunities to develop skill X,\" etc.).", 
+            "name": "fourthComment", 
+            "label": "Fourth Preference Motivation"
+        }, 
+        "firstComment": {
+            "included": true, 
+            "required": false, 
+            "subtext": "What about this project makes it of interest to you? Please share your primary motivator in choosing this project (e.g.\"Interest in working with sponsor, \" \"Web app development, \" \"Opportunities to develop skill X,\" etc.).", 
+            "name": "firstComment", 
+            "label": "First Preference Motivation"
+        }, 
+        "fourthChoice": {
+            "included": true, 
+            "required": true, 
+            "subtext": "Select your fourth preference of project.", 
+            "name": "fourthChoice", 
+            "label": "Fourth Choice"
+        }
+    }, 
+    "rankedCategories": {
+        "webApplications": {
+            "included": true, 
+            "required": true, 
+            "name": "webApplications", 
+            "label": "Web Applications"
+        }, 
+        "statistics": {
+            "included": true, 
+            "required": true, 
+            "name": "statistics", 
+            "label": "Statistics"
+        }, 
+        "overallProgramming": {
+            "included": true, 
+            "required": true, 
+            "name": "overallProgramming", 
+            "label": "Overall Programming"
+        }, 
+        "databaseDevelopment": {
+            "included": true, 
+            "required": true, 
+            "name": "databaseDevelopment", 
+            "label": "Database Development"
+        }, 
+        "machineLearning": {
+            "included": true, 
+            "required": true, 
+            "name": "machineLearning", 
+            "label": "Machine Learning"
+        }, 
+        "robotics": {
+            "included": true, 
+            "required": true, 
+            "name": "robotics", 
+            "label": "Robotics"
+        }, 
+        "embeddedSystems": {
+            "included": true, 
+            "required": true, 
+            "name": "embeddedSystems", 
+            "label": "Embedded Systems"
+        }, 
+        "computerVision": {
+            "included": true, 
+            "required": true, 
+            "name": "computerVision", 
+            "label": "Computer Vision"
+        }, 
+        "algorithms": {
+            "included": true, 
+            "required": true, 
+            "name": "algorithms", 
+            "label": "Algorithms"
+        }, 
+        "networking": {
+            "included": true, 
+            "required": true, 
+            "name": "networking", 
+            "label": "(Social/Professional) Networking"
+        }, 
+        "mobileApplications": {
+            "included": true, 
+            "required": true, 
+            "name": "mobileApplications", 
+            "label": "Mobile Applications"
+        }, 
+        "security": {
+            "included": true, 
+            "required": true, 
+            "name": "security", 
+            "label": "Security"
+        }, 
+        "userInterface": {
+            "included": true, 
+            "required": true, 
+            "name": "userInterface", 
+            "label": "User Interface/Experience"
+        }
+    }, 
+    "leadership": {
+        "included": true, 
+        "required": true, 
+        "subtext": "What is your preferred leadership role?", 
+        "important": true
+    }, 
+    "leadershipOptions": {
+        "preferLead": "Prefer to be a leader, but will follow when necessary", 
+        "strongFollowIncluded": true, 
+        "strongLeadIncluded": true, 
+        "preferLeadIncluded": true, 
+        "strongFollow": "Strongly prefer to be a follower rather than a leader", 
+        "equalLead": "Enjoy leading and following equally", 
+        "preferFollow": "Prefer to be a follower, but will lead when necessary", 
+        "strongLead": "Strongly prefer to be the leader; do not enjoy being a follower", 
+        "preferFollowIncluded": true, 
+        "equalLeadIncluded": true
+    }, 
+    "ipOptions": {
+        "retainIncluded": true, 
+        "noPrefIncluded": true, 
+        "depends": "Depends on the project", 
+        "dependsIncluded": true, 
+        "noPref": "I don't have a preference to retain IP rights to my work", 
+        "retain": "Prefer to retain IP rights to my work"
+    }, 
+    "preferredPartners": {
+        "included": true, 
+        "required": false, 
+        "subtext": "Identify any individuals you would like to be on your team."
+    }, 
+    "bannedPartners": {
+        "included": true, 
+        "required": false, 
+        "subtext": "Identify any individuals you would not work well with."
+    }, 
+    "desiredSkills": [
+        "Java", 
+        "Python", 
+        "PHP", 
+        "C/C++", 
+        "Mobile App Development (Android/iOS)", 
+        "Web Applications", 
+        "Embedded Systems", 
+        "Database (MySQL, SQL, etc.)", 
+        "User Interface/Experience", 
+        "Statistics", 
+        "Networking", 
+        "Robotics", 
+        "Computer Vision", 
+        "Algorithms", 
+        "Machine Learning"
+    ], 
+    "projects": [
+        {
+            "skills": {
+                "Python": true, 
+                "Java": true
+            }, 
+            "ipPref": "CLOSED", 
+            "name": "", 
+            "paid": true, 
+            "number": "One"
+        }, 
+        {
+            "skills": {}, 
+            "ipPref": "", 
+            "name": "", 
+            "paid": true, 
+            "number": "Two"
+        }, 
+        {
+            "skills": {}, 
+            "ipPref": "", 
+            "name": "", 
+            "paid": true, 
+            "number": "Three"
+        }, 
+        {
+            "skills": {}, 
+            "ipPref": "", 
+            "name": "", 
+            "paid": true, 
+            "number": "Four"
+        }, 
+        {
+            "skills": {}, 
+            "ipPref": "", 
+            "name": "", 
+            "paid": true, 
+            "number": "Five"
+        }, 
+        {
+            "skills": [], 
+            "ipPref": "", 
+            "name": "", 
+            "paid": true, 
+            "number": "Six"
+        }, 
+        {
+            "skills": {}, 
+            "ipPref": "", 
+            "name": "", 
+            "paid": true, 
+            "number": "Seven"
+        }, 
+        {
+            "skills": {}, 
+            "ipPref": "", 
+            "name": "", 
+            "paid": true, 
+            "number": "Eight"
+        }, 
+        {
+            "skills": {}, 
+            "ipPref": "", 
+            "name": "", 
+            "paid": true, 
+            "number": "Nine"
+        }, 
+        {
+            "skills": {}, 
+            "ipPref": "", 
+            "name": "", 
+            "paid": true, 
+            "number": "Ten"
+        }, 
+        {
+            "skills": {}, 
+            "ipPref": "", 
+            "name": "", 
+            "paid": true, 
+            "number": "Eleven"
+        }, 
+        {
+            "skills": {}, 
+            "ipPref": "", 
+            "name": "", 
+            "paid": true, 
+            "number": "Twelve"
+        }, 
+        {
+            "skills": {}, 
+            "ipPref": "", 
+            "name": "", 
+            "paid": true, 
+            "number": "Thirteen"
+        }, 
+        {
+            "skills": {}, 
+            "ipPref": "", 
+            "name": "", 
+            "paid": true, 
+            "number": "Fourteen"
+        }, 
+        {
+            "skills": {}, 
+            "ipPref": "", 
+            "name": "", 
+            "paid": true, 
+            "number": "Fifteen"
+        }, 
+        {
+            "skills": {}, 
+            "ipPref": "", 
+            "name": "", 
+            "paid": true, 
+            "number": "Sixteen"
+        }, 
+        {
+            "skills": {}, 
+            "ipPref": "", 
+            "name": "", 
+            "paid": true, 
+            "number": "Seventeen"
+        }, 
+        {
+            "skills": {}, 
+            "ipPref": "", 
+            "name": "", 
+            "paid": true, 
+            "number": "Eighteen"
+        }, 
+        {
+            "skills": {}, 
+            "ipPref": "", 
+            "name": "", 
+            "paid": true, 
+            "number": "Nineteen"
+        }, 
+        {
+            "skills": {}, 
+            "ipPref": "", 
+            "name": "", 
+            "paid": true, 
+            "number": "Twenty"
+        }, 
+        {
+            "skills": {}, 
+            "ipPref": "", 
+            "name": "", 
+            "paid": true, 
+            "number": "TwentyOne"
+        }, 
+        {
+            "skills": {}, 
+            "ipPref": "", 
+            "name": "", 
+            "paid": true, 
+            "number": "TwentyTwo"
+        }, 
+        {
+            "skills": {}, 
+            "ipPref": "", 
+            "name": "", 
+            "paid": true, 
+            "number": "TwentyThree"
+        }, 
+        {
+            "skills": {}, 
+            "ipPref": "", 
+            "name": "", 
+            "paid": true, 
+            "number": "TwentyFour"
+        }, 
+        {
+            "skills": {}, 
+            "ipPref": "", 
+            "name": "", 
+            "paid": true, 
+            "number": "TwentyFive"
+        }
+    ], 
+    "preferredName": {
+        "included": true, 
+        "required": false, 
+        "subtext": "How would you like to be addressed, if different than your formal name?"
+    }
+}
