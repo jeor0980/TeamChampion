@@ -27,6 +27,22 @@ sortingApp.controller('takeSurveyController', function ($scope, $http, $window, 
         $scope.banned = data['bannedPartners'];
     });
 
+    $scope.firstName = surveyResults.getFirstName();
+    $scope.lastName = surveyResults.getLastName();
+    $scope.preferredName = surveyResults.getPreferredName();
+    $scope.gpa = surveyResults.getOverallGPA();
+    $scope.csgpa = surveyResults.getCsGPA();
+    $scope.skills = surveyResults.getSkills();
+    $scope.firstChoiceComment = surveyResults.getFirstChoiceComment();
+    $scope.secondChoiceComment = surveyResults.getSecondChoiceComment();
+    $scope.thirdChoiceComment = surveyResults.getThirdChoiceComment();
+    $scope.fourthChoiceComment = surveyResults.getFourthChoiceComment();
+    $scope.fifthChoiceComment = surveyResults.getFifthChoiceComment();
+    $scope.requestedPartners = surveyResults.getPreferredPartners();
+    $scope.bannedPartners = surveyResults.getBannedPartners();
+    $scope.ipPref = surveyResults.getIpPreference();
+    $scope.lead = surveyResults.getLeadershipRole();
+
     // function called after completion of the first survey page
     // validates form and redirects to the second page, after updating service variables
     $scope.sendSurveyPage1 = function (form) {
@@ -57,8 +73,8 @@ sortingApp.controller('takeSurveyController', function ($scope, $http, $window, 
         if (form.$invalid) {
             return;
         }
-        for (field in $scope.skills) {
-            surveyResults.setSkills($scope.skills[field], field);
+        for (var field in $scope.rankedSkills) {
+            surveyResults.setSkills($scope.skills[field.name], field.name);
             // set that a student has a skill if they answered 'expert' or 'good'
             if ($scope.skills[field] === 'expert' || $scope.skills[field] === 'good') {
                 surveyResults.setFinalSkills(field);

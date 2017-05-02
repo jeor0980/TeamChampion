@@ -2,26 +2,26 @@
 
 sortingApp.service('surveyResults', function () {
     // store generic information the student inputs
-    var firstName = '';
-    var lastName = '';
+    var firstName = 'Jessica';
+    var lastName = 'Petty';
     var identikey = '';
-    var overallGPA = null;
-    var csGPA = null;
+    var overallGPA = 4.0;
+    var csGPA = 4.0;
     // dictionary to store how the students ranked themselves in each skill
     var skills = {
-        overallProgramming: null,
-        databaseDevelopment: null,
-        embeddedSystems: null,
-        webApplications: null,
-        mobileApplications: null,
-        userInterfaceExperience: null,
-        statistics: null,
-        socialProfessionalNetworking: null,
-        security: null,
-        robotics: null,
-        computerVision: null,
-        algorithms: null,
-        machineLearning: null
+        overallProgramming: 'expert',
+        databaseDevelopment: 'basic',
+        embeddedSystems: 'none',
+        webApplications: 'good',
+        mobileApplications: 'basic',
+        userInterface: 'good',
+        statistics: 'expert',
+        networking: 'basic',
+        security: 'none',
+        robotics: 'none',
+        computerVision: 'none',
+        algorithms: 'good',
+        machineLearning: 'basic'
     };
     // store information about the student's project, IP, and leadership preferences
     var firstChoice = null;
@@ -29,20 +29,20 @@ sortingApp.service('surveyResults', function () {
     var thirdChoice = null;
     var fourthChoice = null;
     var fifthChoice = null;
-    var ipPreference = null;
-    var leadershipRole = null;
+    var ipPreference = "NO_PREF";
+    var leadershipRole = "STRONG_FOLLOW";
     // array of skills student ranked as 'expert' or 'good'
     var finalSkills = [];
 
     // default non-required fields
-    var preferredName = null;
+    var preferredName = "Jess";
     var desired = [];
-    var firstChoiceComment = null;
-    var secondChoiceComment = null;
-    var thirdChoiceComment = null;
-    var fourthChoiceComment = null;
-    var fifthChoiceComment = null;
-    var preferredPartners = [];
+    var firstChoiceComment = "This project seemed interesting!";
+    var secondChoiceComment = "I'd love the chance to work on user interface problems!";
+    var thirdChoiceComment = "I think the sponsor seemed nice";
+    var fourthChoiceComment = "My friend Jesus also put this one down";
+    var fifthChoiceComment = "This one seemed like a challenge";
+    var preferredPartners = ["Jesus Ortiz", "Nika Shafranov", "Hayden Reich", "Jordan Peters"];
     var bannedPartners = [];
 
     // getter and setter functions for each field a student is to complete

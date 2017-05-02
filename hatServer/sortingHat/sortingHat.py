@@ -124,7 +124,7 @@ def writeResults():
 		
 
 def writeToJson(data):
-	with open("./hatServer/static/js/config/results.json", 'w') as jsonFile:
+	with open("./hatServer/static/js/config/results_DEMO.json", 'w') as jsonFile:
 		json.dump(data, jsonFile, indent=4)
 
 

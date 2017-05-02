@@ -7,10 +7,10 @@ from hatServer.sortingHat.variables import *
 
 def writeVariableJson(data):
 	if os.path.isfile("variables.json"):
-		with open("variables.json", 'w') as jsonFile:
+		with open("variables_DEMO.json", 'w') as jsonFile:
 			json.dump(data, jsonFile, indent=4)
 	else:
-		with open("./hatServer/static/js/config/variables.json", 'w') as jsonFile:
+		with open("./hatServer/static/js/config/variables_DEMO.json", 'w') as jsonFile:
 			json.dump(data, jsonFile, indent=4)
 
 def updateCountJson():
@@ -32,10 +32,10 @@ def convertNameToId(name):
 def storeIdentikeyListJson():
 	data = buildIdentikeyList()
 	if os.path.isfile("id_map.json"):
-		with open("id_map.json", 'w') as fp:
+		with open("id_map.json_DEMO", 'w') as fp:
 			json.dump(data, fp, indent=4)
 	else:
-		with open("./hatServer/static/js/config/id_map.json", 'w') as fp:
+		with open("./hatServer/static/js/config/id_map_DEMO.json", 'w') as fp:
 			json.dump(data, fp, indent=4)
 
 def buildIdentikeyList():
