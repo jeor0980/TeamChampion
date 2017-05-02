@@ -1,9 +1,9 @@
 'use strict';
 
 sortingApp.service('surveyQuestions', function () {
-    var surveyName = "";
+    var surveyName = "2017 Senior Projects Group Formation Survey";
     var surveyDescription = {
-        'page_one': 'HELLO JESSICA YOU DA BEST',
+        'page_one': 'Survey to gather student preferences and abilities in support of forming teams for CU Boulder Senior Projects.\nWe\'ll start with the basics',
         'page_two': 'The following are some questions about your skillset and experiences that will help us diversify team talents',
         'page_three': 'And now the moment you have been waiting for. Please rank your top five project choices, and indicate your primary motivation for wanting to work on each project you rank. (Note that while this survey allows you to choose the same project for all five ranks, actually doing so will only make things more difficult for yourself and for us if we are not able to honor your top choice).'
     };
@@ -11,13 +11,13 @@ sortingApp.service('surveyQuestions', function () {
     // skills a student may want to learn
     var desiredSkills = ['Java', 'Python', 'PHP', 'C/C++', 'Mobile App Development (Android/iOS)', 'Web Applications', 'Embedded Systems', 'Database (MySQL, SQL, etc.)', 'User Interface/Experience', 'Statistics', 'Networking',
         'Robotics', 'Computer Vision', 'Algorithms', 'Machine Learning'];
-    var studentCount = null; // student count for the algorithm
+    var studentCount = 97; // student count for the algorithm
     var projectCount = 25; // project count to dynamically load only the projects that are needed
     // algorithm requests knowing the instructor's minimum, maximum, and optimum group sizes
     var groupSizes = {
-        min: null,
-        max: null,
-        opt: null
+        min: 4,
+        max: 6,
+        opt: 5
     };
     // variables for creating the student surveys: 
     // included denotes whether a field will be displayed, required denotes whether a student must provide information
