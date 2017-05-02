@@ -1,5 +1,6 @@
 // create the controller and inject Angular's $scope
 <<<<<<< HEAD
+<<<<<<< HEAD
 sortingApp.controller('mainController', function ($scope, userInformation, Upload) {
     $scope.uploadGroup = function (file) {
         console.log(file)
@@ -18,6 +19,9 @@ sortingApp.controller('mainController', function ($scope, userInformation, Uploa
             console.log('Progress: ' + progressPercentage + '% ' + evt.config.file.name);
         });
     }
+=======
+sortingApp.controller('mainController', function($scope, userInformation) {
+>>>>>>> 6dca6076f5586e4c641b6790512650a83fca434d
 
     $scope.upload = function (file) {
         console.log(file)
@@ -38,6 +42,7 @@ sortingApp.controller('mainController', function ($scope, userInformation, Uploa
     }
 });
 
+<<<<<<< HEAD
 sortingApp.controller('buildController', function ($scope, $http, userInformation) {
 
     //Check if user is authenticated
@@ -94,6 +99,8 @@ sortingApp.controller('mainController', function ($scope, userInformation) {
 >>>>>>> 3a9513255fe820ccb5575c8827602d40e089efa4
 });
 
+=======
+>>>>>>> 6dca6076f5586e4c641b6790512650a83fca434d
 sortingApp.controller('profileController', function($scope, $window, userInformation) {
     //TODO: Destroy function
 
@@ -124,8 +131,12 @@ sortingApp.controller('takeSurveyController', function($scope, $http, $window, s
       window.alert("You must be logged in to view this page.");
       $window.location.href = '/';
     }   
+<<<<<<< HEAD
 
 <<<<<<< HEAD
+=======
+ 
+>>>>>>> 6dca6076f5586e4c641b6790512650a83fca434d
     $scope.message1 = 'Survey to gather student preferences and abilities in support of forming teams for CU Boulder Senior Projects.';
     $scope.message2 = 'The following are some questions about your skillset and experiences that will help us diversify team talents.';
     $scope.message3 = 'And now the moment you have been waiting for. Please rank your top five project choices, and indicate your primary motivation for wanting to work on each project you rank. (Note that while the survey allows you to choose the same project for all five ranks, actually doing so will only make things more difficult for yourself and for us if we are not able to honor your top choice.';
@@ -265,9 +276,12 @@ sortingApp.controller('surveySuccessController', function($scope, userInformatio
     $scope.message = 'Congratulations! Your results have been submitted!';
 });
 
+<<<<<<< HEAD
 
 =======
 >>>>>>> 0fc841a868ec2af40ea81c850feb9b7df0c143b7
+=======
+>>>>>>> 6dca6076f5586e4c641b6790512650a83fca434d
 sortingApp.controller('GoogleCtrl', function($route, $scope, $window, $http, userInformation) {
 
   function onSignIn(googleUser) {
@@ -343,8 +357,6 @@ sortingApp.controller('GoogleCtrl', function($route, $scope, $window, $http, use
 
 });
 
-
-
 sortingApp.controller('dashboardController', function($scope, $window, userInformation) {
 
     //Check if user is authenticated
@@ -356,10 +368,6 @@ sortingApp.controller('dashboardController', function($scope, $window, userInfor
     }   
 
 });
-
-
-
-
 
 sortingApp.controller('headerController', function($scope, userInformation, $window) {
 
