@@ -1,6 +1,9 @@
 'use strict';
 
 sortingApp.service('projectInformation', function () {
+    // Generically allow space for 25 sponsors to submit projects
+    // Each project tracks the skills required for it, an IP preference, its name
+    // whether it's a paid project, and the number the project is
     var projectOne = {
         skills: {},
         ipPref: "",
@@ -176,12 +179,15 @@ sortingApp.service('projectInformation', function () {
         paid: true,
         number: "TwentyFive"
     };
+    // Array of all the project dictionary objects
     var projects = [projectOne, projectTwo, projectThree, projectFour, projectFive, projectSix, projectSeven, projectEight, projectNine, projectTen, projectEleven, projectTwelve, projectThirteen, projectFourteen, projectFifteen, projectSixteen, projectSeventeen, projectEighteen, projectNineteen, projectTwenty, projectTwentyOne, projectTwentyTwo, projectTwentyThree, projectTwentyFour, projectTwentyFive];
 
     return {
+        // getter and setter method for projects array
         getProjects: function () {
             return projects;
         },
+        // method to add a single project onto the array of projects
         addProjects: function (value) {
             projects.push(value);
         },
@@ -189,6 +195,7 @@ sortingApp.service('projectInformation', function () {
             projects = value;
         },
 
+        // getter and setter methods for each project
         getProjectOne: function () {
             return projectOne;
         },

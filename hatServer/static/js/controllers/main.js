@@ -1,73 +1,9 @@
 // create the controller and inject Angular's $scope
-<<<<<<< HEAD
-<<<<<<< HEAD
 sortingApp.controller('mainController', function ($scope, userInformation, Upload) {
-    $scope.uploadGroup = function (file) {
-        console.log(file)
-        Upload.upload({
-            url: 'upload/group',
-            headers: {
-                'Content-Type': file.type
-            },
-            file: file
-        }).then(function (resp) {
-            console.log('Success ' + resp.config.file.name + ' uploaded. Response: ' + resp.config.file);
-        }, function (resp) {
-            console.log('Error status: ' + resp.status);
-        }, function (evt) {
-            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-            console.log('Progress: ' + progressPercentage + '% ' + evt.config.file.name);
-        });
-    }
-=======
-sortingApp.controller('mainController', function($scope, userInformation) {
->>>>>>> 6dca6076f5586e4c641b6790512650a83fca434d
-
-    $scope.upload = function (file) {
-        console.log(file)
-        Upload.upload({
-            url: 'upload/student',
-            headers: {
-                'Content-Type': file.type
-            },
-            file: file
-        }).then(function (resp) {
-            console.log('Success ' + resp.config.file.name + ' uploaded. Response: ' + resp.config.file);
-        }, function (resp) {
-            console.log('Error status: ' + resp.status);
-        }, function (evt) {
-            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-            console.log('Progress: ' + progressPercentage + '% ' + evt.config.file.name);
-        });
-    }
 });
 
-<<<<<<< HEAD
-sortingApp.controller('buildController', function ($scope, $http, userInformation) {
-
-    //Check if user is authenticated
-    $scope.givenName = userInformation.getGivenName();
-
-    if (userInformation.getIsLoggedIn() == false){
-      window.alert("You must be logged in to view this page.");
-      $window.location.href = '/';
-    }   
-
-    data = {};
-
-    $scope.buildStudents = function () {
-        // Fire the API request
-        $http.post('/build', data).success(function (results) {
-            console.log('BUILDING THEM Students');
-        }).error(function (err) {
-            console.log(err);
-        });
-    }
-});
 
 sortingApp.controller('sortController', function ($scope, $http, userInformation) {
-
-
 
         //Check if user is authenticated
     $scope.givenName = userInformation.getGivenName();
@@ -75,32 +11,26 @@ sortingApp.controller('sortController', function ($scope, $http, userInformation
     if (userInformation.getIsLoggedIn() == false){
       window.alert("You must be logged in to view this page.");
       $window.location.href = '/';
-    }   
+    }
 //Check if user is authenticated
     $scope.givenName = userInformation.getGivenName();
 
     if (userInformation.getIsLoggedIn() == false){
       window.alert("You must be logged in to view this page.");
       $window.location.href = '/';
-    }   
-
+    }
+    
     data = {};
 
     $scope.sortStudents = function () {
         // Fire the API request
         $http.post('/sort', data).success(function (results) {
-            console.log('SORTING THEM BITHCES');
         }).error(function (err) {
             console.log(err);
         });
     }
-=======
-sortingApp.controller('mainController', function ($scope, userInformation) {
->>>>>>> 3a9513255fe820ccb5575c8827602d40e089efa4
-});
+}
 
-=======
->>>>>>> 6dca6076f5586e4c641b6790512650a83fca434d
 sortingApp.controller('profileController', function($scope, $window, userInformation) {
     //TODO: Destroy function
 
@@ -117,150 +47,6 @@ sortingApp.controller('profileController', function($scope, $window, userInforma
     $scope.familyName = userInformation.getFamilyName();
     $scope.email = userInformation.getEmail();
     $scope.imageUrl = userInformation.getImageUrl();
-
-
-});
-
-
-sortingApp.controller('takeSurveyController', function($scope, $http, $window, surveyResults, userInformation) {
-
-    //Check if user is authenticated
-    $scope.givenName = userInformation.getGivenName();
-
-    if (userInformation.getIsLoggedIn() == false){
-      window.alert("You must be logged in to view this page.");
-      $window.location.href = '/';
-    }   
-<<<<<<< HEAD
-
-<<<<<<< HEAD
-=======
- 
->>>>>>> 6dca6076f5586e4c641b6790512650a83fca434d
-    $scope.message1 = 'Survey to gather student preferences and abilities in support of forming teams for CU Boulder Senior Projects.';
-    $scope.message2 = 'The following are some questions about your skillset and experiences that will help us diversify team talents.';
-    $scope.message3 = 'And now the moment you have been waiting for. Please rank your top five project choices, and indicate your primary motivation for wanting to work on each project you rank. (Note that while the survey allows you to choose the same project for all five ranks, actually doing so will only make things more difficult for yourself and for us if we are not able to honor your top choice.';
-    $scope.title = '2017 Senior Projects Group Formation Survey';
-    $scope.firstChoiceComment = "";
-    $scope.secondChoiceComment = "";
-    $scope.thirdChoiceComment = "";
-    $scope.comments = "";
-
-    // TODO: change this from hard-coding to getting data from instructor form
-    $scope.projects = ['Proj 1', 'Proj 2', 'Proj 3', 'Proj 4', 'Proj 5', 'Proj 6', 'Proj 7',
-        'Proj 8', 'Proj 9', 'Proj 10'];
-
-    $scope.sendSurveyPage1 = function (form) {
-        console.log('boutta redirect this bitch');
-
-        $scope.submitted = true;
-
-        if (form.$invalid) {
-            return;
-        } else {
-            surveyResults.setFirstName($scope.firstName);
-            surveyResults.setLastName($scope.lastName);
-            surveyResults.setPreferredName($scope.preferredName);
-            surveyResults.setIdentikey($scope.identikey);
-            surveyResults.setOverallGPA($scope.gpa);
-            surveyResults.setCsGPA($scope.csgpa);
-
-            $scope.submitted = false;
-
-            $window.location.href = '#/takeSurvey2';
-        }
-    }
-
-    $scope.sendSurveyPage2 = function (form) {
-        $scope.submitted = true;
-        console.log('send survey page 2');
-
-        if (form.$invalid) {
-            console.log('else');
-            return;
-        } else {
-            for (field in $scope.skills) {
-                surveyResults.setSkills($scope.skills[field], field);
-                if ($scope.skills[field] === 'expert' || $scope.skills[field] === 'good') {
-                    console.log(field)
-                    surveyResults.setFinalSkills(field);
-                }
-            }
-            for (field in $scope.desired) {
-                surveyResults.setDesired(field);
-            }
-
-            $scope.submitted = false;
-
-            $window.location.href = '#/takeSurvey3';
-        }
-    }
-
-    $scope.sendSurvey = function(form) {
-        console.log("Getting results");
-        console.log($scope.finalSkills);
-
-        $scope.submitted = true;
-
-        if (form.$invalid) {
-            return;
-        }
-
-        surveyResults.setFirstChoice($scope.firstChoice);
-        surveyResults.setFirstChoiceComment($scope.firstChoiceComment);
-        surveyResults.setSecondChoice($scope.secondChoice);
-        surveyResults.setSecondChoiceComment($scope.secondChoiceComment);
-        surveyResults.setThirdChoice($scope.thirdChoice);
-        surveyResults.setThirdChoiceComment($scope.thirdChoiceComment);
-        surveyResults.setFourthChoice($scope.fourthChoice);
-        surveyResults.setFourthChoiceComment($scope.fourthChoiceComment);
-        surveyResults.setFifthChoice($scope.fifthChoice);
-        surveyResults.setFifthChoiceComment($scope.fifthChoiceComment);
-        surveyResults.setPreferredPartners($scope.requestedPartners);
-        surveyResults.setBannedPartners($scope.bannedPartners);
-        surveyResults.setIpPreference($scope.ipPref);
-        surveyResults.setLeadershipRole($scope.lead);
-
-        // turn data into a service so it persists across webpages
-    	var data = {
-    		'firstName' : surveyResults.getFirstName(),
-    		'lastName' : surveyResults.getLastName(),
-            'preferredName' : surveyResults.getPreferredName(),
-            'identikey' : surveyResults.getIdentikey(),
-            'gpa' : surveyResults.getOverallGPA(),
-            'csgpa' : surveyResults.getCsGPA(),
-    		//'email' : $scope.email,
-            'firstChoice' : surveyResults.getFirstChoice(),
-            'secondChoice' : surveyResults.getSecondChoice(),
-            'thirdChoice': surveyResults.getThirdChoice(),
-            'fourthChoice': surveyResults.getFourthChoice(),
-            'fifthChoice' : surveyResults.getFifthChoice(),
-            'firstChoiceComments' : surveyResults.getFirstChoiceComment(),
-            'secondChoiceComments' : surveyResults.getSecondChoiceComment(),
-            'thirdChoiceComments': surveyResults.getThirdChoiceComment(),
-            'fourthChoiceComments': surveyResults.getFourthChoiceComment(),
-            'fifthChoiceComments' : surveyResults.getFifthChoiceComment(),
-            'requestedPartners' : surveyResults.getPreferredPartners(),
-            'bannedPartners': surveyResults.getBannedPartners(),
-            'skills': surveyResults.getFinalSkills(),
-            //'skills' : surveyResults.getSkills(),
-            'desired' : surveyResults.getDesired(),
-            'ipPref' : surveyResults.getIpPreference(),
-            'lead' : surveyResults.getLeadershipRole(),
-    		'comments' : $scope.comments
-    	};
-
-    	// Fire the API request
-    	$http.post('/takeSurvey3', data).success(function(results) {
-            $scope.submitted = false;
-
-    		console.log('RESULTS');
-    	}).error(function(err) {
-    		console.log(err);
-    	});
-
-        $window.location.href = "#/surveySuccess";
-    };
 });
 
 sortingApp.controller('surveySuccessController', function($scope, userInformation) {
@@ -276,12 +62,6 @@ sortingApp.controller('surveySuccessController', function($scope, userInformatio
     $scope.message = 'Congratulations! Your results have been submitted!';
 });
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 0fc841a868ec2af40ea81c850feb9b7df0c143b7
-=======
->>>>>>> 6dca6076f5586e4c641b6790512650a83fca434d
 sortingApp.controller('GoogleCtrl', function($route, $scope, $window, $http, userInformation) {
 
   function onSignIn(googleUser) {

@@ -2,67 +2,57 @@
 
   <h1>{{ title }}</h1>
 
-  <p>{{ message1 }}</p>
+  <p>{{ description['page_one'] }}</p>
 
   <form name="takeSurveyForm" novalidate role="form" id="takeSurveyForm">
     <!-- Place to input a first name --> 
-    <div class="form-group">
+    <!-- Include this field based on what the instructors input in their survey creation -->
+    <div class="form-group" ng-show="surveyFirstName['included']">
       <!-- Use spans so it's consistent with select and actually shows warnings -->
-      <span class="label label-danger" ng-show="submitted && takeSurveyForm.firstName.$error.required">Required!</span>
-      <label for="firstName">First Name<span class="required-asterisk" style="color: red"> *</span></label><!--<h6>First Name</h6>-->
-      <input type="text" name="firstName" ng-model="firstName" class="form-control" required />
+      <span class="label label-danger" ng-show="surveyFirstName['required'] && submitted && takeSurveyForm.firstName.$error.required">Required!</span>
+      <label for="firstName">First Name<span class="required-asterisk" ng-show="surveyFirstName['required']" style="color: red"> *</span><span class="secondary-text"><br />{{ surveyFirstName.subtext }}</span></label>
+      <!-- Toggle whether it's required based on instructor survey creation -->
+      <input type="text" name="firstName" ng-model="firstName" class="form-control" ng-required="surveyFirstName['required']"/>
     </div>
 
     <!-- Place to input a last name -->
-    <div class="form-group">
-      <span class="label label-danger" ng-show="submitted && takeSurveyForm.lastName.$error.required">Required!</span>
-      <label for="lastName">Last Name<span class="required-asterisk" style="color: red"> *</span></label>
-      <input type="text" name="lastName" ng-model="lastName" class="form-control" required />
+    <div class="form-group" ng-show="surveyLastName['included']">
+      <span class="label label-danger" ng-show="surveyLastName['required'] && submitted && takeSurveyForm.lastName.$error.required">Required!</span>
+      <label for="lastName" >Last Name<span class="required-asterisk" ng-show="surveyLastName['required']" style="color: red"> *</span><span class="secondary-text"><br />{{ surveyLastName.subtext }}</span></label>
+      <input type="text" name="lastName" ng-model="lastName" class="form-control" ng-required="surveyFirstName['required']" />
     </div>
 
     <!-- Place to input a preferred name which the instructors should call you -->
-    <div class="form-group">
-      <label for="preferredName">Preferred Name<div class="secondary-text">How would you like to be addressed, if different than your formal name?</div></label>
+    <div class="form-group" ng-show="surveyPreferredName['included']">
+      <span class="label label-danger" ng-show="surveyPreferredName['required'] && submitted && takeSurveyForm.preferredName.$error.required">Required!</span>
+      <label for="preferredName" >Preferred Name<span class="required-asterisk" ng-show="surveyPreferredName['required']" style="color: red"> *</span><span class="secondary-text"><br />{{ surveyPreferredName.subtext }}</span></label>
       <!--<p>How would you like to be addressed, if different than your formal name?</p>-->
-      <input type="text" name="preferredName" ng-model="preferredName" class="form-control" />
+      <input type="text" name="preferredName" ng-model="preferredName" class="form-control" ng-required="surveyPreferredName['required']" />
     </div>
 
-  <!-- TODO: make ng-pattern for identikey toggle on and off -->
     <!-- Place to input a properly formatted identikey -->
-    <div class="form-group">
+    <!--<div class="form-group">
       <span class="label label-danger" ng-show="submitted && takeSurveyForm.identikey.$error.required">Required!</span>
       <span class="label label-danger" ng-show="submitted">Invalid Identikey!</span>
       <label for="identikey">Identikey<span class="required-asterisk" style="color: red"> *</span></label>
       <input type="text" name="identikey" ng-pattern="/^[a-z]{4}[0-9]{4}$/" ng-model="identikey" class="form-control" required />
-    </div>
+    </div>-->
   
     <!-- Place to input overall GPA -->
-    <div class="form-group">
-      <span class="label label-danger" ng-show="submitted && takeSurveyForm.gpa.$error.required">Required!</span>
-      <label for="gpa">Overall GPA<span class="required-asterisk" style="color: red"> *</span><div class="secondary-text">What is your current overall GPA?</div></label>
-      <input type=number name="gpa" ng-model="gpa" class="form-control" required />
+    <div class="form-group" ng-show="surveyGpa['included']">
+      <span class="label label-danger" ng-show="surveyGpa['required'] && submitted && takeSurveyForm.gpa.$error.required">Required!</span>
+      <label for="gpa" >Overall GPA<span class="required-asterisk" ng-show="surveyGpa['required']" style="color: red"> *</span><span class="secondary-text"><br />{{ surveyGpa.subtext }}</span></label>
+      <input type=number name="gpa" ng-model="gpa" class="form-control" ng-required="surveyGpa['required']" />
     </div>
   
     <!-- Place to input computer science GPA -->
-    <div class="form-group">
+    <div class="form-group" ng-show="surveyCsgpa['included']">
       <span class="label label-danger" ng-show="submitted && takeSurveyForm.csgpa.$error.required">Required!</span>
-      <label for="csgpa">Computer Science GPA<span class="required-asterisk" style="color: red"> *</span><div class="secondary-text">What is your current GPA, only considering your Computer Science classes?</div></label>
+      <label for="csgpa">Computer Science GPA<span class="required-asterisk" style="color: red"> *</span><span class="secondary-text"><br />{{ surveyCsgpa.subtext }}</span></label>
       <input type=number name="csgpa" ng-model="csgpa" class="form-control" required />
     </div><br>
-    
-    <!--<div class="form-group">
-      <span class="label label-danger" ng-show="submitted && takeSurveyForm.email.$error.required">Required!</span>
-      <span class="label label-danger" ng-show="submitted && takeSurveyForm.$error.email">Invalid Email!</span>
-      <label for="email">Email Address</label>
-      <input type="email" name="email" ng-model="email" class="form-control" required />
-    </div><br>-->
-  
-    <!-- Area for comments for the instructors -->
-    <div class="form-group">
-      <label for="comments">Comments for the instructors.</label>
-      <textarea name="comments" ng-model="comments" class="materialize-textarea"></textarea>
-    </div><br>
-    
+
+    <!-- Submit first page of the survey and move on to the second page -->
     <button type="submit" ng-click="sendSurveyPage1(takeSurveyForm)" class="btn btn-default">Continue!</button>
     
   </form>

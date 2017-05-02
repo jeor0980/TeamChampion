@@ -2,138 +2,212 @@
 
 sortingApp.service('surveyQuestions', function () {
     var surveyName = "";
-    var surveyDescription = 'HELLO JESSICA YOU DA BEST';
-    var maxSkills = null;
+    var surveyDescription = {
+        'page_one': 'HELLO JESSICA YOU DA BEST',
+        'page_two': 'The following are some questions about your skillset and experiences that will help us diversify team talents',
+        'page_three': 'And now the moment you have been waiting for. Please rank your top five project choices, and indicate your primary motivation for wanting to work on each project you rank. (Note that while this survey allows you to choose the same project for all five ranks, actually doing so will only make things more difficult for yourself and for us if we are not able to honor your top choice).'
+    };
+    var maxSkills = null; // max number of skills a student can request to learn
+    // skills a student may want to learn
     var desiredSkills = ['Java', 'Python', 'PHP', 'C/C++', 'Mobile App Development (Android/iOS)', 'Web Applications', 'Embedded Systems', 'Database (MySQL, SQL, etc.)', 'User Interface/Experience', 'Statistics', 'Networking',
         'Robotics', 'Computer Vision', 'Algorithms', 'Machine Learning'];
-    var studentCount = null;
+    var studentCount = null; // student count for the algorithm
+    var projectCount = 25; // project count to dynamically load only the projects that are needed
+    // algorithm requests knowing the instructor's minimum, maximum, and optimum group sizes
     var groupSizes = {
         min: null,
         max: null,
         opt: null
     };
+    // variables for creating the student surveys: 
+    // included denotes whether a field will be displayed, required denotes whether a student must provide information
     var firstName = {
         included: true,
-        required: true
+        required: true,
+        subtext: ""
     };
     var lastName = {
         included: true,
-        required: true
+        required: true,
+        subtext: ""
     };
     var preferredName = {
         included: true,
-        required: false
+        required: false,
+        subtext: "How would you like to be addressed, if different than your formal name?"
     };
     var overallGPA = {
         included: true,
-        required: true
+        required: true,
+        subtext: "What is your current overall GPA?"
     };
     var csGPA = {
         included: true,
-        required: true
+        required: true,
+        subtext: "What is your current GPA, only considering your Computer Science classes?"
     };
-    var skillCategories = {
-        expert: true,
-        good: true,
-        basic: true,
-        none: true
+    // Categories a student will be asked to rank themselves in terms of competency
+    var rankedCategories = {
+        overallProgramming: {
+            included: true,
+            required: true,
+            name: 'overallProgramming',
+            label: 'Overall Programming'
+        },
+        databaseDevelopment: {
+            included: true,
+            required: true,
+            name: 'databaseDevelopment',
+            label: 'Database Development'
+        },
+        embeddedSystems: {
+            included: true,
+            required: true,
+            name: 'embeddedSystems',
+            label: 'Embedded Systems'
+        },
+        webApplications: {
+            included: true,
+            required: true,
+            name: 'webApplications',
+            label: 'Web Applications'
+        },
+        mobileApplications: {
+            included: true,
+            required: true,
+            name: 'mobileApplications',
+            label: 'Mobile Applications'
+        },
+        userInterface: {
+            included: true,
+            required: true,
+            name: 'userInterface',
+            label: 'User Interface/Experience'
+        },
+        statistics: {
+            included: true,
+            required: true,
+            name: 'statistics',
+            label: 'Statistics'
+        },
+        networking: {
+            included: true,
+            required: true,
+            name: 'networking',
+            label: '(Social/Professional) Networking'
+        },
+        security: {
+            included: true,
+            required: true,
+            name: 'security',
+            label: 'Security'
+        },
+        robotics: {
+            included: true,
+            required: true,
+            name: 'robotics',
+            label: 'Robotics'
+        },
+        computerVision: {
+            included: true,
+            required: true,
+            name: 'computerVision',
+            label: 'Computer Vision'
+        },
+        algorithms: {
+            included: true,
+            required: true,
+            name: 'algorithms',
+            label: 'Algorithms'
+        },
+        machineLearning: {
+            included: true,
+            required: true,
+            name: 'machineLearning',
+            label: 'Machine Learning'
+        }
     };
-    var overallProgramming = {
-        included: true,
-        required: true
+    var commentSubtext = "What about this project makes it of interest to you? Please share your primary motivator in choosing this project (e.g.\"Interest in working with sponsor, \" \"Web app development, \" \"Opportunities to develop skill X,\" etc.).";
+    // Holds data about what elements of project preferences students will be required to input
+    var projectPreferences = {
+        firstChoice: {
+            included: true,
+            required: true,
+            label: 'First Choice',
+            name: 'firstChoice',
+            subtext: 'Select your first preference of project.'
+        },
+        firstComment: {
+            included: true,
+            required: false,
+            label: 'First Preference Motivation',
+            name: 'firstComment',
+            subtext: commentSubtext
+        },
+        secondChoice: {
+            included: true,
+            required: true,
+            label: 'Second Choice',
+            name: 'secondChoice',
+            subtext: 'Select your second preference of project.'
+        },
+        secondComment: {
+            included: true,
+            required: false,
+            label: 'Second Preference Motivation',
+            name: 'secondComment',
+            subtext: commentSubtext
+        },
+        thirdChoice: {
+            included: true,
+            required: true,
+            label: 'Third Choice',
+            name: 'thirdChoice',
+            subtext: 'Select your third preference of project.'
+        },
+        thirdComment: {
+            included: true,
+            required: false,
+            label: 'Third Preference Motivation',
+            name: 'thirdComment',
+            subtext: commentSubtext
+        },
+        fourthChoice: {
+            included: true,
+            required: true,
+            label: 'Fourth Choice',
+            name: 'fourthChoice',
+            subtext: 'Select your fourth preference of project.'
+        },
+        fourthComment: {
+            included: true,
+            required: false,
+            label: 'Fourth Preference Motivation',
+            name: 'fourthComment',
+            subtext: commentSubtext
+        },
+        fifthChoice: {
+            included: true,
+            required: true,
+            label: 'Fifth Choice',
+            name: 'fifthChoice',
+            subtext: 'Select your fifth preference of project.'
+        },
+        fifthComment: {
+            included: true,
+            required: false,
+            label: 'Fifth Preference Motivation',
+            name: 'fifthComment',
+            subtext: commentSubtext
+        }
     };
-    var databaseDevelopment = {
-        included: true,
-        required: true
-    };
-    var embeddedSystems = {
-        included: true,
-        required: true
-    };
-    var webApplications = {
-        included: true,
-        required: true
-    };
-    var mobileApplications = {
-        included: true,
-        required: true
-    };
-    var userInterface = {
-        included: true,
-        required: true
-    };
-    var statistics = {
-        included: true,
-        required: true
-    };
-    var networking = {
-        included: true,
-        required: true
-    };
-    var security = {
-        included: true,
-        required: true
-    };
-    var robotics = {
-        included: true,
-        required: true
-    };
-    var computerVision = {
-        included: true,
-        required: true
-    };
-    var algorithms = {
-        included: true,
-        required: true
-    };
-    var machineLearning = {
-        included: true,
-        required: true
-    };
-    var firstChoice = {
-        included: true,
-        required: true
-    };
-    var firstComment = {
-        included: true,
-        required: false
-    };
-    var secondChoice = {
-        included: true,
-        required: true
-    };
-    var secondComment = {
-        included: true,
-        required: false
-    };
-    var thirdChoice = {
-        included: true,
-        required: true
-    };
-    var thirdComment = {
-        included: true,
-        required: false
-    };
-    var fourthChoice = {
-        included: true,
-        required: true
-    };
-    var fourthComment = {
-        included: true,
-        required: false
-    };
-    var fifthChoice = {
-        included: true,
-        required: true
-    };
-    var fifthComment = {
-        included: true,
-        required: false
-    };
+    // Whether a student will be asked and required to answer questions about their ip preferences
     var ipPreference = {
         included: true,
-        required: true
+        required: true,
+        subtext: "Sponsor preference with respect to Intellectual Property rights has been posted on Moodle. Options range from the sponsors possibly requesting to retain all IP rights, to the students retaining IP rights."
     };
+    // the different options a student may answer for their ip preferences
     var ipOptions = {
         retain: 'Prefer to retain IP rights to my work',
         retainIncluded: true,
@@ -142,11 +216,15 @@ sortingApp.service('surveyQuestions', function () {
         noPref: 'I don\'t have a preference to retain IP rights to my work',
         noPrefIncluded: true
     };
+    // whether a student will be asked and required to answer questions about their leadership preferences
+    // important is for the algorithm: whether leadership should play a factor in group formation
     var leadership = {
         included: true,
         required: true,
-        important: true
+        important: true,
+        subtext: "What is your preferred leadership role?"
     };
+    // The options a student may select for their leadership preferences
     var leadershipOptions = {
         strongFollow: 'Strongly prefer to be a follower rather than a leader',
         strongFollowIncluded: true,
@@ -159,24 +237,35 @@ sortingApp.service('surveyQuestions', function () {
         strongLead: 'Strongly prefer to be the leader; do not enjoy being a follower',
         strongLeadIncluded: true
     };
+    // whether a student will be asked and required to input who they'd like to work with
     var preferredPartners = {
         included: true,
-        required: false
+        required: false,
+        subtext: "Identify any individuals you would like to be on your team."
     };
+    // whether a student will be asked and required to input who they won't work with
     var bannedPartners = {
         included: true,
-        required: false
+        required: false,
+        subtext: "Identify any individuals you would not work well with."
     };
+    // highest (in magnitude) preference score allowed for any paid project
     var maxScore = null;
+    // flag whether the preference rankings of paid projects may be altered
     var changeRatings = false;
+    // Attempt to replace students if better matches are found
+    var attemptReplace = false;
+    // The algorithm will use these weights to sort accounting for the relative importance of each of these
     var weights = {
         known: null,
         learn: null,
         group: null,
         ip: null,
-        extraCredit: null
+        extraCredit: null,
+        enemy: null
     };
 
+    // getter and setter methods for all of the above fields
     return {
         getSurveyName: function () {
             return surveyName;
@@ -199,12 +288,20 @@ sortingApp.service('surveyQuestions', function () {
             studentCount = value;
         },
 
+        getProjectCount: function () {
+            return projectCount;
+        },
+        setProjectCount: function (value) {
+            projectCount = value;
+        },
+
         getGroupSizes: function () {
             return groupSizes;
         },
         setGroupSizes: function (value) {
             groupSizes = value;
         },
+        // set the group size of an individual field in the dictionary
         setGroupSize: function (field, value) {
             groupSizes[field] = value;
         },
@@ -223,18 +320,13 @@ sortingApp.service('surveyQuestions', function () {
             desiredSkills = value;
         },
 
-        getProjects: function () {
-            return projects;
-        },
-        setProjects: function (value) {
-            projects = value;
-        },
-
         getFirstName: function () {
             return firstName;
         },
         setFirstName: function (value) {
             firstName = value;
+            // ensure that if a field is not included, the survey won't think it's a required field
+            if (!firstName.included) firstName.required = false;
         },
 
         getLastName: function () {
@@ -242,6 +334,7 @@ sortingApp.service('surveyQuestions', function () {
         },
         setLastName: function (value) {
             lastName = value;
+            if (!lastName.included) lastName.required = false;
         },
 
         getPreferredName: function () {
@@ -249,6 +342,7 @@ sortingApp.service('surveyQuestions', function () {
         },
         setPreferredName: function (value) {
             preferredName = preferredName;
+            if (!preferredName.included) preferredName.required = false;
         },
 
         getOverallGPA: function () {
@@ -256,6 +350,7 @@ sortingApp.service('surveyQuestions', function () {
         },
         setOverallGPA: function (value) {
             overallGPA = value;
+            if (!overallGPA.included) overallGPA.required = false;
         },
 
         getCsGPA: function () {
@@ -263,174 +358,29 @@ sortingApp.service('surveyQuestions', function () {
         },
         setCsGPA: function (value) {
             csGPA = value;
+            if (!csGPA.included) csGPA.required = false;
         },
 
-        getSkillCategories: function () {
-            return skillCategories;
+        getRankedCategories: function () {
+            return rankedCategories;
         },
-        setSkillCategories: function (value) {
-            skillCategories = value;
-        },
-
-        getOverallProgramming: function () {
-            return overallProgramming;
-        },
-        setOverallProgramming: function (value) {
-            overallProgramming = value;
+        setRankedCategories: function (value) {
+            rankedCategories = value;
+            // loop through all categories students are asked to rank and make sure they're only required
+            // if they're included
+            for (var category in rankedCategories) {
+                if (!rankedCategories[category]['included']) rankedCategories[category]['required'] = false;
+            }
         },
 
-        getDatabaseDevelopment: function () {
-            return databaseDevelopment;
+        getProjectPreferences: function () {
+            return projectPreferences;
         },
-        setDatabaseDevelopment: function (value) {
-            databaseDevelopment = value;
-        },
-
-        getEmbeddedSystems: function () {
-            return embeddedSystems;
-        },
-        setEmbeddedSystems: function (value) {
-            embeddedSystems = value;
-        },
-
-        getWebApplications: function () {
-            return webApplications;
-        },
-        setWebApplications: function (value) {
-            webApplications = value;
-        },
-
-        getMobileApplications: function () {
-            return mobileApplications;
-        },
-        setMobileApplications: function (value) {
-            mobileApplications = value;
-        },
-
-        getUserInterface: function () {
-            return userInterface;
-        },
-        setUserInterface: function (value) {
-            userInterface = value;
-        },
-
-        getStatistics: function () {
-            return statistics;
-        },
-        setStatistics: function (value) {
-            statistics = value;
-        },
-
-        getNetworking: function() {
-            return networking;
-        },
-        setNetworking: function(value) {
-            networking = value;
-        },
-
-        getSecurity: function() {
-            return security;
-        },
-        setSecurity: function (value) {
-            security = value;
-        },
-
-        getRobotics: function () {
-            return robotics;
-        },
-        setRobotics: function (value) {
-            robotics = value;
-        },
-
-        getComputerVision: function () {
-            return computerVision;
-        },
-        setComputerVision: function (value) {
-            computerVision = value;
-        },
-
-        getAlgorithms: function () {
-            return algorithms;
-        },
-        setAlgorithms: function (value) {
-            algorithms = value;
-        },
-
-        getMachineLearning: function () {
-            return machineLearning;
-        },
-        setMachineLearning: function (value) {
-            machineLearning = value;
-        },
-
-        getFirstChoice: function () {
-            return firstChoice;
-        },
-        setFirstChoice: function (value) {
-            firstChoice = value;
-        },
-
-        getFirstComment: function () {
-            return firstComment;
-        },
-        setFirstComment: function (value) {
-            firstComment = value;
-        },
-
-        getSecondChoice: function () {
-            return secondChoice;
-        },
-        setSecondChoice: function (value) {
-            secondChoice = value;
-        },
-
-        getSecondComment: function () {
-            return secondComment;
-        },
-        setSecondComment: function (value) {
-            secondComment = value;
-        },
-
-        getThirdChoice: function () {
-            return thirdChoice;
-        },
-        setThirdChoice: function (value) {
-            thirdChoice = value;
-        },
-
-        getThirdComment: function () {
-            return thirdComment;
-        },
-        setThirdComment: function (value) {
-            thirdComment = value;
-        },
-
-        getFourthChoice: function () {
-            return fourthChoice;
-        },
-        setFourthChoice: function (value) {
-            fourthChoice = value;
-        },
-
-        getFourthComment: function () {
-            return fourthComment;
-        },
-        setFourthComment: function (value) {
-            fourthComment = value;
-        },
-
-        getFifthChoice: function () {
-            return fifthChoice;
-        },
-        setFifthChoice: function (value) {
-            fifthChoice = value;
-        },
-
-        getFifthComment: function () {
-            return fifthComment;
-        },
-        setFifthComment: function (value) {
-            fifthComment = value;
+        setProjectPreferences: function (value) {
+            projectPreferences = value;
+            for (var question in projectPreferences) {
+                if (!projectPreferences[question]['included']) projectPreferences[question]['required'] = false;
+            }
         },
 
         getIpPreference: function () {
@@ -438,6 +388,7 @@ sortingApp.service('surveyQuestions', function () {
         },
         setIpPreference: function (value) {
             ipPreference = value;
+            if (!ipPreference.included) ipPreference.required = false;
         },
 
         getIpOptions: function () {
@@ -452,6 +403,7 @@ sortingApp.service('surveyQuestions', function () {
         },
         setLeadership: function (value) {
             leadership = value;
+            if (!leadership.included) leadership.required = false;
         },
         setLeadershipValue: function (field, value) {
             leadership[field] = value;
@@ -469,6 +421,7 @@ sortingApp.service('surveyQuestions', function () {
         },
         setPreferredPartners: function (value) {
             preferredPartners = value;
+            if (!preferredPartners.included) preferredPartners.required = false;
         },
 
         getBannedPartners: function () {
@@ -476,6 +429,7 @@ sortingApp.service('surveyQuestions', function () {
         },
         setBannedPartners: function (value) {
             bannedPartners = value;
+            if (!bannedPartners.included) bannedPartners.required = false;
         },
 
         getMaxScore: function () {
@@ -492,12 +446,20 @@ sortingApp.service('surveyQuestions', function () {
             changeRatings = value;
         },
 
+        getAttemptReplace: function () {
+            return attemptReplace;
+        },
+        setAttemptReplace: function (value) {
+            attemptReplace = value;
+        },
+
         getWeights: function () {
             return weights;
         },
         setWeights: function (value) {
             weights = value;
         },
+        // method to set a single weight out of the dictionary of weights
         setWeight: function (field, value) {
             weights[field] = value;
         }

@@ -2,18 +2,19 @@
   <h1>Project Information</h1>
   <p>Please input the requested information regarding each project.</p>
 
-  <!--TODO: Put a question here about how many projects need to be shown and then dynamically update -->
-
+  <!-- Loop through all projects a professor says need to be filled out-->
   <div ng-repeat="project in projects">
     <div class="card-panel">
       <h2>Project {{ project.number }}</h2>
       <form name="{{ 'project' + project.number + 'Form' }}" novalidate role="form">
+        <!-- Ask the instructor for the project name -->
         <div class="form-control">
           <label for="{{ project.number + 'Name' }}">Name</label>
           <input type="text" name="{{ project.number + 'Name' }}" ng-model="project['name']" />
         </div>
     
         <div class="form-control">
+          <!-- ask the instructor for the project's IP Preference -->
           <div class="row">
             <label for="{{ 'ip' + project.number }}">IP Preference</label>
           </div>
@@ -27,11 +28,13 @@
           </div>
         </div>
 
+        <!-- Ask the instructor whether or not this is a paid project -->
         <div class="row">
           <input type="checkbox" name="{{ 'paid' + project.number }}" id="{{ 'paid' + project.number }}" ng-model="project['paid']" />
           <label for="{{ 'paid' + project.number }}">Check if this sponsor is paying and must be assigned a team</label>
         </div>
 
+        <!-- Ask the instructor to select skills required for this project-->
         <div class="form-control">
           Select skills required for this project.
           <div ng-repeat="skill in desiredSkills">
@@ -43,6 +46,7 @@
       </form>
     </div>
   </div>
+  <!-- Buttons to go back or to update survey information -->
   <a href="#createSurvey" class="btn btn-default">Back</a>
   <button type="submit" ng-click="updateProjects()" class="btn btn-default">Submit!</button>
 </div>

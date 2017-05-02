@@ -1,11 +1,13 @@
 'use strict';
 
 sortingApp.service('surveyResults', function () {
+    // store generic information the student inputs
     var firstName = '';
     var lastName = '';
     var identikey = '';
     var overallGPA = null;
     var csGPA = null;
+    // dictionary to store how the students ranked themselves in each skill
     var skills = {
         overallProgramming: null,
         databaseDevelopment: null,
@@ -21,6 +23,7 @@ sortingApp.service('surveyResults', function () {
         algorithms: null,
         machineLearning: null
     };
+    // store information about the student's project, IP, and leadership preferences
     var firstChoice = null;
     var secondChoice = null;
     var thirdChoice = null;
@@ -28,19 +31,22 @@ sortingApp.service('surveyResults', function () {
     var fifthChoice = null;
     var ipPreference = null;
     var leadershipRole = null;
+    // array of skills student ranked as 'expert' or 'good'
     var finalSkills = [];
 
-    // non-required fields
-    var preferredName = "";
+    // default non-required fields
+    var preferredName = null;
     var desired = [];
-    var firstChoiceComment = "";
-    var secondChoiceComment = "";
-    var thirdChoiceComment = "";
-    var fourthChoiceComment = "";
-    var fifthChoiceComment = "";
+    var firstChoiceComment = null;
+    var secondChoiceComment = null;
+    var thirdChoiceComment = null;
+    var fourthChoiceComment = null;
+    var fifthChoiceComment = null;
     var preferredPartners = [];
     var bannedPartners = [];
 
+    // getter and setter functions for each field a student is to complete
+    // TODO: check for null values and set to default values
     return {
         getFirstName: function () {
             return firstName;
@@ -56,12 +62,12 @@ sortingApp.service('surveyResults', function () {
             lastName = value;
         },
 
-        getIdentikey: function () {
+       /* getIdentikey: function () {
             return identikey;
         },
         setIdentikey: function (value) {
             identikey = value;
-        },
+        },*/
 
         getOverallGPA: function () {
             return overallGPA;
@@ -200,6 +206,7 @@ sortingApp.service('surveyResults', function () {
             return finalSkills;
         },
         setFinalSkills: function (value) {
+            // push individual skills ranked 'expert' or 'good' to skills array
             finalSkills.push(value);
         }
     };

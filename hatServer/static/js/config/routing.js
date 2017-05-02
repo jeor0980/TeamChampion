@@ -47,15 +47,7 @@ sortingApp.config(function($routeProvider) {
         // route for the login page
         .when('/login', {
             title: 'Login',
-<<<<<<< HEAD
-<<<<<<< HEAD
             templateUrl : 'static/partials/login.html',
-=======
-            templateUrl: 'static/partials/login.html',
->>>>>>> 3a9513255fe820ccb5575c8827602d40e089efa4
-=======
-            templateUrl: 'static/partials/login.html',
->>>>>>> 6dca6076f5586e4c641b6790512650a83fca434d
         })
 
         // route for taking a new survey
@@ -67,7 +59,7 @@ sortingApp.config(function($routeProvider) {
 
         // route for the second page of the survey
         .when('/takeSurvey2', {
-            tite: 'Take Survey',
+            title: 'Take Survey',
             templateUrl: 'static/partials/takeSurvey2.html',
             controller: 'takeSurveyController'
         })
@@ -92,7 +84,19 @@ sortingApp.config(function($routeProvider) {
             title: 'Submitted Survey',
             templateUrl: 'static/partials/surveySuccess.html',
         })
+        
+        // route for when the instructor has successfully created a survey
+        .when('/surveyCreated', {
+            title: 'Survey Created',
+            templateUrl: 'static/partials/surveyCreated.html'
+        })
 
+        // route to sort the students
+        .when('/sort', {
+            templateUrl: 'static/partials/sort.html',
+            controller: 'sortController'
+        })
+        
         // route for when instructor is either uploading survey data or running the algorithm
         .when('/formGroups', {
             title: 'Form Groups',

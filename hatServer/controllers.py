@@ -19,7 +19,6 @@ from hatServer.sortingHat.buildDB import buildDB, loadProjects, loadStudents
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    print ("TYPICAL BITCH")
     return render_template('index.html')
 
 @app.route('/upload/student', methods=['GET', 'POST'])
@@ -36,8 +35,6 @@ def group_upload():
     print("NICE TO SEE YOU HERE JESSICA")
     projectFile = request.files['file']
 
-    # print(projectFile.read().decode('utf-8'))
-
     loadProjects(projectFile.read().decode('utf-8').split('\r\n')[1:])
 
     return render_template('index.html')
@@ -50,9 +47,8 @@ def sort():
     return render_template('index.html')
 
 @app.route('/takeSurvey3', methods=['GET', 'POST'])
-def create_survey():
+def take_survey():
     # get data from form object 
-    print("TAKE SURVEY HOMES")
     data = json.loads(request.data.decode())
     addStudent(data)
 
@@ -82,14 +78,23 @@ def create_survey():
     ipPref = data["ipPref"]
     lead = data["lead"]
     """ 
+
     return firstName
 
 @app.route('/createSurvey', methods=['GET', 'POST'])
-def createSurvey():
-    print('hey')
+def create_survey():
     data = json.loads(request.data.decode())
 
     with open('hatServer/static/js/config/variables.json', 'w') as json_file:
+        json.dump(data, json_file, indent=4)
+
+    return 'success'
+
+@app.route('/projectsInput', methods=['GET', 'POST'])
+def projects_input():
+    data = json.loads(request.data.decode())
+
+    with open('hatServer/static/js/config/survey.json', 'w') as json_file:
         json.dump(data, json_file, indent=4)
 
     return 'success'
