@@ -5,21 +5,21 @@ sortingApp.controller('mainController', function ($scope, userInformation, Uploa
 
 sortingApp.controller('sortController', function ($scope, $http, userInformation) {
 
-        //Check if user is authenticated
+    //Check if user is authenticated
     $scope.givenName = userInformation.getGivenName();
 
-    if (userInformation.getIsLoggedIn() == false){
-      window.alert("You must be logged in to view this page.");
-      $window.location.href = '/';
+    if (userInformation.getIsLoggedIn() == false) {
+        window.alert("You must be logged in to view this page.");
+        $window.location.href = '/';
     }
-//Check if user is authenticated
+    //Check if user is authenticated
     $scope.givenName = userInformation.getGivenName();
 
-    if (userInformation.getIsLoggedIn() == false){
-      window.alert("You must be logged in to view this page.");
-      $window.location.href = '/';
+    if (userInformation.getIsLoggedIn() == false) {
+        window.alert("You must be logged in to view this page.");
+        $window.location.href = '/';
     }
-    
+
     data = {};
 
     $scope.sortStudents = function () {
@@ -29,7 +29,7 @@ sortingApp.controller('sortController', function ($scope, $http, userInformation
             console.log(err);
         });
     }
-}
+});
 
 sortingApp.controller('profileController', function($scope, $window, userInformation) {
     //TODO: Destroy function
