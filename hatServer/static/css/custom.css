@@ -108,5 +108,30 @@ footer.page-footer .footer-copyright {
 [type="checkbox"]:checked + label:before {
   border-right: 2px solid #ab47bc;
   border-bottom: 2px solid #ab47bc;
+}
 
+.waves-effect input[type="button"], .waves-effect input[type="reset"], .waves-effect input[type="submit"] {
+    border: 0;
+    font-style: normal;
+    font-size: inherit;
+    text-transform: inherit;
+    background: none;
+    background-color: #ab47bc;
+}
+
+.btn:hover {
+    background-color: #7a3686;
+}
+
+.btn {
+    background-color: #ab47bf;
+}
+
+[type="radio"].with-gap:checked + label:after {
+    background-color: #ab47bf;
+}
+
+[type="radio"].with-gap:checked + label:before,
+[type="radio"].with-gap:checked + label:after {
+    border: 2px solid #ab47bf;
 }
