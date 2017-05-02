@@ -1,7 +1,7 @@
 {
-    "title": "lsajdkf",
+    "title": "2017 Senior Projects Group Formation Survey",
     "description": {
-        "page_one": "HELLO JESSICA YOU DA BEST",
+        "page_one": "Survey to gather student preferences and abilities in support of forming teams for CU Boulder Senior Projects.\nWe'll start with the basics",
         "page_two": "The following are some questions about your skillset and experiences that will help us diversify team talents",
         "page_three": "And now the moment you have been waiting for. Please rank your top five project choices, and indicate your primary motivation for wanting to work on each project you rank. (Note that while this survey allows you to choose the same project for all five ranks, actually doing so will only make things more difficult for yourself and for us if we are not able to honor your top choice)."
     },
@@ -129,18 +129,261 @@
     },
     "projects": [
         {
-            "skills": {},
-            "ipPref": "",
-            "name": "",
-            "paid": true,
+            "skills": {
+                "Embedded Systems": true,
+                "Algorithms": true,
+                "C/C++": true,
+                "Python": true,
+                "Java": true,
+                "Machine Learning": true,
+                "Statistics": true,
+                "User Interface/Experience": true
+            },
+            "ipPref": "OPEN",
+            "name": "Northrop Grumman: Airport Traffic Analytics",
+            "paid": false,
             "number": "One"
+        },
+        {
+            "skills": {
+                "Mobile App Development (Android/iOS)": true,
+                "Web Applications": true,
+                "Computer Vision": true,
+                "Database (MySQL, SQL, etc.)": true,
+                "Java": true,
+                "Algorithms": true
+            },
+            "ipPref": "OPEN",
+            "name": "CU Environmental Studies: Species Identification App",
+            "paid": false,
+            "number": "Two"
+        },
+        {
+            "skills": {
+                "Web Applications": true,
+                "Database (MySQL, SQL, etc.)": true,
+                "PHP": true,
+                "User Interface/Experience": true,
+                "Statistics": true
+            },
+            "ipPref": "CLOSED",
+            "name": "Benefactors",
+            "paid": true,
+            "number": "Three"
+        },
+        {
+            "skills": {
+                "Mobile App Development (Android/iOS)": true,
+                "Web Applications": true,
+                "User Interface/Experience": true,
+                "Computer Vision": true
+            },
+            "ipPref": "CLOSED",
+            "name": "The Ultimate Wine App",
+            "paid": true,
+            "number": "Four"
+        },
+        {
+            "skills": {
+                "Mobile App Development (Android/iOS)": true,
+                "Networking": true,
+                "User Interface/Experience": true,
+                "Database (MySQL, SQL, etc.)": true
+            },
+            "ipPref": "OPEN",
+            "name": "CU College of Engineering and Applied Science: University Communications App",
+            "paid": false,
+            "number": "Five"
+        },
+        {
+            "skills": [],
+            "ipPref": "OPEN",
+            "name": "Last Words Project",
+            "paid": false,
+            "number": "Six"
+        },
+        {
+            "skills": {
+                "User Interface/Experience": true,
+                "Web Applications": true
+            },
+            "ipPref": "CLOSED",
+            "name": "Building Brains",
+            "paid": true,
+            "number": "Seven"
+        },
+        {
+            "skills": {
+                "Embedded Systems": true,
+                "C/C++": true,
+                "Algorithms": true,
+                "Machine Learning": true,
+                "Computer Vision": true,
+                "User Interface/Experience": true
+            },
+            "ipPref": "OPEN",
+            "name": "Northrop Grumman: Computing Project(s)",
+            "paid": false,
+            "number": "Eight"
+        },
+        {
+            "skills": {
+                "Database (MySQL, SQL, etc.)": true,
+                "User Interface/Experience": true,
+                "Mobile App Development (Android/iOS)": true
+            },
+            "ipPref": "OPEN",
+            "name": "Food for Thought and Golden Backpack: Volunteer Mobile App",
+            "paid": false,
+            "number": "Nine"
+        },
+        {
+            "skills": {
+                "Algorithms": true,
+                "User Interface/Experience": true,
+                "Machine Learning": true,
+                "Web Applications": true
+            },
+            "ipPref": "OPEN",
+            "name": "CU Cognitive Psychology: The Self-Tester",
+            "paid": false,
+            "number": "Ten"
+        },
+        {
+            "skills": {
+                "Web Applications": true,
+                "Database (MySQL, SQL, etc.)": true,
+                "Python": true,
+                "User Interface/Experience": true
+            },
+            "ipPref": "OPEN",
+            "name": "Conference on World Affairs: Volunteer Management Services",
+            "paid": false,
+            "number": "Eleven"
+        },
+        {
+            "skills": {
+                "Web Applications": true,
+                "User Interface/Experience": true,
+                "Database (MySQL, SQL, etc.)": true,
+                "Algorithms": true,
+                "Networking": true
+            },
+            "ipPref": "CLOSED",
+            "name": "My Support Partners Project",
+            "paid": false,
+            "number": "Twelve"
+        },
+        {
+            "skills": {
+                "Mobile App Development (Android/iOS)": true,
+                "Web Applications": true,
+                "User Interface/Experience": true
+            },
+            "ipPref": "OPEN",
+            "name": "CU College of Music: Music U: Share and Learn",
+            "paid": false,
+            "number": "Thirteen"
+        },
+        {
+            "skills": {
+                "Mobile App Development (Android/iOS)": true,
+                "User Interface/Experience": true,
+                "Computer Vision": true,
+                "Algorithms": true,
+                "Database (MySQL, SQL, etc.)": true,
+                "Statistics": true
+            },
+            "ipPref": "OPEN",
+            "name": "LandPotential.org: Soil Spectroscopy App",
+            "paid": false,
+            "number": "Fourteen"
+        },
+        {
+            "skills": {},
+            "ipPref": "OPEN",
+            "name": "NTIA: Automated Spectrum Enforcement in Boulder Wireless Test Bed",
+            "paid": false,
+            "number": "Fifteen"
+        },
+        {
+            "skills": {
+                "Networking": true,
+                "C/C++": true,
+                "Java": true,
+                "Algorithms": true
+            },
+            "ipPref": "OPEN",
+            "name": "NTIA: Privacy Issues in Spectrum Monitoring",
+            "paid": false,
+            "number": "Sixteen"
+        },
+        {
+            "skills": {
+                "Networking": true,
+                "Mobile App Development (Android/iOS)": true
+            },
+            "ipPref": "OPEN",
+            "name": "NTIA: Crowd Source Based Spectrum Monitoring and Characterization",
+            "paid": false,
+            "number": "Seventeen"
+        },
+        {
+            "skills": {
+                "Mobile App Development (Android/iOS)": true,
+                "Database (MySQL, SQL, etc.)": true,
+                "User Interface/Experience": true
+            },
+            "ipPref": "OPEN",
+            "name": "Tactile Picture Book Project: Co-Make 3D Modeling",
+            "paid": false,
+            "number": "Eighteen"
+        },
+        {
+            "skills": {
+                "Networking": true,
+                "User Interface/Experience": true,
+                "Mobile App Development (Android/iOS)": true,
+                "Database (MySQL, SQL, etc.)": true
+            },
+            "ipPref": "CLOSED",
+            "name": "David Clark Cause: Cause Flash",
+            "paid": true,
+            "number": "Nineteen"
+        },
+        {
+            "skills": {
+                "Mobile App Development (Android/iOS)": true
+            },
+            "ipPref": "OPEN",
+            "name": "LandPotential.org: Farm-to-Farm App",
+            "paid": true,
+            "number": "Twenty"
+        },
+        {
+            "skills": {
+                "Mobile App Development (Android/iOS)": true
+            },
+            "ipPref": "OPEN",
+            "name": "LandPotential.org: Data Mining",
+            "paid": false,
+            "number": "TwentyOne"
+        },
+        {
+            "skills": {
+                "Mobile App Development (Android/iOS)": true
+            },
+            "ipPref": "OPEN",
+            "name": "LandPotential.org: Domestic Applications",
+            "paid": false,
+            "number": "TwentyTwo"
         },
         {
             "skills": {},
             "ipPref": "",
             "name": "",
             "paid": true,
-            "number": "Two"
+            "number": "TwentyThree"
         }
     ],
     "projectPreferences": {

@@ -23,7 +23,6 @@ def index():
 
 @app.route('/upload/student', methods=['GET', 'POST'])
 def file_upload():
-    print("HELLO JESSICA")
     projectFile = request.files['file']
 
     loadStudents(projectFile.read().decode('utf-8').split('\r\n')[1:])
@@ -32,7 +31,6 @@ def file_upload():
 
 @app.route('/upload/group', methods=['GET', 'POST'])
 def group_upload():
-    print("NICE TO SEE YOU HERE JESSICA")
     projectFile = request.files['file']
 
     loadProjects(projectFile.read().decode('utf-8').split('\r\n')[1:])
@@ -85,7 +83,7 @@ def take_survey():
 def create_survey():
     data = json.loads(request.data.decode())
 
-    with open('hatServer/static/js/config/variables.json', 'w') as json_file:
+    with open('hatServer/static/js/config/variables_DEMO.json', 'w') as json_file:
         json.dump(data, json_file, indent=4)
 
     return 'success'
@@ -94,7 +92,7 @@ def create_survey():
 def projects_input():
     data = json.loads(request.data.decode())
 
-    with open('hatServer/static/js/config/survey.json', 'w') as json_file:
+    with open('hatServer/static/js/config/survey_DEMO.json', 'w') as json_file:
         json.dump(data, json_file, indent=4)
 
     return 'success'
