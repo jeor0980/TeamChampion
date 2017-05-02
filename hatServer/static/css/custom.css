@@ -93,5 +93,20 @@ footer.page-footer .footer-copyright {
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating) {
     color: black;
     text-transform: uppercase;
-    
+
+}
+
+.switch label input[type=checkbox]:checked + .lever:after {
+    background-color: #ab47bc ;
+    left: 24px;
+}
+
+.switch label input[type=checkbox]:checked + .lever {
+    background-color: #ab47bc ;
+}
+
+[type="checkbox"]:checked + label:before {
+  border-right: 2px solid #ab47bc;
+  border-bottom: 2px solid #ab47bc;
+
 }
