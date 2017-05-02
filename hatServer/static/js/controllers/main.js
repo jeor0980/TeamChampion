@@ -1,40 +1,5 @@
 // create the controller and inject Angular's $scope
 sortingApp.controller('mainController', function ($scope, userInformation, Upload) {
-    $scope.uploadGroup = function (file) {
-        console.log(file)
-        Upload.upload({
-            url: 'upload/group',
-            headers: {
-                'Content-Type': file.type
-            },
-            file: file
-        }).then(function (resp) {
-            console.log('Success ' + resp.config.file.name + ' uploaded. Response: ' + resp.config.file);
-        }, function (resp) {
-            console.log('Error status: ' + resp.status);
-        }, function (evt) {
-            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-            console.log('Progress: ' + progressPercentage + '% ' + evt.config.file.name);
-        });
-    }
-
-    $scope.upload = function (file) {
-        console.log(file)
-        Upload.upload({
-            url: 'upload/student',
-            headers: {
-                'Content-Type': file.type
-            },
-            file: file
-        }).then(function (resp) {
-            console.log('Success ' + resp.config.file.name + ' uploaded. Response: ' + resp.config.file);
-        }, function (resp) {
-            console.log('Error status: ' + resp.status);
-        }, function (evt) {
-            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-            console.log('Progress: ' + progressPercentage + '% ' + evt.config.file.name);
-        });
-    }
 });
 
 // This should change when we have full functionality
@@ -58,7 +23,6 @@ sortingApp.controller('sortController', function ($scope, $http) {
     $scope.sortStudents = function () {
         // Fire the API request
         $http.post('/sort', data).success(function (results) {
-            console.log('SORTING THEM BITHCES');
         }).error(function (err) {
             console.log(err);
         });

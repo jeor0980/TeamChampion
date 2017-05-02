@@ -23,6 +23,7 @@ def index():
 
 @app.route('/upload/student', methods=['GET', 'POST'])
 def file_upload():
+    print("HELLO JESSICA")
     projectFile = request.files['file']
 
     loadStudents(projectFile.read().decode('utf-8').split('\r\n')[1:])
@@ -31,6 +32,7 @@ def file_upload():
 
 @app.route('/upload/group', methods=['GET', 'POST'])
 def group_upload():
+    print("NICE TO SEE YOU HERE JESSICA")
     projectFile = request.files['file']
 
     loadProjects(projectFile.read().decode('utf-8').split('\r\n')[1:])
@@ -42,12 +44,6 @@ def group_upload():
 def sort():
     print("Yer a wizard Harry")
     dumbledore()
-    return render_template('index.html')
-
-@app.route('/build', methods=['GET', 'POST'])
-def build():
-    print("Building a database")
-    buildDB('testData/2014_test_data.csv', 'testData/test_groups.csv')
     return render_template('index.html')
 
 @app.route('/takeSurvey3', methods=['GET', 'POST'])
