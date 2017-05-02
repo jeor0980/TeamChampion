@@ -2,22 +2,24 @@
 sortingApp.controller('mainController', function ($scope, userInformation, Upload) {
 });
 
-// This should change when we have full functionality
-sortingApp.controller('buildController', function ($scope, $http) {
-    data = {};
 
-    $scope.buildStudents = function () {
-        // Fire the API request
-        $http.post('/build', data).success(function (results) {
-            console.log('BUILDING THEM Students');
-        }).error(function (err) {
-            console.log(err);
-        });
+sortingApp.controller('sortController', function ($scope, $http, userInformation) {
+
+        //Check if user is authenticated
+    $scope.givenName = userInformation.getGivenName();
+
+    if (userInformation.getIsLoggedIn() == false){
+      window.alert("You must be logged in to view this page.");
+      $window.location.href = '/';
     }
-});
+//Check if user is authenticated
+    $scope.givenName = userInformation.getGivenName();
 
-// This should change when we have full functionality
-sortingApp.controller('sortController', function ($scope, $http) {
+    if (userInformation.getIsLoggedIn() == false){
+      window.alert("You must be logged in to view this page.");
+      $window.location.href = '/';
+    }
+    
     data = {};
 
     $scope.sortStudents = function () {
@@ -27,7 +29,7 @@ sortingApp.controller('sortController', function ($scope, $http) {
             console.log(err);
         });
     }
-});
+}
 
 sortingApp.controller('profileController', function($scope, $window, userInformation) {
     //TODO: Destroy function
@@ -45,7 +47,19 @@ sortingApp.controller('profileController', function($scope, $window, userInforma
     $scope.familyName = userInformation.getFamilyName();
     $scope.email = userInformation.getEmail();
     $scope.imageUrl = userInformation.getImageUrl();
+});
 
+sortingApp.controller('surveySuccessController', function($scope, userInformation) {
+
+    //Check if user is authenticated
+    $scope.givenName = userInformation.getGivenName();
+
+    if (userInformation.getIsLoggedIn() == false){
+      window.alert("You must be logged in to view this page.");
+      $window.location.href = '/';
+    }   
+
+    $scope.message = 'Congratulations! Your results have been submitted!';
 });
 
 sortingApp.controller('GoogleCtrl', function($route, $scope, $window, $http, userInformation) {
@@ -82,12 +96,6 @@ sortingApp.controller('GoogleCtrl', function($route, $scope, $window, $http, use
         userInformation.setEmail(profile.getEmail());
         userInformation.setIsLoggedIn(true);
         userInformation.setRole($scope.userData[userInformation.getIdentikey()].role);
-
-        //Role Stuff
-        // console.log("what is your role?");
-        // console.log("My role is " + userInformation.getRole());
-        // console.log(userInformation.getIdentikey() + " The identikey in JSON File!");
-        // console.log("User Authenticated Successfully!");
 
         //Confirm login to user
         Materialize.toast('Logged In Successfully!', 5000) // 5000 is the duration of the toast

@@ -10,6 +10,12 @@ CU Light Gray: #A2A4A3
 Black Alternative: #212121;
 */
 
+@font-face {
+    font-family: Slabo;
+    src: url(../fonts/slabo27px/Slabo27px-Regular.ttf);
+}
+
+
 .container mainContent {
   padding-top: 200px;
 }
@@ -43,12 +49,14 @@ nav .nav-wrapper .brand-logo img {
     height: 42px;
     width: 42px;
     vertical-align: middle;
+    font-family: Slabo;
 }
 
 
 footer.page-footer {
   /*padding-top: 20px;*/
   background-color: #CFB87C;
+  
 }
 
 
@@ -65,4 +73,18 @@ footer.page-footer .footer-copyright {
 
 .label-danger {
   color: red;
+}
+
+.carousel-slider {
+    /*height: 800px !important;*/
+    
+}
+
+/*.carousel.carousel-slider .carousel-fixed-item.with-indicators {
+     bottom: 15px; 
+}*/
+
+.carousel .indicators .indicator-item {
+    margin: 4px 4px;
+
 }
