@@ -38,7 +38,7 @@ sortingApp.controller('formGroupsController', function ($scope, $http, $window, 
     }
 
     $scope.createGroups = function () {
-        Materialize.toast('Forming groups! Please wait...', 270000);
+        Materialize.toast('Forming groups! Please wait...', 27000);
         var data = {};
 
         // Fire the API request
