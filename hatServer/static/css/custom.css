@@ -88,3 +88,10 @@ footer.page-footer .footer-copyright {
     margin: 4px 4px;
 
 }
+
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating) {
+    color: black;
+    text-transform: uppercase;
+    
+}

@@ -6,19 +6,13 @@ sortingApp.controller('mainController', function ($scope, userInformation, Uploa
 sortingApp.controller('sortController', function ($scope, $http, userInformation) {
 
     //Check if user is authenticated
-    $scope.givenName = userInformation.getGivenName();
+    // Uncomment after demo
+    // $scope.givenName = userInformation.getGivenName();
 
-    if (userInformation.getIsLoggedIn() == false) {
-        window.alert("You must be logged in to view this page.");
-        $window.location.href = '/';
-    }
-    //Check if user is authenticated
-    $scope.givenName = userInformation.getGivenName();
-
-    if (userInformation.getIsLoggedIn() == false) {
-        window.alert("You must be logged in to view this page.");
-        $window.location.href = '/';
-    }
+    // if (userInformation.getIsLoggedIn() == false) {
+    //     window.alert("You must be logged in to view this page.");
+    //     $window.location.href = '/';
+    // }
 
     data = {};
 
@@ -35,6 +29,7 @@ sortingApp.controller('profileController', function($scope, $window, userInforma
     //TODO: Destroy function
 
     //Check if user is authenticated
+    // Uncomment after demo
     if (userInformation.getIsLoggedIn() == false){
       window.alert("You must be logged in to view this page.");
       $window.location.href = '/';
@@ -53,11 +48,11 @@ sortingApp.controller('surveySuccessController', function($scope, userInformatio
 
     //Check if user is authenticated
     $scope.givenName = userInformation.getGivenName();
-
-    if (userInformation.getIsLoggedIn() == false){
-      window.alert("You must be logged in to view this page.");
-      $window.location.href = '/';
-    }   
+    // Uncomment after demo
+    // if (userInformation.getIsLoggedIn() == false){
+    //   window.alert("You must be logged in to view this page.");
+    //   $window.location.href = '/';
+    // }   
 
     $scope.message = 'Congratulations! Your results have been submitted!';
 });
@@ -140,12 +135,13 @@ sortingApp.controller('GoogleCtrl', function($route, $scope, $window, $http, use
 sortingApp.controller('dashboardController', function($scope, $window, userInformation) {
 
     //Check if user is authenticated
-    $scope.givenName = userInformation.getGivenName();
+    // Uncomment after demo
+    // $scope.givenName = userInformation.getGivenName();
 
-    if (userInformation.getIsLoggedIn() == false){
-      window.alert("You must be logged in to view this page.");
-      $window.location.href = '/';
-    }   
+    // if (userInformation.getIsLoggedIn() == false){
+    //   window.alert("You must be logged in to view this page.");
+    //   $window.location.href = '/';
+    // }   
 
 });
 
