@@ -3,3 +3,6 @@ __pycache__
 *.[oa]
 *.pyc
 *.swp
+hatServer/sortingHat/id_map.json
+hatServer/sortingHat/results.csv
+hatServer/static/js/config/results.json
