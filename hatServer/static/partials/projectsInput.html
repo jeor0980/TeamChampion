@@ -4,7 +4,7 @@
 
   <!-- Loop through all projects a professor says need to be filled out-->
   <div ng-repeat="project in projects">
-    <div class="card-panel">
+    <div class="card-panel grey lighten-4">
       <h2>Project {{ project.number }}</h2>
       <form name="{{ 'project' + project.number + 'Form' }}" novalidate role="form">
         <!-- Ask the instructor for the project name -->

@@ -5,7 +5,7 @@
 
   <form name="createSurveyForm" novalidate role="form">
     <!-- Section for generic survey and algorithm information -->
-    <div class="card-panel">
+    <div class="card-panel grey lighten-4">
       <!-- Section to input survey title -->
       <div class="form-control">
         <span class="label label-danger" ng-show="submitted && createSurveyForm.surveyTitle.$error.required">Required!</span>
@@ -47,7 +47,7 @@
     <p>Select questions that you would like your students to be asked on the first page of the student survey, and customize them according to your needs.</p>
 
     <!-- Section to input information about the first page of the survey -->
-    <div class="card-panel">
+    <div class="card-panel grey lighten-4">
       <!-- Section to input description of first page-->
       <div class="form-control">
         <label for="firstPage">What description/introduction would you like to display on the first page of the student survey?</label>
@@ -155,7 +155,7 @@
 
     <p>The second page of the survey will be focused on students' skills and competencies. Select skills that your students will be asked to rank themselves in terms of competency.</p>
     <!-- Section to input information for the second page of the student survey -->
-    <div class="card-panel">
+    <div class="card-panel grey lighten-4">
       <!-- Second page survey description-->
       <div class="form-control">
         <label for="secondPage">What description/introduction would you like to display on the second page of the student survey?</label>
@@ -199,7 +199,7 @@
     </div>
 
     <!-- Section to input information about the last page of the survey-->
-    <div class="card-panel">
+    <div class="card-panel grey lighten-4">
       <!-- Description of second page -->
       <div class="form-control">
         <label for="thirdPage">What description/introduction would you like to display on the third page of the student survey?</label>
@@ -251,7 +251,7 @@
       </div>
 
       <!-- Section where instructor can update what options are presented for IP preferences -->
-      <div class="card-panel">
+      <div class="card-panel grey lighten-4">
         IP Preference Options:
         <div class="row">
           <input type="checkbox" name="retain" id="retain" ng-model="ipOptions['retainIncluded']" />
@@ -288,7 +288,7 @@
       </div>
 
       <!-- Section where an instructor can edit what leadership preference a student may select-->
-      <div class="card-panel">
+      <div class="card-panel grey lighten-4">
         Leadership Role Options:
         <div class="row">
           <input type="checkbox" name="strongFollow" id="strongFollow" ng-model="leadershipOptions['strongFollowIncluded']" />
@@ -355,7 +355,7 @@
     </div>
 
     <!-- Final section requesting information to help personalize/optimize the algorithm -->
-    <div class="card-panel">
+    <div class="card-panel grey lighten-4">
       <p>Our algorithm seeks to minimize the group ranking that each student ends in (to therefore ensure the most students are getting their top choices) while still ensuring that all projects that must get a group do in fact receive a group. We have a maximum preference value that all teams must have in order to be formed, paid or otherwise. In the case that a required project does not have a low enough overall preference score, we have an option to manually change the student rankings of that project to ensure it still passes our maximum score requirements and receives a group.</p>
       <!-- Section for the highest preference score allowed for any paid group -->
       <div class="row">
