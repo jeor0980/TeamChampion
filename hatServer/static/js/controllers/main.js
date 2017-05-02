@@ -134,6 +134,7 @@ sortingApp.controller('GoogleCtrl', function($route, $scope, $window, $http, use
 
 sortingApp.controller('dashboardController', function($scope, $window, userInformation) {
 
+  $scope.givenName =  userInformation.getGivenName();
     //Check if user is authenticated
     // Uncomment after demo
     // $scope.givenName = userInformation.getGivenName();
