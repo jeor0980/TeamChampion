@@ -8,7 +8,10 @@
     "MAX_SIZE": 6,
     "OPT_SIZE": 5,
     "LEADERSHIP_MATTERS": false,
-    "STUDENT_COUNT": 25,
+    "STUDENT_COUNT": 88,
     "SUBVERT_FOR_PAY": false,
-    "MIN_PAID_AVG_PREF_SCORE": null
+    "MIN_PAID_AVG_PREF_SCORE": null,
+    "EXTRA_CREDIT": 1,
+    "ENEMY_WEIGHT": 5,
+    "ATTEMPT_REPLACE": true
 }
