@@ -20,6 +20,9 @@ Then, open the address http://localhost:5000/ from your favorite web browser!
 * [Nika Shafranov](https://github.com/nshaf)  
 * Jordan Peters  
 
+## Senior Projects Expo 2017
+On May 2, 2017 the University of Colorado Computer Science department held the Senior Projects Expo, where students and teams presented their projects to judges and community members. Team Champion's Sorting Hat project won awards for both Best Poster and Best Technical Communication. We also were ranked in the top 5 teams for Professionalism, Best Demo, and Crowd Favorite. We were the only team and project to rank top 5 in every category. We're honored and so thankful that people seem interested in all our hard work. Thanks for a great semester!
+
 ## Future Work
 - [ ] Add data visualizations to group presentation
 
