@@ -124,8 +124,11 @@ def writeResults():
 		
 
 def writeToJson(data):
-	with open("./hatServer/static/js/config/results.json", 'w') as jsonFile:
-		json.dump(data, jsonFile, indent=4)
+	try:
+		with open("./hatServer/static/js/config/results.json", 'w') as jsonFile:
+			json.dump(data, jsonFile, indent=4)
+	except:
+		print("Run locally, so no resulsts.json file created")
 
 
 

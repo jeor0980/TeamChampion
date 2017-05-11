@@ -20,7 +20,8 @@ def addStudent(data):
     learn_skills = data["desired"]
     ip_pref = data["ipPref"]
     leadership = data["lead"]
-    extra_credit = data["extraCredit"]
+    if "extraCredit" in data:
+        extra_credit = data["extraCredit"]
     student_to_add = Students(
         student_name=name,
         identikey=identikey,
