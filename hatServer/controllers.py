@@ -50,6 +50,7 @@ def sort():
 def take_survey():
     # get data from form object 
     data = json.loads(request.data.decode())
+    data["extraCredit"] = False
     addStudent(data)
 
     firstName = data["firstName"]
